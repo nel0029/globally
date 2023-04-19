@@ -9,7 +9,7 @@ export default function RoutePage() {
         <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/:userid' element={<Profile />}></Route>
-            <Route path='/post/:postid' element={<PostDetails />}></Route>
-        </Routes>
+            <Route path='/:userid/post/:postid' element={<PostDetails />}></Route>
+        </Routes >
     )
 }

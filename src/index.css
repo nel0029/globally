@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@layer components {
+    .post_interactions {
+        @apply flex flex-grow justify-center items-center py-2 rounded-lg cursor-pointer gap-1
+    }
+
+    .post_interactions_numbers {
+        @apply text-sm mb-0.5
+    }
+
+    .post_interactions:hover {
+        @apply bg-light_gray
+    }
+}
+
+.carousel_indicator::-webkit-scrollbar {
+    display: none;
+}
