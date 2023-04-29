@@ -1,15 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from '../../../common/Carousel';
-import 'swiper/css';
+import { useNavigate, NavLink } from 'react-router-dom';
+import { PostsDataProps } from '../../../types/PostTypes';
 
 
-export default function PostContent(props: any) {
 
-    const {
-        postImgUrls,
-        postCaption,
-    } = props;
+export default function PostMedia(postContentObject: PostsDataProps) {
 
+    const [postContent, SetPostContent] = useState(postContentObject)
+    const navigate = useNavigate()
 
     const postImgDisplay = (postImgUrls: any) => {
 
@@ -19,7 +18,7 @@ export default function PostContent(props: any) {
                 return <div />;
                 break;
             case 1:
-                return <div className='w-[full] relative h-auto rounded-lg '>
+                return <div className='w-full relative h-auto rounded-lg '>
                     <img className='w-full h-auto rounded-lg' src={postImgUrls} />
                 </div>;
                 break;
@@ -27,11 +26,15 @@ export default function PostContent(props: any) {
                 return <Carousel slidesShow={postImgUrls}>
 
                     {postImgUrls.map((slide: any, index: any) => {
+
                         return (
+
                             <img
                                 key={index}
-                                className='w-full h-auto rounded-lg'
+                                className='w-full max-w-none flex-[0_0_100%] rounded-lg'
                                 src={slide} />
+
+
                         )
                     })}
                 </Carousel>
@@ -40,15 +43,8 @@ export default function PostContent(props: any) {
     }
 
     return (
-        <div className='w-full py-1' >
-            <div className='my-1 mx-2 py-2 leading-5 text-xl'>
-                <p>
-                    {postCaption}
-                </p>
-            </div>
-            <div className='px-2'>
-                {postImgDisplay(postImgUrls)}
-            </div>
-        </div >
+        <div className='w-full flex py-2'>
+            {postImgDisplay(postContent.postImgUrls)}
+        </div>
     )
 }

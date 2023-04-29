@@ -1,80 +1,117 @@
 import IonIcon from '@reacticons/ionicons'
-import React, { useState, useReducer, useRef } from 'react'
-import { useSwiper } from 'swiper/react';
-import Swipeable from 'react-swipeable';
+import React, { useState, useReducer, useRef, TouchEventHandler } from 'react'
+import { useNavigate, NavLink } from "react-router-dom"
+import Slider from 'react-touch-drag-slider'
 
 
-const ACTIONS = {
-    NEXT: 'next',
-    PREV: 'prev',
-}
 
-const dotStateDetails: any = {
-    slide: 0,
-    dotsArrayList: [0, 1, 2, 3, 4, 5],
-    activeDotIndex: 0,
-    itemIndex: 0,
-    dotIndex: 0
-}
-const dotState = (state: any, action: any) => {
-    switch (action.type) {
-        case ACTIONS.NEXT:
-            return {
-                ...state,
-                slide: state.slide === action.payload.slidesLength - 1 ? 0 : state.slide + 1
-            }
-        case ACTIONS.PREV:
-            return {
-                ...state,
-                slide: state.slide === 0 ? action.payload.slidesLength - 1 : state.slide - 1
-            }
-        default: state
+const Carousel = ({ children: slides }: any,) => {
+
+    const navigate = useNavigate()
+
+
+    const [slide, setSlide] = useState(0);
+
+    const [display, setDisplay] = useState('hidden ')
+
+    const timeoutRef = useRef<number | null>(null);
+
+    const handleMouseEnter = () => {
+
+        setDisplay('flex ')
     }
-}
-const Carousel = ({ children: slides }: any) => {
 
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => {
 
-    const [state, dispatch] = useReducer(dotState, dotStateDetails);
-
-
+            setDisplay('hidden ')
+        }, 2500)
+    }
 
     const prev = () => {
-        dispatch({ type: ACTIONS.PREV, payload: { slidesLength: slides.length } })
+        if (slide === 0) {
+            setSlide(0)
+        } else {
+            setSlide((prev: any) => prev - 1)
+        }
     }
 
 
     const next = () => {
-        dispatch({ type: ACTIONS.NEXT, payload: { slidesLength: slides.length } })
+        if (slide === slides.length - 1) {
+            setSlide(slides.length - 1)
+        } else {
+            setSlide((prev: any) => prev + 1)
+        }
+
     }
-    console.log(state)
+
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+    const handleTouchStart: TouchEventHandler<HTMLDivElement> = (event) => {
+        setTouchStartX(event.touches[0].clientX);
+    };
+
+    const handleTouchEnd: TouchEventHandler<HTMLDivElement> = (event) => {
+        if (touchStartX === null) {
+            return;
+        }
+
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchDiff = touchEndX - touchStartX;
+
+        if (touchDiff > 0) {
+            prev();
+        } else if (touchDiff < 0) {
+            next();
+        }
+
+        setTouchStartX(null);
+    };
     return (
-        <div className='overflow-hidden relative group'>
-            <div
-                className='flex transition-transform ease-out duration-500'
-                style={{ transform: `translateX(-${state.slide * 100}%)` }}
-            >
-                {slides}
-            </div>
-            <div className='hidden absolute z-1 inset-0 group-hover:flex items-center justify-between p-4'>
-                <button
-                    onClick={prev}
-                    disabled={state.slide === 0}
-                    className={`${state.slide === 0 ? 'bg-white bg-opacity-0 cursor-auto' : 'bg-white bg-opacity-80'} flex items-center justify-center text-lg p-1 rounded-full shadow text-gray-800 cursor-pointer`}>
-                    <IonIcon name='chevron-back-outline'></IonIcon>
-                </button>
-                <button
-                    onClick={next}
-                    disabled={state.slide === slides.length - 1}
-                    className={`${state.slide + 1 === slides.length ? 'bg-white bg-opacity-0 cursor-auto' : 'bg-white bg-opacity-50'} flex items-center justify-center text-lg p-1 rounded-full shadow text-gray-800 cursor-pointer`}>
-                    <IonIcon name='chevron-forward-outline'></IonIcon>
-                </button>
-            </div>
-            <div className='hidden group-hover:block absolute top-4 left-0 right-0'>
-                <div className='flex items-center justify-end pr-4 '>
-                    <h3 className='px-2 py-1 rounded-full bg-black/75 text-white'>{state.slide + 1}/{slides.length}</h3>
+        <div className='w-full relative group transition ease-out duration-500'
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+        >
+            <div className='w-full flex overflow-hidden gap-y-2'>
+                <div
+                    className='w-full flex transition-transform ease-out duration-500'
+                    style={{ transform: `translateX(-${slide * 100}%)` }} >
+
+                    {slides}
+
+                </div>
+
+
+                <div
+                    className={`${display} group-hover:flex w-full h-full absolute z-10 items-center justify-between p-4 top-0`}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave} >
+                    <button
+                        onClick={prev}
+                        disabled={slide === 0}
+                        className={`${slide === 0 ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} flex items-center justify-center text-lg p-1 rounded-full shadow `}>
+                        <IonIcon name='chevron-back-outline'></IonIcon>
+                    </button>
+                    <button
+                        onClick={next}
+                        disabled={slide === slides.length - 1}
+                        className={`${slide + 1 === slides.length ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} flex items-center justify-center text-lg p-1 rounded-full shadow`}>
+                        <IonIcon name='chevron-forward-outline'></IonIcon>
+                    </button>
+                </div>
+                <div
+                    className={`${display} group-hover:flex h-full w-full inset-0 absolute z-1 justify-end items-start`}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave} >
+                    <div className='flex items-center pt-5 pr-5'>
+                        <h3 className='px-2 py-1 rounded-full bg-black/75 text-white'>{slide + 1}/{slides.length}</h3>
+                    </div>
                 </div>
             </div>
-            <div className='absolute bottom-4 flex items-center justify-center w-full overflow-hidden '>
+
+            <div className='flex py-1 bottom-4  items-center justify-center w-full overflow-hidden '>
                 <div
                     className=' flex justify-start items-center gap-1 transition-transform ease-out duration-500'
 
@@ -83,7 +120,7 @@ const Carousel = ({ children: slides }: any) => {
                         return (
                             <div
                                 key={index}
-                                className={`p-1 rounded-full ${state.slide == index ? ' bg-blue-700 bg-opacity-100' : 'bg-white  bg-opacity-50'}`} />
+                                className={`w-2 h-2 bg-secondary rounded-full ${slide == index ? ' bg-opacity-100' : '  bg-opacity-20'}`} />
                         )
                     })}
                 </div>

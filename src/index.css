@@ -6,6 +6,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: all;
+
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+#root {
+    height: 100%;
+    width: 100%;
 }
 
 @layer components {
@@ -24,4 +36,21 @@
 
 .carousel_indicator::-webkit-scrollbar {
     display: none;
+}
+
+.track-line::before {
+    content: '';
+    position: absolute;
+    border-left-width: 3px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    margin-top: 8px;
+    border-bottom-left-radius: 6px;
+    border-bottom-width: 3px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    left: 20px;
+    width: 20px;
+    height: 14px;
 }

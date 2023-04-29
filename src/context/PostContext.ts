@@ -1,4 +1,6 @@
 import { createContext } from "react";
+import { PostsDataProps } from "../types/PostTypes";
 import PostData from "../data/PostData";
-import Comments from "../data/Comments";
-export const PostContext = createContext([])
+
+
+export const PostContext = createContext<{ postState: PostsDataProps[], dispatch: any }>({ postState: PostData, dispatch: () => { } })

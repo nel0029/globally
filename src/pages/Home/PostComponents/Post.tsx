@@ -1,50 +1,69 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { UserContext } from '../../../context/UserContext'
 import Comment from './Comment'
-import Comments from './Comments'
 
-export default function Post(post: any) {
+
+interface PostProps {
+    postAuthorName: string,
+    postBody: string,
+    comments: CommentProps[]
+}
+
+interface CommentProps {
+    commentAuthorName: string,
+    commentBody: string,
+    replies: CommentProps[]
+}
+export default function Post(postObject: PostProps) {
 
     const user = useContext(UserContext)
-    const [commentCaption, setCommentCaption] = useState("")
-    const [comments, setComments] = useState(post.post.comments)
-    //console.log(comments)
-    const onComment = () => {
-        const newComment = {
+
+    const [post, setPost] = useState(postObject)
+    const [comments, setComments] = useState(post.comments)
+    const [commentBody, setCommentBody] = useState("")
+
+    const onComment = (event: any) => {
+        const newComment: CommentProps = {
             commentAuthorName: `${user.userFirstName} ${user.userMiddleName} ${user.userLastName}`,
-            postContent: commentCaption,
-            comments: []
+            commentBody: commentBody,
+            replies: []
         }
-        setComments((prev: any) => [newComment, ...prev])
-        setCommentCaption("")
-        console.log(comments)
+        setComments((prev: any) => [...prev, newComment])
+        setCommentBody("")
+        event.preventDefault();
     }
 
     return (
-        <div className='w-full border border-red-700 flex flex-col px-1'>
-            <div className='w-full border border-black flex flex-col'>
-                <h3>{post.postAuthorName}</h3>
-                <p>{post.postContent}</p>
+        <div className='flex flex-col w-full bg-white rounded-lg gap-y-2 pb-2'>
+            <div className='flex-1 border-y rounded-t-lg border-black p-2'>
+                <h2>{post.postAuthorName}</h2>
+                <h4>{post.postBody}</h4>
             </div>
-            <div className='w-full flex flex-row items-center justify-center'>
+
+            <form
+                onSubmit={onComment}
+                className=' w-full flex px-2' >
                 <input
-                    type='text'
-                    className='flex-grow border border-black rounded-md my-1 py-3 px-1'
-                    value={commentCaption}
-                    onChange={(event: any) => setCommentCaption(event.target.value)} ></input>
+                    value={commentBody}
+                    onChange={(event: any) => setCommentBody(event.target.value)}
+                    className='flex-grow border border-black py-1 px-2 rounded-lg'
+                    placeholder="Comment" >
+                </input>
                 <button
-                    className='rounded-full'
-                    onClick={() => onComment()}
-                >
-                    Comment
+                    onClick={onComment}
+                    className='border border-blue-500 py-1 px-2 rounded-lg' >
+                    COMMENT
                 </button>
-            </div>
-            <div className='flex-1'>
+            </form>
+
+            <div className='flex flex-col flex-1 gap-y-1 bg-white'>
                 {comments.map((comment: any, index: any) => (
-                    <Comment key={index}
-                        comment={comment} />
+                    <Comment
+                        key={index}
+                        {...comment} />
                 ))}
             </div>
+
         </div>
     )
 }

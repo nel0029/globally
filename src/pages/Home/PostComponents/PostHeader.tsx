@@ -1,45 +1,49 @@
-import React from 'react'
+import React, { useContext, useState, useRef, useEffect, useMemo } from 'react'
 import IonIcon from '@reacticons/ionicons';
 import { NavLink } from 'react-router-dom';
+import { PostContext } from '../../../context/PostContext';
+import { PostsDataProps } from '../../../types/PostTypes';
+import MenuContainer from '../../../common/MenuContainer';
+import MenuItem from '../../../common/MenuItem';
 
-export default function PostHeader(props: any) {
-    const {
-        avatarUrl,
-        postAuthorFirstName,
-        postAuthorMiddleName,
-        postAuthorLastName,
-        postAuthorUserID,
-        postDateAndTime
-    } = props
+
+export default function PostHeader(postHeaderObject: PostsDataProps) {
+
+    const [postHeader, setPostHeader] = useState(postHeaderObject)
+
+
     return (
-        <div className='flex flex-row w-full h-auto justify-center items-center'>
-            <div className='flex justify-center items-center w-[40px] h-[40px] mx-2  '>
-                <NavLink to={`/${postAuthorUserID}`}>
-                    <img className='w-full h-full rounded-full hover:ring-black hover:ring-2' src={avatarUrl}></img>
-                </NavLink>
+        <div className='relative flex flex-row w-full h-auto justify-center items-center pb-1'>
+            <div className=' flex flex-col justify-center gap-x-2 flex-grow leading-none'>
+
+                <div className='flex flex-row items-center gap-x-2 text-sm md:text-base'>
+                    <NavLink
+                        to={`/${postHeader.postAuthorUserID}`}
+                        className='hover:underline hover:text-secondary font-bold'>
+                        {postHeader.postAuthorFirstName} {postHeader.postAuthorMiddleName} {postHeader.postAuthorLastName}
+                    </NavLink>
+                    <div className='font-semibold'>
+                        @{postHeader.postAuthorUserID}
+                    </div>
+                </div>
+                <div className='text-xs xl:text-sm text-gray-500'>
+                    ● {postHeader.postDateAndTime}
+                </div>
             </div>
-            <div className=' flex flex-col flex-grow'>
-                <NavLink
-                    to={`/${postAuthorUserID}`}
-                    className='hover:underline hover:text-secondary text-lg font-bold'>
-                    <h1>
-                        {postAuthorFirstName} {postAuthorMiddleName} {postAuthorLastName}
-                    </h1>
-                </NavLink>
-                <small className='text-xs'>
-                    <span className=' text-gray-950 font-semibold'>
-                        @{postAuthorUserID}
-                    </span>
-                    <span className='text-gray-500 ml-1'>
-                        | {postDateAndTime}
-                    </span>
-                </small>
-            </div>
-            {/*
-            <div className='text-[30px] border flex justify-center items-center p-0.5 rounded-full mx-2'>
-                <IonIcon name="ellipsis-horizontal-outline"></IonIcon>
-            </div> 
-            */}
+            <MenuContainer >
+                <MenuItem>Option 1</MenuItem>
+                <MenuItem>Option 2</MenuItem>
+                <MenuItem>Option 3</MenuItem>
+                <MenuItem>Option 4</MenuItem>
+                <MenuItem>Option 5</MenuItem>
+                <MenuItem>Option 6</MenuItem>
+                <div className='flex items-center pl-1 pr-3 cursor-pointer'>
+                    <div className='text-xs'>
+                        <IonIcon name='add' />
+                    </div>
+                    <p className='text-sm'>Follow</p>
+                </div>
+            </MenuContainer>
         </div>
     )
 }
