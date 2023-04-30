@@ -22,18 +22,19 @@ export default function Home() {
     return (
         <div className='w-full flex flex-col items-center justify-center'>
 
+            <PostContext.Provider value={{ postState, dispatch }}>
+                <div className='w-full xl:w-[600px] flex flex-col justify-center items-center gap-y-1 px-2'>
+                    <CreateNewPost />
+                    <div className='flex w-full flex-col-reverse justify-center items-center gap-y-1'>
 
-            <div className='w-full xl:w-[600px] flex flex-col justify-center items-center gap-y-1 px-2'>
-                <CreateNewPost />
-                <div className='flex w-full flex-col-reverse justify-center items-center gap-y-1'>
-                    <PostContext.Provider value={{ postState, dispatch }}>
                         {postState.map((post: PostsDataProps, index: any) => (
                             <PostCard key={index} {...post} />
                         ))}
-                    </PostContext.Provider>
-                </div>
 
-            </div>
+                    </div>
+
+                </div>
+            </PostContext.Provider>
         </div>
 
     )

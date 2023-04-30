@@ -31,7 +31,7 @@ export default function PostMedia(postContentObject: PostsDataProps) {
 
                             <img
                                 key={index}
-                                className='w-full max-w-none flex-[0_0_100%] rounded-lg'
+                                className='w-full h-auto object-cover max-w-none flex-[0_0_100%] rounded-lg'
                                 src={slide} />
 
 

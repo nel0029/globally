@@ -54,3 +54,15 @@ body {
     width: 20px;
     height: 14px;
 }
+
+.post-caption {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-caption.full {
+    max-height: none;
+}

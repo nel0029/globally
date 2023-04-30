@@ -1,4 +1,5 @@
 export const POSTACTIONS = {
+    CREATEPOST: "create-post",
     POSTLIKE: "post-like",
     POSTCOMMENT: "post-comment",
     COMMENTREPLY: "comment-reply",

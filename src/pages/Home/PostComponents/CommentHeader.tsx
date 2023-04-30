@@ -11,8 +11,8 @@ import MenuItem from '../../../common/MenuItem';
 export default function CommentHeader(commentHeader: PostCommentsProps) {
 
     return (
-        <div className='flex flex-row flex-grow h-auto justify-center items-center'>
-            <div className=' flex flex-col flex-grow'>
+        <div className='flex flex-row flex-grow h-auto justify-between items-center'>
+            <div className=' flex flex-col border'>
                 <div className='flex flex-row justify-start items-center gap-x-1'>
                     <NavLink
                         to={`/${commentHeader.commentAuthorUserID}`}
@@ -29,16 +29,17 @@ export default function CommentHeader(commentHeader: PostCommentsProps) {
                         </p>
                     </div>
                 </div>
-
-
                 <p className='text-xs font-extralight text-gray-500'>
                     ● {commentHeader.commentDateAndTime}
                 </p>
             </div>
 
-            <MenuContainer >
-                <MenuItem> follow </MenuItem>
-            </MenuContainer>
+            <div className='border'>
+                <MenuContainer >
+                    <MenuItem> follow </MenuItem>
+                    <MenuItem> follow </MenuItem>
+                </MenuContainer>
+            </div>
 
         </div>
     )

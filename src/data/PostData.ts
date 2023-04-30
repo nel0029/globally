@@ -102,21 +102,6 @@ const PostData: PostsDataProps[] = [
             }
         ],
         postReposts: [],
-    },
-
-    {
-        postID: 564564631612389,
-        avatarUrl: "",
-        postAuthorFirstName: "",
-        postAuthorMiddleName: "",
-        postAuthorLastName: "",
-        postAuthorUserID: "HDjsdnjeok7fjs9",
-        postDateAndTime: "",
-        postCaption: "",
-        postImgUrls: [],
-        postLikes: [],
-        postComments: [],
-        postReposts: [],
     }
 ]
 

@@ -5,6 +5,11 @@ import { PostCommentsProps, PostsDataProps, PostLikesProps } from "../types/Post
 export const PostReducer = (postState: PostsDataProps[], postAction: any) => {
 
     switch (postAction.type) {
+        case POSTACTIONS.CREATEPOST:
+            const newPost = postAction.payload.newPost
+            return [...postState, newPost]
+
+
         case POSTACTIONS.POSTLIKE:
             const postIDLike = postAction.payload.postID; //postID for like
             const newLike = postAction.payload.newLike;
@@ -89,7 +94,7 @@ export const PostReducer = (postState: PostsDataProps[], postAction: any) => {
             const likeCommentID = postAction.payload.commentID;
             const newCommentLike = postAction.payload.newCommentLike;
 
-            console.log(likeCommentID)
+
 
 
             const updateCommentLikes = (comments: PostCommentsProps[]): PostCommentsProps[] => {
@@ -97,7 +102,7 @@ export const PostReducer = (postState: PostsDataProps[], postAction: any) => {
                     if (comment.commentID == likeCommentID) {
                         const commentLikes: PostLikesProps[] = [...comment.commentLikes]
                         const likerIndex = commentLikes.findIndex((index: any) => index.userID == newCommentLike.userID);
-                        console.log(likerIndex)
+
                         if (likerIndex == -1) {
                             commentLikes.push(newCommentLike)
                         } else {
@@ -107,6 +112,7 @@ export const PostReducer = (postState: PostsDataProps[], postAction: any) => {
                             ...comment,
                             commentLikes: commentLikes
                         }
+
                     } else if (comment.commentReplies.length > 0) {
                         return {
                             ...comment,

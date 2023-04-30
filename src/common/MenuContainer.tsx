@@ -3,7 +3,7 @@ import IonIcon from '@reacticons/ionicons'
 
 
 
-const MenuContainer = ({ children }: any) => {
+const MenuContainer = ({ children, icon }: any) => {
 
     const [menu, setMenu] = useState(false)
     const openMenu = () => setMenu(!menu)
@@ -13,7 +13,6 @@ const MenuContainer = ({ children }: any) => {
             const handleClickOutsideDiv = (event: any) => {
                 if (menuRef.current && !menuRef.current.contains(event.target)) {
                     setMenu(false);
-                    console.log("clicked");
                 }
             };
 
@@ -33,14 +32,14 @@ const MenuContainer = ({ children }: any) => {
 
     return (
 
-        <div ref={menuRef} className='relative flex justify-center items-center cursor-pointer rounded-full'>
+        <div ref={menuRef} className='border relative flex justify-center items-center cursor-pointer rounded-full'>
             <div onClick={openMenu}
                 className='flex justify-center items-center rounded-full text-lg p-0.5'>
-                <IonIcon name="ellipsis-vertical"></IonIcon>
+                {icon ? icon : <IonIcon name="ellipsis-vertical"></IonIcon>}
             </div>
             <div
                 onClick={openMenu}
-                className=' bg-white z-10 absolute rounded-lg top-0 right-0 p-1 '
+                className=' bg-white z-10 absolute rounded-lg top-0 right-0 p-1 min-w-[150px]'
                 style={menu ? { display: 'block' } : { display: 'none' }} >
                 {children}
             </div>

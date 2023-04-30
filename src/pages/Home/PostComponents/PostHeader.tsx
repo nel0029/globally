@@ -37,12 +37,6 @@ export default function PostHeader(postHeaderObject: PostsDataProps) {
                 <MenuItem>Option 4</MenuItem>
                 <MenuItem>Option 5</MenuItem>
                 <MenuItem>Option 6</MenuItem>
-                <div className='flex items-center pl-1 pr-3 cursor-pointer'>
-                    <div className='text-xs'>
-                        <IonIcon name='add' />
-                    </div>
-                    <p className='text-sm'>Follow</p>
-                </div>
             </MenuContainer>
         </div>
     )
