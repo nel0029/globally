@@ -4,7 +4,7 @@ import Comment from './Comment'
 import { PostCommentsProps } from '../../../types/PostTypes'
 import { useState, useContext } from 'react'
 import { UserContext } from '../../../context/UserContext'
-import { PostContext } from '../../../context/PostContext'
+import { PostsContext } from '../../../context/PostsContext'
 import { POSTACTIONS } from '../../../actions/POSTACTIONS'
 
 
@@ -14,7 +14,7 @@ import { POSTACTIONS } from '../../../actions/POSTACTIONS'
 const CommentReplies = (comment: PostCommentsProps) => {
 
     const user = useContext(UserContext)
-    const { postState, dispatch } = useContext(PostContext)
+    const { postState, dispatch } = useContext(PostsContext)
 
     return (
         <div className={`${comment.commentReplies.length > 0 ? 'track-line' : ''}`}>

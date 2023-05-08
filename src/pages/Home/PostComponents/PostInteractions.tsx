@@ -3,7 +3,7 @@ import IonIcon from '@reacticons/ionicons';
 import { UserContext } from '../../../context/UserContext';
 import Comment from './Comment';
 import { PostCommentsProps, PostLikesProps, PostsDataProps } from '../../../types/PostTypes';
-import { PostContext } from '../../../context/PostContext';
+import { PostsContext } from '../../../context/PostsContext';
 import { POSTACTIONS } from '../../../actions/POSTACTIONS';
 
 interface CommentProps {
@@ -16,7 +16,7 @@ const PostInteractions: React.FC<CommentProps> = ({ post, comments, openComments
 
     const user = useContext(UserContext)
 
-    const { postState, dispatch } = useContext(PostContext)
+    const { postState, dispatch } = useContext(PostsContext)
 
     const [commentBox, setCommentBox] = useState(false)
     const [like, setLike] = useState(Boolean)

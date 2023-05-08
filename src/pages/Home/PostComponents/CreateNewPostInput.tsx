@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react'
 import IonIcon from '@reacticons/ionicons'
 import { UserContext } from '../../../context/UserContext'
 import { PostsDataProps } from '../../../types/PostTypes'
-import { PostContext } from '../../../context/PostContext'
+import { PostsContext } from '../../../context/PostsContext'
 import { POSTACTIONS } from '../../../actions/POSTACTIONS'
 
 export default function CreateNewPostInput() {
     const user = useContext(UserContext)
-    const { postState, dispatch } = useContext(PostContext)
+    const { postState, dispatch } = useContext(PostsContext)
     const [mediaInput, setMediaInput] = useState(false)
     const [postBody, setPostBody] = useState("")
     const [postMediaUrls, setPostMediaUrls] = useState<string[]>([])

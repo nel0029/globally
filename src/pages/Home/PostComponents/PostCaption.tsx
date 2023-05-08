@@ -14,7 +14,7 @@ export default function PostCaption(post: PostsDataProps) {
     return (
         <div>
             {displayedLines.map((line, index) => (
-                <p key={index} className='text-lg'>
+                <p key={index} className='text-lg break-all'>
                     {line}
                 </p>
             ))}

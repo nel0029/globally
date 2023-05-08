@@ -107,6 +107,7 @@ export const PostReducer = (postState: PostsDataProps[], postAction: any) => {
                             commentLikes.push(newCommentLike)
                         } else {
                             commentLikes.splice(likerIndex, 1)
+                            console.log(likerIndex)
                         }
                         return {
                             ...comment,

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react"
 import React from 'react'
 import { UserContext } from "../../../context/UserContext"
-import { PostContext } from "../../../context/PostContext"
+import { PostsContext } from "../../../context/PostsContext"
 import { PostCommentsProps } from "../../../types/PostTypes"
 import { POSTACTIONS } from "../../../actions/POSTACTIONS"
 import IonIcon from "@reacticons/ionicons"
@@ -19,7 +19,7 @@ interface CommentProps {
 const CommentInput: React.FC<CommentProps> = ({ comment, openReplyBox, replyBox, setReplies }) => {
 
     const user = useContext(UserContext)
-    const { postState, dispatch } = useContext(PostContext)
+    const { postState, dispatch } = useContext(PostsContext)
     const [replyBody, setReplyBody] = useState("")
 
 

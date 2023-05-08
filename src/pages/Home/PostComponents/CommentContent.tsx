@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import Carousel from '../../../common/Carousel';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { PostsDataProps, PostCommentsProps } from '../../../types/PostTypes';
-import { PostContext } from '../../../context/PostContext';
+import { PostsContext } from '../../../context/PostsContext';
 import CommentInteractions from './CommentInteractions';
 import CommentInput from './CommentInput';
 import RepliesContext from '../../../context/CommentsContext';
@@ -14,7 +14,7 @@ interface CommentProps {
 }
 
 const CommentContent: React.FC<CommentProps> = ({ comment, replyBox, openReplyBox }) => {
-    const { postState, dispatch } = useContext(PostContext)
+    const { postState, dispatch } = useContext(PostsContext)
     const { replies, setReplies } = useContext(RepliesContext)
     return (
         <div className='flex-grow ' >

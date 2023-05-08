@@ -3,4 +3,4 @@ import { PostsDataProps } from "../types/PostTypes";
 import PostData from "../data/PostData";
 
 
-export const PostContext = createContext<{ postState: PostsDataProps[], dispatch: any }>({ postState: PostData, dispatch: () => { } })
+export const PostsContext = createContext<{ postState: PostsDataProps[], dispatch: any }>({ postState: PostData, dispatch: () => { } })

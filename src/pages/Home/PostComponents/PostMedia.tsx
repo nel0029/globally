@@ -15,11 +15,11 @@ export default function PostMedia(postContentObject: PostsDataProps) {
 
         switch (postImgUrls.length) {
             case 0:
-                return <div />;
+                return <div className='hidden' />;
                 break;
             case 1:
                 return <div className='w-full relative h-auto rounded-lg '>
-                    <img className='w-full h-auto rounded-lg' src={postImgUrls} />
+                    <img className='w-full h-auto object-cover rounded-lg' src={postImgUrls} />
                 </div>;
                 break;
             default:

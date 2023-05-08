@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import IonIcon from '@reacticons/ionicons'
 import { UserContext } from '../../../context/UserContext'
 import { PostCommentsProps, PostLikesProps, PostsDataProps } from '../../../types/PostTypes'
-import { PostContext } from '../../../context/PostContext'
+import { PostsContext } from '../../../context/PostsContext'
 import { POSTACTIONS } from '../../../actions/POSTACTIONS'
 import CommentHeader from './CommentHeader'
 import CommentContent from './CommentContent'
@@ -18,7 +18,7 @@ import CommentInput from './CommentInput'
 const Comment = (comment: PostCommentsProps) => {
 
     const user = useContext(UserContext)
-    const { postState, dispatch } = useContext(PostContext)
+    const { postState, dispatch } = useContext(PostsContext)
     const [replyBox, setReplyBox] = useState(false)
     const [replies, setReplies] = useState(false)
 

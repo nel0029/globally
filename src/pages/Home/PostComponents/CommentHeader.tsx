@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import IonIcon from '@reacticons/ionicons';
 import { NavLink } from 'react-router-dom';
-import { PostContext } from '../../../context/PostContext';
+import { PostsContext } from '../../../context/PostsContext';
 import { PostsDataProps, PostCommentsProps } from '../../../types/PostTypes';
 import MenuContainer from '../../../common/MenuContainer';
 import MenuItem from '../../../common/MenuItem';

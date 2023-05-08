@@ -3,7 +3,7 @@ import PostHeader from './PostHeader';
 import PostMedia from './PostMedia';
 import PostInteractions from './PostInteractions';
 import { UserContext } from '../../../context/UserContext';
-import { PostContext } from '../../../context/PostContext';
+import { PostsContext } from '../../../context/PostsContext';
 import { PostsDataProps } from '../../../types/PostTypes';
 import PostComments from './PostComments';
 import PostCommentsButton from './PostCommentsButton';
@@ -17,7 +17,7 @@ import Dropdown from '../DropDown';
 export default function PostCard(post: PostsDataProps) {
 
     const user = useContext(UserContext)
-    const { postState, dispatch } = useContext(PostContext)
+    const { postState, dispatch } = useContext(PostsContext)
     const [comments, setComments] = useState(false)
     const [replies, setReplies] = useState(false)
 
