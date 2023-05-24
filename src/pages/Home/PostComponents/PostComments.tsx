@@ -1,5 +1,5 @@
 import React from 'react'
-import { PostsDataProps, PostCommentsProps } from '../../../types/PostTypes'
+import { PostsDataProps } from '../../../types/PostTypes'
 import Comment from './Comment'
 import { useContext } from 'react'
 import RepliesContext from '../../../context/CommentsContext'
@@ -9,7 +9,7 @@ const PostComments = (post: PostsDataProps) => {
 
     const { replies, setReplies } = useContext(RepliesContext)
     return (
-        <div className='flex flex-grow flex-col gap-y-2 pt-2 
+        <div className='w-full flex flex-grow flex-col gap-y-2 pt-2
         relative
         before:contents-[]
         before:absolute
@@ -21,14 +21,14 @@ const PostComments = (post: PostsDataProps) => {
        before:border-light_gray
        before:left-[20px]
        before:w-[20px]
-       before:h-[calc(100%-8px)]
+       before:h-[calc(100%-116px)]
        '>
-            {post.postComments.map(
+            {/*{post.postComments.map(
                 (comment: PostCommentsProps, index: any) => (
                     <Comment key={index} {...comment} />
                 )
             )
-            }
+            }*/}
         </div>
     )
 }

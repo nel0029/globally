@@ -32,15 +32,16 @@ const MenuContainer = ({ children, icon }: any) => {
 
     return (
 
-        <div ref={menuRef} className='border relative flex justify-center items-center cursor-pointer rounded-full'>
+        <div ref={menuRef} className='relative flex justify-center items-center cursor-pointer rounded-full'
+            onClick={(event: any) => event.stopPropagation()}>
             <div onClick={openMenu}
                 className='flex justify-center items-center rounded-full text-lg p-0.5'>
                 {icon ? icon : <IonIcon name="ellipsis-vertical"></IonIcon>}
             </div>
             <div
                 onClick={openMenu}
-                className=' bg-white z-10 absolute rounded-lg top-0 right-0 p-1 min-w-[150px]'
-                style={menu ? { display: 'block' } : { display: 'none' }} >
+                className='border bg-white z-10 absolute rounded-lg top-0 right-0 p-1'
+                style={menu ? { display: 'inline-block' } : { display: 'none' }} >
                 {children}
             </div>
 

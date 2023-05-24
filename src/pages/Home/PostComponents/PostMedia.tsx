@@ -44,7 +44,7 @@ export default function PostMedia(postContentObject: PostsDataProps) {
 
     return (
         <div className='w-full flex py-2'>
-            {postImgDisplay(postContent.postImgUrls)}
+            {postImgDisplay(postContent.mediaURL)}
         </div>
     )
 }

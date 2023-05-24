@@ -1,13 +1,22 @@
 import React, { useState, useContext } from 'react'
 import IonIcon from '@reacticons/ionicons'
 import { UserContext } from '../../../context/UserContext'
-import { PostsDataProps } from '../../../types/PostTypes'
-import { PostsContext } from '../../../context/PostsContext'
-import { POSTACTIONS } from '../../../actions/POSTACTIONS'
+import { useDispatch, useSelector } from 'react-redux'
+import { createPost } from '../../../redux/asynActions/postAsynActions'
+import { AppDispatch } from '../../../redux/store';
+
+interface NewPost {
+    actionType: string,
+    userName: string,
+    caption: string,
+    mediaURL: string[]
+}
 
 export default function CreateNewPostInput() {
-    const user = useContext(UserContext)
-    const { postState, dispatch } = useContext(PostsContext)
+    const user = useSelector((state: any) => state.posts.userData)
+
+
+    const dispatch = useDispatch<AppDispatch>()
     const [mediaInput, setMediaInput] = useState(false)
     const [postBody, setPostBody] = useState("")
     const [postMediaUrls, setPostMediaUrls] = useState<string[]>([])
@@ -22,28 +31,14 @@ export default function CreateNewPostInput() {
         setMediaInput(!mediaInput)
     }
 
-    const createPost = () => {
-        const id: number = Math.ceil(Math.random() * 1000000000)
-        const newPost: PostsDataProps = {
-            postID: id,
-            avatarUrl: user.avatarUrl,
-            postAuthorUserID: user.userID,
-            postAuthorFirstName: user.userFirstName,
-            postAuthorMiddleName: user.userMiddleName,
-            postAuthorLastName: user.userLastName,
-            postDateAndTime: "April 29, 2023",
-            postCaption: postBody,
-            postImgUrls: postMediaUrls,
-            postLikes: [],
-            postComments: [],
-            postReposts: []
+    const createNewPost = () => {
+        const newPost: NewPost = {
+            actionType: "create-post",
+            userName: user.userName,
+            caption: postBody,
+            mediaURL: postMediaUrls,
         }
-        dispatch({
-            type: POSTACTIONS.CREATEPOST,
-            payload: {
-                newPost: newPost
-            }
-        })
+        dispatch(createPost(newPost))
 
         setPostBody("")
         setPostMediaUrls([])
@@ -57,7 +52,7 @@ export default function CreateNewPostInput() {
                     maxLength={99}
                     value={postBody}
                     onChange={(event: any) => setPostBody(event.target.value)}
-                    className='border w-full h-[200px] resize-none'
+                    className='border w-full h-[75px] resize-none py-1 px-2'
                     placeholder='Create a new post'
                 />
                 <p>{99 - postBody.length} characters remaining</p>
@@ -72,7 +67,7 @@ export default function CreateNewPostInput() {
                     <button
                         onClick={openMediaInput}
                         className='border rounded-lg px-3 py-1'>Media</button>
-                    <button onClick={createPost} className='border rounded-lg px-3 py-1'>Post</button>
+                    <button onClick={createNewPost} className='border rounded-lg px-3 py-1'>Post</button>
                 </div>
             </div>
         </div>

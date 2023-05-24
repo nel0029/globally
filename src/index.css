@@ -66,3 +66,8 @@ body {
 .post-caption.full {
     max-height: none;
 }
+
+.custom-wrap {
+    overflow-wrap: break-word;
+    hyphens: manual;
+}
