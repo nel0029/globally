@@ -6,25 +6,42 @@ import MenuContainer from '../../../common/MenuContainer';
 import MenuItem from '../../../common/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../../../common/Modal';
-import { deletePost, updatePost } from '../../../redux/asynActions/postAsynActions';
+import { deletePost, getUserDetails, updatePost } from '../../../redux/asynActions/postAsynActions';
 import { AppDispatch } from '../../../redux/store';
-import { DeletePostData, UpdatePost } from '../../../types/PostActionTypes';
+import { DeletePostData, GetUserDetailsData, UpdatePostData } from '../../../types/PostActionTypes';
+import CancelButton from '../../../common/CancelButton';
+import ConfirmButton from '../../../common/ConfirmButton';
+import MenuButton from '../../../common/MenuButton';
+import CardHeader from './CardHeader';
+import DeleteButton from '../../../common/DeleteButton';
+import { CardProps } from './Card';
+import TextAreaInput from '../../../common/TextAreaInput';
+import FollowButtonsCotainer from '../../../common/FollowButtonsCotainer';
 
+export interface HeaderProps {
+    post: CardProps
+    authorized: boolean
+}
 
-export default function PostHeader(postHeaderObject: PostsDataProps) {
+const post: React.FC<HeaderProps> = ({ post, authorized }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const user = useSelector((state: any) => state.posts.userData)
+    const user = useSelector((state: any) => state.user.userData)
     const [editModal, setEditModal] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
-    const [postHeader, setPostHeader] = useState(postHeaderObject)
-    const [initialPostCaption, setInitialPostCaption] = useState(postHeaderObject.caption);
-    const [postCaption, setPostCaption] = useState(postHeaderObject.caption);
+    const [initialPostCaption, setInitialPostCaption] = useState(post.caption);
+    const [postCaption, setPostCaption] = useState(post.caption);
     const navigate = useNavigate()
-    const authorized = (postHeader.userName == user.userName)
 
     const userProfile = (event: any) => {
-        navigate(`/${postHeader.userName}`)
-        event.stopPropagation()
+
+        const data: GetUserDetailsData = {
+            userName: post.postAuthorUserName,
+            authorID: user.userID
+        }
+        dispatch(getUserDetails(data))
+
+        navigate(`/${post.postAuthorUserName}`)
+
     }
     const openEditModal = () => {
         setEditModal(!editModal)
@@ -37,10 +54,9 @@ export default function PostHeader(postHeaderObject: PostsDataProps) {
     }
 
     const editPost = () => {
-        const updatePostData: UpdatePost = {
-            actionType: 'update-post',
-            postID: postHeaderObject._id,
-            userID: user.userID,
+        const updatePostData: UpdatePostData = {
+            _id: post._id,
+            authorID: user.userID,
             caption: postCaption
         }
         dispatch(updatePost(updatePostData));
@@ -53,118 +69,87 @@ export default function PostHeader(postHeaderObject: PostsDataProps) {
 
     const removePost = () => {
         const deletePostData: DeletePostData = {
-            userID: user.userID,
-            postID: postHeaderObject._id,
-            actionType: "delete-post",
+            authorID: user.userID,
+            postID: post._id,
         }
         dispatch(deletePost(deletePostData))
         openDeleteModal()
     }
-    const dateAndTime = new Date(postHeader.createdAt)
-    const formattedDateAndTime = dateAndTime.toLocaleString('en-us', {
-        timeZone: 'Asia/Manila',
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    })
     return (
-        <div
-            className='relative flex flex-row w-full h-auto justify-center items-center pb-1'>
-            <div className='flex-1 flex flex-col justify-center gap-x-2 flex-grow leading-none'>
+        <div className='z-10 w-full flex flex-row flex-shrink'>
+            <CardHeader
+                firstName={post.postAuthorFirstName}
+                middleName={post.postAuthorMiddleName}
+                lastName={post.postAuthorLastName}
+                userName={post.postAuthorUserName}
+                createdAt={post.createdAt} />
 
-                <div
-                    onClick={userProfile}
-                    className=' flex-wrap flex flex-row items-center gap-x-2 text-xs md:text-base'>
-                    <div className='hover:underline hover:text-secondary font-bold'>
-                        {postHeader.postAuthorFirstName} {postHeader.postAuthorMiddleName} {postHeader.postAuthorLastName}
-                    </div>
-                    <div className=' font-light'>
-                        @{postHeader.userName}
-                    </div>
-                </div>
-                <div className='text-xs xl:text-sm text-gray-500'>
-                    ● {formattedDateAndTime}
-                </div>
+            <div className='overflow-visible'>
+                <MenuContainer >
+
+                    {post.authorID !== user.userID ? (
+                        <FollowButtonsCotainer
+                            authorID={post.authorID}
+                            postAuthorUserName={post.postAuthorUserName}
+                            isFollowedAuthor={post.isFollowedAuthor}
+                            followID={post.followID} />
+                    ) : null}
+
+                    {authorized && (
+                        <MenuItem>
+                            <MenuButton onClick={[openEditModal]}>
+                                <IonIcon name='pencil-outline' />
+                                <p className='whitespace-nowrap'>
+                                    Edit Post Caption
+                                </p>
+                            </MenuButton>
+                        </MenuItem>)}
+
+                    {authorized && (
+                        <MenuItem>
+                            <button
+                                onClick={openDeleteModal}
+                                className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
+                                <IonIcon name='trash-outline' />
+                                <p className='whitespace-nowrap'>
+                                    Delete Post
+                                </p>
+                            </button>
+                        </MenuItem>
+                    )}
+                </MenuContainer>
             </div>
-            <MenuContainer >
-                {postHeader.userName !== user.userName ? (<MenuItem>
-                    <button
-                        className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
-                        <IonIcon name='add-outline' />
-                        <p className='whitespace-nowrap'>
-                            Follow <span className='font-bold'>@{postHeader.userName}</span>
-                        </p>
-                    </button>
-                </MenuItem>) : ''}
 
-                {authorized && (
-                    <MenuItem>
-                        <button
-                            onClick={openEditModal}
-                            className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
-                            <IonIcon name='pencil-outline' />
-                            <p className='whitespace-nowrap'>
-                                Edit Post Caption
-                            </p>
-                        </button>
-                    </MenuItem>)}
-
-                {authorized && (
-                    <MenuItem>
-                        <button
-                            onClick={openDeleteModal}
-                            className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
-                            <IonIcon name='trash-outline' />
-                            <p className='whitespace-nowrap'>
-                                Delete Post
-                            </p>
-                        </button>
-                    </MenuItem>
-                )}
-
-            </MenuContainer>
             {editModal && (
                 <Modal setModal={setEditModal}>
                     <div className='w-full flex flex-row justify-start items-center gap-x-2 py-1'>
-                        <img className='w-[40px] rounded-full' src={postHeader.avatarURL} />
+                        <img className='w-[40px] rounded-full' src={post.postAuthorAvatarURL} />
                         <div className='flex-grow flex flex-col justify-center leading-none'>
                             <p className='text-base font-bold'>
-                                {postHeader.postAuthorFirstName} {postHeader.postAuthorMiddleName} {postHeader.postAuthorLastName}
+                                {post.postAuthorFirstName} {post.postAuthorMiddleName} {post.postAuthorLastName}
                             </p>
                             <p className='text-sm'>
-                                @{postHeader.userName}
+                                @{post.postAuthorUserName}
                             </p>
                         </div>
                     </div>
                     <div className='w-full'>
-                        <textarea
-                            maxLength={99}
-                            value={postCaption}
-                            onChange={(event) => setPostCaption(event.target.value)}
-                            className='border w-full h-[150px] resize-none rounded-lg p-1'
-                            placeholder='Create a new post'
-                        />
+                        <TextAreaInput
+                            placeholder='Edit your post'
+                            body={postCaption}
+                            setBody={setPostCaption} />
                     </div>
                     <div className='w-full'>
                         <p>{99 - postCaption.length} characters remaining</p>
                     </div>
                     <div className='w-full flex flex-row justify-end gap-x-2'>
-                        <button
-                            className='rounded-lg border-2 border-slate-400 px-3 py-1'
-                            onClick={() => { openEditModal() }}>
+                        <CancelButton onClick={[openEditModal]}>
                             Cancel
-                        </button>
-                        <button
-                            className='rounded-lg border-2 border-secondary bg-secondary px-3 text-white py-1'
-                            onClick={() => {
-                                editPost(),
-                                    openEditModal()
-                            }}>
-                            Submit Changes
-                        </button>
+                        </CancelButton>
+                        <ConfirmButton onClick={[editPost, openEditModal]}>
+                            Update
+                        </ConfirmButton>
+
                     </div>
                 </Modal>)}
             {deleteModal && (
@@ -174,15 +159,19 @@ export default function PostHeader(postHeaderObject: PostsDataProps) {
                         <p className='break-all text-center'> Are you sure you want to delete this Post?</p>
                     </div>
                     <div className='w-full flex justify-end items-center gap-x-2'>
-                        <button onClick={() => setDeleteModal(!deleteModal)} className='px-3 py-1 rounded border border-light_gray bg-light_gray'>
+
+                        <CancelButton onClick={[openDeleteModal]}>
                             Cancel
-                        </button>
-                        <button onClick={removePost}
-                            className='px-3 py-1 rounded border border-secondary bg-secondary '>
+                        </CancelButton>
+                        <DeleteButton onClick={[removePost]}>
                             Delete
-                        </button>
+                        </DeleteButton>
                     </div>
                 </Modal>)}
+
         </div>
+
     )
 }
+
+export default post

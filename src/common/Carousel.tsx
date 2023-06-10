@@ -1,8 +1,6 @@
 import IonIcon from '@reacticons/ionicons'
 import React, { useState, useReducer, useRef, TouchEventHandler } from 'react'
 import { useNavigate, NavLink } from "react-router-dom"
-import Slider from 'react-touch-drag-slider'
-
 
 
 const Carousel = ({ children: slides }: any,) => {
@@ -21,28 +19,34 @@ const Carousel = ({ children: slides }: any,) => {
         setDisplay('flex ')
     }
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = (event: any) => {
         timeoutRef.current = setTimeout(() => {
 
             setDisplay('hidden ')
         }, 2500)
+
+        event.stopPropagation()
     }
 
-    const prev = () => {
+    const prev = (event: any) => {
         if (slide === 0) {
             setSlide(0)
         } else {
             setSlide((prev: any) => prev - 1)
         }
+
+        event.stopPropagation()
     }
 
 
-    const next = () => {
+    const next = (event: any) => {
         if (slide === slides.length - 1) {
             setSlide(slides.length - 1)
         } else {
             setSlide((prev: any) => prev + 1)
         }
+
+        event.stopPropagation()
 
     }
 
@@ -50,6 +54,8 @@ const Carousel = ({ children: slides }: any,) => {
 
     const handleTouchStart: TouchEventHandler<HTMLDivElement> = (event) => {
         setTouchStartX(event.touches[0].clientX);
+
+        event.stopPropagation()
     };
 
     const handleTouchEnd: TouchEventHandler<HTMLDivElement> = (event) => {
@@ -61,15 +67,17 @@ const Carousel = ({ children: slides }: any,) => {
         const touchDiff = touchEndX - touchStartX;
 
         if (touchDiff > 0) {
-            prev();
+            prev(event);
         } else if (touchDiff < 0) {
-            next();
+            next(event);
         }
 
         setTouchStartX(null);
+
+        event.stopPropagation()
     };
     return (
-        <div className='w-full relative group transition ease-out duration-500'
+        <div className='w-full relative group transition ease-out duration-500 z-1'
             onMouseLeave={handleMouseLeave}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
@@ -85,7 +93,7 @@ const Carousel = ({ children: slides }: any,) => {
 
 
                 <div
-                    className={`${display} group-hover:flex w-full h-full absolute z-10 items-center justify-between p-4 top-0`}
+                    className={`${display} group-hover:flex w-full h-full absolute z-1 items-center justify-between p-4 top-0`}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
                     <button

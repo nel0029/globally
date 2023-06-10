@@ -3,10 +3,16 @@ import IonIcon from '@reacticons/ionicons'
 
 
 
-const MenuContainer = ({ children, icon }: any) => {
+const MenuContainer = ({ children }: any) => {
 
     const [menu, setMenu] = useState(false)
-    const openMenu = () => setMenu(!menu)
+    const menuRef = useRef<HTMLDivElement>(null)
+
+    const openMenu = (event: any) => {
+        setMenu(!menu)
+        event.stopPropagation()
+    }
+
 
     const useOutsideDivAlerter = (menuRef: any) => {
         useEffect(() => {
@@ -24,24 +30,19 @@ const MenuContainer = ({ children, icon }: any) => {
         }, [menuRef]);
     }
 
-
-    const menuRef = useRef<HTMLDivElement>(null)
-
     useOutsideDivAlerter(menuRef)
-
 
     return (
 
-        <div ref={menuRef} className='relative flex justify-center items-center cursor-pointer rounded-full'
-            onClick={(event: any) => event.stopPropagation()}>
-            <div onClick={openMenu}
-                className='flex justify-center items-center rounded-full text-lg p-0.5'>
-                {icon ? icon : <IonIcon name="ellipsis-vertical"></IonIcon>}
+        <div ref={menuRef} className='relative flex justify-center items-center cursor-pointer rounded-full  overflow-visible '
+            onClick={openMenu}>
+
+            <div className='flex justify-center items-center rounded-full text-lg p-2 hover:bg-slate-200 dark:hover:bg-Dark300'>
+                <IonIcon name={menu ? 'close-outline' : 'ellipsis-horizontal'} />
             </div>
             <div
                 onClick={openMenu}
-                className='border bg-white z-10 absolute rounded-lg top-0 right-0 p-1'
-                style={menu ? { display: 'inline-block' } : { display: 'none' }} >
+                className={`flex-col border dark:border-Dark300 z-10 absolute rounded-lg top-[100%] right-0 p-1 bg-white dark:bg-Dark300  ${menu ? 'flex' : 'hidden'}`} >
                 {children}
             </div>
 

@@ -8,7 +8,7 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ children, setModal }) => {
     return (
-        <div className='fixed inset-0 flex flex-col justify-center items-center bg-black bg-opacity-70 right-0 left-0 top-0 bottom-0 z-20 px-2'>
+        <div className={`fixed inset-5 flex flex-col justify-center items-center bg-black bg-opacity-90 right-0 left-0 top-0 bottom-0 px-2 z-[20]`}>
             <ModalContainer setModal={setModal}>{children}</ModalContainer>
         </div>
     );

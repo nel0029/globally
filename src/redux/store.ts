@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
+import logger from 'redux-logger'
 import postReducer from './postSlice'
-import userSlice from './userSlice'
+import usersSlice from './usersSlice'
+import themeSlice from './themeSlice'
 
 const store = configureStore({
     reducer: {
         posts: postReducer,
-        user: userSlice
-    }
+        user: usersSlice,
+        theme: themeSlice
+    },
+
 })
 
 

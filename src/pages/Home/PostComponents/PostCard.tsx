@@ -1,64 +1,46 @@
-import React, { useContext, useState, createContext } from 'react';
+import React from 'react';
 import PostHeader from './PostHeader';
-import PostMedia from './PostMedia';
 import PostInteractions from './PostInteractions';
-import { UserContext } from '../../../context/UserContext';
 import { PostsDataProps } from '../../../types/PostTypes';
-import PostComments from './PostComments';
-import PostCommentsButton from './PostCommentsButton';
-import PostAvatar from './PostAvatar';
-import PostCaption from './PostCaption';
 import { useNavigate } from 'react-router-dom';
+import CardCaption from './CardCaption';
+import CardAvatar from './CardAvatar';
+import CardMedia from './CardMedia';
+import { useSelector } from 'react-redux';
 
 
-export default function PostCard(post: PostsDataProps) {
+interface PostCardProps extends PostsDataProps {
+    border?: boolean;
+}
 
-    const user = useContext(UserContext)
-    const [comments, setComments] = useState(false)
-    const [replies, setReplies] = useState(false)
+const PostCard: React.FC<PostCardProps> = ({ border, ...post }) => {
+
     const navigate = useNavigate()
-    const openComments = () => {
-        setComments(!comments)
-    }
-    const handlePostDetail = (event: any) => {
-        const { className } = event.target;
-
-        if (
-            className !== "avatar" &&
-            className !== "main-content"
-        ) {
-            navigate(`/${post.userName}/posts/${post._id}`);
-        }
+    const handlePostDetail = () => {
+        navigate(`/${post.postAuthorUserName}/posts/${post._id}`);
     };
+    const user = useSelector((state: any) => state.user.userData)
 
+    const authorized = (post.authorID === user.userID)
     return (
-        <div className='w-full relative flex flex-col bg-white border rounded-lg p-2 hover:bg-[#f9f9f9]'
+        <div className={`w-full flex flex-col rounded-lg p-2 bg-white dark:bg-Dark200  cursor-pointer `}
             onClick={handlePostDetail}>
-            <div className='w-full'>
-                <div className='w-full flex flex-row gap-x-3'>
+            <div className='w-full '>
+                <div className='w-full flex flex-row gap-x-3 '>
                     <div className='avatar'>
-                        <PostAvatar {...post} />
+                        <CardAvatar avatarURL={post.postAuthorAvatarURL} userName={post.postAuthorUserName} />
                     </div>
-                    <div className='main-content flex-grow'>
-                        <PostHeader {...post} />
-                        <PostCaption {...post} />
-                        <PostMedia {...post} />
+                    <div className='flex-shrink flex-1 max-w-[calc(100%-58px)]'>
+                        <PostHeader post={post} authorized={authorized} />
+                        <CardCaption caption={post.caption} />
+                        <CardMedia mediaURL={post.mediaURL} />
                     </div>
                 </div>
 
-                <PostInteractions openComments={openComments} comments={comments} post={post} />
+                <PostInteractions {...post} />
             </div>
-
-            <div className='flex flex-grow w-full'>
-                {comments ? (<PostComments {...post} />) : (<div />)}
-            </div>
-
-            {post.repliesCount > 0 ? (
-                <PostCommentsButton post={post} openComments={openComments} comments={comments} />
-            ) : (
-                null
-            )}
-
         </div>
     )
 }
+
+export default PostCard

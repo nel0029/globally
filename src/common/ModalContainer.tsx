@@ -30,7 +30,7 @@ export default function ModalContainer({ children, setModal }: ModalContainerPro
     return (
         <div
             onClick={(event: any) => event.stopPropagation()}
-            ref={menuRef} className='absolute max-w-full overflow-hidden w-[500px] flex flex-col justify-center items-center bg-white p-2 rounded-lg'>
+            ref={menuRef} className='z-[20] absolute max-w-full overflow-hidden w-[500px] flex flex-col justify-center items-center bg-white dark:bg-Dark200 p-2 rounded-lg'>
             {children}
         </div>
     );

@@ -1,13 +1,40 @@
 import { createAsyncThunk, PayloadAction, AsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { NewPost, Like, Unlike, LikeData, DeletePost, DeletePostData, UpdatePost } from '../../types/PostActionTypes';
+import {
+    NewRepost,
+    NewPost,
+    Like,
+    Unlike,
+    LikeData,
+    DeletePost,
+    DeletePostData,
+    UpdatePostData,
+    UpdatedPost,
+    NewReply,
+    UpdateReply,
+    DeleteReply,
+    DeleteReplyData,
+    UpdateRepost,
+    DeleteRepost,
+    DeleteRepostData,
+    PostDetailsData,
+    RepliesByPostIDData,
+    ReplyDetailsData,
+    RepostDetailsData,
+    GetUserDetailsData,
+    GetAllUserLikes,
+    FollowData,
+    Follow,
+    Unfollow,
+    UnfollowData
+} from '../../types/PostActionTypes';
 
 
 
-
-export const getPosts = createAsyncThunk('postSlice/getPost', async (userID: string) => {
+export const getPosts = createAsyncThunk('postSlice/getPost', async (authorID: string) => {
     try {
-        const response = await axios.get(`/?userID=${userID}`);
+        const response = await axios.get(`/all/posts/?authorID=${authorID}`);
+
         return response.data;
     } catch (error) {
         console.log(error);
@@ -15,11 +42,20 @@ export const getPosts = createAsyncThunk('postSlice/getPost', async (userID: str
     }
 });
 
-
-export const like = createAsyncThunk('postSlice/like', async (likeData: Like) => {
-
+export const getAllPostsByUser = createAsyncThunk('postSlice/getAllPostsByUser', async (data: any) => {
     try {
-        const response = await axios.post('/', likeData)
+        const { userName, authorID } = data
+        const response = await axios.get(`/${userName}/posts?authorID=${authorID}`);
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getAllRepliesByUser = createAsyncThunk('postSlice/getAllRepliesByUser', async (data: any) => {
+    try {
+        const { userName, authorID } = data
+        const response = await axios.get(`/${userName}/replies?authorID=${authorID}`);
         return response.data
     } catch (error) {
         console.log(error)
@@ -27,13 +63,74 @@ export const like = createAsyncThunk('postSlice/like', async (likeData: Like) =>
 })
 
 
-
-export const unlike = createAsyncThunk<Unlike, LikeData>('postSlice/unlike', async (likeData) => {
+export const getAllRepostsByUser = createAsyncThunk('postSlice/getAllRepostsByUser', async (data: any) => {
     try {
-        const { userID, likeID, actionType, parentType } = likeData
-        const response = await axios.delete(`/?likeID=${likeID}&userID=${userID}`, {
-            data: { actionType, parentType }
-        })
+        const { userName, authorID } = data
+        const response = await axios.get(`/${userName}/reposts?authorID=${authorID}`);
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getAllLikesByUser = createAsyncThunk('/postSlice/getAllLikesByUser', async (data: GetAllUserLikes) => {
+    try {
+        const { userName, userID } = data
+        const response = await axios.get(`/${userName}/likes?userID=${userID}`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+export const getUserDetails = createAsyncThunk('postSlice/getUserDetails', async (data: GetUserDetailsData) => {
+    try {
+        const { userName, authorID } = data
+        const response = await axios.get(`/users/${userName}?authorID=${authorID}`)
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getPostDetails = createAsyncThunk('postSlice/getPostDetails', async (postData: PostDetailsData) => {
+    try {
+        const { userName, postID, authorID } = postData
+        const response = await axios.get(`/${userName}/posts/${postID}?authorID=${authorID}`)
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getAllRepliesByPostID = createAsyncThunk('postSlice/getAllRepliesByPostID', async (data: RepliesByPostIDData) => {
+    try {
+        const { userName, postID, authorID, postType } = data
+        const response = await axios.get(`/${userName}/posts/${postID}/replies?authorID=${authorID}&postType=${postType}`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getReplyDetails = createAsyncThunk('postSlice/getReplyDetails', async (data: ReplyDetailsData) => {
+    try {
+        const { userName, postID, authorID } = data
+        const response = await axios.get(`/${userName}/replies/${postID}?authorID=${authorID}`)
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getRepostDetails = createAsyncThunk('postSlice/getRepostDetails', async (data: RepostDetailsData) => {
+    try {
+        const { userName, postID, authorID } = data
+        const response = await axios.get(`/${userName}/reposts/${postID}?authorID=${authorID}`)
         return response.data
     } catch (error) {
         console.log(error)
@@ -42,19 +139,29 @@ export const unlike = createAsyncThunk<Unlike, LikeData>('postSlice/unlike', asy
 
 export const createPost = createAsyncThunk('postSlice/createPost', async (postData: NewPost) => {
     try {
-        const response = await axios.post('/', postData)
+        const response = await axios.post('/new/post', postData)
         return response.data
     } catch (error) {
         console.log(error)
     }
 })
 
+
+export const updatePost = createAsyncThunk<UpdatedPost, UpdatePostData>('postSlice/updatePost', async (postData) => {
+    try {
+        const reponse = await axios.put('/update/post', postData)
+        return reponse.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
 export const deletePost = createAsyncThunk<DeletePost, DeletePostData>('postSlice/deletePost', async (postData) => {
     try {
-        const { userID, postID, actionType } = postData
-        const response = await axios.delete(`/?postID=${postID}&userID=${userID}`, {
+        const { authorID, postID } = postData
+        const response = await axios.delete(`/delete/post/?postID=${postID}&authorID=${authorID}`, {
 
-            data: { actionType }
         })
         return response.data
     } catch (error) {
@@ -63,10 +170,113 @@ export const deletePost = createAsyncThunk<DeletePost, DeletePostData>('postSlic
 })
 
 
-export const updatePost = createAsyncThunk('postSlice/updatePost', async (postData: UpdatePost) => {
+export const createReply = createAsyncThunk('postSlice/createReply', async (replyData: NewReply) => {
     try {
-        const reponse = await axios.put('/', postData)
+        const response = await axios.post('/new/reply', replyData)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const updateReply = createAsyncThunk('postSlice/updateReply', async (replyData: UpdateReply) => {
+    try {
+        const reponse = await axios.put('/update/reply', replyData)
         return reponse.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+export const deleteReply = createAsyncThunk<DeleteReply, DeleteReplyData>('postSlice/deleteReply', async (replyData) => {
+    try {
+
+        const { authorID, postID } = replyData
+        const response = await axios.delete(`/delete/reply/?postID=${postID}&authorID=${authorID}`, {
+
+        })
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+export const createRepost = createAsyncThunk('postSlice/createRepost', async (repostData: NewRepost) => {
+    try {
+        const response = await axios.post('/new/repost', repostData)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+export const updateRepost = createAsyncThunk('postSlice/updateRepost', async (repostData: UpdateRepost) => {
+    try {
+        const reponse = await axios.put('/update/repost', repostData)
+        return reponse.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+export const deleteRepost = createAsyncThunk<DeleteRepost, DeleteRepostData>('postSlice/deleteRepost', async (repostData) => {
+    try {
+
+        const { authorID, postID } = repostData
+        const response = await axios.delete(`/delete/repost/?postID=${postID}&authorID=${authorID}`, {
+
+        })
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+export const like = createAsyncThunk('postSlice/like', async (likeData: Like) => {
+
+    try {
+        const response = await axios.post('/new/like', likeData,)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+export const unlike = createAsyncThunk<Unlike, LikeData>('postSlice/unlike', async (likeData) => {
+    try {
+        const { authorID, likeID } = likeData
+        const response = await axios.delete(`/delete/like/?likeID=${likeID}&authorID=${authorID}`, {
+        })
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const follow = createAsyncThunk<Follow, FollowData>('postSlice/follow', async (followData) => {
+    try {
+        const response = await axios.post('/users/follow', followData)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+export const unfollow = createAsyncThunk<Unfollow, UnfollowData>('postSlice/unfollow', async (unfollowData) => {
+    try {
+        const { userID, followID } = unfollowData
+        const response = await axios.delete(`/users/unfollow/?followID=${followID}&userID=${userID}`)
+
+        return response.data
     } catch (error) {
         console.log(error)
     }

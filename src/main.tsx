@@ -5,13 +5,15 @@ import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './redux/store'
-import axios from 'axios';
+
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <div className=''>
+          <App />
+        </div>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

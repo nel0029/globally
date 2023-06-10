@@ -1,26 +1,80 @@
 export interface PostsDataProps {
     type: string,
     _id: string,
-    avatarURL: string,
+    postAuthorAvatarURL: string,
     postAuthorFirstName: string,
     postAuthorMiddleName: string,
     postAuthorLastName: string,
-    userName: string,
+    postAuthorUserName: string,
+    authorID: string
     createdAt: string,
     caption: string,
     mediaURL: string[],
-    liked: boolean,
-    likeID: string,
-    likesCount: number
-    repliesCount: number
-    repostsCount: number
-}
-
-export interface PostLikesProps {
-    userName: string,
-    parentID: string,
+    isLiked: boolean,
+    likeID: string | null,
+    likesCount: number,
+    repliesCount: number,
+    repostsCount: number,
+    isFollowedAuthor: boolean,
+    followID: string | null
 }
 
 
+export interface ReplyDataProps {
+    parentPostID: string,
+    parentType: string,
+    parentAuthorID: string,
+    parentUserName: string,
+    type: string,
+    _id: string,
+    postAuthorAvatarURL: string,
+    postAuthorFirstName: string,
+    postAuthorMiddleName: string,
+    postAuthorLastName: string,
+    postAuthorUserName: string,
+    authorID: string,
+    createdAt: string,
+    caption: string,
+    mediaURL: string[],
+    isLiked: boolean,
+    likeID: string | null,
+    likesCount: number,
+    repliesCount: number,
+    repostsCount: number,
+    isFollowedAuthor: boolean,
+    followID: string | null
+}
 
-
+export interface RepostDataProps {
+    parentPostID: string,
+    parentType: string,
+    parentAuthorID: string,
+    parentUserName: string,
+    parentAuthorFirstName: string,
+    parentAuthorMiddleName: string,
+    parentAuthorLastName: string,
+    parentAvatarURL: string,
+    parentCaption: string,
+    parentMediaURL: string[],
+    parentLikesCount: number,
+    parentRepliesCount: number,
+    parentRepostCount: number,
+    type: string,
+    _id: string,
+    postAuthorAvatarURL: string,
+    postAuthorFirstName: string,
+    postAuthorMiddleName: string,
+    postAuthorLastName: string,
+    postAuthorUserName: string,
+    authorID: string,
+    createdAt: string,
+    caption: string,
+    mediaURL: string[],
+    isLiked: boolean,
+    likeID: string | null,
+    likesCount: number,
+    repliesCount: number,
+    repostsCount: number,
+    isFollowedAuthor: boolean,
+    followID: string | null
+}
