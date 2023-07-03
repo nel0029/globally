@@ -14,9 +14,7 @@ function ReplyInteractions(reply: ReplyDataProps) {
     const [replyModal, setReplyModal] = useState(false)
     const [repostModal, setRepostModal] = useState(false)
     const [replyCaption, setReplyCaption] = useState("")
-    const [mediaInput, setMediaInput] = useState(false)
-    const [replyMediaUrls, setReplyMediaUrls] = useState<string[]>([])
-    const [replyMediaUrlsBody, setReplyMediaUrlsBody] = useState("")
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [repostCaption, setRepostCaption] = useState("")
 
 
@@ -26,6 +24,7 @@ function ReplyInteractions(reply: ReplyDataProps) {
             postID: reply._id,
             parentType: reply.type,
             authorID: user.userID,
+            parentAuthorID: reply.authorID
         };
         dispatch(like(likeData));
     };
@@ -47,14 +46,7 @@ function ReplyInteractions(reply: ReplyDataProps) {
         setRepostModal(!repostModal)
     }
 
-    const addMediaUrls = () => {
-        setReplyMediaUrls((prev: any) => [...prev, replyMediaUrlsBody])
-        setReplyMediaUrlsBody("")
-    }
 
-    const openMediaInput = () => {
-        setMediaInput(!mediaInput)
-    }
 
     const createNewReply = () => {
         const newReply: NewReply = {
@@ -62,7 +54,7 @@ function ReplyInteractions(reply: ReplyDataProps) {
             parentType: reply.type,
             authorID: user.userID,
             caption: replyCaption,
-            mediaURL: replyMediaUrls
+            files: selectedFiles
         }
         dispatch(createReply(newReply))
         setReplyCaption("");
@@ -79,6 +71,20 @@ function ReplyInteractions(reply: ReplyDataProps) {
 
         dispatch(createRepost(newRepost))
     }
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+            const filesArray = Array.from(files);
+            setSelectedFiles(filesArray);
+        }
+    };
+
+    const removeSelectedFile = (index: number) => {
+        const updatedFiles = [...selectedFiles];
+        updatedFiles.splice(index, 1);
+        setSelectedFiles(updatedFiles);
+    };
     return (
         <div className='w-full flex flex-col'
             onClick={(event: any) => event.stopPropagation()} >
@@ -102,11 +108,10 @@ function ReplyInteractions(reply: ReplyDataProps) {
                     userName={user.userName}
                     replyCaption={replyCaption}
                     setReplyCaption={setReplyCaption}
-                    mediaInput={mediaInput}
-                    replyMediaUrlsBody={replyMediaUrlsBody}
-                    setReplyMediaUrlsBody={setReplyMediaUrlsBody}
-                    addMediaUrls={addMediaUrls}
-                    openMediaInput={openMediaInput}
+                    selectedFiles={selectedFiles}
+                    handleFileChange={handleFileChange}
+                    removeSelectedFile={removeSelectedFile}
+                    fileInputID={reply._id}
                     confirmButtonFunctions={[createNewReply, openReplyModal]}
                     cancelButtonFunctions={[openReplyModal]} />
             }

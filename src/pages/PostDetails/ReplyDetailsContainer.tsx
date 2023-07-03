@@ -10,6 +10,7 @@ import ReplyCard from '../Home/PostComponents/ReplyCard';
 import IonIcon from '@reacticons/ionicons';
 import Header from '../../common/Header';
 import BackButton from '../../common/BackButton';
+import Card from '../Home/PostComponents/Card';
 
 
 const ReplyDetailsContainer = () => {
@@ -54,7 +55,7 @@ const ReplyDetailsContainer = () => {
         navigate(`/${userName}/replies/${postID}`)
     }
     return (
-        <div className='w-full flex flex-col px-2 gap-y-2'>
+        <div className='w-full flex flex-col gap-y-2'>
             <Header>
                 <BackButton />
                 <div className='text-lg font-bold'>
@@ -62,9 +63,9 @@ const ReplyDetailsContainer = () => {
                 </div>
             </Header>
 
-            <div className='w-full flex flex-col gap-y-2'>
+            <div className='w-full flex flex-col gap-y-2 px-2'>
                 {postDetails !== null ? (<div>
-                    <CardDetails {...postDetails} />
+                    <CardDetails fileInputID='replyDetailsFileInputID' {...postDetails} />
                 </div>) : (<div> Post didn't exists </div>)}
 
                 <div className='flex flex-col-reverse gap-y-2'>
@@ -74,7 +75,7 @@ const ReplyDetailsContainer = () => {
                                 <div
                                     className='hover:bg-[#f9f9f9] cursor-pointer'
                                     key={reply._id} onClick={() => goToReply(reply.postAuthorUserName, reply._id)}>
-                                    <ReplyCard border {...reply} />
+                                    <Card isInHomeRoute={false} {...reply} />
                                 </div>
                             )
                         })

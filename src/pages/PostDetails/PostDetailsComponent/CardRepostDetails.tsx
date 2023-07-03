@@ -9,6 +9,11 @@ import CardDetailsHeaderMenu from './CardDetailsHeaderMenu'
 import RepostParentCard from '../../Home/PostComponents/RepostParentCard'
 
 
+interface MediaProps {
+    id: string,
+    url: string
+}
+
 export interface CardRepostDetailsProps {
     parentPostID: string,
     parentType: string,
@@ -17,15 +22,15 @@ export interface CardRepostDetailsProps {
     parentAuthorFirstName: string,
     parentAuthorMiddleName: string,
     parentAuthorLastName: string,
-    parentAvatarURL: string,
+    parentAvatarURL: MediaProps,
     parentCaption: string,
-    parentMediaURL: string[],
+    parentMediaURL: MediaProps[],
     parentLikesCount?: number,
     parentRepliesCount?: number,
     parentRepostCount?: number,
     type: string,
     _id: string,
-    postAuthorAvatarURL: string,
+    postAuthorAvatarURL: MediaProps,
     postAuthorFirstName: string,
     postAuthorMiddleName: string,
     postAuthorLastName: string,
@@ -33,7 +38,7 @@ export interface CardRepostDetailsProps {
     authorID: string,
     createdAt: string,
     caption: string,
-    mediaURL: string[],
+    mediaURL: MediaProps[],
     isLiked: boolean,
     likeID: string | null,
     likesCount: number,
@@ -41,6 +46,7 @@ export interface CardRepostDetailsProps {
     repostsCount: number,
     isFollowedAuthor: boolean,
     followID: string | null
+
 }
 
 
@@ -63,11 +69,11 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
 
     const repostParent = details.type === "repost"
     return (
-        <div className='w-full flex flex-col p-2 border rounded-lg bg-white dark:bg-Dark200'>
+        <div className='w-full flex flex-col p-2 border dark:border-Dark300 rounded-lg bg-white dark:bg-Dark200'>
             <div className='flex flex-col justify-center'>
                 <div className='flex flex-row items-center gap-x-2' >
                     <div className='w-[40px]'>
-                        <CardAvatar userName={details.postAuthorUserName} avatarURL={details.postAuthorAvatarURL} />
+                        <CardAvatar userName={details.postAuthorUserName} avatarURL={details.postAuthorAvatarURL.url} />
                     </div>
                     <div className='flex flex-row h-auto justify-center items-center py-1 w-full' >
                         <CardDetailsHeader
@@ -101,7 +107,7 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
                 </div>
             </div>
             <div className='flex flex-col'>
-                <div className='w-full flex flex-row gap-x-2 py-1 border-y'>
+                <div className='w-full flex flex-row gap-x-2 py-1 border-y dark:border-Dark300'>
                     <div className='flex items-center text-xs xl:text-sm text-gray-400'>
                         {formattedDateAndTime}
                     </div>
@@ -132,7 +138,7 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
                         </div>
                     </div>
                 </div>
-                <CardDetailsInteractions  {...details} />
+                <CardDetailsInteractions fileInputID={details._id}  {...details} />
             </div>
         </div>
     )

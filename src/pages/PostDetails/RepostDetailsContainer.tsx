@@ -10,6 +10,7 @@ import ReplyCard from '../Home/PostComponents/ReplyCard';
 import IonIcon from '@reacticons/ionicons';
 import Header from '../../common/Header';
 import BackButton from '../../common/BackButton';
+import Card from '../Home/PostComponents/Card';
 
 
 
@@ -55,7 +56,7 @@ const RepostDetailsContainer = () => {
         navigate(`/${userName}/replies/${postID}`)
     }
     return (
-        <div className='w-full flex flex-col px-2 gap-y-2'>
+        <div className='w-full flex flex-col gap-y-2'>
             <Header >
                 <BackButton />
                 <div className='text-lg font-bold'>
@@ -63,7 +64,7 @@ const RepostDetailsContainer = () => {
                 </div>
             </Header>
 
-            <div className='w-full flex flex-col gap-y-2'>
+            <div className='w-full flex flex-col px-2 gap-y-2'>
                 {postDetails !== null ? (<div>
                     <CardRepostDetails {...postDetails} />
                 </div>) : (<div> Post didn't exists </div>)}
@@ -73,9 +74,10 @@ const RepostDetailsContainer = () => {
                         postReplies.map((reply: ReplyDataProps) => {
                             return (
                                 <div
-                                    className='hover:bg-[#f9f9f9] cursor-pointer'
-                                    key={reply._id} onClick={() => goToReply(reply.postAuthorUserName, reply._id)}>
-                                    <ReplyCard border {...reply} />
+                                    className=' cursor-pointer'
+                                    key={reply._id}
+                                    onClick={() => goToReply(reply.postAuthorUserName, reply._id)}>
+                                    <Card isInHomeRoute={false} {...reply} />
                                 </div>
                             )
                         })

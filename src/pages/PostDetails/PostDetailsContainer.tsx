@@ -12,6 +12,7 @@ import Header from '../../common/Header';
 import BackButton from '../../common/BackButton';
 import TitleText from '../../common/TitleText';
 import Card from '../Home/PostComponents/Card';
+import PostNotExistsCard from './PostDetailsComponent/PostNotExistsCard';
 
 
 const PostDetailsContainer = () => {
@@ -66,15 +67,15 @@ const PostDetailsContainer = () => {
 
             <div className='w-full flex flex-col gap-y-2 px-2'>
                 {postDetails !== null ? (<div>
-                    <CardDetails {...postDetails} />
-                </div>) : (<div> Post didn't exists </div>)}
+                    <CardDetails fileInputID='postDetailsInputFileID' {...postDetails} />
+                </div>) : (<PostNotExistsCard type={"post"} />)}
 
                 <div className='flex flex-col-reverse gap-y-2'>
                     {postReplies !== null ? (
                         postReplies.map((reply: ReplyDataProps) => {
                             return (
                                 <div key={reply._id} onClick={() => goToReply(reply.postAuthorUserName, reply._id)}>
-                                    <ReplyCard border {...reply} />
+                                    <Card isInHomeRoute={false} {...reply} />
                                 </div>
                             )
                         })

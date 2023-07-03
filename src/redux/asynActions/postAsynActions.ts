@@ -1,4 +1,4 @@
-import { createAsyncThunk, PayloadAction, AsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import {
     NewRepost,
@@ -26,7 +26,10 @@ import {
     FollowData,
     Follow,
     Unfollow,
-    UnfollowData
+    UnfollowData,
+    GetUserFollowingData,
+    GetUserFollowerData,
+    PollResponse
 } from '../../types/PostActionTypes';
 
 
@@ -77,6 +80,7 @@ export const getAllLikesByUser = createAsyncThunk('/postSlice/getAllLikesByUser'
     try {
         const { userName, userID } = data
         const response = await axios.get(`/${userName}/likes?userID=${userID}`)
+        console.log(response.data)
         return response.data
     } catch (error) {
         console.log(error)
@@ -137,14 +141,21 @@ export const getRepostDetails = createAsyncThunk('postSlice/getRepostDetails', a
     }
 })
 
-export const createPost = createAsyncThunk('postSlice/createPost', async (postData: NewPost) => {
+export const createPost = createAsyncThunk('postSlice/createPost', async (formData: NewPost) => {
     try {
-        const response = await axios.post('/new/post', postData)
-        return response.data
+        const headers = {
+            'Content-Type': 'multipart/form-data',
+            ...axios.defaults.headers.common
+        };
+        console.log(formData)
+
+        const response = await axios.post('/new/post', formData, { headers: headers });
+
+        return response.data;
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-})
+});
 
 
 export const updatePost = createAsyncThunk<UpdatedPost, UpdatePostData>('postSlice/updatePost', async (postData) => {
@@ -172,7 +183,13 @@ export const deletePost = createAsyncThunk<DeletePost, DeletePostData>('postSlic
 
 export const createReply = createAsyncThunk('postSlice/createReply', async (replyData: NewReply) => {
     try {
-        const response = await axios.post('/new/reply', replyData)
+        const headers = {
+            'Content-Type': 'multipart/form-data', // Set the correct content type for file uploads
+            ...axios.defaults.headers.common // Merge with default headers
+        };
+
+        const response = await axios.post('/new/reply', replyData, { headers })
+        console.log(response.data)
         return response.data
     } catch (error) {
         console.log(error)
@@ -206,7 +223,7 @@ export const deleteReply = createAsyncThunk<DeleteReply, DeleteReplyData>('postS
 export const createRepost = createAsyncThunk('postSlice/createRepost', async (repostData: NewRepost) => {
     try {
         const response = await axios.post('/new/repost', repostData)
-        console.log(response.data)
+
         return response.data
     } catch (error) {
         console.log(error)
@@ -249,6 +266,18 @@ export const like = createAsyncThunk('postSlice/like', async (likeData: Like) =>
 })
 
 
+export const createNewPollResponse = createAsyncThunk('postSlice/createNewPollResponse', async (pollResponseData: PollResponse) => {
+    try {
+        const response = await axios.post('/new/poll/response', pollResponseData)
+        console.log(pollResponseData)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
 export const unlike = createAsyncThunk<Unlike, LikeData>('postSlice/unlike', async (likeData) => {
     try {
         const { authorID, likeID } = likeData
@@ -263,7 +292,7 @@ export const unlike = createAsyncThunk<Unlike, LikeData>('postSlice/unlike', asy
 export const follow = createAsyncThunk<Follow, FollowData>('postSlice/follow', async (followData) => {
     try {
         const response = await axios.post('/users/follow', followData)
-        console.log(response.data)
+        console.log(followData)
         return response.data
     } catch (error) {
         console.log(error)
@@ -275,9 +304,32 @@ export const unfollow = createAsyncThunk<Unfollow, UnfollowData>('postSlice/unfo
     try {
         const { userID, followID } = unfollowData
         const response = await axios.delete(`/users/unfollow/?followID=${followID}&userID=${userID}`)
+        console.log(unfollowData)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const getUserFollowing = createAsyncThunk('postSlice/getUserFollowing', async (userData: GetUserFollowingData) => {
+    try {
+        const { userName, userID } = userData
+        const response = await axios.get(`/users/${userName}/following?userID=${userID}`)
 
         return response.data
     } catch (error) {
         console.log(error)
     }
 })
+
+export const getUserFollowers = createAsyncThunk('postSlice/getUserFollower', async (userData: GetUserFollowerData) => {
+    try {
+        const { userName, userID } = userData
+        const response = await axios.get(`/users/${userName}/followers?userID=${userID}`)
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+

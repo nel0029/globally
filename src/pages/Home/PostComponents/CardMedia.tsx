@@ -1,38 +1,54 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import Carousel from '../../../common/Carousel';
+import SwiperCore, { Grid, Navigation, Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-interface CardMediaProps {
-  mediaURL: string[];
+// Initialize Swiper modules
+
+interface MediaProps {
+  id: string,
+  url: string
 }
 
 
+interface CardMediaProps {
+  mediaURL: MediaProps[];
+}
+
 const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
-  const postImgDisplay = (mediaURL: string[]) => {
-    switch (mediaURL.length) {
+
+
+  const postImgDisplay = (mediaURL: MediaProps[]) => {
+    switch (mediaURL && mediaURL.length) {
       case 0:
         return null;
       case 1:
         return (
-          <div className='w-full h-auto rounded-lg '>
-            <img className='w-full h-auto object-cover rounded-lg' src={mediaURL[0]} />
+          <div className='w-full h-auto rounded-lg'>
+            <img className='w-full h-auto object-cover rounded-lg' src={mediaURL[0]?.url} alt='Post' />
           </div>
         );
       default:
         return (
-          <Carousel slidesShow={mediaURL}>
-            {mediaURL.map((slide: any, index: any) => (
-              <img
-                key={index}
-                className='w-full h-auto object-cover max-w-none flex-[0_0_100%] rounded-lg'
-                src={slide}
-              />
+          <Carousel>
+
+            {mediaURL?.map((img: MediaProps, index: number) => (
+              <div className='w-full flex-img'>
+                <img
+                  key={index}
+                  className='h-full w-auto object-cover aspect-3/2' src={img.url} />
+              </div>
             ))}
+
           </Carousel>
         );
     }
   };
 
-  return <div className='w-full flex py-2'>{postImgDisplay(mediaURL)}</div>;
-}
+  return <div className='w-full max-w-[500px]'>{postImgDisplay(mediaURL)}</div>;
+};
 
-export default CardMedia
+export default CardMedia;

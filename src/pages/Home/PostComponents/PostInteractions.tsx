@@ -15,11 +15,9 @@ const PostInteractions = (post: CardProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const [replyModal, setReplyModal] = useState(false)
     const [replyCaption, setReplyCaption] = useState("")
-    const [mediaInput, setMediaInput] = useState(false)
-    const [replyMediaUrls, setReplyMediaUrls] = useState<string[]>([])
-    const [replyMediaUrlsBody, setReplyMediaUrlsBody] = useState("")
     const [repostModal, setRepostModal] = useState(false)
     const [repostCaption, setRepostCaption] = useState("")
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
     const openRepostModal = () => {
         setRepostModal(!repostModal)
@@ -36,13 +34,7 @@ const PostInteractions = (post: CardProps) => {
         dispatch(createRepost(newRepost))
     }
 
-    const addMediaUrls = () => {
-        setReplyMediaUrls((prev: any) => [...prev, replyMediaUrlsBody])
-        setReplyMediaUrlsBody("")
-    }
-    const openMediaInput = () => {
-        setMediaInput(!mediaInput)
-    }
+
 
     const openReplyModal = () => {
         setReplyModal(!replyModal)
@@ -55,7 +47,7 @@ const PostInteractions = (post: CardProps) => {
             parentType: post.type,
             authorID: user.userID,
             caption: replyCaption,
-            mediaURL: replyMediaUrls
+            files: selectedFiles
         }
         dispatch(createReply(newReply))
         openReplyModal()
@@ -65,6 +57,7 @@ const PostInteractions = (post: CardProps) => {
             postID: post._id,
             parentType: post.type,
             authorID: user.userID,
+            parentAuthorID: post.authorID
         };
         dispatch(like(likeData));
     };
@@ -77,6 +70,20 @@ const PostInteractions = (post: CardProps) => {
         dispatch(unlike(likeData));
     };
 
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+            const filesArray = Array.from(files);
+            setSelectedFiles(filesArray);
+        }
+    };
+
+    const removeSelectedFile = (index: number) => {
+        const updatedFiles = [...selectedFiles];
+        updatedFiles.splice(index, 1);
+        setSelectedFiles(updatedFiles);
+    };
 
     return (
         <div className='w-full flex flex-col border-t dark:border-Dark300'
@@ -100,12 +107,11 @@ const PostInteractions = (post: CardProps) => {
                     lastName={user.userLastName}
                     userName={user.userName}
                     replyCaption={replyCaption}
+                    handleFileChange={handleFileChange}
+                    selectedFiles={selectedFiles}
+                    fileInputID={post._id}
+                    removeSelectedFile={removeSelectedFile}
                     setReplyCaption={setReplyCaption}
-                    mediaInput={mediaInput}
-                    replyMediaUrlsBody={replyMediaUrlsBody}
-                    setReplyMediaUrlsBody={setReplyMediaUrlsBody}
-                    addMediaUrls={addMediaUrls}
-                    openMediaInput={openMediaInput}
                     confirmButtonFunctions={[createNewReply, openReplyModal]}
                     cancelButtonFunctions={[openReplyModal]} />
             }

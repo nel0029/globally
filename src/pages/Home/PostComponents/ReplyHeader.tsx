@@ -16,6 +16,7 @@ import DeleteButton from '../../../common/DeleteButton';
 import { CardProps } from './Card';
 import MenuButton from '../../../common/MenuButton';
 import TextAreaInput from '../../../common/TextAreaInput';
+import socket from '../../../sockets/socket';
 
 export interface HeaderProps {
     reply: CardProps
@@ -30,6 +31,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
     const [deleteModal, setDeleteModal] = useState(false)
     const [initialReplyCaption, setInitialReplyCaption] = useState(reply.caption);
     const [replyCaption, setReplyCaption] = useState(reply.caption);
+
 
     const openEditModal = () => {
         setEditModal(!editModal)
@@ -61,6 +63,11 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
             authorID: user.userID,
             postID: reply._id
         }
+        socket.emit("deleteReply", {
+            actorID: user.userID,
+            targetID: reply.authorID,
+            actionID: reply._id,
+        })
 
         dispatch(deleteReply(deleteReplyData))
         openDeleteModal()
@@ -68,7 +75,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
 
 
     return (
-        <div className='z-10 w-full flex flex-row flex-shrink'>
+        <div className='w-full flex flex-row flex-shrink'>
             <CardHeader
                 firstName={reply.postAuthorFirstName}
                 middleName={reply.postAuthorMiddleName}
@@ -115,7 +122,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
                                 className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
                                 <IonIcon name='trash-outline' />
                                 <p className='whitespace-nowrap'>
-                                    Delete Post
+                                    Delete Reply
                                 </p>
                             </button>
                         </MenuItem>
@@ -127,7 +134,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
             {editModal && (
                 <Modal setModal={setEditModal}>
                     <div className='w-full flex flex-row justify-start items-center gap-x-2 py-1'>
-                        <img className='w-[40px] rounded-full' src={reply.postAuthorAvatarURL} />
+                        <img className='w-[40px] rounded-full' src={reply.postAuthorAvatarURL.url} />
                         <div className='flex-grow flex flex-col justify-center leading-none'>
                             <p className='text-base font-bold'>
                                 {reply.postAuthorFirstName} {reply.postAuthorMiddleName} {reply.postAuthorLastName}

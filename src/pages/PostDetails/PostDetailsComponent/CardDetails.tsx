@@ -6,8 +6,19 @@ import CardMedia from '../../Home/PostComponents/CardMedia'
 import CardDetailsInteractions from './CardDetailsInteractions'
 import CardDetailsHeader from './CardDetailsHeader'
 import CardDetailsHeaderMenu from './CardDetailsHeaderMenu'
+import PollOptionsCard from '../../Home/PostComponents/PollOptionsCard'
 
 
+interface OptionProps {
+    _id: string,
+    body: string
+}
+
+
+interface MediaProps {
+    id: string,
+    url: string
+}
 export interface CardDetailsProps {
     parentID?: string,
     parentType?: string,
@@ -16,15 +27,15 @@ export interface CardDetailsProps {
     parentAuthorFirstName?: string,
     parentAuthorMiddleName?: string,
     parentAuthorLastName?: string,
-    parentAvatarURL?: string,
+    parentAvatarURL?: MediaProps,
     parentCaption?: string,
-    parentMediaURL?: string[],
+    parentMediaURL?: MediaProps[],
     parentLikesCount?: number,
     parentRepliesCount?: number,
     parentRepostCount?: number,
     type: string,
     _id: string,
-    postAuthorAvatarURL: string,
+    postAuthorAvatarURL: MediaProps,
     postAuthorFirstName: string,
     postAuthorMiddleName: string,
     postAuthorLastName: string,
@@ -32,14 +43,20 @@ export interface CardDetailsProps {
     authorID: string,
     createdAt: string,
     caption: string,
-    mediaURL: string[],
+    mediaURL: MediaProps[],
     isLiked: boolean,
     likeID: string | null,
     likesCount: number,
     repliesCount: number,
     repostsCount: number,
     isFollowedAuthor: boolean,
-    followID: string | null
+    followID: string | null,
+    fileInputID?: string
+    hasPoll?: boolean
+    pollOptions?: OptionProps[],
+    hasChoosed?: boolean,
+    optionChoosedID?: string,
+    pollRespondentsCount?: number
 }
 
 
@@ -65,7 +82,7 @@ const CardDetails = (details: CardDetailsProps) => {
             <div className='flex flex-col justify-center'>
                 <div className='flex flex-row items-center gap-x-2' >
                     <div className='w-[40px]'>
-                        <CardAvatar userName={details.postAuthorUserName} avatarURL={details.postAuthorAvatarURL} />
+                        <CardAvatar userName={details.postAuthorUserName} avatarURL={details.postAuthorAvatarURL.url} />
                     </div>
                     <div className='flex flex-row h-auto justify-center items-center py-1 w-full' >
                         <CardDetailsHeader
@@ -84,6 +101,14 @@ const CardDetails = (details: CardDetailsProps) => {
                     {details.mediaURL.length > 0 ? (
                         <CardMedia mediaURL={details.mediaURL} />
                     ) : null}
+                    {details.hasPoll && (
+                        <PollOptionsCard
+                            hasChoosed={details.hasChoosed}
+                            optionChoosedID={details.optionChoosedID}
+                            pollRespondentsCount={details.pollRespondentsCount}
+                            postID={details._id}
+                            options={details.pollOptions} />
+                    )}
                 </div>
             </div>
             <div className='flex flex-col'>
@@ -118,7 +143,7 @@ const CardDetails = (details: CardDetailsProps) => {
                         </div>
                     </div>
                 </div>
-                <CardDetailsInteractions  {...details} />
+                <CardDetailsInteractions {...details} />
             </div>
         </div>
     )

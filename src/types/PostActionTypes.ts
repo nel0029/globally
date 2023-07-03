@@ -9,7 +9,7 @@ export interface DeletePostData {
 
 export interface DeleteReply {
     postID: string,
-    parentID: string
+    parentPostID: string
 }
 
 export interface DeleteReplyData {
@@ -19,7 +19,7 @@ export interface DeleteReplyData {
 
 export interface DeleteRepost {
     postID: string,
-    parentID: string
+    parentPostID: string
 }
 
 export interface DeleteRepostData {
@@ -49,10 +49,18 @@ export interface Like {
     authorID: string,
 }
 
+export interface PollResponse {
+    postID: string,
+    optionID: string,
+    respondentID: string
+}
+
 export interface NewPost {
     authorID: string,
     caption: string,
-    mediaURL: string[]
+    files: File[] | null,
+    hasPoll: boolean,
+    pollOptions: string[] | null
 }
 
 export interface NewReply {
@@ -60,7 +68,7 @@ export interface NewReply {
     parentType: string,
     authorID: string,
     caption: string,
-    mediaURL: string[]
+    files: File[] | null
 }
 
 export interface UpdatePostData {
@@ -78,7 +86,8 @@ export interface UpdatedPost {
 export interface NewLike {
     postID: string,
     authorID: string
-    parentType: string
+    parentType: string,
+    parentAuthorID: string
 }
 
 export interface NewRepost {
@@ -154,4 +163,38 @@ export interface Unfollow {
 export interface GetAllUserLikes {
     userID: string
     userName: string
+}
+
+export interface GetUserFollowingData {
+    userName: string
+    userID: string
+}
+
+export interface GetUserFollowing {
+    _id: string,
+    avatarURL: string,
+    firstName: string,
+    middleName: string,
+    lastName: string,
+    userName: string,
+    bio: string,
+    isFollowedUser: boolean,
+    followID: string | null
+}
+
+export interface GetUserFollowerData {
+    userName: string
+    userID: string
+}
+
+export interface GetFollower {
+    _id: string,
+    avatarURL: string,
+    firstName: string,
+    middleName: string,
+    lastName: string,
+    userName: string,
+    bio: string,
+    isFollowedUser: boolean,
+    followID: string | null
 }

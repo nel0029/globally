@@ -6,10 +6,15 @@ import CancelButton from '../../../common/CancelButton'
 import ConfirmButton from '../../../common/ConfirmButton'
 import CardMedia from './CardMedia'
 
+interface MediaProps {
+    id: string,
+    url: string
+}
+
 interface CardRepostModalProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
-    avatarURL: string
-    authorAvatarURL: string
+    avatarURL: MediaProps
+    authorAvatarURL: MediaProps
     firstName: string
     middleName: string
     lastName: string
@@ -20,7 +25,7 @@ interface CardRepostModalProps {
     postAuthorMiddleName: string
     postAuthorLastName: string
     postAuthorUserName: string
-    parentMediaURL: string[]
+    parentMediaURL: MediaProps[]
     confirmButtonFunctions: (() => void)[]
     cancelButtonFunctions: (() => void)[]
     parentCaption: string
@@ -66,7 +71,7 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
         <Modal setModal={setModal}>
 
             <div className='w-full flex flex-row justify-center items-start p-2 gap-x-2'>
-                <CardAvatar userName={userName} avatarURL={avatarURL} />
+                <CardAvatar userName={userName} avatarURL={avatarURL.url} />
                 <div className='flex flex-col flex-1 flex-shrink'>
                     <div className='leading-4 p-1'>
                         <div className='flex flex-row gap-x-1 font-bold'>
@@ -86,7 +91,7 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
                         />
                         <div className='border rounded-lg flex flex-row w-full p-2 gap-x-1'>
                             <div>
-                                <CardAvatar userName={postAuthorUserName} avatarURL={authorAvatarURL} />
+                                <CardAvatar userName={postAuthorUserName} avatarURL={authorAvatarURL.url} />
                             </div>
                             <div className=''>
                                 <div className='leading-5 py-1 '>

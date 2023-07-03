@@ -6,7 +6,7 @@ interface TitleTextProps {
 
 const TitleText: React.FC<TitleTextProps> = ({ children }) => {
     return (
-        <div className='text-lg font-bold'>
+        <div className='text-lg font-bold flex-grow'>
             {children}
         </div>
     )

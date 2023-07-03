@@ -22,7 +22,7 @@ const ReplyCard: React.FC<ReplyCardProps> = ({ border, ...reply }) => {
             className={`w-full flex flex-col rounded-lg p-2 bg-white dark:bg-Dark200 ${border ? 'border dark:border-Dark300' : ''}`}>
             <div className='w-full flex flex-row gap-x-3'>
                 <div>
-                    <CardAvatar userName={reply.postAuthorUserName} avatarURL={reply.postAuthorAvatarURL} />
+                    <CardAvatar userName={reply.postAuthorUserName} avatarURL={reply.postAuthorAvatarURL.url} />
                 </div>
                 <div className='flex-shrink flex-1 overflow-x-hidden'>
                     <ReplyHeader authorized={authorized} reply={reply} />

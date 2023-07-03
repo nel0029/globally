@@ -12,7 +12,7 @@ function Register() {
     const valid = useSelector((state: any) => state.user.valid)
 
 
-    const [formData, setFormData] = useState<RegisterUserData>({
+    const [formData, setFormData] = useState({
         email: '',
         userName: '',
         password: '',
@@ -53,10 +53,15 @@ function Register() {
                 console.log(error);
             });
     };
+
+    const goToLogIn = () => {
+        navigate('/login')
+    }
+
     return (
-        <div className='w-full h-screen flex justify-center items-center'>
+        <div className='w-full h-screen flex justify-center items-center '>
             <div className='w-full max-w-[500px] flex flex-col items-center justify-center border rounded-lg'>
-                <div className='text-lg font-bold text-secondary'>
+                <div className='text-lg font-bold text-secondary py-3'>
                     Create an account
                 </div>
                 <div className='flex w-full'>
@@ -64,44 +69,44 @@ function Register() {
                         className='flex flex-col flex-1 p-2 gap-y-2'
                         onSubmit={handleSubmit}>
                         <div className='flex flex-col rounded-lg border py-1 px-2 gap-y-0.5'>
-                            <div className='text-sm'>
+                            <div className='text-gray-400 text-sm'>
                                 First Name
                             </div>
                             <input
-                                className='text-base outline-none'
+                                className='bg-transparent text-base outline-none'
                                 type="text"
                                 name="userFirstName"
                                 value={formData.userFirstName}
                                 onChange={onChange} />
                         </div>
                         <div className='flex flex-col rounded-lg border py-1 px-2 gap-y-0.5'>
-                            <div className='text-sm'>
+                            <div className='text-gray-400 text-sm'>
                                 Middle Name
                             </div>
                             <input
-                                className='text-base outline-none'
+                                className='bg-transparent text-base outline-none'
                                 type="text"
                                 name="userMiddleName"
                                 value={formData.userMiddleName}
                                 onChange={onChange} />
                         </div>
                         <div className='flex flex-col rounded-lg border py-1 px-2 gap-y-0.5'>
-                            <div className='text-sm'>
+                            <div className='text-gray-400 text-sm'>
                                 Last Name
                             </div>
                             <input
-                                className='text-base outline-none'
+                                className='bg-transparent text-base outline-none'
                                 type="text"
                                 name="userLastName"
                                 value={formData.userLastName}
                                 onChange={onChange} />
                         </div>
                         <div className='flex flex-col rounded-lg border py-1 px-2 gap-y-0.5'>
-                            <div className='text-sm'>
+                            <div className='text-gray-400 text-sm'>
                                 Email
                             </div>
                             <input
-                                className='text-base outline-none'
+                                className='bg-transparent text-base outline-none'
                                 type="text"
                                 name="email"
                                 value={formData.email}
@@ -111,39 +116,55 @@ function Register() {
                             className={`flex flex-col rounded-lg py-1 px-2 gap-y-0.5 border`}>
 
 
-                            <div className='text-sm'>
-                                Username
+                            <div className='text-gray-400 text-sm flex flex-row items-center gap-x-2'>
+                                <div>
+                                    Username
+                                </div>
+                                <div>
+                                    {userName ? (
+                                        <div className={`text-sm ${!valid ? 'text-primary' : 'text-secondary1'}`}>
+                                            {message ? message : null}
+                                        </div>) : (null)}
+                                </div>
                             </div>
                             <input
-                                className='text-base outline-none'
+                                className='bg-transparent text-base outline-none'
                                 type="text"
                                 name="userName"
                                 value={formData.userName}
                                 onChange={onChange} />
-                            {userName ? (
-                                <div className={`text-sm ${!valid ? 'text-primary' : ''}`}>
-                                    {message ? message : null}
-                                </div>) : (null)}
+
                         </div>
 
                         <div className='flex flex-col rounded-lg border py-1 px-2 gap-y-0.5'>
-                            <div className='text-sm'>
+                            <div className='text-gray-400 text-sm'>
                                 Password
                             </div>
                             <input
-                                className='text-base outline-none'
+                                className='bg-transparent text-base outline-none'
                                 type="password"
                                 name="password"
                                 value={formData.password}
                                 onChange={onChange} />
                         </div>
 
-                        <input
+                        <button
                             className='basis-0 py-1 px-2 rounded-full outline-none bg-secondary cursor-pointer hover:bg-opacity-75 text-base font-bold text-white'
-                            placeholder='Register'
-                            type="submit" />
+                            type="submit" >
+                            Register
+                        </button>
 
                     </form>
+                </div>
+                <div className='flex flex-row items-center gap-x-2 py-3'>
+                    <div>
+                        Already have an account?
+                    </div>
+                    <div
+                        onClick={goToLogIn}
+                        className='text-secondary hover:underline cursor-pointer'>
+                        Log In
+                    </div>
                 </div>
             </div>
         </div>

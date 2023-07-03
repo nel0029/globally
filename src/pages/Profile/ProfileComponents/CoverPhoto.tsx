@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 interface CoverPhotoProps {
     coverPhotoURL?: string
 }

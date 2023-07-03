@@ -14,9 +14,10 @@ const Carousel = ({ children: slides }: any,) => {
 
     const timeoutRef = useRef<number | null>(null);
 
-    const handleMouseEnter = () => {
+    const handleMouseEnter = (event: any) => {
 
         setDisplay('flex ')
+        event.stopPropagation()
     }
 
     const handleMouseLeave = (event: any) => {
@@ -25,7 +26,7 @@ const Carousel = ({ children: slides }: any,) => {
             setDisplay('hidden ')
         }, 2500)
 
-        event.stopPropagation()
+
     }
 
     const prev = (event: any) => {
@@ -34,8 +35,8 @@ const Carousel = ({ children: slides }: any,) => {
         } else {
             setSlide((prev: any) => prev - 1)
         }
-
         event.stopPropagation()
+
     }
 
 
@@ -55,7 +56,7 @@ const Carousel = ({ children: slides }: any,) => {
     const handleTouchStart: TouchEventHandler<HTMLDivElement> = (event) => {
         setTouchStartX(event.touches[0].clientX);
 
-        event.stopPropagation()
+
     };
 
     const handleTouchEnd: TouchEventHandler<HTMLDivElement> = (event) => {
@@ -74,7 +75,7 @@ const Carousel = ({ children: slides }: any,) => {
 
         setTouchStartX(null);
 
-        event.stopPropagation()
+
     };
     return (
         <div className='w-full relative group transition ease-out duration-500 z-1'
@@ -99,13 +100,13 @@ const Carousel = ({ children: slides }: any,) => {
                     <button
                         onClick={prev}
                         disabled={slide === 0}
-                        className={`${slide === 0 ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} flex items-center justify-center text-lg p-1 rounded-full shadow `}>
+                        className={`${slide === 0 ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} z-10 flex items-center justify-center text-lg p-1 rounded-full shadow `}>
                         <IonIcon name='chevron-back-outline'></IonIcon>
                     </button>
                     <button
                         onClick={next}
-                        disabled={slide === slides.length - 1}
-                        className={`${slide + 1 === slides.length ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} flex items-center justify-center text-lg p-1 rounded-full shadow`}>
+                        disabled={slide === slides?.length - 1}
+                        className={`${slide + 1 === slides?.length ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} z-10 flex items-center justify-center text-lg p-1 rounded-full shadow`}>
                         <IonIcon name='chevron-forward-outline'></IonIcon>
                     </button>
                 </div>
@@ -114,7 +115,7 @@ const Carousel = ({ children: slides }: any,) => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
                     <div className='flex items-center pt-5 pr-5'>
-                        <h3 className='px-2 py-1 rounded-full bg-black/75 text-white'>{slide + 1}/{slides.length}</h3>
+                        <h3 className='px-2 py-1 rounded-full bg-black/75 text-white'>{slide + 1}/{slides?.length}</h3>
                     </div>
                 </div>
             </div>
@@ -124,7 +125,7 @@ const Carousel = ({ children: slides }: any,) => {
                     className=' flex justify-start items-center gap-1 transition-transform ease-out duration-500'
 
                 >
-                    {slides.map((_: any, index: any) => {
+                    {slides?.map((_: any, index: any) => {
                         return (
                             <div
                                 key={index}

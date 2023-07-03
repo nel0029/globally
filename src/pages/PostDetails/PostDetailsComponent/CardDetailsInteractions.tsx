@@ -9,6 +9,7 @@ import CardReplyModal from '../../Home/PostComponents/CardReplyModal';
 import CardRepostModal from '../../Home/PostComponents/CardRepostModal';
 import { CardDetailsProps } from './CardDetails';
 import DetailsInteractions from './DetailsInteractions';
+import socket from '../../../sockets/socket';
 
 
 const CardDetailsInteractions = (details: CardDetailsProps) => {
@@ -16,11 +17,10 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const [replyModal, setReplyModal] = useState(false)
     const [replyCaption, setReplyCaption] = useState("")
-    const [mediaInput, setMediaInput] = useState(false)
-    const [replyMediaUrls, setReplyMediaUrls] = useState<string[]>([])
-    const [replyMediaUrlsBody, setReplyMediaUrlsBody] = useState("")
     const [repostModal, setRepostModal] = useState(false)
     const [repostCaption, setRepostCaption] = useState("")
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
 
     const openRepostModal = () => {
         setRepostModal(!repostModal)
@@ -35,17 +35,18 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
         }
 
         dispatch(createRepost(newRepost))
+            .then((response: any) => socket.emit("newRepost", {
+                postID: details._id,
+                actorID: user.userID,
+                targetID: details.authorID,
+                actionID: response.payload._id,
+                actionType: "repost",
+                postType: details.type
+            }))
         setRepostCaption("");
         openRepostModal()
     }
 
-    const addMediaUrls = () => {
-        setReplyMediaUrls((prev: any) => [...prev, replyMediaUrlsBody])
-        setReplyMediaUrlsBody("")
-    }
-    const openMediaInput = () => {
-        setMediaInput(!mediaInput)
-    }
 
     const openReplyModal = () => {
         setReplyModal(!replyModal)
@@ -58,9 +59,18 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
             parentType: details.type,
             authorID: user.userID,
             caption: replyCaption,
-            mediaURL: replyMediaUrls
+            files: selectedFiles
         }
         dispatch(createReply(newReply))
+            .then((response: any) => socket.emit("newReply", {
+                postID: details._id,
+                actorID: user.userID,
+                targetID: details.authorID,
+                actionID: response.payload._id,
+                actionType: "reply",
+                postType: details.type
+            }))
+            .then((response) => console.log(response))
         setReplyCaption("");
         openReplyModal()
     }
@@ -70,18 +80,46 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
             postID: details._id,
             parentType: details.type,
             authorID: user.userID,
+            parentAuthorID: details.authorID
         };
-        dispatch(like(likeData));
+        dispatch(like(likeData))
+            .then((response) => socket.emit("newLike", {
+                postID: details._id,
+                actorID: user.userID,
+                targetID: details.authorID,
+                actionID: response.payload._id,
+                actionType: "like",
+                postType: details.type
+            }))
     };
 
     const unlikeButton = () => {
         const likeData: UnlikeData = {
             likeID: details.likeID !== null ? details.likeID : '',
             authorID: user.userID,
-        };
+        }
+        socket.emit("unlike", {
+            actionID: details.likeID,
+            actorID: user.userID,
+            targetID: details.authorID
+        })
         dispatch(unlike(likeData));
     };
 
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+            const filesArray = Array.from(files);
+            setSelectedFiles(filesArray);
+        }
+    };
+
+    const removeSelectedFile = (index: number) => {
+        const updatedFiles = [...selectedFiles];
+        updatedFiles.splice(index, 1);
+        setSelectedFiles(updatedFiles);
+    };
 
     return (
         <div className='w-full flex flex-col transition-all ease-in duration-1000 '
@@ -104,11 +142,10 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
                     userName={user.userName}
                     replyCaption={replyCaption}
                     setReplyCaption={setReplyCaption}
-                    mediaInput={mediaInput}
-                    replyMediaUrlsBody={replyMediaUrlsBody}
-                    setReplyMediaUrlsBody={setReplyMediaUrlsBody}
-                    addMediaUrls={addMediaUrls}
-                    openMediaInput={openMediaInput}
+                    handleFileChange={handleFileChange}
+                    fileInputID={details._id}
+                    removeSelectedFile={removeSelectedFile}
+                    selectedFiles={selectedFiles}
                     confirmButtonFunctions={[createNewReply, openReplyModal]}
                     cancelButtonFunctions={[openReplyModal]} />
             }

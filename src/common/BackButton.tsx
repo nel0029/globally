@@ -12,7 +12,7 @@ const BackButton = () => {
     return (
         <div
             onClick={goBack}
-            className='flex justify-center items-center p-2 rounded-full hover:bg-slate-200 cursor-pointer'>
+            className='flex justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer'>
             <IonIcon name='arrow-back-outline' />
         </div>
     )

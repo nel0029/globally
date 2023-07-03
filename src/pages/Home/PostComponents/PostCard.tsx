@@ -28,7 +28,7 @@ const PostCard: React.FC<PostCardProps> = ({ border, ...post }) => {
             <div className='w-full '>
                 <div className='w-full flex flex-row gap-x-3 '>
                     <div className='avatar'>
-                        <CardAvatar avatarURL={post.postAuthorAvatarURL} userName={post.postAuthorUserName} />
+                        <CardAvatar avatarURL={post.postAuthorAvatarURL.url} userName={post.postAuthorUserName} />
                     </div>
                     <div className='flex-shrink flex-1 max-w-[calc(100%-58px)]'>
                         <PostHeader post={post} authorized={authorized} />

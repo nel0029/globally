@@ -14,6 +14,7 @@ import { AppDispatch } from '../../../redux/store'
 import { updatePost, deletePost, updateReply, updateRepost, deleteReply, deleteRepost } from '../../../redux/asynActions/postAsynActions'
 import { UpdatePostData } from '../../../types/PostActionTypes'
 import TextAreaInput from '../../../common/TextAreaInput'
+import socket from '../../../sockets/socket'
 
 
 
@@ -37,6 +38,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({ updateAction, delete
     const [postCaption, setPostCaption] = useState(card.caption);
     const authorized = (card.postAuthorUserName == user.userName)
     const navigate = useNavigate()
+
 
 
     const openEditModal = () => {
@@ -84,9 +86,20 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({ updateAction, delete
 
         switch (updateAction) {
             case "reply":
+                socket.emit("deleteReply", {
+                    actorID: user.userID,
+                    targetID: card.authorID,
+                    actionID: card._id,
+                })
                 dispatch(deleteReply(payload))
                 break
             case "repost":
+                socket.emit("deleteRepost", {
+                    actorID: user.userID,
+                    targetID: card.authorID,
+                    actionID: card._id,
+
+                })
                 dispatch(deleteRepost(payload))
                 break
             default:
@@ -150,7 +163,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({ updateAction, delete
                 editModal && (
                     <Modal setModal={setEditModal}>
                         <div className='w-full flex flex-row justify-start items-center gap-x-2 py-1'>
-                            <img className='w-[40px] rounded-full' src={card.postAuthorAvatarURL} />
+                            <img className='w-[40px] rounded-full' src={card.postAuthorAvatarURL.url} />
                             <div className='flex-grow flex flex-col justify-center leading-none'>
                                 <p className='text-base font-bold'>
                                     {card.postAuthorFirstName} {card.postAuthorMiddleName} {card.postAuthorLastName}

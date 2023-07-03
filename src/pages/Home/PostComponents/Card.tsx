@@ -12,7 +12,19 @@ import PostInteractions from './PostInteractions'
 import CardMedia from './CardMedia'
 import { useSelector } from 'react-redux'
 import CardInteractionsContainer from './CardInteractionsContainer'
+import PollOptionsCard from './PollOptionsCard'
 
+
+interface OptionProps {
+    _id?: string,
+    body?: string,
+    count?: number
+}
+
+interface MediaProps {
+    id: string,
+    url: string
+}
 export interface CardProps {
     parentPostID?: string,
     parentType?: string,
@@ -21,15 +33,15 @@ export interface CardProps {
     parentAuthorFirstName?: string,
     parentAuthorMiddleName?: string,
     parentAuthorLastName?: string,
-    parentAvatarURL?: string,
+    parentAvatarURL?: MediaProps,
     parentCaption?: string,
-    parentMediaURL?: string[],
+    parentMediaURL?: MediaProps[],
     parentLikesCount?: number,
     parentRepliesCount?: number,
     parentRepostCount?: number,
     type: string,
     _id: string,
-    postAuthorAvatarURL: string,
+    postAuthorAvatarURL: MediaProps,
     postAuthorFirstName: string,
     postAuthorMiddleName: string,
     postAuthorLastName: string,
@@ -37,7 +49,7 @@ export interface CardProps {
     authorID: string,
     createdAt: string,
     caption: string,
-    mediaURL: string[],
+    mediaURL: MediaProps[],
     isLiked: boolean,
     likeID: string | null,
     likesCount: number,
@@ -45,10 +57,19 @@ export interface CardProps {
     repostsCount: number,
     isFollowedAuthor: boolean,
     followID: string | null
+    hasPoll?: boolean,
+    pollOptions?: OptionProps[],
+    hasChoosed?: boolean,
+    optionChoosedID?: string
+    pollRespondentsCount?: number,
+}
+
+interface MainCardProps extends CardProps {
+    isInHomeRoute?: boolean
 }
 
 
-const Card = (card: CardProps) => {
+const Card = (card: MainCardProps) => {
     const user = useSelector((state: any) => state.user.userData)
     const isReply = card.type === "reply"
     const isRepost = card.type === "repost"
@@ -70,7 +91,6 @@ const Card = (card: CardProps) => {
         } else if (card.type === "reply") {
             return "replies"
         } else if (card.type === "repost") {
-            console.log("repost")
             return "reposts"
 
         } else {
@@ -83,7 +103,6 @@ const Card = (card: CardProps) => {
         } else if (card.parentType === "reply") {
             return "replies"
         } else if (card.parentType === "repost") {
-            console.log("repost")
             return "reposts"
 
         } else {
@@ -103,33 +122,35 @@ const Card = (card: CardProps) => {
 
 
     return (
-        <div className='w-full flex flex-col rounded-lg cursor-pointer border dark:border-Dark300 bg-white dark:bg-Dark200 ' >
-            {isReply && <div className='flex-grow flex flex-row items-center text-xs md:text-sm whitespace-nowrap truncate gap-x-1 text-slate-500 p-1'>
-                <span className='flex justify-center items-center text-secondary1'>
-                    <IonIcon name="chatbox-outline" />
-                </span>
-                <NavLink
-                    className='hover:underline cursor-pointer hover:text-secondary font-semibold'
-                    to={`/${card.postAuthorUserName}`}>
-                    {card.postAuthorUserName}
-                </NavLink>
+        <div className='w-full max-w-[700px] flex flex-col rounded-lg cursor-pointer border dark:border-Dark300 bg-white dark:bg-Dark200 ' >
+            {card.isInHomeRoute && (
+                isReply && <div className='flex-grow flex flex-row items-center text-xs md:text-sm whitespace-nowrap truncate gap-x-1 text-slate-500 p-1'>
+                    <span className='flex justify-center items-center text-secondary1'>
+                        <IonIcon name="chatbox-outline" />
+                    </span>
+                    <NavLink
+                        className='hover:underline cursor-pointer hover:text-secondary font-semibold'
+                        to={`/${card.postAuthorUserName}`}>
+                        {card.postAuthorUserName}
+                    </NavLink>
 
-                <span> replied to </span>
-                <NavLink
-                    className=' hover:underline cursor-pointer hover:text-secondary font-semibold'
-                    to={`/${card.parentUserName}/${replyRoute()}/${card.parentPostID}`}>
-                    {card.parentUserName}'s {card.parentType}
-                </NavLink>
-            </div>}
+                    <span> replied to </span>
+                    <NavLink
+                        className=' hover:underline cursor-pointer hover:text-secondary font-semibold'
+                        to={`/${card.parentUserName}/${replyRoute()}/${card.parentPostID}`}>
+                        {card.parentUserName}'s {card.parentType}
+                    </NavLink>
+                </div>
+            )}
 
             <div
                 onClick={handlePostDetail}
                 className='w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer'>
                 <div className='w-full flex flex-row justify-center items-start gap-x-3'>
                     <div className='p-2'>
-                        <CardAvatar userName={card.postAuthorUserName} avatarURL={card.postAuthorAvatarURL} />
+                        <CardAvatar userName={card.postAuthorUserName} avatarURL={card.postAuthorAvatarURL.url} />
                     </div>
-                    <div className='flex-shrink flex-1 max-w-[calc(100%-58px)]'>
+                    <div className='max-w-full flex-shrink flex-grow flex flex-col gap-y-1 pb-2'>
 
                         {setCardHeader(card.type)}
                         <CardCaption caption={card.caption} />
@@ -144,7 +165,13 @@ const Card = (card: CardProps) => {
                             parentMediaURL={card.parentMediaURL}
                             parentType={card.parentType}
                             parentPostID={card.parentPostID} />}
-
+                        {card.hasPoll && (
+                            <PollOptionsCard
+                                postID={card._id}
+                                options={card.pollOptions}
+                                hasChoosed={card.hasChoosed}
+                                pollRespondentsCount={card.pollRespondentsCount}
+                                optionChoosedID={card.optionChoosedID} />)}
                     </div>
                 </div>
                 <CardInteractionsContainer {...card} />

@@ -1,7 +1,18 @@
+
+interface OptionProps {
+    _id: string,
+    body: string
+}
+
+
+interface MediaProps {
+    id: string,
+    url: string
+}
 export interface PostsDataProps {
     type: string,
     _id: string,
-    postAuthorAvatarURL: string,
+    postAuthorAvatarURL: MediaProps,
     postAuthorFirstName: string,
     postAuthorMiddleName: string,
     postAuthorLastName: string,
@@ -9,7 +20,7 @@ export interface PostsDataProps {
     authorID: string
     createdAt: string,
     caption: string,
-    mediaURL: string[],
+    mediaURL: MediaProps[],
     isLiked: boolean,
     likeID: string | null,
     likesCount: number,
@@ -17,6 +28,9 @@ export interface PostsDataProps {
     repostsCount: number,
     isFollowedAuthor: boolean,
     followID: string | null
+    hasPoll?: boolean
+    pollID?: string,
+    pollOptions?: OptionProps[]
 }
 
 
@@ -27,7 +41,7 @@ export interface ReplyDataProps {
     parentUserName: string,
     type: string,
     _id: string,
-    postAuthorAvatarURL: string,
+    postAuthorAvatarURL: MediaProps,
     postAuthorFirstName: string,
     postAuthorMiddleName: string,
     postAuthorLastName: string,
@@ -35,7 +49,7 @@ export interface ReplyDataProps {
     authorID: string,
     createdAt: string,
     caption: string,
-    mediaURL: string[],
+    mediaURL: MediaProps[],
     isLiked: boolean,
     likeID: string | null,
     likesCount: number,
@@ -53,15 +67,15 @@ export interface RepostDataProps {
     parentAuthorFirstName: string,
     parentAuthorMiddleName: string,
     parentAuthorLastName: string,
-    parentAvatarURL: string,
+    parentAvatarURL: MediaProps,
     parentCaption: string,
-    parentMediaURL: string[],
+    parentMediaURL: MediaProps[],
     parentLikesCount: number,
     parentRepliesCount: number,
     parentRepostCount: number,
     type: string,
     _id: string,
-    postAuthorAvatarURL: string,
+    postAuthorAvatarURL: MediaProps,
     postAuthorFirstName: string,
     postAuthorMiddleName: string,
     postAuthorLastName: string,
@@ -69,7 +83,7 @@ export interface RepostDataProps {
     authorID: string,
     createdAt: string,
     caption: string,
-    mediaURL: string[],
+    mediaURL: MediaProps[],
     isLiked: boolean,
     likeID: string | null,
     likesCount: number,

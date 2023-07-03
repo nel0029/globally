@@ -24,7 +24,7 @@ const RepostCard = (repost: RepostDataProps) => {
             onClick={goToRepostDetails}
             className='w-full flex flex-col justify-center items-center rounded-lg border p-2 cursor-pointer bg-white dark:bg-Dark200'>
             <div className='w-full flex flex-row justify-center items-start gap-x-3 '>
-                <CardAvatar userName={repost.postAuthorUserName} avatarURL={repost.postAuthorAvatarURL} />
+                <CardAvatar userName={repost.postAuthorUserName} avatarURL={repost.postAuthorAvatarURL.url} />
                 <div className='flex-shrink flex-1 max-w-[calc(100%-58px)]'>
 
                     <RepostHeader repost={repost} authorized={authorized} />

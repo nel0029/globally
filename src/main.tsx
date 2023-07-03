@@ -8,13 +8,13 @@ import store from './redux/store'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <div className=''>
-          <App />
-        </div>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+
+  <BrowserRouter>
+    <Provider store={store}>
+      <div className='flex justify-center'>
+        <App />
+      </div>
+    </Provider>
+  </BrowserRouter>
+
 )

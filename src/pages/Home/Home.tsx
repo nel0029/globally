@@ -11,11 +11,15 @@ import IonIcon from '@reacticons/ionicons';
 export default function Home() {
 
     const posts = useSelector((state: any) => state.posts.PostData || [])
-    const userID = useSelector((state: any) => state.user.userData.userID)
+
     const dispatch = useDispatch<AppDispatch>()
+    const user = useSelector((state: any) => state.user.userData)
+    const userID = localStorage.getItem("userID")
 
     useEffect(() => {
-        dispatch(getPosts(userID))
+        if (userID) {
+            dispatch(getPosts(userID))
+        }
     }, [])
 
 
@@ -27,12 +31,12 @@ export default function Home() {
                 </div>
             </Header>
 
-            <div className='w-full flex flex-col justify-center items-center gap-y-2 px-2'>
+            <div className='w-full flex flex-col justify-center items-center gap-y-4 px-2'>
                 <CreateNewPost />
-                <div className='flex w-full flex-col-reverse justify-center items-center gap-y-2'>
+                <div className='flex w-full flex-col-reverse justify-center items-center gap-y-4'>
 
                     {posts.map((post: any) => {
-                        return <Card key={post._id} {...post} />
+                        return <Card isInHomeRoute={true} key={post._id} {...post} />
                     })}
 
                 </div>

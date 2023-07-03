@@ -16,9 +16,7 @@ const RepostInteractions = (repost: RepostDataProps) => {
     const [replyModal, setReplyModal] = useState(false)
     const [repostModal, setRepostModal] = useState(false)
     const [replyCaption, setReplyCaption] = useState("")
-    const [mediaInput, setMediaInput] = useState(false)
-    const [replyMediaUrls, setReplyMediaUrls] = useState<string[]>([])
-    const [replyMediaUrlsBody, setReplyMediaUrlsBody] = useState("")
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [repostCaption, setRepostCaption] = useState("")
 
     //functions
@@ -48,14 +46,6 @@ const RepostInteractions = (repost: RepostDataProps) => {
         setRepostModal(!repostModal)
     }
 
-    const addMediaUrls = () => {
-        setReplyMediaUrls((prev: any) => [...prev, replyMediaUrlsBody])
-        setReplyMediaUrlsBody("")
-    }
-
-    const openMediaInput = () => {
-        setMediaInput(!mediaInput)
-    }
 
     const createNewReply = () => {
         const newReply: NewReply = {
@@ -63,7 +53,7 @@ const RepostInteractions = (repost: RepostDataProps) => {
             parentType: repost.type,
             authorID: user.userID,
             caption: replyCaption,
-            mediaURL: replyMediaUrls
+            file: selectedFiles
         }
         dispatch(createReply(newReply))
         openReplyModal()
@@ -79,6 +69,21 @@ const RepostInteractions = (repost: RepostDataProps) => {
 
         dispatch(createRepost(newRepost))
     }
+
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+            const filesArray = Array.from(files);
+            setSelectedFiles(filesArray);
+        }
+    };
+
+    const removeSelectedFile = (index: number) => {
+        const updatedFiles = [...selectedFiles];
+        updatedFiles.splice(index, 1);
+        setSelectedFiles(updatedFiles);
+    };
     return (
         <div className='w-full flex flex-col '
             onClick={(event: any) => event.stopPropagation()} >
@@ -102,11 +107,10 @@ const RepostInteractions = (repost: RepostDataProps) => {
                     userName={user.userName}
                     replyCaption={replyCaption}
                     setReplyCaption={setReplyCaption}
-                    mediaInput={mediaInput}
-                    replyMediaUrlsBody={replyMediaUrlsBody}
-                    setReplyMediaUrlsBody={setReplyMediaUrlsBody}
-                    addMediaUrls={addMediaUrls}
-                    openMediaInput={openMediaInput}
+                    selectedFiles={selectedFiles}
+                    handleFileChange={handleFileChange}
+                    removeSelectedFile={removeSelectedFile}
+                    fileInputID={repost._id}
                     confirmButtonFunctions={[createNewReply, openReplyModal]}
                     cancelButtonFunctions={[openReplyModal]} />
             }

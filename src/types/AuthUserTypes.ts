@@ -1,4 +1,4 @@
-interface RegisterUserData {
+export interface RegisterUserData {
     email: string,
     userName: string,
     password: string,
@@ -7,7 +7,8 @@ interface RegisterUserData {
     userLastName: string
 }
 
-interface LogInUserData {
+export interface LogInUserData {
     logInID: string,
     password: string
 }
+

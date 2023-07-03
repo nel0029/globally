@@ -61,16 +61,7 @@ const FollowBlockContainer: React.FC<FollowBlockContainerProps> = ({ isFollowedU
                         </span>
                     </div>
                 </ConfirmButton>)}
-            <CancelButton
-                className='p-2 md:pl-4 md:pr-6 md:py-1 rounded-full'
-                onClick={[() => console.log('sucess')]} >
-                <div className='text-sm sm:text-base flex flex-row items-center gap-x-2'>
-                    <IonIcon name='ban-outline' />
-                    <span className='hidden md:flex'>
-                        Block
-                    </span>
-                </div>
-            </CancelButton>
+
         </div>
     )
 }

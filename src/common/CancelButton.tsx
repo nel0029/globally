@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 
 interface CancelButtonProps {
-  onClick: (() => void)[],
+  onClick: ((val?: any) => void)[],
   children: ReactNode,
   className?: string
 }

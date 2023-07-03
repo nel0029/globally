@@ -16,6 +16,7 @@ import { deleteRepost, getUserDetails, updateRepost } from '../../../redux/asynA
 import CardHeader from './CardHeader';
 import { CardProps } from './Card';
 import TextAreaInput from '../../../common/TextAreaInput';
+import socket from '../../../sockets/socket';
 
 export interface HeaderProps {
     repost: CardProps
@@ -31,6 +32,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
     const [deleteModal, setDeleteModal] = useState(false)
     const [initialRepostCaption, setInitialRepostCaption] = useState(repost.caption);
     const [repostCaption, setRepostCaption] = useState(repost.caption);
+
 
     const dateAndTime = new Date(repost.createdAt)
     const formattedDateAndTime = `${dateAndTime.toLocaleTimeString('en-us', {
@@ -87,11 +89,18 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
             authorID: user.userID,
             postID: repost._id
         }
+
+        socket.emit("deleteRepost", {
+            actorID: user.userID,
+            targetID: repost.authorID,
+            actionID: repost._id,
+
+        })
         dispatch(deleteRepost(deleteRepostData))
         openDeleteModal()
     }
     return (
-        <div className='z-10 w-full flex flex-row flex-shrink'>
+        <div className='w-full flex flex-row flex-shrink'>
             <CardHeader
                 firstName={repost.postAuthorFirstName}
                 middleName={repost.postAuthorMiddleName}
@@ -138,7 +147,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
                                 className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
                                 <IonIcon name='trash-outline' />
                                 <p className='whitespace-nowrap'>
-                                    Delete Post
+                                    Delete Repost
                                 </p>
                             </button>
                         </MenuItem>
@@ -149,7 +158,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
             {editModal && (
                 <Modal setModal={setEditModal}>
                     <div className='w-full flex flex-row justify-start items-center gap-x-2 py-1'>
-                        <img className='w-[40px] rounded-full' src={repost.postAuthorAvatarURL} />
+                        <img className='w-[40px] rounded-full' src={repost.postAuthorAvatarURL.url} />
                         <div className='flex-grow flex flex-col justify-center leading-none'>
                             <p className='text-base font-bold'>
                                 {repost.postAuthorFirstName} {repost.postAuthorMiddleName} {repost.postAuthorLastName}

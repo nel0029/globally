@@ -73,10 +73,11 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
             postID: post._id,
         }
         dispatch(deletePost(deletePostData))
+
         openDeleteModal()
     }
     return (
-        <div className='z-10 w-full flex flex-row flex-shrink'>
+        <div className=' w-full flex flex-row flex-shrink'>
             <CardHeader
                 firstName={post.postAuthorFirstName}
                 middleName={post.postAuthorMiddleName}
@@ -123,7 +124,7 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
             {editModal && (
                 <Modal setModal={setEditModal}>
                     <div className='w-full flex flex-row justify-start items-center gap-x-2 py-1'>
-                        <img className='w-[40px] rounded-full' src={post.postAuthorAvatarURL} />
+                        <img className='w-[40px] rounded-full' src={post.postAuthorAvatarURL.url} />
                         <div className='flex-grow flex flex-col justify-center leading-none'>
                             <p className='text-base font-bold'>
                                 {post.postAuthorFirstName} {post.postAuthorMiddleName} {post.postAuthorLastName}
