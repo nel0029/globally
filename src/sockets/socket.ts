@@ -1,4 +1,7 @@
 import { io } from "socket.io-client";
+import dotenv from "dotenv"
+
+
 
 const userID = localStorage.getItem("userID");
 

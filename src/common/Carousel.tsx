@@ -12,7 +12,7 @@ const Carousel = ({ children: slides }: any,) => {
 
     const [display, setDisplay] = useState('hidden ')
 
-    const timeoutRef = useRef<number | null>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const handleMouseEnter = (event: any) => {
 
