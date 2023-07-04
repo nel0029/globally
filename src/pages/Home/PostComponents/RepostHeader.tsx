@@ -7,6 +7,7 @@ import MenuItem from '../../../common/MenuItem';
 import MenuButton from '../../../common/MenuButton';
 import Modal from '../../../common/Modal';
 import { IonIcon } from '@ionic/react'
+import { personAddOutline, personRemoveOutline, pencilOutline, trashOutline } from 'ionicons/icons'
 import ConfirmButton from '../../../common/ConfirmButton';
 import CancelButton from '../../../common/CancelButton';
 import DeleteButton from '../../../common/DeleteButton';
@@ -114,7 +115,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
                         <MenuItem>
                             {repost.isFollowedAuthor ? (
                                 <MenuButton>
-                                    <IonIcon name='person-remove-outline' />
+                                    <IonIcon icon={personRemoveOutline} />
                                     <p className='whitespace-nowrap'>
                                         Unfollow <span className='font-bold'>@{repost.postAuthorUserName}</span>
                                     </p>
@@ -122,7 +123,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
                                 </MenuButton>
                             ) : (
                                 <MenuButton >
-                                    <IonIcon name='person-add-outline' />
+                                    <IonIcon icon={personAddOutline} />
                                     <p className='whitespace-nowrap'>
                                         Follow <span className='font-bold'>@{repost.postAuthorUserName}</span>
                                     </p>
@@ -133,7 +134,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
                     {authorized && (
                         <MenuItem>
                             <MenuButton onClick={[openEditModal]}>
-                                <IonIcon name='pencil-outline' />
+                                <IonIcon icon={pencilOutline} />
                                 <p className='whitespace-nowrap'>
                                     Edit Post Caption
                                 </p>
@@ -145,7 +146,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
                             <button
                                 onClick={openDeleteModal}
                                 className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
-                                <IonIcon name='trash-outline' />
+                                <IonIcon icon={trashOutline} />
                                 <p className='whitespace-nowrap'>
                                     Delete Repost
                                 </p>

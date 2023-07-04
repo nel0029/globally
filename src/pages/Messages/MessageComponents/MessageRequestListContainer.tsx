@@ -9,6 +9,7 @@ import TitleText from '../../../common/TitleText'
 import { ConversationRequestsProps } from '../../../redux/messageSlice'
 import CardAvatar from '../../Home/PostComponents/CardAvatar'
 import { IonIcon } from '@ionic/react'
+import { arrowBackOutline } from 'ionicons/icons'
 import CardHeader from '../../Home/PostComponents/CardHeader'
 import ConversationRequestCard from './ConversationRequestCard'
 
@@ -45,7 +46,7 @@ const MessageRequestListContainer = () => {
                     onClick={goToMessages}
                     className="flex justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer"
                 >
-                    <IonIcon name="arrow-back-outline" />
+                    <IonIcon icon={arrowBackOutline} />
                 </div>
                 <TitleText >
                     Message Requests

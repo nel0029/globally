@@ -5,6 +5,7 @@ import socket from '../../../sockets/socket'
 import Header from '../../../common/Header'
 import TitleText from '../../../common/TitleText'
 import { IonIcon } from '@ionic/react'
+import { arrowBackOutline, paperPlane } from 'ionicons/icons'
 import MessageBubble from './MessageBubble'
 import CardAvatar from '../../Home/PostComponents/CardAvatar'
 import { getConversationInfo, getAllMessages } from '../../../redux/asynActions/messageAsyncActions'
@@ -79,7 +80,7 @@ const ConversationRequestContainer = () => {
                                 <div
                                     onClick={goBack}
                                     className="flex lg:hidden justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer">
-                                    <IonIcon name="arrow-back-outline" />
+                                    <IonIcon icon={arrowBackOutline} />
                                 </div>
                                 <div className='flex flex-row gap-x-2'>
                                     <CardAvatar
@@ -121,7 +122,7 @@ const ConversationRequestContainer = () => {
                             />
                         </div>
                         <button className="p-2 flex flex-row items-center gap-x-2" onClick={handleSendMessage}>
-                            <IonIcon name="paper-plane" />
+                            <IonIcon icon={paperPlane} />
                         </button>
                     </div>
                 </div>

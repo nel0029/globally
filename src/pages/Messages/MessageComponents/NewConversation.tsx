@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { IonIcon } from '@ionic/react'
+import { arrowBackOutline, paperPlane } from 'ionicons/icons'
 import Header from '../../../common/Header';
 import TitleText from '../../../common/TitleText';
 import MessageBubble from './MessageBubble';
@@ -97,7 +98,7 @@ const NewConversation = () => {
                     onClick={goToMessages}
                     className="flex lg:hidden justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer"
                 >
-                    <IonIcon name="arrow-back-outline" />
+                    <IonIcon icon={arrowBackOutline} />
                 </div>
                 <div className="py-1 flex-[1] flex flex-row items-center gap-x-2">
                     {responseReceiverInfoMemoized ? (
@@ -166,7 +167,7 @@ const NewConversation = () => {
                     />
                 </div>
                 <button className="p-2 flex flex-row items-center gap-x-2" onClick={handleSendMessage}>
-                    <IonIcon name="paper-plane" />
+                    <IonIcon icon={paperPlane} />
                 </button>
             </div>
         </div>

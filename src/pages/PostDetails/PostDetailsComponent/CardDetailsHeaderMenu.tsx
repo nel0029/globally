@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { IonIcon } from '@ionic/react'
+import { personAddOutline, personRemoveOutline, trashOutline, pencilOutline } from 'ionicons/icons'
 import MenuContainer from '../../../common/MenuContainer'
 import MenuItem from '../../../common/MenuItem'
 import MenuButton from '../../../common/MenuButton'
@@ -118,7 +119,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({ updateAction, delete
                         <MenuItem>
                             {card.isFollowedAuthor ? (
                                 <MenuButton>
-                                    <IonIcon name='person-remove-outline' />
+                                    <IonIcon icon={personRemoveOutline} />
                                     <p className='whitespace-nowrap'>
                                         Unfollow <span className='font-bold'>@{card.postAuthorUserName}</span>
                                     </p>
@@ -126,7 +127,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({ updateAction, delete
                                 </MenuButton>
                             ) : (
                                 <MenuButton >
-                                    <IonIcon name='person-add-outline' />
+                                    <IonIcon icon={personAddOutline} />
                                     <p className='whitespace-nowrap'>
                                         Follow <span className='font-bold'>@{card.postAuthorUserName}</span>
                                     </p>
@@ -137,7 +138,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({ updateAction, delete
                     {authorized && (
                         <MenuItem>
                             <MenuButton onClick={[openEditModal]}>
-                                <IonIcon name='pencil-outline' />
+                                <IonIcon icon={pencilOutline} />
                                 <p className='whitespace-nowrap'>
                                     Edit Post Caption
                                 </p>
@@ -149,7 +150,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({ updateAction, delete
                             <button
                                 onClick={openDeleteModal}
                                 className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
-                                <IonIcon name='trash-outline' />
+                                <IonIcon icon={trashOutline} />
                                 <p className='whitespace-nowrap'>
                                     Delete Post
                                 </p>

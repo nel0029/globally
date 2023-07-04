@@ -1,4 +1,5 @@
 import { IonIcon } from '@ionic/react'
+import { cogOutline } from 'ionicons/icons'
 import React, { useEffect, useState, useRef, useMemo } from 'react'
 import { Outlet, useParams } from 'react-router'
 import Header from '../../common/Header'
@@ -126,7 +127,7 @@ export default function Profile() {
                             className='p-2 md:pl-4 md:pr-6 rounded-full'
                             onClick={[() => navigate('/account/setting')]} >
                             <div className='text-sm sm:text-base flex flex-row items-center gap-x-2'>
-                                <IonIcon name='cog-outline' />
+                                <IonIcon icon={cogOutline} />
                                 <span className='hidden md:flex'>
                                     Edit Profile
                                 </span>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../redux/store'
 import { createNewPollResponse } from '../../../redux/asynActions/postAsynActions'
 import { IonIcon } from '@ionic/react'
+import { checkmarkCircle, checkmarkCircleOutline } from 'ionicons/icons'
 
 interface OptionProps {
     _id?: string,
@@ -57,7 +58,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({ options, postID, hasCh
                         className='peer sr-only'
                     />
                     <div className={`${option._id === optionChoosedID ? 'text-secondary1' : ''} z-10 flex items-center justify-center`}>
-                        <IonIcon name={`${option._id === optionChoosedID ? 'checkmark-circle' : 'checkmark-circle-outline'}`} />
+                        <IonIcon name={`${option._id === optionChoosedID ? checkmarkCircle : checkmarkCircleOutline}`} />
                     </div>
                     <div
                         onClick={(event: any) => event.stopPropagation()}

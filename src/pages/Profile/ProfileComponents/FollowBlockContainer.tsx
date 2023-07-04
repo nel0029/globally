@@ -1,5 +1,6 @@
 import React from 'react'
 import { IonIcon } from '@ionic/react'
+import { personAddOutline, personRemoveOutline } from 'ionicons/icons'
 import CancelButton from '../../../common/CancelButton'
 import ConfirmButton from '../../../common/ConfirmButton'
 import { useDispatch, useSelector } from 'react-redux'
@@ -45,7 +46,7 @@ const FollowBlockContainer: React.FC<FollowBlockContainerProps> = ({ isFollowedU
                     className='p-2 md:pl-4 md:pr-6 md:py-1 rounded-full'
                     onClick={[unfollowUser]} >
                     <div className='text-sm sm:text-base flex flex-row items-center gap-x-2'>
-                        <IonIcon name='person-remove-outline' />
+                        <IonIcon icon={personRemoveOutline} />
                         <span className='hidden md:flex'>
                             Unfollow
                         </span>
@@ -55,7 +56,7 @@ const FollowBlockContainer: React.FC<FollowBlockContainerProps> = ({ isFollowedU
                     className='p-2 md:pl-4 md:pr-6 md:py-1 rounded-full'
                     onClick={[followUser]} >
                     <div className='text-sm sm:text-base flex flex-row items-center gap-x-2'>
-                        <IonIcon name='person-add-outline' />
+                        <IonIcon icon={personAddOutline} />
                         <span className='hidden md:flex'>
                             Follow
                         </span>

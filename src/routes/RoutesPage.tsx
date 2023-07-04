@@ -24,7 +24,6 @@ export default function RoutePage() {
 
     return (
         <Routes>
-
             <Route element={<PrivateRoutes />}>
                 <Route path='/' element={<Home />} />
                 <Route path='/:userName' element={<UsersList />}>
@@ -46,7 +45,6 @@ export default function RoutePage() {
                 <Route path='/:userName/replies/:postID' element={<ReplyDetailsContainer />} />
                 <Route path='/:userName/reposts/:postID' element={<RepostDetailsContainer />} />
             </Route>
-
         </Routes>
     );
 }

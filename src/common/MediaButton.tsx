@@ -1,5 +1,6 @@
 import React from 'react'
 import { IonIcon } from '@ionic/react'
+import { imageOutline } from 'ionicons/icons'
 
 interface MediaButtonProps {
     onClick?: () => void
@@ -11,7 +12,7 @@ const MediaButton: React.FC<MediaButtonProps> = ({ onClick, hasDisabled }) => {
         <div
             onClick={onClick}
             className={`flex justify-center items-center text-3xl text-secondary hover:text-opacity-60 ${hasDisabled ? 'text-opacity-60 cursor-not-allowed' : 'text-opacity-100 cursor-pointer'}`}>
-            <IonIcon name="image-outline" />
+            <IonIcon icon={imageOutline} />
         </div>
     )
 }

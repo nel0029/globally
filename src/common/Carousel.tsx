@@ -1,4 +1,5 @@
 import { IonIcon } from '@ionic/react'
+import { chevronBackOutline, chevronForwardOutline } from 'ionicons/icons'
 import React, { useState, useReducer, useRef, TouchEventHandler } from 'react'
 import { useNavigate, NavLink } from "react-router-dom"
 
@@ -101,13 +102,13 @@ const Carousel = ({ children: slides }: any,) => {
                         onClick={prev}
                         disabled={slide === 0}
                         className={`${slide === 0 ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} z-10 flex items-center justify-center text-lg p-1 rounded-full shadow `}>
-                        <IonIcon name='chevron-back-outline'></IonIcon>
+                        <IonIcon icon={chevronBackOutline}></IonIcon>
                     </button>
                     <button
                         onClick={next}
                         disabled={slide === slides?.length - 1}
                         className={`${slide + 1 === slides?.length ? 'bg-opacity-0 text-transparent cursor-default' : 'bg-white bg-opacity-80 text-gray-800 cursor-pointer'} z-10 flex items-center justify-center text-lg p-1 rounded-full shadow`}>
-                        <IonIcon name='chevron-forward-outline'></IonIcon>
+                        <IonIcon icon={chevronForwardOutline}></IonIcon>
                     </button>
                 </div>
                 <div

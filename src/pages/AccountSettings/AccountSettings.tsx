@@ -3,6 +3,7 @@ import Header from '../../common/Header';
 import TitleText from '../../common/TitleText';
 import CardAvatar from '../Home/PostComponents/CardAvatar';
 import { IonIcon } from '@ionic/react'
+import { brush, eyeOutline, eyeOffOutline } from 'ionicons/icons'
 import CoverPhoto from '../Profile/ProfileComponents/CoverPhoto';
 import ConfirmButton from '../../common/ConfirmButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -131,7 +132,7 @@ const AccountSettings = () => {
                             className="flex flex-row items-center gap-x-1 text-lg hover:underline hover:text-secondary cursor-pointer"
                         >
                             <div className="flex justify-center items-center">
-                                <IonIcon name="brush" />
+                                <IonIcon icon={brush} />
                             </div>
                             <div>Edit</div>
                         </label>
@@ -173,7 +174,7 @@ const AccountSettings = () => {
                         <div className="font-bold text-lg">Cover Photo</div>
                         <div className="flex flex-row items-center gap-x-1 text-lg hover:underline hover:text-secondary cursor-pointer">
                             <div className="flex justify-center items-center">
-                                <IonIcon name="brush" />
+                                <IonIcon icon={brush} />
                             </div>
                             <div>Edit</div>
                         </div>
@@ -278,7 +279,7 @@ const AccountSettings = () => {
                                 className="flex-grow  bg-transparent outline-none "
                             />
                             <button onClick={handleShowCurrentPassword}>
-                                <IonIcon name={`${showCurrentPassword ? 'eye-outline' : 'eye-off-outline'}`} />
+                                <IonIcon name={`${showCurrentPassword ? eyeOutline : eyeOffOutline}`} />
                             </button>
                         </div>
 
@@ -293,7 +294,7 @@ const AccountSettings = () => {
                                         className="flex-grow  bg-transparent outline-none "
                                     />
                                     <button onClick={handleShowNewPassword}>
-                                        <IonIcon name={`${showNewPassword ? 'eye-outline' : 'eye-off-outline'}`} />
+                                        <IonIcon name={`${showNewPassword ? eyeOutline : eyeOffOutline}`} />
                                     </button>
                                 </div>
                                 <div className='w-full flex flex-row items-center border dark:border-Dark300 rounded-lg p-2'>
@@ -305,7 +306,7 @@ const AccountSettings = () => {
                                         className="flex-grow  bg-transparent outline-none "
                                     />
                                     <button onClick={handleShowConfirmNewPassword}>
-                                        <IonIcon name={`${showConfirmNewPassword ? 'eye-outline' : 'eye-off-outline'}`} />
+                                        <IonIcon icon={`${showConfirmNewPassword ? { eyeOutline } : eyeOffOutline}`} />
                                     </button>
                                 </div>
                             </div>

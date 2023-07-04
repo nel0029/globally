@@ -6,6 +6,7 @@ import MenuContainer from '../../../common/MenuContainer';
 import MenuItem from '../../../common/MenuItem';
 import Modal from '../../../common/Modal';
 import { IonIcon } from '@ionic/react'
+import { personAddOutline, personRemoveOutline, pencilOutline, trashOutline } from 'ionicons/icons'
 import ConfirmButton from '../../../common/ConfirmButton';
 import CancelButton from '../../../common/CancelButton';
 import { AppDispatch } from '../../../redux/store';
@@ -89,7 +90,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
                         <MenuItem>
                             {reply.isFollowedAuthor ? (
                                 <MenuButton>
-                                    <IonIcon name='person-remove-outline' />
+                                    <IonIcon icon={personRemoveOutline} />
                                     <p className='whitespace-nowrap'>
                                         Unfollow <span className='font-bold'>@{reply.postAuthorUserName}</span>
                                     </p>
@@ -97,7 +98,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
                                 </MenuButton>
                             ) : (
                                 <MenuButton >
-                                    <IonIcon name='person-add-outline' />
+                                    <IonIcon icon={personAddOutline} />
                                     <p className='whitespace-nowrap'>
                                         Follow <span className='font-bold'>@{reply.postAuthorUserName}</span>
                                     </p>
@@ -108,7 +109,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
                     {authorized && (
                         <MenuItem>
                             <MenuButton onClick={[openEditModal]}>
-                                <IonIcon name='pencil-outline' />
+                                <IonIcon icon={pencilOutline} />
                                 <p className='whitespace-nowrap'>
                                     Edit Post Caption
                                 </p>
@@ -120,7 +121,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
                             <button
                                 onClick={openDeleteModal}
                                 className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
-                                <IonIcon name='trash-outline' />
+                                <IonIcon icon={trashOutline} />
                                 <p className='whitespace-nowrap'>
                                     Delete Reply
                                 </p>

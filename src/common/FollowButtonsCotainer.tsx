@@ -6,6 +6,7 @@ import { FollowData, UnfollowData } from '../types/PostActionTypes'
 import MenuButton from './MenuButton'
 import MenuItem from './MenuItem'
 import { IonIcon } from '@ionic/react'
+import { personAddOutline, personRemoveOutline } from 'ionicons/icons'
 
 
 interface FollowButtonsCotainerProps {
@@ -58,7 +59,7 @@ const FollowButtonsCotainer: React.FC<FollowButtonsCotainerProps> = ({ authorID,
             {authorID !== user.userID ? (
                 <MenuItem>
                     <MenuButton onClick={[handleOnClick()]}>
-                        <IonIcon name={`${isFollowedAuthor === true ? "person-remove-outline" : "person-add-outline"}`} />
+                        <IonIcon icon={`${isFollowedAuthor === true ? personRemoveOutline : personRemoveOutline}`} />
                         <p className='whitespace-nowrap'>
                             {isFollowedAuthor === true ? "Unfollow" : "Follow"} <span className='font-bold'>@{postAuthorUserName}</span>
                         </p>

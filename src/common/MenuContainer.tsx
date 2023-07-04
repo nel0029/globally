@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { IonIcon } from '@ionic/react'
+import { closeOutline, ellipsisHorizontal } from 'ionicons/icons'
 
 
 
@@ -38,7 +39,7 @@ const MenuContainer = ({ children }: any) => {
             onClick={openMenu}>
 
             <div className='flex justify-center items-center rounded-full text-lg p-2 hover:bg-slate-200 dark:hover:bg-Dark300'>
-                <IonIcon name={menu ? 'close-outline' : 'ellipsis-horizontal'} />
+                <IonIcon name={menu ? closeOutline : ellipsisHorizontal} />
             </div>
             <div
                 onClick={openMenu}

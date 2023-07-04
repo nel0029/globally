@@ -1,5 +1,6 @@
 import React, { useContext, useState, useRef, useEffect, useMemo } from 'react'
 import { IonIcon } from '@ionic/react'
+import { pencilOutline, trashOutline } from 'ionicons/icons'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { PostsDataProps } from '../../../types/PostTypes';
 import MenuContainer from '../../../common/MenuContainer';
@@ -99,7 +100,7 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
                     {authorized && (
                         <MenuItem>
                             <MenuButton onClick={[openEditModal]}>
-                                <IonIcon name='pencil-outline' />
+                                <IonIcon icon={pencilOutline} />
                                 <p className='whitespace-nowrap'>
                                     Edit Post Caption
                                 </p>
@@ -111,7 +112,7 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
                             <button
                                 onClick={openDeleteModal}
                                 className='w-full px-2 py-1 flex flex-row items-center gap-x-2 text-base'>
-                                <IonIcon name='trash-outline' />
+                                <IonIcon icon={trashOutline} />
                                 <p className='whitespace-nowrap'>
                                     Delete Post
                                 </p>

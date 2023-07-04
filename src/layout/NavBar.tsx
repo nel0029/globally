@@ -3,6 +3,15 @@ import ConfirmButton from '../common/ConfirmButton'
 import { useNavigate, useLocation } from 'react-router'
 import MenuItem from '../common/MenuItem'
 import { IonIcon } from '@ionic/react'
+import {
+    homeOutline,
+    personOutline,
+    mailOutline,
+    notificationsOutline,
+    moonOutline,
+    powerOutline,
+    enterOutline
+} from "ionicons/icons"
 import Header from '../common/Header'
 import TitleText from '../common/TitleText'
 import NavItems from '../common/NavItems'
@@ -104,7 +113,7 @@ const NavBar = () => {
                     <div
                         onClick={goToHome}
                         className={`${activeTab === '/' ? ' text-secondary ' : ''} flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
-                        <IonIcon name="home-outline" />
+                        <IonIcon icon={homeOutline} />
                         <div className='hidden lg:flex items-center'>
                             Home
                         </div>
@@ -113,7 +122,7 @@ const NavBar = () => {
                     <div
                         onClick={goToUserProfile}
                         className={` ${activeTab === `/${user.userName}` ? ' text-secondary' : ''} flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
-                        <IonIcon name="person-outline" />
+                        <IonIcon icon={personOutline} />
                         <div className='hidden lg:flex items-center'>
                             Profile
                         </div>
@@ -123,7 +132,7 @@ const NavBar = () => {
                         onClick={goToMessages}
                         className={`${activeTab === '/messages' ? ' text-secondary ' : ''}  flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
                         <div className='flex justify-center items-center relative'>
-                            <IonIcon name="mail-outline" />
+                            <IonIcon icon={mailOutline} />
                             {messageNotif?.unseenMessagesCount > 0 ? (
                                 <div className='w-2 h-2 bg-primary rounded-full absolute top-0 right-0' />
                             ) : null}
@@ -139,7 +148,7 @@ const NavBar = () => {
                         onClick={goToNotifications}
                         className={`${activeTab === '/notifications' ? ' text-secondary ' : ''} flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
                         <div className='flex justify-center items-center relative'>
-                            <IonIcon name="notifications-outline" />
+                            <IonIcon icon={notificationsOutline} />
                             {notificationCount && notificationCount.unseenNotificationsCount > 0 ? (
                                 <div className='w-2 h-2 bg-primary rounded-full absolute top-0 right-0' />
                             ) : null}
@@ -169,7 +178,7 @@ const NavBar = () => {
                     <div
                         onClick={setThemeMode}
                         className={`${darkMode ? ' text-secondary ' : ''} flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
-                        <IonIcon name="moon-outline" />
+                        <IonIcon icon={moonOutline} />
                         <div className='hidden lg:flex items-center'>
                             Dark Mode
                         </div>
@@ -179,13 +188,13 @@ const NavBar = () => {
                         <div
                             onClick={handleLogOut}
                             className={` flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
-                            <IonIcon name="power-outline" />
+                            <IonIcon icon={powerOutline} />
                             <div className='hidden lg:flex items-center'>
                                 Log Out
                             </div>
                         </div>) : (
                         <div className={`${activeTab === '/login' ? ' text-secondary ' : ''} flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
-                            <IonIcon name="enter-outline" />
+                            <IonIcon icon={enterOutline} />
                             <div className='hidden lg:flex items-center'>
                                 Log In
                             </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { IonIcon } from '@ionic/react'
+import { chatboxOutline } from 'ionicons/icons'
 import { useNavigate } from 'react-router-dom'
 import CardAvatar from './CardAvatar'
 import RepostParentCard from './RepostParentCard'
@@ -126,7 +127,7 @@ const Card = (card: MainCardProps) => {
             {card.isInHomeRoute && (
                 isReply && <div className='flex-grow flex flex-row items-center text-xs md:text-sm whitespace-nowrap truncate gap-x-1 text-slate-500 p-1'>
                     <span className='flex justify-center items-center text-secondary1'>
-                        <IonIcon name="chatbox-outline" />
+                        <IonIcon icon={chatboxOutline} />
                     </span>
                     <NavLink
                         className='hover:underline cursor-pointer hover:text-secondary font-semibold'

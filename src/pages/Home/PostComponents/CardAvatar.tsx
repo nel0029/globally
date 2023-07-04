@@ -1,4 +1,5 @@
 import { IonIcon } from '@ionic/react'
+import { person } from 'ionicons/icons'
 import React from 'react'
 import { useNavigate } from 'react-router'
 

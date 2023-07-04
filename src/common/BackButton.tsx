@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { IonIcon } from '@ionic/react'
-
+import { arrowBackOutline } from 'ionicons/icons'
 
 const BackButton = () => {
     const navigate = useNavigate()
@@ -13,7 +13,7 @@ const BackButton = () => {
         <div
             onClick={goBack}
             className='flex justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer'>
-            <IonIcon name='arrow-back-outline' />
+            <IonIcon icon={arrowBackOutline} />
         </div>
     )
 }

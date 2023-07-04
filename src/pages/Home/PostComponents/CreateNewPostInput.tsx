@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { IonIcon } from '@ionic/react'
+import { close, trashOutline, addOutline, listOutline } from 'ionicons/icons'
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../../redux/asynActions/postAsynActions';
 import { AppDispatch } from '../../../redux/store';
@@ -108,7 +109,7 @@ export default function CreateNewPostInput() {
                                     onClick={() => removeSelectedFile(index)}>
 
                                     <IonIcon
-                                        name="close"
+                                        icon={close}
 
                                     />
                                 </button>
@@ -130,7 +131,7 @@ export default function CreateNewPostInput() {
                                 <div
                                     onClick={() => removeOption(index)}
                                     className='p-1 text-primary hover:text-opacity-60 cursor-pointer flex justify-center items-center'>
-                                    <IonIcon name='trash-outline' />
+                                    <IonIcon icon={trashOutline} />
                                 </div>
                             </div>
                         ))}
@@ -152,7 +153,7 @@ export default function CreateNewPostInput() {
                                 disabled={isMaxOption}
                                 className='flex justify-center items-center text-3xl text-secondary cursor-pointer hover:text-opacity-60 p-1 border dark:border-Dark400 rounded-lg'
                             >
-                                <IonIcon name='add-outline' />
+                                <IonIcon icon={addOutline} />
                             </button>
                         </div>
                     </div>
@@ -184,7 +185,7 @@ export default function CreateNewPostInput() {
                             onClick={openPoll}
                             disabled={selectedFiles.length > 0 ? true : false}
                             className={`flex justify-center items-center text-3xl text-secondary ${selectedFiles.length > 0 ? 'cursor-default text-opacity-60' : 'cursor-pointer hover:text-opacity-60'}`}>
-                            <IonIcon name="list-outline" />
+                            <IonIcon icon={listOutline} />
                         </button>
                     </div>
                     <div className="flex flex-row items-center gap-x-2">

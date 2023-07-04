@@ -1,5 +1,6 @@
 import React from 'react'
 import { IonIcon } from '@ionic/react'
+import { heart, heartOutline, chatboxOutline, arrowRedoOutline } from 'ionicons/icons'
 
 interface CardInteractionsProps {
     isLiked: boolean,
@@ -28,7 +29,7 @@ const CardInteractions: React.FC<CardInteractionsProps> = ({
             <div
                 onClick={isLiked ? unlikeButton : likeButton}
                 className={`post_interactions ${isLiked ? 'text-primary' : ''} hover:text-primary`}>
-                <IonIcon name={`${isLiked ? 'heart' : 'heart-outline'}`} ></IonIcon>
+                <IonIcon icon={`${isLiked ? heart : heartOutline}`} ></IonIcon>
                 <h5 className="post_interactions_numbers">
                     {likesCount}
                 </h5>
@@ -36,7 +37,7 @@ const CardInteractions: React.FC<CardInteractionsProps> = ({
             <div
                 onClick={openReplyModal}
                 className="post_interactions hover:text-secondary1">
-                <IonIcon name="chatbox-outline" ></IonIcon>
+                <IonIcon icon={chatboxOutline} ></IonIcon>
                 <h5 className="post_interactions_numbers">
                     {repliesCount}
                 </h5>
@@ -44,7 +45,7 @@ const CardInteractions: React.FC<CardInteractionsProps> = ({
             <div
                 onClick={openRepostModal}
                 className="post_interactions hover:text-secondary">
-                <IonIcon name="arrow-redo-outline" ></IonIcon>
+                <IonIcon icon={arrowRedoOutline} ></IonIcon>
                 <h5 className="post_interactions_numbers">
                     {repostsCount}
                 </h5>

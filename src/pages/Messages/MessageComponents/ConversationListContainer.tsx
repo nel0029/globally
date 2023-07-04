@@ -9,6 +9,7 @@ import TitleText from '../../../common/TitleText'
 import { ConversationListProps, ConversationMembersProps } from '../../../redux/messageSlice'
 import CardAvatar from '../../Home/PostComponents/CardAvatar'
 import { IonIcon } from '@ionic/react'
+import { createOutline } from 'ionicons/icons'
 import CardHeader from '../../Home/PostComponents/CardHeader'
 import ConversationCard from './ConversationCard'
 
@@ -53,7 +54,7 @@ const ConversationListContainer = () => {
                     <button
                         onClick={createNewConvo}
                         className='flex justify-center items-center p-1 text-2xl rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer'>
-                        <IonIcon name='create-outline' />
+                        <IonIcon icon={createOutline} />
                     </button>
                 </div>
             </Header>

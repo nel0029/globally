@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from '../../../common/Modal'
 import { IonIcon } from '@ionic/react'
+import { close } from 'ionicons/icons'
 import ConfirmButton from '../../../common/ConfirmButton'
 import CancelButton from '../../../common/CancelButton'
 import CardAvatar from './CardAvatar'
@@ -104,7 +105,7 @@ const CardReplyModal: React.FC<CardReplyModalProps> = ({
                                         onClick={() => removeSelectedFile(index)}>
 
                                         <IonIcon
-                                            name="close"
+                                            icon={close}
 
                                         />
                                     </button>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Header from '../../common/Header'
 import TitleText from '../../common/TitleText'
 import { IonIcon } from '@ionic/react'
+import { heart, chatbox, arrowRedo } from 'ionicons/icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from '../../redux/store'
 import { NotificationsProps } from '../../redux/messageSlice'
@@ -53,20 +54,20 @@ const Notifications = () => {
             case "like":
                 return (
                     <div className='flex justify-center items-center text-xl text-primary'>
-                        <IonIcon name="heart" />
+                        <IonIcon icon={heart} />
                     </div>
                 )
 
             case "reply":
                 return (
                     <div className='flex justify-center items-center text-xl text-secondary1'>
-                        <IonIcon name="chatbox" />
+                        <IonIcon icon={chatbox} />
                     </div>
                 )
             case "repost":
                 return (
                     <div className='flex justify-center items-center text-xl text-secondary' >
-                        <IonIcon name="arrow-redo" />
+                        <IonIcon icon={arrowRedo} />
                     </div>
                 )
             default: return null
