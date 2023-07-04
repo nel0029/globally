@@ -85,6 +85,7 @@ function Register() {
                             <input
                                 className='bg-transparent text-base outline-none'
                                 type="text"
+                                required
                                 name="userFirstName"
                                 value={formData.userFirstName}
                                 onChange={onChange} />
