@@ -57,7 +57,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({ options, postID, hasCh
                         className='peer sr-only'
                     />
                     <div className={`${option._id === optionChoosedID ? 'text-secondary1' : ''} z-10 flex items-center justify-center`}>
-                        <IonIcon name="checkmark-circle" />
+                        <IonIcon name={`${option._id === optionChoosedID ? 'checkmark-circle' : 'checkmark-circle-outline'}`} />
                     </div>
                     <div
                         onClick={(event: any) => event.stopPropagation()}

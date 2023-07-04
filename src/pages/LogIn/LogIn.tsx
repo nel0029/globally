@@ -25,6 +25,9 @@ function LogIn() {
                 if (localStorage.getItem("token")) {
                     navigate('/');
                     dispatch(resetAuthMessage())
+                } else {
+                    navigate('/register')
+                    dispatch(resetAuthMessage())
                 }
 
             })

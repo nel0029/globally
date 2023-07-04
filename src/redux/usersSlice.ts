@@ -26,9 +26,10 @@ export interface AccountData {
 }
 
 interface UserState {
-    userData: UserData;
-    authStatus: string;
-    authMessage: string;
+    userData: UserData
+    authStatus: string
+    authMessage: string
+    registerMessage: string
     valid: boolean | null
     userFollower: UserProps[] | null
     userFollowing: UserProps[] | null
@@ -51,7 +52,8 @@ const initialState: UserState = {
     valid: null,
     userFollower: null,
     userFollowing: null,
-    accountData: null
+    accountData: null,
+    registerMessage: ""
 };
 
 const usersSlice = createSlice({
@@ -120,6 +122,7 @@ const usersSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state) => {
                 state.authStatus = "Error"
+                state.registerMessage = "Please fill all the necessary field"
             })
             .addCase(getAccountData.fulfilled, (state, action) => {
                 const response = action.payload

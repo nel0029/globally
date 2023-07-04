@@ -44,12 +44,22 @@ export const logIn = createAsyncThunk(
 );
 
 
-export const registerUser = createAsyncThunk('userSlice/registerUser', async (registerUserData: RegisterUserData) => {
+export const registerUser = createAsyncThunk('userSlice/registerUser', async (registerUserData: RegisterUserData, { rejectWithValue }) => {
     try {
         const response = await axios.post('/auth/register', registerUserData)
         return response.data
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
+        console.log(error);
+
+        // Check if the error response has a specific status code indicating invalid credentials
+        if (error.response && error.response.status === 400) {
+            // Handle the scenario where the user does not exist or the password does not match
+            console.log(error.response.data.message)
+            return rejectWithValue(error.response.data.message);
+        } else {
+            // Handle other error scenarios
+            throw error;
+        }
     }
 })
 

@@ -10,7 +10,7 @@ function Register() {
     const navigate = useNavigate()
     const message = useSelector((state: any) => state.user.authMessage)
     const valid = useSelector((state: any) => state.user.valid)
-
+    const registerMessage = useSelector((state: any) => state.user.registerMessage)
 
     const [formData, setFormData] = useState({
         email: '',
@@ -41,12 +41,18 @@ function Register() {
     }, [userName, dispatch]);
 
 
+    const goToLogIn = () => {
+        navigate('/login')
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(registerUser(formData))
             .then(() => {
                 // Redirect to login page
-                navigate('/login');
+                if (localStorage.getItem("token")) {
+                    goToLogIn()
+                }
             })
             .catch((error) => {
                 // Handle error
@@ -54,9 +60,7 @@ function Register() {
             });
     };
 
-    const goToLogIn = () => {
-        navigate('/login')
-    }
+
 
     return (
         <div className='w-full h-screen flex justify-center items-center '>
@@ -68,7 +72,13 @@ function Register() {
                     <form
                         className='flex flex-col flex-1 p-2 gap-y-2'
                         onSubmit={handleSubmit}>
+                        {registerMessage && (
+                            <div>
+                                {registerMessage}
+                            </div>
+                        )}
                         <div className='flex flex-col rounded-lg border py-1 px-2 gap-y-0.5'>
+
                             <div className='text-gray-400 text-sm'>
                                 First Name
                             </div>
