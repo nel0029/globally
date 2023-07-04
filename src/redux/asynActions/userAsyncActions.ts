@@ -25,7 +25,7 @@ export const logIn = createAsyncThunk(
     async (userData: LogInUserData, { rejectWithValue }) => {
         try {
             const response = await axios.post('/auth/login', userData);
-            console.log(response);
+
             return response.data;
         } catch (error: any) {
             console.log(error);
@@ -33,7 +33,7 @@ export const logIn = createAsyncThunk(
             // Check if the error response has a specific status code indicating invalid credentials
             if (error.response && error.response.status === 400) {
                 // Handle the scenario where the user does not exist or the password does not match
-                console.log(error.response.data.message)
+
                 return rejectWithValue(error.response.data.message);
             } else {
                 // Handle other error scenarios
@@ -49,12 +49,12 @@ export const registerUser = createAsyncThunk('userSlice/registerUser', async (re
         const response = await axios.post('/auth/register', registerUserData)
         return response.data
     } catch (error: any) {
-        console.log(error);
 
+        console.log(error)
         // Check if the error response has a specific status code indicating invalid credentials
         if (error.response && error.response.status === 400) {
             // Handle the scenario where the user does not exist or the password does not match
-            console.log(error.response.data.message)
+
             return rejectWithValue(error.response.data.message);
         } else {
             // Handle other error scenarios
@@ -77,7 +77,7 @@ export const getAccountData = createAsyncThunk('userSlice/getAccountData', async
     try {
         const { userID } = data
         const response = await axios.get(`/users/account/data/${userID}`)
-        console.log(response.data)
+
         return response.data
     } catch (error) {
         console.log(error)
@@ -100,12 +100,12 @@ export const updateUserAccount = createAsyncThunk('userSlice/updateUserAccount',
             ...axios.defaults.headers.common // Merge with default headers
         };
         const response = await axios.put('/users/account/update', data, { headers })
-        console.log(response.data)
+
         return response.data
     } catch (error: any) {
         if (error.response && error.response.status === 400) {
             // Handle the scenario where the user does not exist or the password does not match
-            console.log(error.response.data.message)
+
             return rejectWithValue(error.response.data.message);
         } else {
             // Handle other error scenarios

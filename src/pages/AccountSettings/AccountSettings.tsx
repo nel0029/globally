@@ -86,7 +86,7 @@ const AccountSettings = () => {
                 avatarURL: profilePicture,
                 coverPhotoURL: coverPhoto
             }
-            console.log(data)
+
             dispatch(updateUserAccount(data))
         } else {
             const data = {
@@ -101,7 +101,7 @@ const AccountSettings = () => {
                 avatarURL: profilePicture,
                 coverPhotoURL: coverPhoto
             }
-            console.log(data)
+
             dispatch(updateUserAccount(data))
         }
 

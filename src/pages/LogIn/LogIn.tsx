@@ -31,10 +31,7 @@ function LogIn() {
                 }
 
             })
-            .catch((error) => {
-                // Handle error
-                console.log(error);
-            });
+
         e.preventDefault()
     }
 

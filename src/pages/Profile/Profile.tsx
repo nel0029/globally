@@ -81,7 +81,7 @@ export default function Profile() {
 
     const handleScroll = () => {
         const currentScrollPosition = window.scrollY;
-        console.log('Current Scroll Position:', currentScrollPosition);
+
         setScrollPositions({ ...scrollPositions, [activeTab]: currentScrollPosition });
     };
 

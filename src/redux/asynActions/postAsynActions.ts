@@ -80,7 +80,7 @@ export const getAllLikesByUser = createAsyncThunk('/postSlice/getAllLikesByUser'
     try {
         const { userName, userID } = data
         const response = await axios.get(`/${userName}/likes?userID=${userID}`)
-        console.log(response.data)
+
         return response.data
     } catch (error) {
         console.log(error)
@@ -147,7 +147,7 @@ export const createPost = createAsyncThunk('postSlice/createPost', async (formDa
             'Content-Type': 'multipart/form-data',
             ...axios.defaults.headers.common
         };
-        console.log(formData)
+
 
         const response = await axios.post('/new/post', formData, { headers: headers });
 
@@ -189,7 +189,7 @@ export const createReply = createAsyncThunk('postSlice/createReply', async (repl
         };
 
         const response = await axios.post('/new/reply', replyData, { headers })
-        console.log(response.data)
+
         return response.data
     } catch (error) {
         console.log(error)
@@ -269,8 +269,7 @@ export const like = createAsyncThunk('postSlice/like', async (likeData: Like) =>
 export const createNewPollResponse = createAsyncThunk('postSlice/createNewPollResponse', async (pollResponseData: PollResponse) => {
     try {
         const response = await axios.post('/new/poll/response', pollResponseData)
-        console.log(pollResponseData)
-        console.log(response.data)
+
         return response.data
     } catch (error) {
         console.log(error)
@@ -292,7 +291,7 @@ export const unlike = createAsyncThunk<Unlike, LikeData>('postSlice/unlike', asy
 export const follow = createAsyncThunk<Follow, FollowData>('postSlice/follow', async (followData) => {
     try {
         const response = await axios.post('/users/follow', followData)
-        console.log(followData)
+
         return response.data
     } catch (error) {
         console.log(error)
@@ -304,7 +303,7 @@ export const unfollow = createAsyncThunk<Unfollow, UnfollowData>('postSlice/unfo
     try {
         const { userID, followID } = unfollowData
         const response = await axios.delete(`/users/unfollow/?followID=${followID}&userID=${userID}`)
-        console.log(unfollowData)
+
         return response.data
     } catch (error) {
         console.log(error)

@@ -220,7 +220,7 @@ const messageSlice = createSlice({
 
         removeNotifcation: (state, action) => {
             const updatedNotifcation = action.payload
-            console.log(updatedNotifcation)
+
 
             if (state.notificationList !== null) {
                 state.notificationList = state.notificationList.filter((notif: NotificationsProps) => notif._id !== updatedNotifcation.notification._id)
@@ -238,7 +238,7 @@ const messageSlice = createSlice({
         },
         updateUnseenMessagesCount: (state, action) => {
             const response = action.payload
-            console.log(response)
+
             state.unseenMessagesCount = response
         }
     },
@@ -275,7 +275,7 @@ const messageSlice = createSlice({
             })
             .addCase(getConvoInfoByUserID.fulfilled, (state, action) => {
                 const response = action.payload
-                console.log(response)
+
                 state.responseConvoInfo = response.conversationInfo
                 state.responseReceiverInfo = response.receiverInfo
             })

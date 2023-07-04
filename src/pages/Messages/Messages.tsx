@@ -82,7 +82,7 @@ const Messages = () => {
     useEffect(() => {
         socket.on("createNewMessage", (data: any) => {
             const { conversation } = data;
-            console.log(conversation);
+
             dispatch(createNewConvo(conversation));
             navigate(`/messages/${conversation.conversationID}`);
         });

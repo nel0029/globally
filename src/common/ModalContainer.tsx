@@ -11,7 +11,7 @@ export default function ModalContainer({ children, setModal }: ModalContainerPro
             const handleClickOutsideDiv = (event: MouseEvent) => {
                 if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                     setModal(false);
-                    console.log("Hello World!!");
+
                 }
             };
 

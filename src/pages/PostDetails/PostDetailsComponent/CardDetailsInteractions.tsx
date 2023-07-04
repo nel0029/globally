@@ -70,7 +70,7 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
                 actionType: "reply",
                 postType: details.type
             }))
-            .then((response) => console.log(response))
+
         setReplyCaption("");
         openReplyModal()
     }

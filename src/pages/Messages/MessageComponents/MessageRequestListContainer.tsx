@@ -25,7 +25,7 @@ const MessageRequestListContainer = () => {
         const data = {
             userID: user.userID
         }
-        console.log(data)
+
         dispatch(getConversationRequestList(data))
     }, [])
 

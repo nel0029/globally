@@ -128,8 +128,6 @@ const postSlice: any = createSlice({
                     const postIndex = state.PostData.findIndex((post) => post._id === updatedPost._id);
                     if (postIndex !== -1) {
                         state.PostData[postIndex] = { ...state.PostData[postIndex], ...updatedPost };
-                    } else {
-                        console.log(`Post with ID ${updatedPost._id} not found.`);
                     }
                 }
 
@@ -254,15 +252,13 @@ const postSlice: any = createSlice({
             .addCase(unlike.fulfilled, (state, action) => {
                 state.status = 'Successful';
                 const unlikedData = action.payload;
-                console.log(unlikedData)
+
                 if (state.PostData !== null) {
                     const postIndex = state.PostData.findIndex((post) => post._id === unlikedData.parentID);
                     if (postIndex !== -1) {
                         state.PostData[postIndex].isLiked = false;
                         state.PostData[postIndex].likesCount -= 1;
                         state.PostData[postIndex].likeID = unlikedData.likeID !== null ? unlikedData.likeID : null; // Update likeID to empty string if it's null
-                    } else {
-                        console.log(`Post with parentID ${unlikedData.parentID} not found.`);
                     }
                 }
                 if (state.postDetails !== null && state.postDetails?._id === unlikedData.parentID && state.postDetails.likeID !== null) {
@@ -335,7 +331,6 @@ const postSlice: any = createSlice({
                 state.status = "Success"
                 const newReply = action.payload;
 
-                console.log(newReply)
 
                 if (state.PostData !== null) {
                     const parentIndex = state.PostData.findIndex((post: any) => post._id === newReply.parentPostID)
@@ -343,8 +338,6 @@ const postSlice: any = createSlice({
 
                     if (parentIndex !== -1) {
                         state.PostData[parentIndex].repliesCount += 1;
-                    } else {
-                        console.log(`Post with parentID ${newReply.parentID} not found.`);
                     }
                 } else {
                     state.PostData = [newReply];
@@ -406,29 +399,27 @@ const postSlice: any = createSlice({
                     const replyIndex = state.PostData.findIndex((reply) => reply._id === updatedReply._id);
                     if (replyIndex !== -1) {
                         state.PostData[replyIndex] = { ...state.PostData[replyIndex], ...updatedReply };
-                    } else {
-                        console.log(`Post with ID ${updatedReply._id} not found.`);
                     }
-                }
 
-                if (state.postReplies !== null) {
-                    const replyIndex = state.postReplies.findIndex((reply: any) => reply._id === updatedReply._id)
-                    state.postReplies[replyIndex].repliesCount += 1
-                }
-
-                if (state.postDetails !== null) {
-                    if (state.postDetails._id === updatedReply._id) {
-                        state.postDetails = { ...state.postDetails, ...updatedReply }
+                    if (state.postReplies !== null) {
+                        const replyIndex = state.postReplies.findIndex((reply: any) => reply._id === updatedReply._id)
+                        state.postReplies[replyIndex].repliesCount += 1
                     }
-                }
 
-                if (state.userRepliesList !== null) {
-                    const postIndex = state.userRepliesList.findIndex((post) => post._id === updatedReply._id);
-                    if (postIndex !== -1) {
-                        state.userRepliesList[postIndex] = { ...state.userRepliesList[postIndex], ...updatedReply };
+                    if (state.postDetails !== null) {
+                        if (state.postDetails._id === updatedReply._id) {
+                            state.postDetails = { ...state.postDetails, ...updatedReply }
+                        }
                     }
-                }
 
+                    if (state.userRepliesList !== null) {
+                        const postIndex = state.userRepliesList.findIndex((post) => post._id === updatedReply._id);
+                        if (postIndex !== -1) {
+                            state.userRepliesList[postIndex] = { ...state.userRepliesList[postIndex], ...updatedReply };
+                        }
+                    }
+
+                }
             })
             .addCase(updateReply.rejected, (state) => {
                 state.status = "Error"
@@ -448,8 +439,6 @@ const postSlice: any = createSlice({
                     state.PostData = state.PostData.filter((reply) => reply._id !== deletedReplyID.postID);
                     if (parentIndex !== -1) {
                         state.PostData[parentIndex].repliesCount -= 1;
-                    } else {
-                        console.log(`Post with parentID ${deletedReplyID.postID} not found.`);
                     }
                 }
                 if (state.postDetails !== null) {
@@ -503,15 +492,13 @@ const postSlice: any = createSlice({
             .addCase(createRepost.fulfilled, (state, action) => {
                 state.status = "Success"
                 const newRepost = action.payload;
-                console.log(newRepost)
+
                 if (state.PostData !== null) {
                     const parentIndex = state.PostData.findIndex((repost: any) => repost._id === newRepost.parentPostID)
                     state.PostData = [...state.PostData, newRepost];
 
                     if (parentIndex !== -1) {
                         state.PostData[parentIndex].repostsCount += 1;
-                    } else {
-                        console.log(`Post with parentID ${newRepost.parentPostID} not found.`);
                     }
                 } else {
                     state.PostData = [newRepost];
@@ -560,8 +547,6 @@ const postSlice: any = createSlice({
                     const repostIndex = state.PostData.findIndex((repost) => repost._id === updatedRepost._id);
                     if (repostIndex !== -1) {
                         state.PostData[repostIndex] = { ...state.PostData[repostIndex], ...updatedRepost };
-                    } else {
-                        console.log(`Post with ID ${updatedRepost._id} not found.`);
                     }
                 }
 
@@ -590,7 +575,7 @@ const postSlice: any = createSlice({
                 state.status = "Success";
                 const deletedRepostID = action.payload;
 
-                console.log(deletedRepostID)
+
                 if (state.PostData !== null) {
                     const parentIndex = state.PostData.findIndex((post: any) => post._id === deletedRepostID.parentPostID)
 
@@ -598,8 +583,6 @@ const postSlice: any = createSlice({
 
                     if (parentIndex !== -1) {
                         state.PostData[parentIndex].repostsCount -= 1;
-                    } else {
-                        console.log(`Post with parentID ${deletedRepostID.postID} not found.`);
                     }
                 }
 

@@ -36,7 +36,7 @@ const UserCard: React.FC<UserProps> = ({ avatarURL, firstName, middleName, lastN
             userFollowingID: _id,
             userID: user.userID
         }
-        console.log(data)
+
 
         dispatch(follow(data))
     }
@@ -46,7 +46,7 @@ const UserCard: React.FC<UserProps> = ({ avatarURL, firstName, middleName, lastN
             followID: followID || '',
             userID: user.userID
         }
-        console.log(data)
+
         dispatch(unfollow(data))
     }
 
