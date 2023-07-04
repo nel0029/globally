@@ -62,7 +62,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({ options, postID, hasCh
                     </div>
                     <div
                         onClick={(event: any) => event.stopPropagation()}
-                        className={`${hasChoosed ? ' cursor-default' : 'peer-checked:text-secondary peer-hover:text-secondary'} w-full z-10`}>
+                        className={`${hasChoosed ? ' cursor-default' : 'peer-checked:text-secondary peer-hover:text-secondary'} z-10 w-full`}>
                         {option.body}
                     </div>
                     <div className='z-1 absolute bg-secondary top-0 left-0 right-0 bottom-0 bg-opacity-40 rounded-lg'
