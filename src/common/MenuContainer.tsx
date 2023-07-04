@@ -39,7 +39,7 @@ const MenuContainer = ({ children }: any) => {
             onClick={openMenu}>
 
             <div className='flex justify-center items-center rounded-full text-lg p-2 hover:bg-slate-200 dark:hover:bg-Dark300'>
-                <IonIcon name={menu ? closeOutline : ellipsisHorizontal} />
+                <IonIcon icon={menu ? closeOutline : ellipsisHorizontal} />
             </div>
             <div
                 onClick={openMenu}
