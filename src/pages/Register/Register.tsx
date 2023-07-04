@@ -60,7 +60,7 @@ function Register() {
 
 
     return (
-        <div className='w-full h-screen flex justify-center items-center '>
+        <div className='w-full flex flex-col items-center justify-center gap-y-2'>
             <div className='w-full max-w-[500px] flex flex-col items-center justify-center border rounded-lg'>
                 <div className='text-lg font-bold text-secondary py-3'>
                     Create an account

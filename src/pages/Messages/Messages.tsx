@@ -103,7 +103,7 @@ const Messages = () => {
     }, [])
 
     return (
-        <div className="flex flex-row sticky top-0">
+        <div className="w-full flex flex-col items-center justify-center gap-y-2">
 
             <div className='flex lg:hidden flex-grow w-full'>
                 <Routes>

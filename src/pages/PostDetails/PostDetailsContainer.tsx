@@ -55,7 +55,7 @@ const PostDetailsContainer = () => {
         navigate(`/${userName}/replies/${postID}`)
     }
     return (
-        <div className='w-full h-full flex flex-col gap-y-2'>
+        <div className='w-full flex flex-col items-center justify-center gap-y-2'>
             <Header>
                 <BackButton />
                 <TitleText>

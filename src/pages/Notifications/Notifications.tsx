@@ -102,7 +102,7 @@ const Notifications = () => {
 
 
     return (
-        <div className='h-screen flex flex-col'>
+        <div className='w-full flex flex-col items-center justify-center gap-y-2'>
             <Header>
                 <TitleText>
                     <div className='py-0.5'>
