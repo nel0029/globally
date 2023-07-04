@@ -1,5 +1,5 @@
 import React from 'react'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 
 interface MediaButtonProps {
     onClick?: () => void

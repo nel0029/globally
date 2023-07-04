@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 
 
 

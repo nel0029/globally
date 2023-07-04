@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import IonIcon from '@reacticons/ionicons';
+import { IonIcon } from '@ionic/react'
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../../redux/asynActions/postAsynActions';
 import { AppDispatch } from '../../../redux/store';

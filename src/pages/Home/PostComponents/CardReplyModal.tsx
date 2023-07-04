@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from '../../../common/Modal'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import ConfirmButton from '../../../common/ConfirmButton'
 import CancelButton from '../../../common/CancelButton'
 import CardAvatar from './CardAvatar'

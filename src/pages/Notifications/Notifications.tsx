@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Header from '../../common/Header'
 import TitleText from '../../common/TitleText'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from '../../redux/store'
 import { NotificationsProps } from '../../redux/messageSlice'

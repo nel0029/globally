@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect, useMemo } from 'react'
-import IonIcon from '@reacticons/ionicons';
+import { IonIcon } from '@ionic/react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { PostsDataProps } from '../../../types/PostTypes';
 import MenuContainer from '../../../common/MenuContainer';

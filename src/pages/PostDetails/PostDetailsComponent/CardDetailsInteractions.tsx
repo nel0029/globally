@@ -83,7 +83,7 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
             parentAuthorID: details.authorID
         };
         dispatch(like(likeData))
-            .then((response) => socket.emit("newLike", {
+            .then((response: any) => socket.emit("newLike", {
                 postID: details._id,
                 actorID: user.userID,
                 targetID: details.authorID,

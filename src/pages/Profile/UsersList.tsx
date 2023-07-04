@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../common/Header'
 import { Outlet } from 'react-router'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import TitleText from '../../common/TitleText'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from '../../redux/store'

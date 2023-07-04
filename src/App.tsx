@@ -1,5 +1,4 @@
 import RoutesPage from './routes/RoutesPage'
-import 'react-any-slider-dots/dist/dots.css'
 import axios from 'axios'
 import NavBar from './layout/NavBar'
 import RightSideBar from './layout/RightSideBar'

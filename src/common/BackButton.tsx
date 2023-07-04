@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 
 
 const BackButton = () => {

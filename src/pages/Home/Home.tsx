@@ -5,8 +5,7 @@ import { getPosts } from '../../redux/asynActions/postAsynActions';
 import { AppDispatch } from '../../redux/store';
 import Card from './PostComponents/Card';
 import Header from '../../common/Header';
-import TitleText from '../../common/TitleText';
-import IonIcon from '@reacticons/ionicons';
+
 
 export default function Home() {
 

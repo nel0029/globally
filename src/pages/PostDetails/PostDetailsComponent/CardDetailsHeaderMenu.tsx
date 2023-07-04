@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import MenuContainer from '../../../common/MenuContainer'
 import MenuItem from '../../../common/MenuItem'
 import MenuButton from '../../../common/MenuButton'

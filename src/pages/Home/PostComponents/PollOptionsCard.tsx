@@ -3,7 +3,7 @@ import { PollResponse } from '../../../types/PostActionTypes'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../redux/store'
 import { createNewPollResponse } from '../../../redux/asynActions/postAsynActions'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 
 interface OptionProps {
     _id?: string,

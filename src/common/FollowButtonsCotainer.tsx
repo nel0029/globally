@@ -5,8 +5,8 @@ import { follow, unfollow } from '../redux/asynActions/postAsynActions'
 import { FollowData, UnfollowData } from '../types/PostActionTypes'
 import MenuButton from './MenuButton'
 import MenuItem from './MenuItem'
-import IonIcon from '@reacticons/ionicons'
-import { CardProps } from '../pages/Home/PostComponents/Card'
+import { IonIcon } from '@ionic/react'
+
 
 interface FollowButtonsCotainerProps {
     authorID: string

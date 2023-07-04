@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MenuContainer from '../../../common/MenuContainer';
 import MenuItem from '../../../common/MenuItem';
 import Modal from '../../../common/Modal';
-import IonIcon from '@reacticons/ionicons';
+import { IonIcon } from '@ionic/react'
 import ConfirmButton from '../../../common/ConfirmButton';
 import CancelButton from '../../../common/CancelButton';
 import { AppDispatch } from '../../../redux/store';

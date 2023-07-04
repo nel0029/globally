@@ -1,4 +1,4 @@
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import React, { useEffect, useState, useRef, useMemo } from 'react'
 import { Outlet, useParams } from 'react-router'
 import Header from '../../common/Header'

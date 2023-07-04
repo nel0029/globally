@@ -2,7 +2,7 @@ import React, { useEffect, useState, ChangeEvent } from 'react';
 import Header from '../../common/Header';
 import TitleText from '../../common/TitleText';
 import CardAvatar from '../Home/PostComponents/CardAvatar';
-import IonIcon from '@reacticons/ionicons';
+import { IonIcon } from '@ionic/react'
 import CoverPhoto from '../Profile/ProfileComponents/CoverPhoto';
 import ConfirmButton from '../../common/ConfirmButton';
 import { useDispatch, useSelector } from 'react-redux';

@@ -54,10 +54,7 @@ function Register() {
                     goToLogIn()
                 }
             })
-            .catch((error) => {
-                // Handle error
-                console.log(error);
-            });
+
     };
 
 

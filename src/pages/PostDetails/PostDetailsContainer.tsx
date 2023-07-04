@@ -6,8 +6,6 @@ import { AppDispatch } from '../../redux/store';
 import { useParams, useNavigate } from 'react-router-dom';
 import { PostsDataProps, ReplyDataProps } from '../../types/PostTypes';
 import { PostDetailsData, RepliesByPostIDData } from '../../types/PostActionTypes';
-import ReplyCard from '../Home/PostComponents/ReplyCard';
-import IonIcon from '@reacticons/ionicons';
 import Header from '../../common/Header';
 import BackButton from '../../common/BackButton';
 import TitleText from '../../common/TitleText';

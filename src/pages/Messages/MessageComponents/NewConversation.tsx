@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import IonIcon from '@reacticons/ionicons';
+import { IonIcon } from '@ionic/react'
 import Header from '../../../common/Header';
 import TitleText from '../../../common/TitleText';
 import MessageBubble from './MessageBubble';

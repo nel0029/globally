@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ReplyDataProps } from '../../../types/PostTypes'
 import { NavLink, useNavigate } from 'react-router-dom';
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import ReplyCard from './ReplyCard';
 
 

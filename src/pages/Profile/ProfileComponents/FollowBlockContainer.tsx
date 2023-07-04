@@ -1,5 +1,5 @@
 import React from 'react'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import CancelButton from '../../../common/CancelButton'
 import ConfirmButton from '../../../common/ConfirmButton'
 import { useDispatch, useSelector } from 'react-redux'

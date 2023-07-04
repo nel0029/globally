@@ -1,6 +1,4 @@
 import { io } from "socket.io-client";
-import dotenv from "dotenv"
-
 
 
 const userID = localStorage.getItem("userID");
@@ -8,7 +6,7 @@ const userID = localStorage.getItem("userID");
 let socket: any = null;
 
 if (userID) {
-    socket = io("http://127.0.0.1:5000", {
+    socket = io("https://globally-express.onrender.com", {
         query: {
             userID: userID,
         },

@@ -1,4 +1,4 @@
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import React, { useState, useReducer, useRef, TouchEventHandler } from 'react'
 import { useNavigate, NavLink } from "react-router-dom"
 

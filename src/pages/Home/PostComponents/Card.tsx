@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import { useNavigate } from 'react-router-dom'
 import CardAvatar from './CardAvatar'
 import RepostParentCard from './RepostParentCard'

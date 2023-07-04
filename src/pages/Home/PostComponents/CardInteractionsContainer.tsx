@@ -79,7 +79,7 @@ const CardInteractionsContainer = (card: CardProps) => {
         };
 
         dispatch(like(likeData))
-            .then((response) => socket.emit("newLike", {
+            .then((response: any) => socket.emit("newLike", {
                 postID: card._id,
                 actorID: user.userID,
                 targetID: card.authorID,

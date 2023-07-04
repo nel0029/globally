@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
 import postReducer from './postSlice'
 import usersSlice from './usersSlice'
 import themeSlice from './themeSlice'

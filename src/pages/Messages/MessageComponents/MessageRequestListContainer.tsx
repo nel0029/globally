@@ -8,7 +8,7 @@ import Header from '../../../common/Header'
 import TitleText from '../../../common/TitleText'
 import { ConversationRequestsProps } from '../../../redux/messageSlice'
 import CardAvatar from '../../Home/PostComponents/CardAvatar'
-import IonIcon from '@reacticons/ionicons'
+import { IonIcon } from '@ionic/react'
 import CardHeader from '../../Home/PostComponents/CardHeader'
 import ConversationRequestCard from './ConversationRequestCard'
 
