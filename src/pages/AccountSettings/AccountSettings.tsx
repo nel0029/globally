@@ -3,13 +3,16 @@ import Header from '../../common/Header';
 import TitleText from '../../common/TitleText';
 import CardAvatar from '../Home/PostComponents/CardAvatar';
 import { IonIcon } from '@ionic/react'
-import { brush, eyeOutline, eyeOffOutline } from 'ionicons/icons'
+import { brush, eyeOutline, eyeOffOutline, moonOutline, powerOutline, sunnyOutline } from 'ionicons/icons'
 import CoverPhoto from '../Profile/ProfileComponents/CoverPhoto';
 import ConfirmButton from '../../common/ConfirmButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { getAccountData, updateProfilePicture, updateUserAccount } from '../../redux/asynActions/userAsyncActions';
 import CancelButton from '../../common/CancelButton';
+import { setMode } from '../../redux/themeSlice';
+import { logOut } from '../../redux/usersSlice';
+import { useNavigate } from 'react-router';
 
 
 const AccountSettings = () => {
@@ -33,6 +36,9 @@ const AccountSettings = () => {
     const [showNewPassword, setShowNewPassword] = useState(false)
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false)
     const authMessage = useSelector((state: any) => state.user.authMessage)
+    const mode = useSelector((state: any) => state.theme.darkMode)
+    const [darkMode, setDarkMode] = useState(mode)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const data = {
@@ -116,8 +122,19 @@ const AccountSettings = () => {
 
     }, [confirmNewPassword])
 
+
+    const setThemeMode = () => {
+        setDarkMode(!darkMode)
+        dispatch(setMode(darkMode))
+    }
+
+    const handleLogOut = () => {
+        dispatch(logOut())
+        navigate('/')
+    }
+
     return (
-        <div className="flex flex-col gap-y-2">
+        <div className=" flex flex-col gap-y-2">
             <Header>
                 <TitleText>
                     <div className="py-0.5">Account Settings</div>
@@ -333,6 +350,24 @@ const AccountSettings = () => {
                     <ConfirmButton
                         disabled={!currentPassword}
                         onClick={[handleSaveChanges]}>Save Changes</ConfirmButton>
+                </div>
+            </div>
+            <div className='w-full flex flex-col p-2 border dark:border-Dark300 mx-1 rounded-lg gap-y-2'>
+                <div
+                    onClick={setThemeMode}
+                    className='flex flex-row items-center gap-x-1 text-xl cursor-pointer'>
+                    <IonIcon icon={darkMode ? moonOutline : sunnyOutline} />
+                    <div>
+                        {darkMode ? 'Dark Mode' : 'Light Mode'}
+                    </div>
+                </div>
+                <div
+                    onClick={handleLogOut}
+                    className='flex flex-row items-center gap-x-1 text-xl'>
+                    <IonIcon icon={powerOutline} />
+                    <div>
+                        Log Out
+                    </div>
                 </div>
             </div>
         </div>

@@ -10,7 +10,8 @@ import {
     notificationsOutline,
     moonOutline,
     powerOutline,
-    enterOutline
+    enterOutline,
+    sunnyOutline
 } from "ionicons/icons"
 import Header from '../common/Header'
 import TitleText from '../common/TitleText'
@@ -30,7 +31,6 @@ const NavBar = () => {
     const mode = useSelector((state: any) => state.theme.darkMode)
     const notificationCount = useSelector((state: any) => state.messages.unseenNotification)
     const messageNotif = useSelector((state: any) => state.messages.unseenMessagesCount)
-    if (messageNotif) { console.log(messageNotif) }
 
 
     const location = useLocation()
@@ -178,9 +178,9 @@ const NavBar = () => {
                     <div
                         onClick={setThemeMode}
                         className={`${darkMode ? ' text-secondary ' : ''} flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}>
-                        <IonIcon icon={moonOutline} />
+                        <IonIcon icon={darkMode ? moonOutline : sunnyOutline} />
                         <div className='hidden lg:flex items-center'>
-                            Dark Mode
+                            {darkMode ? 'Dark Mode' : 'Light Mode'}
                         </div>
                     </div>
 

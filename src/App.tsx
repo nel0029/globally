@@ -1,7 +1,7 @@
 import RoutesPage from './routes/RoutesPage'
 import axios from 'axios'
 import NavBar from './layout/NavBar'
-import RightSideBar from './layout/RightSideBar'
+import BottomNavigation from './layout/BottomNavigation'
 import { Routes, Route, useLocation } from 'react-router'
 import { useEffect } from 'react'
 import socket from './sockets/socket'
@@ -58,7 +58,7 @@ const App = () => {
   const isOnMessage = location.pathname.startsWith('/messages')
 
   return (
-    <div className={`w-full h-full dark:text-white dark:text-opacity-[87%]`}>
+    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%] gap-y-2`}>
       {user ? (
         <Routes>
           <Route path='/*' element={
@@ -75,6 +75,7 @@ const App = () => {
       ) : (
         <div> Loading... </div>
       )}
+      <BottomNavigation />
     </div>
   )
 }
