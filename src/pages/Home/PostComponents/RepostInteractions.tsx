@@ -25,6 +25,7 @@ const RepostInteractions = (repost: RepostDataProps) => {
             postID: repost._id,
             parentType: repost.type,
             authorID: repost.authorID,
+            parentAuthorID: repost._id
         };
         dispatch(like(likeData));
     };
@@ -53,7 +54,7 @@ const RepostInteractions = (repost: RepostDataProps) => {
             parentType: repost.type,
             authorID: user.userID,
             caption: replyCaption,
-            file: selectedFiles
+            files: selectedFiles
         }
         dispatch(createReply(newReply))
         openReplyModal()
