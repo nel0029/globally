@@ -98,7 +98,7 @@ export default function Profile() {
     }, [activeTab, scrollPositions]);
 
     return (
-        <div className='w-full dark:bg-Dark100 flex flex-col items-center'>
+        <div className='w-full full dark:bg-Dark100 flex flex-col items-center'>
             <Header>
                 <BackButton />
                 <div className='flex flex-col leading-6'>
