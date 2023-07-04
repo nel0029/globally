@@ -56,7 +56,7 @@ const BottomNavigation = () => {
     }
 
     return (
-        <div className='sticky bottom-0 w-full flex sm:hidden flex-row items-center justify-around py-2 bg-white dark:bg-Dark300'>
+        <div className='fixed bottom-0 w-full flex sm:hidden flex-row items-center justify-around py-2 bg-white dark:bg-Dark300 text-3xl'>
             <div onClick={goToHome}>
                 <IonIcon icon={homeOutline} />
             </div>
@@ -71,7 +71,7 @@ const BottomNavigation = () => {
             </div>
             <div
                 onClick={goToAccountSettings}
-                className='w-[20px] h-[20px]'>
+                className='w-[20px] h-[20px] rounded-full '>
                 <img src={user.avatarURL} />
             </div>
         </div>

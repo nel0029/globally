@@ -58,23 +58,25 @@ const App = () => {
   const isOnMessage = location.pathname.startsWith('/messages')
 
   return (
-    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%] gap-y-2`}>
-      {user ? (
-        <Routes>
-          <Route path='/*' element={
-            <div className="w-full h-full flex flex-row justify-center items-start  transition-colors ease-in-out duration-300">
-              <NavBar />
-              <div className='flex-grow max-w-[1000px] '>
-                <RoutesPage />
-              </div>
-            </div >} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<LogIn />} />
-        </Routes>
+    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%]  `}>
+      <div className='flex flex-col pb-[60px]'>
+        {user ? (
+          <Routes>
+            <Route path='/*' element={
+              <div className="w-full h-full flex flex-row justify-center items-start  transition-colors ease-in-out duration-300">
+                <NavBar />
+                <div className='flex-grow max-w-[1000px] '>
+                  <RoutesPage />
+                </div>
+              </div >} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<LogIn />} />
+          </Routes>
 
-      ) : (
-        <div> Loading... </div>
-      )}
+        ) : (
+          <div> Loading... </div>
+        )}
+      </div>
       <BottomNavigation />
     </div>
   )
