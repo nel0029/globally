@@ -115,7 +115,9 @@ export default function Profile() {
                 </div>
             </Header>
 
-            <CoverPhoto coverPhotoURL={userDetails?.coverPhotoURL.url} />
+            <div className='w-full'>
+                <CoverPhoto coverPhotoURL={userDetails?.coverPhotoURL.url} />
+            </div>
             <div className='w-full flex flex-col p-2 flex-wrap'>
                 <div className='relative max-h-[60px] w-1/4 h-full'>
                     <UserDetailsAvatar avatarURL={userDetails?.avatarURL} />
