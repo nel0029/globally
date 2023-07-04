@@ -71,8 +71,8 @@ const BottomNavigation = () => {
             </div>
             <div
                 onClick={goToAccountSettings}
-                className='w-[20px] h-[20px] rounded-full '>
-                <img src={user.avatarURL} />
+                className='w-[30px] h-[30px] rounded-full '>
+                <img className='w-full h-full object-cover rounded-full' src={user.avatarURL} />
             </div>
         </div>
     )
