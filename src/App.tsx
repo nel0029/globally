@@ -58,7 +58,7 @@ const App = () => {
   const isOnMessage = location.pathname.startsWith('/messages')
 
   return (
-    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%]  `}>
+    <div className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%]  `}>
       <div className='flex flex-col pb-[60px]'>
         {user ? (
           <Routes>
