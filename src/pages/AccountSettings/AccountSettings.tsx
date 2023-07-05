@@ -296,7 +296,7 @@ const AccountSettings = () => {
                                 className="flex-grow  bg-transparent outline-none "
                             />
                             <button onClick={handleShowCurrentPassword}>
-                                <IonIcon name={`${showCurrentPassword ? eyeOutline : eyeOffOutline}`} />
+                                <IonIcon icon={`${showCurrentPassword ? eyeOutline : eyeOffOutline}`} />
                             </button>
                         </div>
 
@@ -311,7 +311,7 @@ const AccountSettings = () => {
                                         className="flex-grow  bg-transparent outline-none "
                                     />
                                     <button onClick={handleShowNewPassword}>
-                                        <IonIcon name={`${showNewPassword ? eyeOutline : eyeOffOutline}`} />
+                                        <IonIcon icon={`${showNewPassword ? eyeOutline : eyeOffOutline}`} />
                                     </button>
                                 </div>
                                 <div className='w-full flex flex-row items-center border dark:border-Dark300 rounded-lg p-2'>
