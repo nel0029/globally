@@ -4,6 +4,8 @@ import { verifyUserName, registerUser } from '../../redux/asynActions/userAsyncA
 import { AppDispatch } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import useDebounce from './Hooks/useDebounce';
+import { IonIcon } from '@ionic/react'
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons'
 
 function Register() {
     const dispatch = useDispatch<AppDispatch>()
@@ -11,6 +13,7 @@ function Register() {
     const message = useSelector((state: any) => state.user.authMessage)
     const valid = useSelector((state: any) => state.user.valid)
     const registerMessage = useSelector((state: any) => state.user.registerMessage)
+    const [showPassWord, setShowPassword] = useState(false)
 
     const [formData, setFormData] = useState({
         email: '',
@@ -57,7 +60,9 @@ function Register() {
 
     };
 
-
+    const handleShowPassword = () => {
+        setShowPassword(!showPassWord)
+    }
 
     return (
         <div className='w-full flex flex-col items-center justify-center gap-y-2'>
@@ -148,12 +153,19 @@ function Register() {
                             <div className='text-gray-400 text-sm'>
                                 Password
                             </div>
-                            <input
-                                className='bg-transparent text-base outline-none'
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={onChange} />
+                            <div className='flex flex-row items-center gap-x-2'>
+                                <input
+                                    className='bg-transparent text-base outline-none'
+                                    type="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={onChange} />
+                                <div
+                                    onClick={handleShowPassword}
+                                    className='flex justify-center items-center'>
+                                    <IonIcon icon={showPassWord ? eyeOutline : eyeOffOutline} />
+                                </div>
+                            </div>
                         </div>
 
                         <button
