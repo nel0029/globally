@@ -71,7 +71,7 @@ function LogIn() {
                             <div className='text-gray-400 text-sm'>
                                 Password
                             </div>
-                            <div className='flex flex-row items-center gap-x-2'>
+                            <div className='w-full flex flex-row items-center gap-x-2'>
                                 <input
                                     className='flex-grow bg-transparent text-base outline-none'
                                     type={showPassWord ? 'text' : 'password'}

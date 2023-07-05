@@ -153,9 +153,9 @@ function Register() {
                             <div className='text-gray-400 text-sm'>
                                 Password
                             </div>
-                            <div className='flex flex-row items-center gap-x-2'>
+                            <div className='w-full flex flex-row items-center gap-x-2'>
                                 <input
-                                    className='bg-transparent text-base outline-none'
+                                    className='flex-grow bg-transparent text-base outline-none'
                                     type="password"
                                     name="password"
                                     value={formData.password}
