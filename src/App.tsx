@@ -56,6 +56,8 @@ const App = () => {
 
 
   const isOnMessage = location.pathname.startsWith('/messages')
+  const isOnRegister = location.pathname.startsWith('/register')
+  const isOnLogIn = location.pathname.startsWith('/login')
 
   return (
     <div className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%]  `}>
@@ -77,7 +79,9 @@ const App = () => {
           <div> Loading... </div>
         )}
       </div>
-      <BottomNavigation />
+      {isOnLogIn || isOnRegister ? (null) : (
+        <BottomNavigation />
+      )}
     </div>
   )
 }
