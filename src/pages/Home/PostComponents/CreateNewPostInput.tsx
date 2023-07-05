@@ -175,7 +175,9 @@ export default function CreateNewPostInput() {
                                 name="file"
                                 accept="image/*"
                                 multiple={selectedFiles.length < 10 ? true : undefined}
-                                disabled={poll || selectedFiles.length >= 10}
+                                disabled={true
+                                    //poll || selectedFiles.length >= 10
+                                }
                                 style={{ display: 'none' }}
                                 onChange={handleFileChange}
 

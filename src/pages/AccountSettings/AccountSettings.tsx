@@ -158,6 +158,7 @@ const AccountSettings = () => {
                             id="fileInput"
                             name="avatarURL"
                             accept="image/*"
+                            disabled={true}
                             style={{ display: 'none' }}
                             onChange={(event: any) => setProfilePicture(event.target.files[0])}
                         />
