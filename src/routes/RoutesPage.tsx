@@ -25,27 +25,26 @@ export default function RoutePage() {
     return (
         <Routes>
             <Route element={<PrivateRoutes />}>
+                <Route path='/' element={<Home />} />
+                <Route path='/:userName' element={<UsersList />}>
+                    <Route path='following' element={<UserFollowingList />} />
+                    <Route path='followers' element={<UserFollowerList />} />
+                </Route>
+                <Route path='/:userName' element={<Profile />}>
+                    <Route path='' element={<PostCardList />} />
+                    <Route path='replies' element={<ReplyCardList />} />
+                    <Route path='reposts' element={<RepostCardList />} />
+                    <Route path='likes' element={<LikedPostCardList />} />
+                </Route>
 
-            </Route>
-            <Route path='/' element={<Home />} />
-            <Route path='/:userName' element={<UsersList />}>
-                <Route path='following' element={<UserFollowingList />} />
-                <Route path='followers' element={<UserFollowerList />} />
-            </Route>
-            <Route path='/:userName' element={<Profile />}>
-                <Route path='' element={<PostCardList />} />
-                <Route path='replies' element={<ReplyCardList />} />
-                <Route path='reposts' element={<RepostCardList />} />
-                <Route path='likes' element={<LikedPostCardList />} />
-            </Route>
+                <Route path='/messages/*' element={<Messages />} />
+                <Route path='/notifications' element={<Notifications />} />
+                <Route path='/account/setting' element={<AccountSettings />} />
 
-            <Route path='/messages/*' element={<Messages />} />
-            <Route path='/notifications' element={<Notifications />} />
-            <Route path='/account/setting' element={<AccountSettings />} />
-
-            <Route path='/:userName/posts/:postID' element={<PostDetailsContainer />} />
-            <Route path='/:userName/replies/:postID' element={<ReplyDetailsContainer />} />
-            <Route path='/:userName/reposts/:postID' element={<RepostDetailsContainer />} />
+                <Route path='/:userName/posts/:postID' element={<PostDetailsContainer />} />
+                <Route path='/:userName/replies/:postID' element={<ReplyDetailsContainer />} />
+                <Route path='/:userName/reposts/:postID' element={<RepostDetailsContainer />} />
+            </Route>
         </Routes>
     );
 }
