@@ -13,7 +13,7 @@ interface MediaProps {
 
 interface CardRepostModalProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
-    avatarURL: MediaProps
+    avatarURL: string
     authorAvatarURL: MediaProps
     firstName: string
     middleName: string
@@ -71,7 +71,7 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
         <Modal setModal={setModal}>
 
             <div className='w-full flex flex-row justify-center items-start p-2 gap-x-2'>
-                <CardAvatar userName={userName} avatarURL={avatarURL.url} />
+                <CardAvatar userName={userName} avatarURL={avatarURL} />
                 <div className='flex flex-col flex-1 flex-shrink'>
                     <div className='leading-4 p-1'>
                         <div className='flex flex-row gap-x-1 font-bold'>

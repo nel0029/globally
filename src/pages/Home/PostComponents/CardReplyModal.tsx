@@ -17,7 +17,7 @@ interface MediaProps {
 interface CardReplyModalProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     authorUserName: string
-    avatarURL: MediaProps
+    avatarURL: string
     firstName: string
     middleName: string
     lastName: string
@@ -74,7 +74,7 @@ const CardReplyModal: React.FC<CardReplyModalProps> = ({
                     Reply to {authorUserName}
                 </div>
                 <div className='w-full flex flex-row justify-start items-center gap-x-2 py-1'>
-                    <CardAvatar avatarURL={avatarURL.url} />
+                    <CardAvatar avatarURL={avatarURL} />
                     <div className='flex-grow flex flex-col justify-center leading-none'>
                         <p className='text-base font-bold'>
                             {firstName} {middleName} {lastName}
