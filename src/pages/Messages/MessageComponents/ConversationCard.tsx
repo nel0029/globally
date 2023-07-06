@@ -38,7 +38,7 @@ const ConversationCard: React.FC<ConversationCardProps> = ({ avatarURL, firstNam
     return (
         <div
             onClick={onClick}
-            className='flex flex-row py-2 cursor-pointer hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10'>
+            className="sticky top-0 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
             <div className='pr-2 relative'>
                 <CardAvatar avatarURL={avatarURL.url} />
                 {isActive && <div className='absolute w-3 h-3 bg-[#6EC531] bottom-2 right-2 rounded-full' />}

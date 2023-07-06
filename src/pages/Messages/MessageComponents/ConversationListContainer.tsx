@@ -45,7 +45,7 @@ const ConversationListContainer = () => {
 
     return (
 
-        <div className='w-full sticky top-0 h-screen overflow-auto flex-grow flex flex-col gap-y-2 lg:border-r lg:dark:border-Dark300'>
+        <div className='w-full sticky top-0 overflow-auto flex-grow flex flex-col gap-y-2 lg:border-r lg:dark:border-Dark300'>
             <Header>
                 <TitleText >
                     Conversations
