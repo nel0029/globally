@@ -22,7 +22,7 @@ const UserFollowerList = () => {
         dispatch(getUserFollowers(data))
     }, [])
     return (
-        <div className='w-full flex  flex-col justify-center px-2 gap-y-2'>
+        <div className='w-full flex flex-col justify-center px-2 gap-y-2'>
             {userFollowing?.map((users: any) => {
                 return <UserCard
                     key={users._id}

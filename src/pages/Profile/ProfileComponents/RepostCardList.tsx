@@ -23,7 +23,7 @@ const RepostCardList = () => {
     const allPosts = useSelector((state: any) => state.posts.userRepostsList)
 
     return (
-        <div className='w-full flex flex-col-reverse items-center justify-center gap-y-2 px-2'>
+        <div className='flex w-full flex-col-reverse justify-center items-center gap-y-4'>
             {allPosts?.map((post: RepostDataProps) => {
                 return <Card key={post._id} {...post} />
             })}

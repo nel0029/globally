@@ -98,7 +98,7 @@ export default function Profile() {
     }, [activeTab, scrollPositions]);
 
     return (
-        <div className='w-full flex flex-col items-center justify-center gap-y-2'>
+        <div className='w-full flex flex-col items-center justify-center gap-y-2 overflow-hidden flex-shrink'>
             <Header>
                 <BackButton />
                 <div className='flex flex-col leading-6'>
@@ -115,103 +115,106 @@ export default function Profile() {
                 </div>
             </Header>
 
-            <div className='w-full'>
-                <CoverPhoto coverPhotoURL={userDetails?.coverPhotoURL.url} />
-            </div>
-            <div className='w-full flex flex-col p-2 flex-wrap'>
-                <div className='relative max-h-[60px] w-1/4 h-full'>
-                    <UserDetailsAvatar avatarURL={userDetails?.avatarURL} />
+            <div className='w-full flex flex-col gap-y-2 flex-shrink overflow-hidden'>
+                <div className='w-full'>
+                    <CoverPhoto coverPhotoURL={userDetails?.coverPhotoURL.url} />
                 </div>
-                <div className='w-full flex flex-row items-center justify-end '>
+                <div className='w-full flex flex-col p-2 flex-wrap'>
+                    <div className='relative max-h-[60px] w-1/4 h-full'>
+                        <UserDetailsAvatar avatarURL={userDetails?.avatarURL} />
+                    </div>
+                    <div className='w-full flex flex-row items-center justify-end '>
 
-                    {user.userID === userDetails?._id ? (
-                        <ConfirmButton
-                            className='p-2 md:pl-4 md:pr-6 rounded-full'
-                            onClick={[() => navigate('/account/setting')]} >
-                            <div className='text-sm sm:text-base flex flex-row items-center gap-x-2'>
-                                <IonIcon icon={cogOutline} />
-                                <span className='hidden md:flex'>
-                                    Edit Profile
-                                </span>
+                        {user.userID === userDetails?._id ? (
+                            <ConfirmButton
+                                className='p-2 md:pl-4 md:pr-6 rounded-full'
+                                onClick={[() => navigate('/account/setting')]} >
+                                <div className='text-sm sm:text-base flex flex-row items-center gap-x-2'>
+                                    <IonIcon icon={cogOutline} />
+                                    <span className='hidden md:flex'>
+                                        Edit Profile
+                                    </span>
+                                </div>
+                            </ConfirmButton>
+                        ) : (
+                            <FollowBlockContainer
+                                isFollowedUser={userDetails?.isFollowedUser}
+                                followID={userDetails?.followID}
+                                userFollowingID={userDetails?._id} />)
+                        }
+
+
+                    </div>
+                    <div className='w-full flex flex-col justify-center px-2'>
+                        <TitleText>
+                            <div className='w-full flex flex-row items-center gap-x-1'>
+                                <span>{userDetails?.userFirstName}</span>
+                                <span>{userDetails?.userMiddleName}</span>
+                                <span>{userDetails?.userLastName}</span>
                             </div>
-                        </ConfirmButton>
-                    ) : (
-                        <FollowBlockContainer
-                            isFollowedUser={userDetails?.isFollowedUser}
-                            followID={userDetails?.followID}
-                            userFollowingID={userDetails?._id} />)
-                    }
+                        </TitleText>
 
-
-                </div>
-                <div className='w-full flex flex-col justify-center px-2'>
-                    <TitleText>
-                        <div className='w-full flex flex-row items-center gap-x-1'>
-                            <span>{userDetails?.userFirstName}</span>
-                            <span>{userDetails?.userMiddleName}</span>
-                            <span>{userDetails?.userLastName}</span>
+                        <div className='text-base'>
+                            {userDetails?.bio}
                         </div>
-                    </TitleText>
-
-                    <div className='text-base'>
-                        {userDetails?.bio}
-                    </div>
-                    <div className='w-full flex flex-row items-center gap-x-2 flex-wrap '>
-                        <div
-                            onClick={goToUserFollowing}
-                            className='text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer'>
-                            <span className='font-semibold '>
-                                {userDetails?.followingsCount}
-                            </span>
-                            <span className='font-semibold text-gray-400 '>
-                                Following
-                            </span>
-                            <div className='hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400'></div>
-                        </div>
-                        <div
-                            onClick={goToUserFollowers}
-                            className='text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer'>
-                            <span className='font-semibold'>
-                                {userDetails?.followersCount}
-                            </span>
-                            <span className='font-semibold text-gray-400'>
-                                Followers
-                            </span>
-                            <div className='hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400'></div>
+                        <div className='w-full flex flex-row items-center gap-x-2 flex-wrap '>
+                            <div
+                                onClick={goToUserFollowing}
+                                className='text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer'>
+                                <span className='font-semibold '>
+                                    {userDetails?.followingsCount}
+                                </span>
+                                <span className='font-semibold text-gray-400 '>
+                                    Following
+                                </span>
+                                <div className='hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400'></div>
+                            </div>
+                            <div
+                                onClick={goToUserFollowers}
+                                className='text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer'>
+                                <span className='font-semibold'>
+                                    {userDetails?.followersCount}
+                                </span>
+                                <span className='font-semibold text-gray-400'>
+                                    Followers
+                                </span>
+                                <div className='hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400'></div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
-            <div className='w-full p-2 flex flex-row items-center justify-start gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scrollbar border-b dark:border-Dark300 mb-2'>
+
+            <div className='w-full overflow-x-auto flex flex-row border-b dark:border-Dark300 mb-2'>
                 <div
                     onClick={goToUserPosts}
-                    className={`${activeTab === `/${userDetails?.userName}` ? 'border-b-4 border-secondary font-bold' : ''} py-1 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center hover:bg-opacity-20 cursor-pointer`}>
+                    className={`${activeTab === `/${userDetails?.userName}` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
                     Posts
                 </div>
                 <div
                     onClick={goToUserReplies}
-                    className={`${activeTab === `/${userDetails?.userName}/replies` ? 'border-b-4 border-secondary font-bold' : ''} py-1 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center hover:bg-opacity-20 cursor-pointer`}>
+                    className={`${activeTab === `/${userDetails?.userName}/replies` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
                     Replies
                 </div>
                 <div
                     onClick={goToUserReposts}
-                    className={`${activeTab === `/${userDetails?.userName}/reposts` ? 'border-b-4 border-secondary font-bold' : ''} py-1 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center hover:bg-opacity-20 cursor-pointer`}>
+                    className={`${activeTab === `/${userDetails?.userName}/reposts` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
                     Reposts
                 </div>
                 <div
                     onClick={goToUserLikes}
-                    className={`${activeTab === `/${userDetails?.userName}/likes` ? 'border-b-4 border-secondary font-bold' : ''} py-1 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center hover:bg-opacity-20 cursor-pointer`}>
+                    className={`${activeTab === `/${userDetails?.userName}/likes` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
                     Likes
                 </div>
             </div>
-            <div
 
-                className='w-full'
+            <div
+                className='w-full px-2'
                 onScroll={handleScroll}>
                 <Outlet />
             </div>
-
         </div>
     )
 }

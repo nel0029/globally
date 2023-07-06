@@ -110,7 +110,7 @@ const Notifications = () => {
                     </div>
                 </TitleText>
             </Header>
-            <div className=' flex flex-col-reverse px-1 mt-2 gap-y-2'>
+            <div className='w-full flex flex-col-reverse px-1 mt-2 gap-y-2'>
                 {notifications?.length > 0 ? (notifications.map((notification: NotificationsProps) => (
                     <div
                         key={notification._id}

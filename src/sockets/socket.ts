@@ -6,7 +6,7 @@ const userID = localStorage.getItem("userID");
 let socket: any = null;
 
 if (userID) {
-    socket = io("https://globally-express.onrender.com", {
+    socket = io("https://globally.vercel.app", {
         query: {
             userID: userID,
         },

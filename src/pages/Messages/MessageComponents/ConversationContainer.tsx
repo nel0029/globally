@@ -86,7 +86,7 @@ const ConversationContainer = () => {
 
 
     return (
-        <div className='h-screen flex flex-col flex-grow '>
+        <div className='h-full flex flex-col flex-grow top-0 bottom-0'>
             {conversationInfo && (
                 <div className='h-screen flex flex-col flex-grow'>
                     <Header>

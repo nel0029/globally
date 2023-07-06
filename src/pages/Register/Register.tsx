@@ -27,7 +27,6 @@ function Register() {
 
     const userName = useDebounce(formData.userName, 1000)
 
-    let typingTimeout: number | null = null;
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -156,7 +155,7 @@ function Register() {
                             <div className='w-full flex flex-row items-center gap-x-2'>
                                 <input
                                     className='flex-grow bg-transparent text-base outline-none'
-                                    type="password"
+                                    type={showPassWord ? "text" : "password"}
                                     name="password"
                                     value={formData.password}
                                     onChange={onChange} />

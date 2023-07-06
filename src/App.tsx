@@ -16,7 +16,7 @@ import LogIn from './pages/LogIn/LogIn'
 
 const App = () => {
 
-  axios.defaults.baseURL = 'https://globally-express.onrender.com';
+  axios.defaults.baseURL = 'https://globally.vercel.app';
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
   axios.defaults.headers.post['Content-Type'] = 'application/json';
   const mode = useSelector((state: any) => state.theme.darkMode)
@@ -54,22 +54,20 @@ const App = () => {
     };
   }, []);
 
-
-  const isOnMessage = location.pathname.startsWith('/messages')
-  const isOnRegister = location.pathname.startsWith('/register')
-  const isOnLogIn = location.pathname.startsWith('/login')
-
   return (
-    <div className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%]  `}>
-      <div className='flex flex-col pb-[60px]'>
+    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%]  `}>
+      <div className='w-full flex flex-col pb-[60px] sm:pb-0'>
         {user ? (
           <Routes>
             <Route path='/*' element={
-              <div className="w-full h-full flex flex-row justify-center items-start  transition-colors ease-in-out duration-300">
-                <NavBar />
-                <div className='flex-grow max-w-[1000px] '>
-                  <RoutesPage />
+              <div className="w-full h-full transition-colors ease-in-out duration-300">
+                <div className='w-full flex flex-row justify-center items-start'>
+                  <NavBar />
+                  <div className='flex-[1]'>
+                    <RoutesPage />
+                  </div>
                 </div>
+                <BottomNavigation />
               </div >} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<LogIn />} />
@@ -79,9 +77,7 @@ const App = () => {
           <div> Loading... </div>
         )}
       </div>
-      {isOnLogIn || isOnRegister ? (null) : (
-        <BottomNavigation />
-      )}
+
     </div>
   )
 }
