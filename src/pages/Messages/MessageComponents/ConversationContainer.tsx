@@ -86,7 +86,7 @@ const ConversationContainer = () => {
 
 
     return (
-        <div className='sticky top-0 w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300'>
+        <div className='fixed sm:sticky top-0 bottom-0 w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300'>
             {conversationInfo && (
                 <div className='flex flex-col flex-grow'>
                     <Header>
