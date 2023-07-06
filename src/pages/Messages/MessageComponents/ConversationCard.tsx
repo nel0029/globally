@@ -1,13 +1,10 @@
 import React from 'react'
 import CardAvatar from '../../Home/PostComponents/CardAvatar'
 
-interface MediaProps {
-    id: string,
-    url: string
-}
+
 
 interface ConversationCardProps {
-    avatarURL: MediaProps,
+    avatarURL?: string,
     firstName: string,
     middleName: string,
     lastName: string,
@@ -38,9 +35,9 @@ const ConversationCard: React.FC<ConversationCardProps> = ({ avatarURL, firstNam
     return (
         <div
             onClick={onClick}
-            className="sticky top-0 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
+            className='flex flex-row py-2 cursor-pointer hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10'>
             <div className='pr-2 relative'>
-                <CardAvatar avatarURL={avatarURL.url} />
+                <CardAvatar avatarURL={avatarURL} />
                 {isActive && <div className='absolute w-3 h-3 bg-[#6EC531] bottom-2 right-2 rounded-full' />}
             </div>
             <div className='flex flex-col flex-grow'>

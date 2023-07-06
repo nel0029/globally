@@ -89,7 +89,7 @@ const ConversationListContainer = () => {
                             <ConversationCard
                                 key={conversation._id}
                                 onClick={() => openConvo(conversation._id)}
-                                avatarURL={conversation.avatarURL}
+                                avatarURL={conversation.avatarURL.url}
                                 userName={conversation.userName ? conversation.userName : ''}
                                 firstName={conversation.receiverFirstName ? conversation.receiverFirstName : ''}
                                 middleName={conversation.receiverMiddleName ? conversation.receiverMiddleName : ''}
