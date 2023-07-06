@@ -88,7 +88,7 @@ const ConversationContainer = () => {
     }
 
     return (
-        <div className={`${focused ? 'absolute' : 'fixed '} sm:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300`}>
+        <div className={`${focused ? 'absolute' : 'fixed '} sm:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 w-full overflow-y-auto flex flex-col lg:border-l dark:border-Dark300`}>
             {conversationInfo && (
                 <div className='flex flex-col flex-grow'>
                     <Header>
