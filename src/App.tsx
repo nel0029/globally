@@ -55,8 +55,8 @@ const App = () => {
   }, []);
 
   return (
-    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%]  `}>
-      <div className='w-full flex flex-col pb-[60px] sm:pb-0'>
+    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%] `}>
+      <div className='w-full flex flex-col pb-[60px] sm:pb-0 '>
         {user ? (
           <Routes>
             <Route path='/*' element={
@@ -72,7 +72,6 @@ const App = () => {
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<LogIn />} />
           </Routes>
-
         ) : (
           <div> Loading... </div>
         )}
