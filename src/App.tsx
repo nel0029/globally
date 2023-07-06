@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import RoutesPage from './routes/RoutesPage'
 import axios from 'axios'
 import NavBar from './layout/NavBar'
@@ -54,8 +55,25 @@ const App = () => {
     };
   }, []);
 
+
+  const [containerHeight, setContainerHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setContainerHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <div className={`w-full h-[100dvh] flex flex-col dark:text-white dark:text-opacity-[87%] `}>
+    <div
+      style={{ height: containerHeight }}
+      className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%] `}>
       <div className='w-full flex flex-col '>
         {user ? (
           <Routes>
