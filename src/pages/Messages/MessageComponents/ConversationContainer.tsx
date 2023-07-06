@@ -24,6 +24,7 @@ const ConversationContainer = () => {
     const messages = useSelector((state: any) => state.messages.messages) || [];
     const location = useLocation()
     const [messageText, setMessageText] = useState("")
+    const [focused, setFocused] = useState(false)
 
     useEffect(() => {
         const data = {
@@ -82,30 +83,12 @@ const ConversationContainer = () => {
         scrollToBottom();
         setMessageText('')
     };
-
-    const [containerHeight, setContainerHeight] = useState(window.innerHeight);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setContainerHeight(window.innerHeight);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    const handleInputFocus = () => {
-        const scrollY = window.scrollY;
-        window.scrollTo(0, scrollY);
-    };
+    const handleFocus = () => {
+        setFocused(!focused)
+    }
 
     return (
-        <div
-            style={{ height: containerHeight }}
-            className='fixed sm:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300'>
+        <div className={`${focused ? 'absolute' : 'fixed'} h-[100dvh] sm:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300`}>
             {conversationInfo && (
                 <div className='flex flex-col flex-grow'>
                     <Header>
@@ -155,7 +138,6 @@ const ConversationContainer = () => {
                                 type="text"
                                 value={messageText}
                                 onChange={(event: any) => setMessageText(event.target.value)}
-                                onFocus={handleInputFocus}
                             />
                         </div>
                         <button className="p-2 flex flex-row items-center gap-x-2" onClick={handleSendMessage}>
