@@ -55,7 +55,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className={`w-full h-screen flex flex-col dark:text-white dark:text-opacity-[87%] `}>
+    <div className={`w-full h-[100dvh] flex flex-col dark:text-white dark:text-opacity-[87%] `}>
       <div className='w-full flex flex-col '>
         {user ? (
           <Routes>
