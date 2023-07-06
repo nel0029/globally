@@ -83,10 +83,29 @@ const ConversationContainer = () => {
         setMessageText('')
     };
 
+    const [containerHeight, setContainerHeight] = useState(window.innerHeight);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setContainerHeight(window.innerHeight);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const handleInputFocus = () => {
+        const scrollY = window.scrollY;
+        window.scrollTo(0, scrollY);
+    };
 
     return (
-        <div className='h-[100dvh] fixed sm:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300'>
+        <div
+            style={{ height: containerHeight }}
+            className='fixed sm:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300'>
             {conversationInfo && (
                 <div className='flex flex-col flex-grow'>
                     <Header>
@@ -136,6 +155,7 @@ const ConversationContainer = () => {
                                 type="text"
                                 value={messageText}
                                 onChange={(event: any) => setMessageText(event.target.value)}
+                                onFocus={handleInputFocus}
                             />
                         </div>
                         <button className="p-2 flex flex-row items-center gap-x-2" onClick={handleSendMessage}>
