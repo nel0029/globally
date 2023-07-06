@@ -64,7 +64,7 @@ const App = () => {
               <div className="w-full h-full transition-colors ease-in-out duration-300">
                 <div className='w-full flex flex-row justify-center items-start'>
                   <NavBar />
-                  <div className='flex flex-[1] pb-[60px] sm:pb-0 h-screen lg:h-full'>
+                  <div className='flex flex-[1] pb-[60px] sm:pb-0 '>
                     <RoutesPage />
                   </div>
                 </div>
