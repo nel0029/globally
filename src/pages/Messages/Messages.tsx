@@ -115,7 +115,7 @@ const Messages = () => {
                 </Routes>
 
             </div>
-            <div className='hidden lg:flex w-full top-0 bottom-0'>
+            <div className='hidden lg:flex w-full sticky top-0 bottom-0'>
                 <div className='min-w-[400px]'>
                     {renderConversationList()}
 

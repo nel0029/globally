@@ -130,7 +130,7 @@ const ConversationContainer = () => {
 
 
                     </div>
-                    <div className="w-full flex flex-row px-2 flex-shrink overflow-x-hidden">
+                    <div className="sticky bottom-0 w-full flex flex-row px-2 flex-shrink overflow-x-hidden">
                         <div className="flex-grow">
                             <input
                                 placeholder="Aa"
