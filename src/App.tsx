@@ -16,7 +16,7 @@ import LogIn from './pages/LogIn/LogIn'
 
 const App = () => {
 
-  axios.defaults.baseURL = 'https://globally.vercel.app';
+  axios.defaults.baseURL = 'https://globally-express.onrender.com';
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
   axios.defaults.headers.post['Content-Type'] = 'application/json';
   const mode = useSelector((state: any) => state.theme.darkMode)
