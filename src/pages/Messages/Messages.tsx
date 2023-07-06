@@ -103,9 +103,9 @@ const Messages = () => {
     }, [])
 
     return (
-        <div className="w-full flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0">
+        <div className="w-full relative flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0">
 
-            <div className='z-[100] relative flex-grow flex lg:hidden w-full'>
+            <div className='z-[100] flex-grow flex lg:hidden w-full'>
                 <Routes>
                     <Route path="/" element={<ConversationListContainer />} />
                     <Route path="/new" element={<NewConversation />} />
