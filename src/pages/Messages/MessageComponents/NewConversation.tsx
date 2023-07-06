@@ -92,7 +92,7 @@ const NewConversation = () => {
     const responseReceiverInfoMemoized = useMemo(() => responseReceiverInfo, [responseReceiverInfo]);
 
     return (
-        <div className="z-[100] dark:bg-Dark100 bg-slate-100 fixed lg:static w-full full overflow-hidden flex flex-col lg:border-l dark:border-Dark300 top-0 bottom-0">
+        <div className="z-[100] h-screen sm:h-full w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
             <Header>
                 <div
                     onClick={goToMessages}

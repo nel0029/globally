@@ -105,7 +105,7 @@ const Messages = () => {
     return (
         <div className="w-full flex flex-col items-center justify-center gap-y-2 top-0 bottom-0">
 
-            <div className='relative h-full lg:hidden w-full top-0 bottom-0'>
+            <div className='sticky h-full lg:hidden w-full top-0 bottom-0'>
 
                 <Routes>
                     <Route path="/" element={<ConversationListContainer />} />

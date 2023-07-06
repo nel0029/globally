@@ -86,7 +86,7 @@ const ConversationContainer = () => {
 
 
     return (
-        <div className='z-[100] dark:bg-Dark100 bg-slate-100 fixed lg:static top-0 bottom-0 w-full full overflow-hidden flex flex-col lg:border-l dark:border-Dark300'>
+        <div className='z-[100] h-screen sm:h-full w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300'>
             {conversationInfo && (
                 <div className='h-screen flex flex-col flex-grow'>
                     <Header>
