@@ -120,7 +120,7 @@ export default function Profile() {
                 <div className='w-full'>
                     <CoverPhoto coverPhotoURL={userDetails?.coverPhotoURL.url} />
                 </div>
-                <div className='w-full flex flex-col p-2 flex-wrap'>
+                <div className='w-full flex flex-col p-2'>
                     <div className='relative max-h-[60px] w-1/4 h-full'>
                         <UserDetailsAvatar avatarURL={userDetails?.avatarURL} />
                     </div>
@@ -144,9 +144,9 @@ export default function Profile() {
                                 userFollowingID={userDetails?._id} />)
                         }
 
-
                     </div>
-                    <div className='w-full flex flex-col px-2'>
+
+                    <div className='w-full flex flex-col px-2 justify-start'>
                         <div className='w-full flex flex-row items-center gap-x-1 text-lg font-bold'>
                             <span>{userDetails?.userFirstName}</span>
                             <span>{userDetails?.userMiddleName}</span>
