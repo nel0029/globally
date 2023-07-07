@@ -5,6 +5,7 @@ import CardCaption from './CardCaption'
 import CancelButton from '../../../common/CancelButton'
 import ConfirmButton from '../../../common/ConfirmButton'
 import CardMedia from './CardMedia'
+import CircularProgress from '../../../common/CircularProgress'
 
 interface MediaProps {
     id: string,
@@ -111,6 +112,7 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
                         </div>
                     </div>
                     <div className='flex flex-row justify-end items-center'>
+                        <CircularProgress percentage={repostCaption.length} max={99} width={32} />
                         <CancelButton onClick={[handleCancelButtonClick]}>
                             Cancel
                         </CancelButton>
