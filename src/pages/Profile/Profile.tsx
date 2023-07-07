@@ -97,10 +97,11 @@ export default function Profile() {
         };
     }, [activeTab, scrollPositions]);
 
+    const isInUserProfile = location.pathname === `/${user.userName}`
     return (
         <div className='w-full flex flex-col items-center justify-center gap-y-2 overflow-hidden flex-shrink'>
             <Header>
-                <BackButton />
+                {!isInUserProfile && <BackButton />}
                 <div className='flex flex-col leading-6'>
                     <TitleText>
                         <div className='w-full flex flex-row items-center gap-x-1'>
@@ -185,31 +186,29 @@ export default function Profile() {
 
                 </div>
 
+                <div className='w-full overflow-x-auto flex flex-row border-b dark:border-Dark300 mb-2'>
+                    <div
+                        onClick={goToUserPosts}
+                        className={`${activeTab === `/${userDetails?.userName}` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
+                        Posts
+                    </div>
+                    <div
+                        onClick={goToUserReplies}
+                        className={`${activeTab === `/${userDetails?.userName}/replies` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
+                        Replies
+                    </div>
+                    <div
+                        onClick={goToUserReposts}
+                        className={`${activeTab === `/${userDetails?.userName}/reposts` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
+                        Reposts
+                    </div>
+                    <div
+                        onClick={goToUserLikes}
+                        className={`${activeTab === `/${userDetails?.userName}/likes` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
+                        Likes
+                    </div>
+                </div>
             </div>
-
-            <div className='w-full overflow-x-auto flex flex-row border-b dark:border-Dark300 mb-2'>
-                <div
-                    onClick={goToUserPosts}
-                    className={`${activeTab === `/${userDetails?.userName}` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
-                    Posts
-                </div>
-                <div
-                    onClick={goToUserReplies}
-                    className={`${activeTab === `/${userDetails?.userName}/replies` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
-                    Replies
-                </div>
-                <div
-                    onClick={goToUserReposts}
-                    className={`${activeTab === `/${userDetails?.userName}/reposts` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
-                    Reposts
-                </div>
-                <div
-                    onClick={goToUserLikes}
-                    className={`${activeTab === `/${userDetails?.userName}/likes` ? 'border-b-4 border-secondary font-bold' : ''} flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}>
-                    Likes
-                </div>
-            </div>
-
             <div
                 className='w-full px-2'
                 onScroll={handleScroll}>

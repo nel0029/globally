@@ -59,7 +59,7 @@ const FollowButtonsCotainer: React.FC<FollowButtonsCotainerProps> = ({ authorID,
             {authorID !== user.userID ? (
                 <MenuItem>
                     <MenuButton onClick={[handleOnClick()]}>
-                        <IonIcon icon={`${isFollowedAuthor === true ? personRemoveOutline : personRemoveOutline}`} />
+                        <IonIcon icon={`${isFollowedAuthor === true ? personRemoveOutline : personAddOutline}`} />
                         <p className='whitespace-nowrap'>
                             {isFollowedAuthor === true ? "Unfollow" : "Follow"} <span className='font-bold'>@{postAuthorUserName}</span>
                         </p>
