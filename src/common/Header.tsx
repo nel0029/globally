@@ -8,7 +8,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children }) => {
     return (
         <div
-            className='z-10 w-full flex flex-row items-center bg-slate-50 dark:bg-Dark400 sticky top-0 gap-x-2 p-2 '>
+            className='z-10 w-full flex flex-row items-center bg-slate-50 dark:bg-Dark300 sticky top-0 gap-x-2 p-2 '>
             {children}
         </div>
     )
