@@ -146,7 +146,7 @@ export default function Profile() {
 
 
                     </div>
-                    <div className='w-full flex flex-col justify-center px-2'>
+                    <div className='w-full flex flex-col px-2'>
                         <TitleText>
                             <div className='w-full flex flex-row items-center gap-x-1'>
                                 <span>{userDetails?.userFirstName}</span>
@@ -155,7 +155,7 @@ export default function Profile() {
                             </div>
                         </TitleText>
 
-                        <div className='text-base'>
+                        <div className='w-full text-base py-2'>
                             {userDetails?.bio}
                         </div>
                         <div className='w-full flex flex-row items-center gap-x-2 flex-wrap '>
