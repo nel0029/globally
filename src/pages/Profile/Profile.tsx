@@ -147,13 +147,11 @@ export default function Profile() {
 
                     </div>
                     <div className='w-full flex flex-col px-2'>
-                        <TitleText>
-                            <div className='w-full flex flex-row items-center gap-x-1'>
-                                <span>{userDetails?.userFirstName}</span>
-                                <span>{userDetails?.userMiddleName}</span>
-                                <span>{userDetails?.userLastName}</span>
-                            </div>
-                        </TitleText>
+                        <div className='w-full flex flex-row items-center gap-x-1 text-lg font-bold'>
+                            <span>{userDetails?.userFirstName}</span>
+                            <span>{userDetails?.userMiddleName}</span>
+                            <span>{userDetails?.userLastName}</span>
+                        </div>
 
                         <div className='w-full text-base py-2'>
                             {userDetails?.bio}
