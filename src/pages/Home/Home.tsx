@@ -5,6 +5,7 @@ import { getPosts } from '../../redux/asynActions/postAsynActions';
 import { AppDispatch } from '../../redux/store';
 import Card from './PostComponents/Card';
 import Header from '../../common/Header';
+import LoadingCard from './PostComponents/LoadingCard';
 
 
 export default function Home() {
@@ -40,9 +41,20 @@ export default function Home() {
                 <CreateNewPost />
                 <div className='flex w-full flex-col-reverse justify-center items-center gap-y-4'>
 
-                    {posts.map((post: any) => {
-                        return <Card isInHomeRoute={true} key={post._id} {...post} />
-                    })}
+                    {isLoading ? (
+                        <div className='w-full flex flex-col justify-center items-center gap-y-4'>
+                            <LoadingCard />
+                            <LoadingCard />
+                            <LoadingCard />
+                            <LoadingCard />
+                            <LoadingCard />
+                            <LoadingCard />
+                        </div>
+                    ) : (
+                        posts.map((post: any) => {
+                            return <Card isInHomeRoute={true} key={post._id} {...post} />
+                        })
+                    )}
 
                 </div>
 
