@@ -69,7 +69,7 @@ const PostDetailsContainer = () => {
                         <CardDetails fileInputID='postDetailsInputFileID' {...postDetails} />
                     </div>) : (<PostNotExistsCard type={"post"} />)}
 
-                <div className='flex flex-col-reverse items-center gap-y-2'>
+                <div className='w-full flex flex-col-reverse items-center gap-y-2'>
                     {postReplies !== null ? (
                         postReplies.map((reply: ReplyDataProps) => {
                             return (
