@@ -61,13 +61,13 @@ const ReplyDetailsContainer = () => {
                 </div>
             </Header>
 
-            <div className='w-full flex flex-col items-center gap-y-2 px-2'>
+            <div className='w-full flex flex-col items-center justify-center gap-y-2 px-2'>
                 {postDetails !== null ? (
                     <div className='w-full'>
                         <CardDetails fileInputID='replyDetailsFileInputID' {...postDetails} />
                     </div>) : (<div> Post didn't exists </div>)}
 
-                <div className='w-full flex flex-col-reverse items-center gap-y-2'>
+                <div className='w-full flex flex-col-reverse items-center justify-center gap-y-2'>
                     {postReplies !== null ? (
                         postReplies.map((reply: ReplyDataProps) => {
                             return (
