@@ -62,12 +62,12 @@ const RepostDetailsContainer = () => {
                 </div>
             </Header>
 
-            <div className='w-full flex flex-col px-2 gap-y-2'>
+            <div className='w-full flex flex-col items-center px-2 gap-y-2'>
                 {postDetails !== null ? (<div>
                     <CardRepostDetails {...postDetails} />
                 </div>) : (<div> Post didn't exists </div>)}
 
-                <div className='flex flex-col-reverse gap-y-2'>
+                <div className='flex flex-col-reverse items-center gap-y-2'>
                     {postReplies !== null ? (
                         postReplies.map((reply: ReplyDataProps) => {
                             return (

@@ -78,7 +78,7 @@ const CardDetails = (details: CardDetailsProps) => {
     })}`;
 
     return (
-        <div className='w-full flex flex-col p-2 bg-white dark:bg-Dark200 rounded-lg'>
+        <div className='w-full max-w-[700px] flex flex-col p-2 bg-white dark:bg-Dark200 rounded-lg'>
             <div className='flex flex-col justify-center'>
                 <div className='flex flex-row items-center gap-x-2' >
                     <div className='w-[40px]'>
