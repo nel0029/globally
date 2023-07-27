@@ -63,16 +63,17 @@ const RepostDetailsContainer = () => {
             </Header>
 
             <div className='w-full flex flex-col items-center px-2 gap-y-2'>
-                {postDetails !== null ? (<div>
-                    <CardRepostDetails {...postDetails} />
-                </div>) : (<div> Post didn't exists </div>)}
+                {postDetails !== null ? (
+                    <div className='w-full'>
+                        <CardRepostDetails {...postDetails} />
+                    </div>) : (<div> Post didn't exists </div>)}
 
                 <div className='flex flex-col-reverse items-center gap-y-2'>
                     {postReplies !== null ? (
                         postReplies.map((reply: ReplyDataProps) => {
                             return (
                                 <div
-                                    className=' cursor-pointer'
+                                    className='w-full cursor-pointer'
                                     key={reply._id}
                                     onClick={() => goToReply(reply.postAuthorUserName, reply._id)}>
                                     <Card isInHomeRoute={false} {...reply} />

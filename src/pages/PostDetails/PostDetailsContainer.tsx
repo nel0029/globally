@@ -63,16 +63,19 @@ const PostDetailsContainer = () => {
                 </TitleText>
             </Header>
 
-            <div className='w-full flex flex-col items-center gap-y-2 px-2'>
-                {postDetails !== null ? (<div>
-                    <CardDetails fileInputID='postDetailsInputFileID' {...postDetails} />
-                </div>) : (<PostNotExistsCard type={"post"} />)}
+            <div className='w-full flex-grow flex flex-col items-center gap-y-2 px-2'>
+                {postDetails !== null ? (
+                    <div className='w-full'>
+                        <CardDetails fileInputID='postDetailsInputFileID' {...postDetails} />
+                    </div>) : (<PostNotExistsCard type={"post"} />)}
 
                 <div className='flex flex-col-reverse items-center gap-y-2'>
                     {postReplies !== null ? (
                         postReplies.map((reply: ReplyDataProps) => {
                             return (
-                                <div key={reply._id} onClick={() => goToReply(reply.postAuthorUserName, reply._id)}>
+                                <div
+                                    className='w-full cursor-pointer'
+                                    key={reply._id} onClick={() => goToReply(reply.postAuthorUserName, reply._id)}>
                                     <Card isInHomeRoute={false} {...reply} />
                                 </div>
                             )
