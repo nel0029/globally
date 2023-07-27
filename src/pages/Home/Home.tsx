@@ -11,13 +11,19 @@ export default function Home() {
 
     const posts = useSelector((state: any) => state.posts.PostData || [])
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const dispatch = useDispatch<AppDispatch>()
     const user = useSelector((state: any) => state.user.userData)
     const userID = localStorage.getItem("userID")
 
     useEffect(() => {
         if (userID) {
+            setIsLoading(true)
             dispatch(getPosts(userID))
+                .then(() => {
+                    setIsLoading(false)
+                })
         }
     }, [])
 

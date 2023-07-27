@@ -156,7 +156,7 @@ const NewConversation = () => {
             <div className="flex flex-grow flex-col flex-[1] p-2 gap-y-2 overflow-y-auto" ref={messageContainerRef}>
                 {/* Message content */}
             </div>
-            <div className="w-full flex flex-row px-2 flex-shrink overflow-x-hidden">
+            <div className="w-full flex flex-row px-2 flex-shrink overflow-x-hidden ">
                 <div className="flex-grow">
                     <input
                         placeholder="Aa"
