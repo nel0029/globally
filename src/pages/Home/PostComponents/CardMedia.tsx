@@ -19,14 +19,14 @@ const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
 
   const postImgDisplay = (mediaURL: MediaProps[]) => {
     switch (true) {
-      case mediaURL.length === 1:
+      case mediaURL && mediaURL.length === 1:
         return (
           <div className='w-full h-auto rounded-lg'>
             <img className='w-full h-auto object-cover rounded-lg' src={mediaURL[0]?.url} alt='Post' />
           </div>
         );
 
-      case mediaURL.length > 1:
+      case mediaURL && mediaURL.length > 1:
         return (
           <Carousel>
 
