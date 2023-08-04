@@ -9,6 +9,7 @@ import {
   updateProfilePicture,
   updateUserAccount,
   verifyUserName,
+  isServerActive,
 } from "./asynActions/userAsyncActions";
 import { UserProps } from "../pages/Profile/ProfileComponents/UserCard";
 
@@ -43,6 +44,7 @@ interface UserState {
   userFollower: UserProps[] | null;
   userFollowing: UserProps[] | null;
   accountData: AccountData | null;
+  isServerActive: any | null;
 }
 
 const initialState: UserState = {
@@ -62,6 +64,7 @@ const initialState: UserState = {
   userFollowing: null,
   accountData: null,
   registerMessage: "",
+  isServerActive: false,
 };
 
 const usersSlice = createSlice({
@@ -165,6 +168,10 @@ const usersSlice = createSlice({
       })
       .addCase(updateUserAccount.rejected, (state, action) => {
         state.authMessage = "Incorrect Password";
+      })
+      .addCase(isServerActive.fulfilled, (state, action) => {
+        const response = action.payload;
+        state.isServerActive = response.message;
       });
   },
 });

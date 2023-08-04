@@ -9,22 +9,27 @@ import { LogInUserData } from "../../types/AuthUserTypes";
 import { resetAuthMessage } from "../../redux/usersSlice";
 import { IonIcon } from "@ionic/react";
 import { eyeOutline, eyeOffOutline } from "ionicons/icons";
+import CircularProgress from "../../common/CircularProgress";
+import CircleLoader from "../../common/CircleLoader";
 
 function LogIn() {
   const [logInID, setLogInID] = useState("");
   const [password, setPassword] = useState("");
   const [showPassWord, setShowPassword] = useState(false);
+  const [isServerLoading, setIsServerLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const authMessage = useSelector((state: any) => state.user.authMessage);
 
   const handleSubmit = (e: any) => {
+    setIsServerLoading(true);
     const userData: LogInUserData = {
       logInID: logInID,
       password: password,
     };
-    dispatch(logIn(userData)).then(async () => {
+    dispatch(logIn(userData)).then(() => {
       // Redirect to login page
+      setIsServerLoading(false);
       navigate("/");
       dispatch(resetAuthMessage());
     });
@@ -100,6 +105,21 @@ function LogIn() {
           </div>
         </div>
       </div>
+      {isServerLoading && (
+        <div className="z-50 fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div className="text-black max-w-[300px] rounded-lg bg-white p-4 flex flex-col gap-y-4">
+            <div className="text-black text-center text-xl">
+              Please wait. This app is using free tier of render that is why it
+              takes time to make a request for sometimes
+            </div>
+
+            <div className=" w-full flex flex-row items-center justify-center">
+              <CircleLoader />
+              <div>Loading...</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

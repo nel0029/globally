@@ -21,10 +21,10 @@ import {
 } from "./redux/messageSlice";
 import Register from "./pages/Register/Register";
 import LogIn from "./pages/LogIn/LogIn";
-import { developmentAddress, producionAddress } from "./config/Config";
+import { serverAddress } from "./config/Config";
 
 const App = () => {
-  axios.defaults.baseURL = producionAddress;
+  axios.defaults.baseURL = serverAddress;
   axios.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${localStorage.getItem("token")}`;

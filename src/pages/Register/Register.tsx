@@ -12,6 +12,7 @@ import useDebounce from "./Hooks/useDebounce";
 import { IonIcon } from "@ionic/react";
 import { eyeOutline, eyeOffOutline } from "ionicons/icons";
 import { resetRegisterMessage } from "../../redux/usersSlice";
+import CircleLoader from "../../common/CircleLoader";
 
 function Register() {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,6 +23,7 @@ function Register() {
     (state: any) => state.user.registerMessage
   );
   const [showPassWord, setShowPassword] = useState(false);
+  const [isServerLoading, setIsServerLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -53,11 +55,12 @@ function Register() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    setIsServerLoading(true);
     event.preventDefault();
     dispatch(registerUser(formData)).then((response: any) => {
       // Redirect to login page
-      console.log(response);
       if (response.meta.requestStatus === "fulfilled") {
+        setIsServerLoading(false);
         goToLogIn();
         dispatch(resetRegisterMessage());
       }
@@ -184,6 +187,21 @@ function Register() {
           </div>
         </div>
       </div>
+      {isServerLoading && (
+        <div className="z-50 fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div className="text-black max-w-[300px] rounded-lg bg-white p-4 flex flex-col gap-y-4">
+            <div className="text-black text-center text-xl">
+              Please wait. This app is using free tier of render that is why it
+              takes time to make a request for sometimes
+            </div>
+
+            <div className=" w-full flex flex-row items-center justify-center">
+              <CircleLoader />
+              <div>Loading...</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

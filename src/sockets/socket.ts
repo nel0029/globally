@@ -1,14 +1,14 @@
 /** @format */
 
 import { io } from "socket.io-client";
-import { developmentAddress, producionAddress } from "../config/Config";
+import { serverAddress } from "../config/Config";
 
 const userID = localStorage.getItem("userID");
 
 let socket: any = null;
 
 if (userID) {
-  socket = io(producionAddress, {
+  socket = io(serverAddress, {
     query: {
       userID: userID,
     },
