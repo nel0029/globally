@@ -5,6 +5,13 @@ import CardAvatar from "./CardAvatar";
 import CardCaption from "./CardCaption";
 import CardMedia from "./CardMedia";
 import { useNavigate } from "react-router-dom";
+import PollOptionsCard from "./PollOptionsCard";
+
+interface OptionProps {
+  _id?: string;
+  body?: string;
+  count?: number;
+}
 
 interface MediaProps {
   id: string;
@@ -22,6 +29,12 @@ interface RepostParentCardProps {
   parentType?: string;
   parentPostID?: string;
   parentBGColor?: string;
+  options?: OptionProps[];
+  hasPoll?: boolean;
+  pollOptions?: OptionProps[];
+  hasChoosed?: boolean;
+  optionChoosedID?: string;
+  pollRespondentsCount?: number;
 }
 
 const RepostParentCard: React.FC<RepostParentCardProps> = ({
@@ -35,6 +48,11 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
   parentType,
   parentPostID,
   parentBGColor,
+  hasPoll,
+  hasChoosed,
+  optionChoosedID,
+  pollRespondentsCount,
+  pollOptions,
 }) => {
   const navigate = useNavigate();
   const route = () => {
@@ -84,6 +102,15 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
           </div>
           <CardCaption parentBGColor={parentBGColor} caption={parentCaption} />
           {parentMediaURL ? <CardMedia mediaURL={parentMediaURL} /> : null}
+          {hasPoll && (
+            <PollOptionsCard
+              postID={parentPostID}
+              options={pollOptions}
+              hasChoosed={hasChoosed}
+              pollRespondentsCount={pollRespondentsCount}
+              optionChoosedID={optionChoosedID}
+            />
+          )}
         </div>
       </div>
     </div>

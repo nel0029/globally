@@ -167,6 +167,11 @@ const Card = (card: MainCardProps) => {
                 parentType={card.parentType}
                 parentPostID={card.parentPostID}
                 parentBGColor={card.parentBGColor}
+                hasPoll={card.hasPoll}
+                options={card.pollOptions}
+                hasChoosed={card.hasChoosed}
+                pollRespondentsCount={card.pollRespondentsCount}
+                optionChoosedID={card.optionChoosedID}
               />
             )}
             {card.hasPoll && (
