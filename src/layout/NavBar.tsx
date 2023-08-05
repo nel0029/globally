@@ -44,9 +44,18 @@ const NavBar = () => {
   const [activeTab, setActiveTab] = useState(location.pathname);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const [darkMode, setDarkMode] = useState(mode);
+  const [darkMode, setDarkMode] = useState(false);
 
   const isAuthenticated = localStorage.getItem("token");
+
+  useEffect(() => {
+    const data = {
+      userID: user.userID,
+    };
+    if (localStorage.getItem("userID")) {
+      dispatch(getUnseenNotifications(data));
+    }
+  }, []);
 
   const goToHome = () => {
     navigate("/");
@@ -81,24 +90,14 @@ const NavBar = () => {
 
   const setThemeMode = () => {
     setDarkMode(!darkMode);
-    dispatch(setMode(darkMode));
+    dispatch(setMode());
   };
 
   const handleLogOut = () => {
-    setDarkMode(false);
-    dispatch(setMode(darkMode));
+    dispatch(setMode());
     dispatch(logOut());
     navigate("/");
   };
-
-  useEffect(() => {
-    const data = {
-      userID: user.userID,
-    };
-    if (localStorage.getItem("userID")) {
-      dispatch(getUnseenNotifications(data));
-    }
-  }, []);
 
   return (
     <div className="lg:max-w-[300px] h-screen flex-grow-0 sticky hidden sm:flex flex-col items-center justify-center left-0 top-0 bottom-0 border-r dark:border-Dark300">
