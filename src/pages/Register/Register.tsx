@@ -51,6 +51,7 @@ function Register() {
   }, [userName, dispatch]);
 
   const goToLogIn = () => {
+    dispatch(resetRegisterMessage());
     navigate("/login");
   };
 

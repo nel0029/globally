@@ -5,16 +5,23 @@ import React from "react";
 interface CardCaptionProps {
   caption?: string;
   bgColor?: string;
+  parentBGColor?: string;
 }
 
-const CardCaption: React.FC<CardCaptionProps> = ({ caption, bgColor }) => {
+const CardCaption: React.FC<CardCaptionProps> = ({
+  caption,
+  bgColor,
+  parentBGColor,
+}) => {
   const captionLines = caption?.split("\n");
   return (
     <div
-      style={{ background: bgColor }}
+      style={{ background: bgColor ? bgColor : parentBGColor }}
       className={`${
         bgColor
-          ? "min-h-[100px] flex flex-col justify-center text-center rounded-lg font-bold"
+          ? "min-h-[100px] flex flex-col justify-center text-center rounded-lg font-bold p-4 text-white text-opacity-[87%]"
+          : parentBGColor
+          ? "min-h-[100px] flex flex-col justify-center text-center rounded-lg font-bold p-4 text-white text-opacity-[87%]"
           : ""
       }`}
     >

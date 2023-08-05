@@ -89,6 +89,7 @@ export interface RepostDataProps {
   likesCount: number;
   repliesCount: number;
   repostsCount: number;
+  parentBGColor?: string;
   isFollowedAuthor: boolean;
   followID: string | null;
 }
