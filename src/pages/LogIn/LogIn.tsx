@@ -64,10 +64,7 @@ function LogIn() {
           Log In your account
         </div>
         <div className="flex w-full">
-          <form
-            className="flex flex-col flex-1 p-2 gap-y-2"
-            onSubmit={handleSubmit}
-          >
+          <form className="flex flex-col flex-1 p-2 gap-y-2">
             <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
               <div className="text-gray-400 text-sm">Email or Username</div>
               <input
