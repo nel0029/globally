@@ -8,9 +8,10 @@ const themeSlice = createSlice({
     darkMode: localStorage.getItem("darkMode") === "true",
   },
   reducers: {
-    setMode: (state) => {
-      state.darkMode = !state.darkMode;
-      localStorage.setItem("darkMode", String(state.darkMode)); // Convert boolean to string
+    setMode: (state, action) => {
+      const darkMode = action.payload;
+      state.darkMode = darkMode;
+      localStorage.setItem("darkMode", String(darkMode)); // Convert boolean to string
     },
   },
 });

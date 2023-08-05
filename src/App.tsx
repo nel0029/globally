@@ -33,11 +33,13 @@ const App = () => {
   const user = useSelector((state: any) => state.user.userData);
   const body = document.getElementById("body");
 
-  if (mode === true) {
-    body?.classList.add("dark");
-  } else {
-    body?.classList.remove("dark");
-  }
+  useEffect(() => {
+    if (mode === true) {
+      body?.classList.add("dark");
+    } else {
+      body?.classList.remove("dark");
+    }
+  }, [mode]);
 
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();

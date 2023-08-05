@@ -44,7 +44,6 @@ const NavBar = () => {
   const [activeTab, setActiveTab] = useState(location.pathname);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const [darkMode, setDarkMode] = useState(false);
 
   const isAuthenticated = localStorage.getItem("token");
 
@@ -89,12 +88,11 @@ const NavBar = () => {
   };
 
   const setThemeMode = () => {
-    setDarkMode(!darkMode);
-    dispatch(setMode());
+    dispatch(setMode(!mode));
   };
 
   const handleLogOut = () => {
-    dispatch(setMode());
+    dispatch(setMode(false));
     dispatch(logOut());
     navigate("/");
   };
@@ -185,12 +183,12 @@ const NavBar = () => {
           <div
             onClick={setThemeMode}
             className={`${
-              darkMode ? " text-secondary " : ""
+              mode ? " text-secondary " : ""
             } flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
           >
-            <IonIcon icon={darkMode ? moonOutline : sunnyOutline} />
+            <IonIcon icon={mode ? moonOutline : sunnyOutline} />
             <div className="hidden lg:flex items-center">
-              {darkMode ? "Dark Mode" : "Light Mode"}
+              {mode ? "Dark Mode" : "Light Mode"}
             </div>
           </div>
 

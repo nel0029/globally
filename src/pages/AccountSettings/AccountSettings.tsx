@@ -49,7 +49,6 @@ const AccountSettings = () => {
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
   const authMessage = useSelector((state: any) => state.user.authMessage);
   const mode = useSelector((state: any) => state.theme.darkMode);
-  const [darkMode, setDarkMode] = useState(mode);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -114,10 +113,11 @@ const AccountSettings = () => {
         email: email,
         bio: bio,
         currentPassword: currentPassword,
+
         avatarURL: profilePicture,
         coverPhotoURL: coverPhoto,
       };
-
+      alert("Password Not Matched");
       dispatch(updateUserAccount(data));
     }
   };
@@ -126,15 +126,14 @@ const AccountSettings = () => {
     if (newPassword === confirmNewPassword) {
       setMatchedPassword(newPassword);
     }
-  }, [confirmNewPassword]);
+  }, [confirmNewPassword, newPassword]);
 
   const setThemeMode = () => {
-    setDarkMode(!darkMode);
-    dispatch(setMode(darkMode));
+    dispatch(setMode(!mode));
   };
 
   const handleLogOut = () => {
-    dispatch(setMode());
+    dispatch(setMode(false));
     dispatch(logOut());
     navigate("/");
   };
@@ -354,8 +353,8 @@ const AccountSettings = () => {
           onClick={setThemeMode}
           className="flex flex-row items-center gap-x-1 text-xl cursor-pointer"
         >
-          <IonIcon icon={darkMode ? moonOutline : sunnyOutline} />
-          <div>{darkMode ? "Dark Mode" : "Light Mode"}</div>
+          <IonIcon icon={mode ? moonOutline : sunnyOutline} />
+          <div>{mode ? "Dark Mode" : "Light Mode"}</div>
         </div>
         <div
           onClick={handleLogOut}

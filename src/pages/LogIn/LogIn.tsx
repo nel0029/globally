@@ -28,7 +28,6 @@ function LogIn() {
       password: password,
     };
     dispatch(logIn(userData)).then(() => {
-      // Redirect to login page
       setIsServerLoading(false);
       navigate("/");
       dispatch(resetAuthMessage());
@@ -43,7 +42,6 @@ function LogIn() {
       password: "12345678",
     };
     dispatch(logIn(userData)).then(() => {
-      // Redirect to login page
       setIsServerLoading(false);
       navigate("/");
       dispatch(resetAuthMessage());
@@ -64,7 +62,7 @@ function LogIn() {
           Log In your account
         </div>
         <div className="flex w-full">
-          <form className="flex flex-col flex-1 p-2 gap-y-2">
+          <div className="flex flex-col flex-1 p-2 gap-y-2">
             <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
               <div className="text-gray-400 text-sm">Email or Username</div>
               <input
@@ -108,7 +106,7 @@ function LogIn() {
             >
               Use Demo Account
             </button>
-          </form>
+          </div>
         </div>
         {authMessage && <div>{authMessage}</div>}
         <div className="flex flex-row items-center gap-x-2 py-3">
