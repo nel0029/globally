@@ -350,7 +350,7 @@ const AccountSettings = () => {
           </ConfirmButton>
         </div>
       </div>
-      <div className="w-full hidden sm:flex flex-col p-2 border dark:border-Dark300 mx-1 rounded-lg gap-y-2">
+      <div className="w-full flex sm:hidden flex-col p-2 border dark:border-Dark300 mx-1 rounded-lg gap-y-2">
         <div
           onClick={setThemeMode}
           className="flex flex-row items-center gap-x-1 text-xl cursor-pointer"
