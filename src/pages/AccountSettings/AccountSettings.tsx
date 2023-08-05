@@ -134,6 +134,8 @@ const AccountSettings = () => {
   };
 
   const handleLogOut = () => {
+    setDarkMode(false);
+    dispatch(setMode(darkMode));
     dispatch(logOut());
     navigate("/");
   };
