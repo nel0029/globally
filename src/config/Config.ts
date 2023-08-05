@@ -1,7 +1,7 @@
 /** @format */
 
-const developmentAddress = "http://127.0.0.1:5000";
+var developmentAddress = "http://127.0.0.1:5000";
 
-const producionAddress = "https://globally-express.onrender.com";
+var producionAddress = "https://globally-express.onrender.com";
 
-export const serverAddress = developmentAddress;
+export const serverAddress = producionAddress;
