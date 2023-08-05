@@ -210,7 +210,13 @@ export const updatePost = createAsyncThunk<UpdatedPost, UpdatePostData>(
   "postSlice/updatePost",
   async (postData) => {
     try {
-      const reponse = await axios.put("/update/post", postData);
+      const headers = {
+        //"Content-Type": "multipart/form-data",
+        ...axios.defaults.headers.common,
+      };
+      const reponse = await axios.put("/update/post", postData, {
+        headers: headers,
+      });
       return reponse.data;
     } catch (error) {
       console.log(error);
