@@ -53,7 +53,7 @@ function LogIn() {
   const handleUseDemoAccount2 = (e: any) => {
     setIsServerLoading(true);
     const userData: LogInUserData = {
-      logInID: "demoaccount",
+      logInID: "demoaccount2",
       password: "12345678",
     };
     dispatch(logIn(userData)).then(() => {
