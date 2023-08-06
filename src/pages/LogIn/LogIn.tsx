@@ -124,7 +124,7 @@ function LogIn() {
             </button>
             <button
               onClick={handleUseDemoAccount2}
-              className="basis-0 py-1 px-2 rounded-full outline-none border border-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
+              className="basis-0 py-1 px-2 rounded-full outline-none bg-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
             >
               Use Demo Account 2
             </button>
