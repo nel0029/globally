@@ -140,11 +140,11 @@ const Card = (card: MainCardProps) => {
         </div>
       )}
 
-      <div
-        onClick={handlePostDetail}
-        className="w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer"
-      >
-        <div className="w-full flex flex-row justify-center items-start gap-x-3">
+      <div className="w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer">
+        <div
+          onClick={handlePostDetail}
+          className="w-full flex flex-row justify-center items-start gap-x-3"
+        >
           <div className="p-2">
             <CardAvatar
               userName={card.postAuthorUserName}
