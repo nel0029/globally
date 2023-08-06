@@ -42,7 +42,7 @@ const CardInteractionsContainer = (card: CardProps) => {
       caption: repostCaption,
     };
 
-    dispatch(createRepost(newRepost)).then((response: any) =>
+    dispatch(createRepost(newRepost)).then((response: any) => {
       socket.emit("newRepost", {
         postID: card._id,
         actorID: user.userID,
@@ -50,8 +50,9 @@ const CardInteractionsContainer = (card: CardProps) => {
         actionID: response.payload._id,
         actionType: "repost",
         postType: card.type,
-      })
-    );
+      });
+      // alert("Repost success");
+    });
   };
 
   const openReplyModal = () => {

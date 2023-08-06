@@ -107,7 +107,7 @@ const Rerepost: React.FC<HeaderProps> = ({ repost, authorized }) => {
 
     socket.emit("deleteRepost", {
       actorID: user.userID,
-      targetID: repost.authorID,
+      targetID: repost.parentAuthorID,
       actionID: repost._id,
     });
     dispatch(deleteRepost(deleteRepostData));

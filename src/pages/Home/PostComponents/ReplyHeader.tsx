@@ -79,7 +79,7 @@ const ReplyHeader: React.FC<HeaderProps> = ({ reply, authorized }) => {
     };
     socket.emit("deleteReply", {
       actorID: user.userID,
-      targetID: reply.authorID,
+      targetID: reply.parentAuthorID,
       actionID: reply._id,
     });
 

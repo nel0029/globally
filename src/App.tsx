@@ -53,9 +53,9 @@ const App = () => {
       socket.on("newNotification", (data: any) =>
         dispatch(addNewNotifcation(data))
       );
-      socket.on("removeNotification", (data: any) =>
-        dispatch(removeNotifcation(data))
-      );
+      socket.on("removeNotification", (data: any) => {
+        dispatch(removeNotifcation(data));
+      });
       socket.on("newMessageCount", (data: any) =>
         dispatch(updateUnseenMessagesCount(data))
       );
