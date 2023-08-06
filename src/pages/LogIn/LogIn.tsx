@@ -35,7 +35,8 @@ function LogIn() {
 
     e.preventDefault();
   };
-  const handleUseDemoAccount = (e: any) => {
+
+  const handleUseDemoAccount1 = (e: any) => {
     setIsServerLoading(true);
     const userData: LogInUserData = {
       logInID: "demoaccount",
@@ -48,6 +49,21 @@ function LogIn() {
     });
     e.preventDefault();
   };
+
+  const handleUseDemoAccount2 = (e: any) => {
+    setIsServerLoading(true);
+    const userData: LogInUserData = {
+      logInID: "demoaccount",
+      password: "12345678",
+    };
+    dispatch(logIn(userData)).then(() => {
+      setIsServerLoading(false);
+      navigate("/");
+      dispatch(resetAuthMessage());
+    });
+    e.preventDefault();
+  };
+
   const goToRegister = () => {
     navigate("/register");
   };
@@ -101,10 +117,16 @@ function LogIn() {
               LogIn
             </button>
             <button
-              onClick={handleUseDemoAccount}
+              onClick={handleUseDemoAccount1}
               className="basis-0 py-1 px-2 rounded-full outline-none bg-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
             >
-              Use Demo Account
+              Use Demo Account 1
+            </button>
+            <button
+              onClick={handleUseDemoAccount2}
+              className="basis-0 py-1 px-2 rounded-full outline-none border border-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
+            >
+              Use Demo Account 2
             </button>
           </div>
         </div>
