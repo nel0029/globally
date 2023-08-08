@@ -94,7 +94,7 @@ const App = () => {
             <Route
               path="/*"
               element={
-                <div className="w-full flex-grow transition-colors ease-in-out duration-300">
+                <div className="w-full flex flex-col flex-grow transition-colors ease-in-out duration-300">
                   <div className="w-full flex flex-row justify-center items-start flex-grow">
                     <NavBar />
                     <div className="flex flex-grow pb-[60px] sm:pb-0 ">
