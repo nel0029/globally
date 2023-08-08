@@ -109,10 +109,14 @@ const Messages = () => {
       dispatch(createNewMessage(message));
     });
   }, []);
-
+  const bottomNav = document.getElementById("bottom-nav");
+  const bottomNavHeight = bottomNav?.offsetHeight;
   return (
     <div className="w-full relative flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0">
-      <div className="z-[100] h-screen flex-grow flex lg:hidden w-full">
+      <div
+        style={{ height: `calc(100vh - ${bottomNavHeight})` }}
+        className="z-[100] flex-grow flex lg:hidden w-full"
+      >
         <Routes>
           <Route path="/" element={<ConversationListContainer />} />
           <Route path="/new" element={<NewConversation />} />
