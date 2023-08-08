@@ -114,8 +114,8 @@ const Messages = () => {
   return (
     <div className="w-full relative flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0">
       <div
-        style={{ height: `calc(100vh - ${bottomNavHeight})` }}
-        className="z-[100] flex-grow flex lg:hidden w-full"
+        style={{ height: `calc(100vh - ${bottomNavHeight}px)` }}
+        className="z-[100] flex-1 flex-grow flex lg:hidden w-full"
       >
         <Routes>
           <Route path="/" element={<ConversationListContainer />} />
