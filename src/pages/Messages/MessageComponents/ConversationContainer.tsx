@@ -97,7 +97,7 @@ const ConversationContainer = () => {
 
   return (
     <div
-      className={` flex-grow dark:bg-Dark100 bg-slate-100 w-full overflow-y-auto flex flex-col lg:border-l dark:border-Dark300`}
+      className={`sticky top-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full overflow-y-auto flex flex-col lg:border-l dark:border-Dark300`}
     >
       {conversationInfo && (
         <div className="flex flex-col flex-grow">
