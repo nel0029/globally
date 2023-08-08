@@ -56,7 +56,7 @@ const BottomNavigation = () => {
   return (
     <div
       id="bottom-nav"
-      className=" z-50 fixed bottom-0 w-full flex sm:hidden flex-row items-center justify-around py-2 bg-white dark:bg-Dark300 text-3xl"
+      className=" z-50 fixed bottom-0 w-full flex lg:hidden flex-row items-center justify-around py-2 bg-white dark:bg-Dark300 text-3xl"
     >
       <div onClick={goToHome}>
         <IonIcon icon={homeOutline} />

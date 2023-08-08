@@ -106,7 +106,7 @@ export default function CreateNewPostInput() {
         />
 
         {selectedFiles.length > 0 && (
-          <div className="w-full flex flex-row items-center justify-start py-2 gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scroll-bar sm:scroll-bar-horizontal">
+          <div className="w-full flex flex-row items-center justify-start py-2 gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scroll-bar lg:scroll-bar-horizontal">
             {selectedFiles.map((file, index) => (
               <div key={index} className="relative">
                 <div className="w-16 h-16 rounded-lg flex items-center justify-center">
