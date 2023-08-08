@@ -108,7 +108,7 @@ const NewConversation = () => {
   );
 
   return (
-    <div className="h-[100dvh] fixed lg:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
+    <div className="z-[100] h-[100dvh] fixed lg:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
       <Header>
         <div
           onClick={goToMessages}

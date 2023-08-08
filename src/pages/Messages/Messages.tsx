@@ -109,17 +109,44 @@ const Messages = () => {
       dispatch(createNewMessage(message));
     });
   }, []);
-  const bottomNav = document.getElementById("bottom-nav");
-  const bottomNavHeight = bottomNav?.offsetHeight;
-  const container = document.getElementById("message-container");
-  const containerHeight = container?.offsetHeight;
+
+  const [bottomNavHeight, setBottomNavHeight] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(0);
+
+  useEffect(() => {
+    const bottomNav = document.getElementById("bottom-nav");
+    if (bottomNav) {
+      setBottomNavHeight(bottomNav.offsetHeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update the container height when the window is resized
+    const updateContainerHeight = () => {
+      setContainerHeight(window.innerHeight - bottomNavHeight);
+    };
+
+    // Initial calculation
+    updateContainerHeight();
+
+    // Listen for window resize events
+    window.addEventListener("resize", updateContainerHeight);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener("resize", updateContainerHeight);
+    };
+  }, [bottomNavHeight]);
 
   return (
     <div
       id="message-container"
-      className="w-full relative flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0"
+      className="w-full h-full flex-grow flex flex-col items-center justify-center gap-y-2"
     >
-      <div className="z-[100] flex-grow flex lg:hidden w-full">
+      <div
+        // style={{ height: `${containerHeight + 8}px` }}
+        className="flex-grow flex lg:hidden w-full absolute top-0 bottom-0"
+      >
         <Routes>
           <Route path="/" element={<ConversationListContainer />} />
           <Route path="/new" element={<NewConversation />} />
@@ -131,7 +158,7 @@ const Messages = () => {
           />
         </Routes>
       </div>
-      <div className="hidden h-[100dvh] lg:flex w-full sticky top-0 bottom-0">
+      <div className="flex-grow hidden lg:flex w-full sticky top-0 bottom-0">
         <div className="min-w-[400px]">{renderConversationList()}</div>
         {renderNoConvoSelected()}
         {renderNoMessageRequestSelected()}

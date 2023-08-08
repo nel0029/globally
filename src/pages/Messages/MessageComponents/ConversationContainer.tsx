@@ -34,7 +34,16 @@ const ConversationContainer = () => {
   const messages = useSelector((state: any) => state.messages.messages) || [];
   const location = useLocation();
   const [messageText, setMessageText] = useState("");
-  const [focused, setFocused] = useState(false);
+
+  const scrollToBottom = () => {
+    if (messageContainerRef.current && messages) {
+      messageContainerRef.current.scrollTo(
+        0,
+        messageContainerRef.current.offsetHeight
+      );
+      console.log("EXECUTED");
+    }
+  };
 
   useEffect(() => {
     const data = {
@@ -45,11 +54,20 @@ const ConversationContainer = () => {
     dispatch(getConversationInfo(data)).then(() =>
       dispatch(getAllMessages(data))
     );
+    if (
+      messages &&
+      messageContainerRef.current &&
+      messageContainerRef.current.offsetHeight > 0
+    ) {
+      scrollToBottom();
+    }
   }, [conversationID]);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    if (messages && messageContainerRef.current) {
+      scrollToBottom();
+    }
+  }, [messages.length]);
 
   useEffect(() => {
     const data = {
@@ -73,13 +91,6 @@ const ConversationContainer = () => {
 
   const goBack = () => navigate("/messages");
 
-  const scrollToBottom = () => {
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop =
-        messageContainerRef.current.scrollHeight;
-    }
-  };
-
   const handleSendMessage = () => {
     const data = {
       text: messageText,
@@ -91,16 +102,13 @@ const ConversationContainer = () => {
     scrollToBottom();
     setMessageText("");
   };
-  const handleFocus = () => {
-    setFocused(!focused);
-  };
 
   return (
     <div
-      className={`sticky top-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full overflow-y-auto flex flex-col lg:border-l dark:border-Dark300`}
+      className={`z-50 top-0 bottom-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full flex flex-col lg:border-l dark:border-Dark300 `}
     >
       {conversationInfo && (
-        <div className="flex flex-col flex-grow">
+        <div className="w-full flex flex-col flex-grow">
           <Header>
             <div className="flex flex-row items-center ">
               <div className="flex-[1] flex flex-row items-center">
@@ -125,24 +133,26 @@ const ConversationContainer = () => {
               </div>
             </div>
           </Header>
-          <div
-            className="flex flex-col flex-[1] p-2 gap-y-2 overflow-y-auto"
-            ref={messageContainerRef}
-          >
-            {messages && messages.length > 0 ? (
-              messages.map((message: MessageDataProps) => (
-                <MessageBubble
-                  key={message._id}
-                  senderID={message.senderID}
-                  text={message.text}
-                  createdAt={message.createdAt}
-                />
-              ))
-            ) : (
-              <div>No messages</div>
-            )}
+          <div className="w-full flex-grow overflow-y-auto">
+            <div
+              ref={messageContainerRef}
+              className="w-full flex flex-col flex-grow p-2 gap-y-2 overflow-y-auto"
+            >
+              {messages && messages.length > 0 ? (
+                messages.map((message: MessageDataProps) => (
+                  <MessageBubble
+                    key={message._id}
+                    senderID={message.senderID}
+                    text={message.text}
+                    createdAt={message.createdAt}
+                  />
+                ))
+              ) : (
+                <div>No messages</div>
+              )}
+            </div>
           </div>
-          <div className="sticky bottom-0 dark:bg-Dark100 bg-slate-100 w-full flex flex-row px-2 flex-shrink overflow-x-hidden">
+          <div className="sticky bottom-0 dark:bg-Dark100 bg-slate-100 w-full flex flex-row px-2 pb-4 flex-shrink overflow-x-hidden">
             <div className="flex-grow">
               <input
                 placeholder="Aa"

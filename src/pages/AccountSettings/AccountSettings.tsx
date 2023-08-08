@@ -139,7 +139,7 @@ const AccountSettings = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-y-2">
+    <div className="w-full flex-grow flex flex-col items-center justify-center gap-y-2">
       <Header>
         <TitleText>
           <div className="py-0.5">Account Settings</div>
