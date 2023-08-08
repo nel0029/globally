@@ -239,6 +239,9 @@ const messageSlice = createSlice({
 
       state.unseenMessagesCount = response;
     },
+    resetMessages: (state) => {
+      state.messages = [];
+    },
   },
 
   extraReducers: (builder) => {
@@ -301,5 +304,6 @@ export const {
   removeNotifcation,
   resetNotificationsCount,
   updateUnseenMessagesCount,
+  resetMessages,
 } = messageSlice.actions;
 export default messageSlice.reducer;

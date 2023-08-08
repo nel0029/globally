@@ -18,6 +18,7 @@ import { AppDispatch } from "../../../redux/store";
 import {
   MessageDataProps,
   createNewConvo,
+  resetMessages,
   updateConvo,
 } from "../../../redux/messageSlice";
 import { useLocation } from "react-router";
@@ -61,6 +62,9 @@ const ConversationContainer = () => {
     ) {
       scrollToBottom();
     }
+    return () => {
+      dispatch(resetMessages());
+    };
   }, [conversationID]);
 
   useEffect(() => {
