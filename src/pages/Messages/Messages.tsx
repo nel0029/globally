@@ -111,10 +111,15 @@ const Messages = () => {
   }, []);
   const bottomNav = document.getElementById("bottom-nav");
   const bottomNavHeight = bottomNav?.offsetHeight;
+  const container = document.getElementById("message-container");
+  const containerHeight = container?.offsetHeight;
   return (
-    <div className="w-full relative flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0">
+    <div
+      id="message-conainer"
+      className="w-full relative flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0"
+    >
       <div
-        style={{ height: `calc(100vh - ${bottomNavHeight}px)` }}
+        style={{ height: `calc(${containerHeight}px - ${bottomNavHeight}px)` }}
         className="z-[100] flex-grow flex lg:hidden w-full"
       >
         <Routes>
