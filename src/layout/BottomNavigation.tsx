@@ -7,6 +7,10 @@ import {
   personOutline,
   mailOutline,
   notificationsOutline,
+  home,
+  person,
+  mail,
+  notifications,
 } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
@@ -58,21 +62,45 @@ const BottomNavigation = () => {
       id="bottom-nav"
       className="fixed bottom-0 w-full flex lg:hidden flex-row items-center justify-around py-2 bg-white dark:bg-Dark300 text-3xl"
     >
-      <div onClick={goToHome}>
-        <IonIcon icon={homeOutline} />
+      <div
+        className={`${activeTab === "/" ? "text-secondary" : ""}`}
+        onClick={goToHome}
+      >
+        <IonIcon icon={activeTab === "/" ? home : homeOutline} />
       </div>
-      <div onClick={goToUserProfile}>
-        <IonIcon icon={personOutline} />
+      <div
+        className={`${
+          activeTab === `/${user.userName}` ? " text-secondary" : ""
+        }`}
+        onClick={goToUserProfile}
+      >
+        <IonIcon
+          icon={activeTab === `/${user.userName}` ? person : personOutline}
+        />
       </div>
-      <div onClick={goToMessages}>
-        <IonIcon icon={mailOutline} />
+      <div
+        className={`${activeTab === "/messages" ? "text-secondary" : ""}`}
+        onClick={goToMessages}
+      >
+        <IonIcon icon={activeTab === "/messages" ? mail : mailOutline} />
       </div>
-      <div onClick={goToNotifications}>
-        <IonIcon icon={notificationsOutline} />
+      <div
+        className={`${activeTab === "/" ? "text-secondary" : ""}`}
+        onClick={goToNotifications}
+      >
+        <IonIcon
+          icon={
+            activeTab === "/notifications"
+              ? notifications
+              : notificationsOutline
+          }
+        />
       </div>
       <div
         onClick={goToAccountSettings}
-        className="w-[30px] h-[30px] rounded-full "
+        className={`${
+          activeTab === "/account/setting" ? "border-2 border-secondary" : ""
+        } w-[30px] h-[30px] rounded-full flex justify-center items-center`}
       >
         <img
           className="w-full h-full object-cover rounded-full"
