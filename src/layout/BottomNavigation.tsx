@@ -85,7 +85,7 @@ const BottomNavigation = () => {
         <IonIcon icon={activeTab === "/messages" ? mail : mailOutline} />
       </div>
       <div
-        className={`${activeTab === "/" ? "text-secondary" : ""}`}
+        className={`${activeTab === "/notifications" ? "text-secondary" : ""}`}
         onClick={goToNotifications}
       >
         <IonIcon
