@@ -115,7 +115,7 @@ const Messages = () => {
   const containerHeight = container?.offsetHeight;
   return (
     <div
-      id="message-conainer"
+      id="message-container"
       className="w-full relative flex-grow flex flex-col items-center justify-center gap-y-2 top-0 bottom-0"
     >
       <div
