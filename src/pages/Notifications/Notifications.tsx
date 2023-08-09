@@ -109,7 +109,7 @@ const Notifications = () => {
           notifications.map((notification: NotificationsProps) => (
             <div
               key={notification._id}
-              className="w-full border dark:border-Dark300 bg-white dark:bg-Dark200 rounded-lg p-1 flex flex-row items-center gap-x-2"
+              className="w-full border dark:border-Dark300 bg-white dark:bg-Dark200 rounded-lg px-1 py-2 flex flex-row items-center gap-x-2"
             >
               <div className="px-1">
                 <CardAvatar
