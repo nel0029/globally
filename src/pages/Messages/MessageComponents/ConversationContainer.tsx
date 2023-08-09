@@ -39,7 +39,7 @@ const ConversationContainer = () => {
 
   const scrollToBottom = () => {
     if (messages && messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: "instant" });
+      messageEndRef.current.scrollIntoView({ behavior: "auto" });
     }
   };
 
