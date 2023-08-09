@@ -88,7 +88,6 @@ const App = () => {
   useEffect(() => {
     if (bottomNav && bottomNav.offsetHeight) {
       setBottomNavHeight(bottomNav.offsetHeight);
-      console.log(bottomNav.offsetHeight);
     }
   }, [bottomNav, bottomNav?.offsetHeight]);
 
