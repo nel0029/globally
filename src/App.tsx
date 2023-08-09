@@ -1,12 +1,11 @@
 /** @format */
 
-import { useState } from "react";
 import RoutesPage from "./routes/RoutesPage";
 import axios from "axios";
 import NavBar from "./layout/NavBar";
 import BottomNavigation from "./layout/BottomNavigation";
 import { Routes, Route, useLocation } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import socket from "./sockets/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "./redux/store";
@@ -32,6 +31,7 @@ const App = () => {
   const mode = useSelector((state: any) => state.theme.darkMode);
   const user = useSelector((state: any) => state.user.userData);
   const body = document.getElementById("body");
+  const [bottomNavHeight, setBottomNavHeight] = useState(0);
 
   useEffect(() => {
     if (mode === true) {
@@ -84,7 +84,14 @@ const App = () => {
   }, []);
 
   const bottomNav = document.getElementById("bottom-nav");
-  const bottomNavHeight = bottomNav?.offsetHeight;
+
+  useEffect(() => {
+    if (bottomNav && bottomNav.offsetHeight) {
+      setBottomNavHeight(bottomNav.offsetHeight);
+      console.log(bottomNav.offsetHeight);
+    }
+  }, [bottomNav, bottomNav?.offsetHeight]);
+
   return (
     <div
       style={{ height: containerHeight }}
@@ -101,7 +108,8 @@ const App = () => {
                     <NavBar />
                     <div
                       style={{
-                        paddingBottom: bottomNavHeight && bottomNavHeight + 10,
+                        paddingBottom:
+                          bottomNavHeight > 0 ? bottomNavHeight + 8 : 76,
                       }}
                       className="w-full flex flex-col flex-grow justify-start h-full"
                     >

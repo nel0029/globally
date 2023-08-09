@@ -29,7 +29,8 @@ const ConversationContainer = () => {
   const user = useSelector((state: any) => state.user.userData);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const messageContainerRef = useRef<HTMLDivElement | null>(null);
+  const messageContainerRef = useRef(document.createElement("div"));
+  const messageEndRef = useRef(document.createElement("div"));
   const conversationInfo =
     useSelector((state: any) => state.messages.conversationInfo) || {};
   const messages = useSelector((state: any) => state.messages.messages) || [];
@@ -37,12 +38,8 @@ const ConversationContainer = () => {
   const [messageText, setMessageText] = useState("");
 
   const scrollToBottom = () => {
-    if (messageContainerRef.current && messages) {
-      messageContainerRef.current.scrollTo(
-        0,
-        messageContainerRef.current.offsetHeight
-      );
-      console.log("EXECUTED");
+    if (messages && messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -55,43 +52,30 @@ const ConversationContainer = () => {
     dispatch(getConversationInfo(data)).then(() =>
       dispatch(getAllMessages(data))
     );
-    if (
-      messages &&
-      messageContainerRef.current &&
-      messageContainerRef.current.offsetHeight > 0
-    ) {
-      scrollToBottom();
-    }
-    return () => {
-      dispatch(resetMessages());
-    };
-  }, [conversationID]);
 
-  useEffect(() => {
-    if (messages && messageContainerRef.current) {
-      scrollToBottom();
-    }
-  }, [messages.length]);
-
-  useEffect(() => {
-    const data = {
+    const conversationData = {
       conversationID: conversationID,
       memberID: user.userID,
     };
 
-    socket.emit("joinConversation", data);
+    const unseenMessagesData = {
+      userID: user.userID,
+    };
+    dispatch(getUnseenMessagesCount(unseenMessagesData));
+
+    socket.emit("joinConversation", conversationData);
 
     return () => {
       socket.emit("leaveConversation", data);
+      dispatch(resetMessages());
     };
-  }, [location.pathname]);
+  }, [conversationID, location.pathname]);
 
   useEffect(() => {
-    const data = {
-      userID: user.userID,
-    };
-    dispatch(getUnseenMessagesCount(data));
-  }, []);
+    if (messages.length > 0) {
+      scrollToBottom();
+    }
+  }, [messages.length]);
 
   const goBack = () => navigate("/messages");
 
@@ -137,8 +121,9 @@ const ConversationContainer = () => {
               </div>
             </div>
           </Header>
-          <div className="w-full flex-grow overflow-y-auto">
+          <div className="w-full flex-grow ">
             <div
+              id="message-bubbles-container"
               ref={messageContainerRef}
               className="w-full flex flex-col flex-grow p-2 gap-y-2 overflow-y-auto"
             >
@@ -154,8 +139,10 @@ const ConversationContainer = () => {
               ) : (
                 <div>No messages</div>
               )}
+              <div ref={messageEndRef} />
             </div>
           </div>
+
           <div className="sticky bottom-0 dark:bg-Dark100 bg-slate-100 w-full flex flex-row px-2 pb-4 flex-shrink overflow-x-hidden">
             <div className="flex-grow">
               <input

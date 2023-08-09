@@ -60,10 +60,12 @@ const BottomNavigation = () => {
   return (
     <div
       id="bottom-nav"
-      className="fixed bottom-0 w-full flex lg:hidden flex-row items-center justify-around py-2 bg-white dark:bg-Dark300 text-3xl"
+      className="z-30 fixed bottom-0 w-full flex lg:hidden flex-row items-center justify-around py-4 bg-white dark:bg-Dark300 text-3xl"
     >
       <div
-        className={`${activeTab === "/" ? "text-secondary" : ""}`}
+        className={`${
+          activeTab === "/" ? "text-secondary" : ""
+        } flex justify-center items-center text-4xl`}
         onClick={goToHome}
       >
         <IonIcon icon={activeTab === "/" ? home : homeOutline} />
@@ -71,7 +73,7 @@ const BottomNavigation = () => {
       <div
         className={`${
           activeTab === `/${user.userName}` ? " text-secondary" : ""
-        }`}
+        } flex justify-center items-center text-4xl`}
         onClick={goToUserProfile}
       >
         <IonIcon
@@ -79,13 +81,17 @@ const BottomNavigation = () => {
         />
       </div>
       <div
-        className={`${activeTab === "/messages" ? "text-secondary" : ""}`}
+        className={`${
+          activeTab === "/messages" ? "text-secondary" : ""
+        } flex justify-center items-center text-4xl`}
         onClick={goToMessages}
       >
         <IonIcon icon={activeTab === "/messages" ? mail : mailOutline} />
       </div>
       <div
-        className={`${activeTab === "/notifications" ? "text-secondary" : ""}`}
+        className={`${
+          activeTab === "/notifications" ? "text-secondary" : ""
+        } flex justify-center items-center text-4xl`}
         onClick={goToNotifications}
       >
         <IonIcon
@@ -100,7 +106,7 @@ const BottomNavigation = () => {
         onClick={goToAccountSettings}
         className={`${
           activeTab === "/account/setting" ? "border-2 border-secondary" : ""
-        } w-[30px] h-[30px] rounded-full flex justify-center items-center`}
+        } w-[36px] h-[36px] rounded-full flex justify-center items-center`}
       >
         <img
           className="w-full h-full object-cover rounded-full"
