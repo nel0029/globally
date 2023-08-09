@@ -172,7 +172,7 @@ const NewConversation = () => {
       >
         {/* Message content */}
       </div>
-      <div className="w-full flex flex-row px-2 flex-shrink overflow-x-hidden ">
+      <div className="sticky bottom-0 dark:bg-Dark100 bg-slate-100 w-full flex flex-row px-2 py-4 flex-shrink overflow-x-hidden">
         <div className="flex-grow">
           <input
             placeholder="Aa"
@@ -183,7 +183,7 @@ const NewConversation = () => {
           />
         </div>
         <button
-          className="p-2 flex flex-row items-center gap-x-2"
+          className="p-2 text-3xl flex flex-row items-center gap-x-2 text-secondary"
           onClick={handleSendMessage}
         >
           <IonIcon icon={paperPlane} />

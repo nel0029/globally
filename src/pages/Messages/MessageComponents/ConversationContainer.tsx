@@ -154,7 +154,7 @@ const ConversationContainer = () => {
               />
             </div>
             <button
-              className="p-2 text-3xl flex flex-row items-center gap-x-2"
+              className="p-2 text-3xl flex flex-row items-center gap-x-2 text-secondary"
               onClick={handleSendMessage}
             >
               <IonIcon icon={paperPlane} />
