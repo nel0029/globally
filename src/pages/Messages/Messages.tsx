@@ -141,7 +141,7 @@ const Messages = () => {
   return (
     <div
       id="message-container"
-      className="w-full h-full flex-grow flex flex-col items-center justify-center gap-y-2"
+      className="w-full h-full flex-grow flex flex-col items-center justify-center gap-y-2 dark:bg-Dark100 bg-slate-100"
     >
       <div
         // style={{ height: `${containerHeight + 8}px` }}
