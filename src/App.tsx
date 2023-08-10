@@ -33,6 +33,26 @@ const App = () => {
   const body = document.getElementById("body");
   const [bottomNavHeight, setBottomNavHeight] = useState(0);
 
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const [appHeight, setAppHeight] = useState(0);
+
+  useEffect(() => {
+    const initialHeight = window.innerHeight;
+    const updateKeyboardHeight = () => {
+      const currentHeight = window.innerHeight;
+      const newKeboardHeight = initialHeight - currentHeight;
+      const newAppHeight = initialHeight - keyboardHeight;
+      setKeyboardHeight(newKeboardHeight);
+      setAppHeight(newAppHeight);
+    };
+
+    window.addEventListener("resize", updateKeyboardHeight);
+
+    return () => {
+      window.addEventListener("resize", updateKeyboardHeight);
+    };
+  }, [window.innerHeight, keyboardHeight, appHeight]);
+
   useEffect(() => {
     if (mode === true) {
       body?.classList.add("dark");
@@ -106,8 +126,8 @@ const App = () => {
   };
   return (
     <div
-      style={{ height: containerHeight }}
-      className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
+      style={{ height: appHeight }}
+      className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
     >
       <div className="w-full h-full flex flex-col flex-grow relative overflow-hidden ">
         {user ? (
