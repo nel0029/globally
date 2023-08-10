@@ -89,20 +89,6 @@ const App = () => {
     };
   }, []);
 
-  const [containerHeight, setContainerHeight] = useState(window.innerHeight);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setContainerHeight(window.innerHeight);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const bottomNav = document.getElementById("bottom-nav");
 
   useEffect(() => {
@@ -126,7 +112,7 @@ const App = () => {
   };
   return (
     <div
-      style={{ height: appHeight }}
+      style={{ maxHeight: appHeight }}
       className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
     >
       <div className="w-full h-full flex flex-col flex-grow relative overflow-hidden ">
