@@ -35,9 +35,10 @@ const App = () => {
 
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [appHeight, setAppHeight] = useState(0);
+  const [initialHeight, setInitialHeight] = useState(0);
 
   useEffect(() => {
-    const initialHeight = window.innerHeight;
+    setInitialHeight(window.innerHeight);
     const updateKeyboardHeight = () => {
       const currentHeight = window.innerHeight;
       const newKeboardHeight = initialHeight - currentHeight;
@@ -51,7 +52,7 @@ const App = () => {
     return () => {
       window.addEventListener("resize", updateKeyboardHeight);
     };
-  }, [window.innerHeight, keyboardHeight, appHeight]);
+  }, [initialHeight, keyboardHeight, appHeight]);
 
   useEffect(() => {
     if (mode === true) {
@@ -130,6 +131,7 @@ const App = () => {
                       }}
                       className="w-full flex flex-col flex-grow justify-start h-full overflow-y-auto"
                     >
+                      {initialHeight}
                       <RoutesPage />
                     </div>
                   </div>
