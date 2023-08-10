@@ -98,7 +98,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="lg:max-w-[300px] h-screen flex-grow-0 sticky hidden lg:flex flex-col items-center justify-center left-0 top-0 bottom-0 border-r dark:border-Dark300">
+    <div className="lg:max-w-[300px] h-full flex-grow-0 sticky hidden lg:flex flex-col items-center justify-center left-0 top-0 bottom-0 border-r dark:border-Dark300">
       <Header>
         <div className="flex justify-center items-center w-[32px] rounded-full text-secondary">
           <img

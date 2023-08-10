@@ -93,10 +93,10 @@ const App = () => {
 
   const setBottomPadding = () => {
     const windowWidth = window.innerWidth;
-    const defaultPadding = 72;
+    const defaultPadding = 76;
     if (windowWidth < 1024) {
       if (bottomNavHeight > 0) {
-        return bottomNavHeight;
+        return bottomNavHeight + 8;
       } else {
         return defaultPadding;
       }

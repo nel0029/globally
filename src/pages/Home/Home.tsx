@@ -34,14 +34,14 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex-1 h-full w-full flex flex-col items-center justify-start gap-y-2 ">
+    <div className="flex-1 h-full w-full flex flex-col items-center justify-start gap-y-2 overflow-y-auto">
       <Header>
         <div className="flex justify-center items-center font-bold text-2xl rounded-full text-secondary">
           Home
         </div>
       </Header>
 
-      <div className="w-full flex flex-col justify-center items-center gap-y-4 px-2">
+      <div className="w-full flex flex-col justify-start items-center gap-y-4 px-2 ">
         <CreateNewPost />
         <div className="flex w-full flex-col-reverse justify-center items-center gap-y-2">
           {isLoading ? (

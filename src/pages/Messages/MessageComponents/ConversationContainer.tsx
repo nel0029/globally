@@ -23,6 +23,7 @@ import {
 } from "../../../redux/messageSlice";
 import { useLocation } from "react-router";
 import { createNewMessage } from "../../../redux/messageSlice";
+import MessageInputContainer from "./MessageInputContainer";
 
 const ConversationContainer = () => {
   const { conversationID } = useParams<string>();
@@ -93,10 +94,10 @@ const ConversationContainer = () => {
 
   return (
     <div
-      className={`h-full z-50 top-0 bottom-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full flex flex-col lg:border-l dark:border-Dark300 overflow-y-auto`}
+      className={`fixed top-0 bottom-0 left-0 lg:static z-50 h-full flex-1 dark:bg-Dark100 bg-slate-100 w-full flex flex-col lg:border-l dark:border-Dark300 overflow-hidden`}
     >
       {conversationInfo && (
-        <div className="w-full flex flex-col flex-grow">
+        <div className="w-full h-full flex flex-col flex-1 ">
           <Header>
             <div className="flex flex-row items-center ">
               <div className="flex-[1] flex flex-row items-center">
@@ -121,11 +122,11 @@ const ConversationContainer = () => {
               </div>
             </div>
           </Header>
-          <div className="flex-1 w-full overflow-auto">
+          <div className="flex-1 w-full flex flex-col overflow-y-auto">
             <div
               id="message-bubbles-container"
               ref={messageContainerRef}
-              className="w-full flex flex-col flex-1 p-2 gap-y-2 overflow-y-auto"
+              className="w-full h-full flex flex-col flex-1 p-2 gap-y-2 overflow-y-auto"
             >
               {messages && messages.length > 0 ? (
                 messages.map((message: MessageDataProps) => (
@@ -142,24 +143,11 @@ const ConversationContainer = () => {
               <div ref={messageEndRef} />
             </div>
           </div>
-
-          <div className="sticky bottom-0 dark:bg-Dark100 bg-slate-100 w-full flex flex-row px-2 py-4 flex-shrink overflow-x-hidden">
-            <div className="flex-grow">
-              <input
-                placeholder="Aa"
-                className="w-full bg-transparent border dark:border-Dark300 outline-none p-2 rounded-lg"
-                type="text"
-                value={messageText}
-                onChange={(event: any) => setMessageText(event.target.value)}
-              />
-            </div>
-            <button
-              className="p-2 text-3xl flex flex-row items-center gap-x-2 text-secondary"
-              onClick={handleSendMessage}
-            >
-              <IonIcon icon={paperPlane} />
-            </button>
-          </div>
+          <MessageInputContainer
+            onClick={handleSendMessage}
+            messageText={messageText}
+            setMessageText={setMessageText}
+          />
         </div>
       )}
     </div>
