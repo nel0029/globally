@@ -113,9 +113,12 @@ const App = () => {
   };
   return (
     <div
-      style={{ maxHeight: appHeight < initialHeight ? appHeight : "100%" }}
+      style={{
+        maxHeight:
+          appHeight < initialHeight && appHeight > 0 ? appHeight : "100%",
+      }}
       className={`${
-        appHeight < initialHeight ? "" : "h-full"
+        appHeight < initialHeight && appHeight > 0 ? "" : "h-full"
       } w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
     >
       <div className="w-full h-full flex flex-col flex-grow relative overflow-hidden ">
