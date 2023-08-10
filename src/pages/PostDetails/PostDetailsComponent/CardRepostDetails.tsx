@@ -15,6 +15,11 @@ interface MediaProps {
   url: string;
 }
 
+interface OptionProps {
+  _id?: string;
+  body?: string;
+  count?: number;
+}
 export interface CardRepostDetailsProps {
   parentPostID: string;
   parentType: string;
@@ -48,6 +53,10 @@ export interface CardRepostDetailsProps {
   isFollowedAuthor: boolean;
   followID: string | null;
   parentBGColor?: string;
+  optionChoosedID?: string;
+  parentHasPoll?: boolean;
+  parentPollRespondentsCount?: number;
+  parentPollOptions?: OptionProps[];
 }
 
 const CardRepostDetails = (details: CardRepostDetailsProps) => {
@@ -108,15 +117,20 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
               parentType={details.parentType}
               parentPostID={details.parentPostID}
               parentBGColor={details.parentBGColor}
+              optionChoosedID={details.optionChoosedID}
+              hasChoosed={details.parentHasPoll}
+              pollOptions={details.parentPollOptions}
+              pollRespondentsCount={details.parentPollRespondentsCount}
+              hasPoll={details.parentHasPoll}
             />
           )}
+          <div className="flex items-center text-xs xl:text-sm text-gray-400">
+            {formattedDateAndTime}
+          </div>
         </div>
       </div>
       <div className="flex flex-col">
         <div className="w-full flex flex-row gap-x-2 py-1 border-y dark:border-Dark300">
-          <div className="flex items-center text-xs xl:text-sm text-gray-400">
-            {formattedDateAndTime}
-          </div>
           <div className="flex flex-row items-center flex-grow text-base gap-x-2">
             <div className="flex flex-row items-center gap-x-2">
               <span className="font-bold ">{details.likesCount}</span>

@@ -113,13 +113,13 @@ const CardDetails = (details: CardDetailsProps) => {
               options={details.pollOptions}
             />
           )}
+          <div className="flex items-center text-xs xl:text-sm text-gray-400">
+            {formattedDateAndTime}
+          </div>
         </div>
       </div>
       <div className="flex flex-col">
         <div className="w-full flex flex-row gap-x-2 py-1 border-y dark:border-Dark400">
-          <div className="flex items-center text-xs xl:text-sm text-gray-400">
-            {formattedDateAndTime}
-          </div>
           <div className="flex flex-row items-center flex-grow text-base gap-x-2">
             <div className="flex flex-row items-center gap-x-2">
               <span className="font-bold ">{details.likesCount}</span>

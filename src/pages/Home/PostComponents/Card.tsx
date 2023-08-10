@@ -66,6 +66,9 @@ export interface CardProps {
   optionChoosedID?: string;
   pollRespondentsCount?: number;
   parentBGColor?: string;
+  parentHasPoll?: boolean;
+  parentPollRespondentsCount?: number;
+  parentPollOptions?: OptionProps[];
 }
 
 interface MainCardProps extends CardProps {
@@ -167,10 +170,10 @@ const Card = (card: MainCardProps) => {
                 parentType={card.parentType}
                 parentPostID={card.parentPostID}
                 parentBGColor={card.parentBGColor}
-                hasPoll={card.hasPoll}
-                options={card.pollOptions}
+                hasPoll={card.parentHasPoll}
+                pollOptions={card.parentPollOptions}
                 hasChoosed={card.hasChoosed}
-                pollRespondentsCount={card.pollRespondentsCount}
+                pollRespondentsCount={card.parentPollRespondentsCount}
                 optionChoosedID={card.optionChoosedID}
               />
             )}
