@@ -113,13 +113,7 @@ const App = () => {
   };
   return (
     <div
-      style={{
-        maxHeight:
-          appHeight < initialHeight && appHeight > 0 ? appHeight : "100%",
-      }}
-      className={`${
-        appHeight < initialHeight && appHeight > 0 ? "" : "h-full"
-      } w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
+      className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
     >
       <div className="w-full h-full flex flex-col flex-grow relative overflow-hidden ">
         {user ? (
@@ -134,13 +128,8 @@ const App = () => {
                       style={{
                         paddingBottom: setBottomPadding(),
                       }}
-                      className={`${
-                        appHeight === initialHeight
-                          ? ""
-                          : "absolute top-0 bottom-0 left-0"
-                      } w-full flex flex-col flex-grow justify-start h-full overflow-y-auto`}
+                      className={`w-full flex flex-col flex-grow justify-start h-full overflow-y-auto`}
                     >
-                      {initialHeight}
                       <RoutesPage />
                     </div>
                   </div>
