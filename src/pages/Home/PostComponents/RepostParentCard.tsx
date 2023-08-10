@@ -81,14 +81,14 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
       className="w-full rounded-lg cursor-pointer overflow-hidden"
     >
       <div className="dark:border-Dark300 border rounded-lg flex flex-row items-start w-full p-2 gap-x-2">
-        <div className="w-[40px]">
+        <div className="w-[40px] pt-1">
           <CardAvatar
             userName={parentUserName}
             avatarURL={parentAuthorAvatarURL?.url}
           />
         </div>
         <div className="w-full">
-          <div className="flex flex-col py-1 flex-shrink max-w-[calc(100%-8px)] overflow-x-hidden">
+          <div className="flex flex-col  flex-shrink max-w-[calc(100%-8px)] overflow-x-hidden">
             <div
               onClick={userProfile}
               className="max-w-[calc(100%-10px)] flex flex-shrink hover:underline hover:text-secondary font-bold overflow-hidden text-ellipsis whitespace-nowrap"
@@ -96,7 +96,7 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
               {parentAuthorFirstName} {parentAuthorMiddleName}{" "}
               {parentAuthorLastName}
             </div>
-            <div className="flex flex-shrink font-light overflow-hidden text-ellipsis whitespace-nowrap">
+            <div className="flex flex-shrink font-light overflow-hidden text-ellipsis whitespace-nowrap bg-transparent">
               @{parentUserName}
             </div>
           </div>

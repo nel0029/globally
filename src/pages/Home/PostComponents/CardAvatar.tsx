@@ -35,8 +35,8 @@ const CardAvatar: React.FC<AvatarURLProps> = ({
       onClick={userName ? userProfile : () => {}}
       className={`flex justify-center items-center `}
       style={{
-        width: width ? width : "40px",
-        height: height ? height : "40px",
+        width: width ? width : "45px",
+        height: height ? height : "45px",
       }}
     >
       {avatarURL ? (
