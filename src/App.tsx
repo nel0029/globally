@@ -91,6 +91,19 @@ const App = () => {
     }
   }, [bottomNav, bottomNav?.offsetHeight]);
 
+  const setBottomPadding = () => {
+    const windowWidth = window.innerWidth;
+    const defaultPadding = 72;
+    if (windowWidth < 1024) {
+      if (bottomNavHeight > 0) {
+        return bottomNavHeight;
+      } else {
+        return defaultPadding;
+      }
+    } else {
+      return 0;
+    }
+  };
   return (
     <div
       style={{ height: containerHeight }}
@@ -107,8 +120,7 @@ const App = () => {
                     <NavBar />
                     <div
                       style={{
-                        paddingBottom:
-                          bottomNavHeight > 0 ? bottomNavHeight + 8 : 76,
+                        paddingBottom: setBottomPadding(),
                       }}
                       className="w-full flex flex-col flex-grow justify-start h-full"
                     >

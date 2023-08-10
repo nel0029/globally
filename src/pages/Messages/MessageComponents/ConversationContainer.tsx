@@ -93,7 +93,7 @@ const ConversationContainer = () => {
 
   return (
     <div
-      className={`z-50 top-0 bottom-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full flex flex-col lg:border-l dark:border-Dark300 `}
+      className={`h-full z-50 top-0 bottom-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full flex flex-col lg:border-l dark:border-Dark300 `}
     >
       {conversationInfo && (
         <div className="w-full flex flex-col flex-grow">

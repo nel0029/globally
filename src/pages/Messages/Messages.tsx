@@ -155,7 +155,7 @@ const Messages = () => {
           />
         </Routes>
       </div>
-      <div className="flex-grow hidden lg:flex w-full sticky top-0 bottom-0">
+      <div className="h-full flex-grow hidden lg:flex w-full sticky top-0 bottom-0">
         <div className="min-w-[400px]">{renderConversationList()}</div>
         {renderNoConvoSelected()}
         {renderNoMessageRequestSelected()}

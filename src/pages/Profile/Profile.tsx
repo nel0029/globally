@@ -100,7 +100,7 @@ export default function Profile() {
 
   const isInUserProfile = location.pathname.includes(`/${user.userName}`);
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-y-2 overflow-hidden flex-shrink">
+    <div className="w-full flex flex-col items-center justify-center flex-shrink">
       <Header>
         {!isInUserProfile && <BackButton />}
         <div className="flex flex-col leading-6">
@@ -117,7 +117,7 @@ export default function Profile() {
         </div>
       </Header>
 
-      <div className="w-full flex flex-col gap-y-2 flex-shrink overflow-hidden">
+      <div className="flex-grow w-full flex flex-col gap-y-2 flex-shrink ">
         <div className="w-full">
           <CoverPhoto coverPhotoURL={userDetails?.coverPhotoURL.url} />
         </div>
