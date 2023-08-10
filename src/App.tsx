@@ -113,7 +113,7 @@ const App = () => {
   };
   return (
     <div
-      style={{ maxHeight: appHeight }}
+      style={{ maxHeight: appHeight > 0 ? appHeight : "100%" }}
       className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
     >
       <div className="w-full h-full flex flex-col flex-grow relative overflow-hidden ">
