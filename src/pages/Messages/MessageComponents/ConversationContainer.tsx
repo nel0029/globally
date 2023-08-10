@@ -93,7 +93,7 @@ const ConversationContainer = () => {
 
   return (
     <div
-      className={`h-full z-50 top-0 bottom-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full flex flex-col lg:border-l dark:border-Dark300 `}
+      className={`h-full z-50 top-0 bottom-0 flex-grow dark:bg-Dark100 bg-slate-100 w-full flex flex-col lg:border-l dark:border-Dark300 overflow-y-auto`}
     >
       {conversationInfo && (
         <div className="w-full flex flex-col flex-grow">
@@ -121,11 +121,11 @@ const ConversationContainer = () => {
               </div>
             </div>
           </Header>
-          <div className="w-full flex-grow ">
+          <div className="flex-1 w-full overflow-auto">
             <div
               id="message-bubbles-container"
               ref={messageContainerRef}
-              className="w-full flex flex-col flex-grow p-2 gap-y-2 overflow-y-auto"
+              className="w-full flex flex-col flex-1 p-2 gap-y-2 overflow-y-auto"
             >
               {messages && messages.length > 0 ? (
                 messages.map((message: MessageDataProps) => (
