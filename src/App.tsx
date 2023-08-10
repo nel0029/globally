@@ -107,9 +107,9 @@ const App = () => {
   return (
     <div
       style={{ height: containerHeight }}
-      className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%] `}
+      className={`w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
     >
-      <div className="w-full flex flex-col flex-grow">
+      <div className="w-full flex flex-col flex-grow relative">
         {user ? (
           <Routes>
             <Route
