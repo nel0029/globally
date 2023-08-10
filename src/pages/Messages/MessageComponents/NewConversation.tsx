@@ -120,7 +120,7 @@ const NewConversation = () => {
           {responseReceiverInfoMemoized ? (
             <UserMessageCard
               _id={responseReceiverInfoMemoized._id}
-              avatarURL={responseReceiverInfoMemoized.avatarURL}
+              avatarURL={responseReceiverInfoMemoized.avatarURL.url}
               firstName={responseReceiverInfoMemoized.userFirstName}
               middleName={responseReceiverInfoMemoized.userMiddleName}
               lastName={responseReceiverInfoMemoized.userLastName}
@@ -154,7 +154,7 @@ const NewConversation = () => {
 
                   <UserMessageCard
                     _id={user.userID}
-                    avatarURL={user.avatarURL}
+                    avatarURL={user.avatarURL.url}
                     firstName={user.userFirstName}
                     middleName={user.userMiddleName}
                     lastName={user.userLastName}
