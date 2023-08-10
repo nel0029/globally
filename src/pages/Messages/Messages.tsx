@@ -143,7 +143,7 @@ const Messages = () => {
       id="message-container"
       className="w-full h-full flex-grow flex flex-col items-center justify-center gap-y-2 dark:bg-Dark100 bg-slate-100"
     >
-      <div className="flex-grow flex lg:hidden w-full top-0 bottom-0">
+      <div className="flex-grow flex lg:hidden w-full absolute h-full top-0 bottom-0">
         <Routes>
           <Route path="/" element={<ConversationListContainer />} />
           <Route path="/new" element={<NewConversation />} />
