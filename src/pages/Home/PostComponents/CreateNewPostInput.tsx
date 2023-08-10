@@ -22,9 +22,17 @@ export default function CreateNewPostInput() {
   const [poll, setPoll] = useState<boolean>(false);
   const [option, setOption] = useState<string>("");
   const [pollOptionList, setPollOptionList] = useState<string[]>([]);
+  const [hasBackgroundColor, setHasBackgroundColor] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("");
 
-  const bgColorOptions = ["", "#ff2052", "#1DA1F2", "#00a328"];
+  const bgColorOptions = [
+    "",
+    "#ff2052",
+    "#1DA1F2",
+    "#00a328",
+    "#ffd166",
+    "#073b4c",
+  ];
 
   const createNewPost = () => {
     const newPost: NewPost = {
@@ -179,8 +187,43 @@ export default function CreateNewPostInput() {
           <div className="text-gray-500">Add atleast two option</div>
         ) : null}
 
+        {/* Background Color*/}
+        {hasBackgroundColor && (
+          <div className="w-full flex flex-row items-center gap-x-2 pt-2">
+            <div
+              onClick={() => setHasBackgroundColor(false)}
+              className="border-gray-500 dark:border-white border py-1 px-1 rounded text-primary flex justify-center items-center"
+            >
+              <IonIcon icon={close} />
+            </div>
+            {bgColorOptions.map((option: any) => (
+              <label key={option} className="cursor-pointer">
+                <input
+                  type="radio"
+                  value={option}
+                  checked={backgroundColor === option}
+                  onChange={(event: any) => {
+                    setBackgroundColor(event.currentTarget.value);
+                  }}
+                  className="peer sr-only"
+                />
+                <div
+                  style={{
+                    backgroundColor: option,
+                  }}
+                  className={`border-gray-500 dark:border-white border p-3 rounded peer-checked:border-gray-500 dark:peer-checked:border-white peer-checked:border`}
+                ></div>
+              </label>
+            ))}
+          </div>
+        )}
         <div className="w-full flex flex-row justify-between gap-x-2 py-2">
           <div className="flex flex-row items-center gap-x-2">
+            <div
+              onClick={() => setHasBackgroundColor(true)}
+              style={{ background: backgroundColor }}
+              className="border-gray-500 dark:border-white border p-3 rounded"
+            ></div>
             <div>
               <label htmlFor="fileInput">
                 <MediaButton hasDisabled={poll} />
@@ -210,27 +253,6 @@ export default function CreateNewPostInput() {
             >
               <IonIcon icon={listOutline} />
             </button>
-            <div className="flex flex-row items-center gap-x-2">
-              {bgColorOptions.map((option: any) => (
-                <label key={option} className="cursor-pointer">
-                  <input
-                    type="radio"
-                    value={option}
-                    checked={backgroundColor === option}
-                    onChange={(event: any) =>
-                      setBackgroundColor(event.currentTarget.value)
-                    }
-                    className="peer sr-only"
-                  />
-                  <div
-                    style={{
-                      backgroundColor: option,
-                    }}
-                    className={`border-gray-500 dark:border-white border p-3 rounded-lg peer-checked:border-gray-500 dark:peer-checked:border-white peer-checked:border-2`}
-                  ></div>
-                </label>
-              ))}
-            </div>
           </div>
           <div className="flex flex-row items-center gap-x-2">
             <CircularProgress

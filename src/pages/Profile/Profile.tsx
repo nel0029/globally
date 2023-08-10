@@ -128,12 +128,12 @@ export default function Profile() {
           <div className="w-full flex flex-row items-center justify-end ">
             {user.userID === userDetails?._id ? (
               <ConfirmButton
-                className="p-2 md:pl-4 md:pr-6 rounded-full"
+                className="pl-4 pr-6 py-1 rounded-full"
                 onClick={[() => navigate("/account/setting")]}
               >
                 <div className="text-sm sm:text-base flex flex-row items-center gap-x-2">
                   <IonIcon icon={cogOutline} />
-                  <span className="hidden md:flex">Edit Profile</span>
+                  <span className="">Edit Profile</span>
                 </div>
               </ConfirmButton>
             ) : (

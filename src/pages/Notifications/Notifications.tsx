@@ -98,13 +98,13 @@ const Notifications = () => {
   };
 
   return (
-    <div className="w-full h-full flex-grow flex flex-col items-center justify-start gap-y-2">
+    <div className="w-full h-full flex-grow flex flex-col items-center justify-start">
       <Header>
         <TitleText>
           <div className="py-0.5">Notifications</div>
         </TitleText>
       </Header>
-      <div className="w-full flex flex-col-reverse px-1 mt-2 gap-y-2">
+      <div className="w-full flex flex-col-reverse px-1 mt-2 gap-y-2 overflow-y-auto">
         {notifications?.length > 0 ? (
           notifications.map((notification: NotificationsProps) => (
             <div
