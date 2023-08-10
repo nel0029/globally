@@ -1,20 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+/** @format */
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from 'react-redux';
-import store from './redux/store'
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <Provider store={store}>
-      <div className='flex justify-center'>
-        <App />
-      </div>
+      <App />
     </Provider>
   </BrowserRouter>
-
-)
+);
