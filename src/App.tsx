@@ -129,7 +129,11 @@ const App = () => {
                       style={{
                         paddingBottom: setBottomPadding(),
                       }}
-                      className="w-full flex flex-col flex-grow justify-start h-full overflow-y-auto"
+                      className={`${
+                        appHeight === initialHeight
+                          ? ""
+                          : "absolute top-0 bottom-0 left-0"
+                      } w-full flex flex-col flex-grow justify-start h-full overflow-y-auto`}
                     >
                       {initialHeight}
                       <RoutesPage />
