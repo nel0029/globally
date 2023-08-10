@@ -122,7 +122,7 @@ const App = () => {
                       style={{
                         paddingBottom: setBottomPadding(),
                       }}
-                      className="w-full flex flex-col flex-grow justify-start h-full"
+                      className="w-full flex flex-col flex-grow justify-start h-full overflow-y-auto"
                     >
                       <RoutesPage />
                     </div>
