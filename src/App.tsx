@@ -52,7 +52,7 @@ const App = () => {
     return () => {
       window.addEventListener("resize", updateKeyboardHeight);
     };
-  }, [initialHeight, keyboardHeight, appHeight]);
+  }, [keyboardHeight, appHeight]);
 
   useEffect(() => {
     if (mode === true) {
