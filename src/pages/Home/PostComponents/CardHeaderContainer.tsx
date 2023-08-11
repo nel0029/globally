@@ -48,7 +48,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
   const navigate = useNavigate();
   const fullNameArray = [
     post.postAuthorFirstName,
-    post.postAuthorFirstName,
+    post.postAuthorMiddleName,
     post.postAuthorLastName,
   ];
   const fullName = fullNameArray?.join(" ");

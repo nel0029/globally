@@ -19,7 +19,12 @@ const UsersList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
-
+  const fullNameArray = [
+    userDetails.userFirstName,
+    userDetails.userMiddleName,
+    userDetails.userLastName,
+  ];
+  const fullName = fullNameArray?.join(" ");
   const data = {
     userName: userName || "",
     authorID: user.userID || "",
@@ -54,11 +59,7 @@ const UsersList = () => {
         </div>
         <div className="flex flex-col leading-6">
           <TitleText>
-            <div className="w-full flex flex-row items-center">
-              <span>{userDetails?.userFirstName}</span>
-              <span>{userDetails?.userMiddleName}</span>
-              <span>{userDetails?.userLastName}</span>
-            </div>
+            <div className="w-full flex flex-row items-center">{fullName}</div>
           </TitleText>
           <div className="flex items-center text-xs xl:text-sm text-gray-400">
             @{userDetails?.userName}

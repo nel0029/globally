@@ -25,10 +25,15 @@ export default function Home() {
   const userID = localStorage.getItem("userID");
 
   useEffect(() => {
-    if (userID) {
+    if (posts.length !== 0) {
+      setIsLoading(false);
+    } else {
       setIsLoading(true);
-      dispatch(getPosts(userID)).then(() => {
-        setIsLoading(false);
+
+      dispatch(getPosts(user.userID)).then((response: any) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          setIsLoading(false);
+        }
       });
     }
   }, []);

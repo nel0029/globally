@@ -1,26 +1,24 @@
-import React from 'react'
+/** @format */
 
+import React from "react";
 
 interface CoverPhotoProps {
-    coverPhotoURL?: string
+  coverPhotoURL?: string;
 }
-
 
 const CoverPhoto: React.FC<CoverPhotoProps> = ({ coverPhotoURL }) => {
-    return (
+  return (
+    <div className="relative w-full aspect-3/1">
+      {coverPhotoURL ? (
+        <img
+          className="absolute object-cover w-full h-full"
+          src={coverPhotoURL}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center mt-4 bg-gray-300 rounded dark:bg-gray-700"></div>
+      )}
+    </div>
+  );
+};
 
-        <div className='relative w-full aspect-3/1'>
-            {coverPhotoURL ? (
-                <img
-                    className='absolute object-cover w-full h-full'
-                    src={coverPhotoURL} />
-            ) : (
-                <div className='w-full h-full bg-secondary'></div>
-            )}
-
-        </div>
-
-    )
-}
-
-export default CoverPhoto
+export default CoverPhoto;
