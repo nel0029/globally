@@ -57,6 +57,7 @@ const AccountSettings = () => {
     };
 
     dispatch(getAccountData(data));
+    setCurrentPassword("");
   }, []);
 
   useEffect(() => {
