@@ -22,8 +22,20 @@ const LikedPostCardList = () => {
   };
 
   useEffect(() => {
-    if (allLikedPosts) {
-      setIsLoading(false);
+    if (allLikedPosts !== null) {
+      if (
+        allLikedPosts.length !== 0 &&
+        allLikedPosts[0].userName === userName
+      ) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        dispatch(getAllLikesByUser(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
+      }
     } else {
       setIsLoading(true);
       dispatch(getAllLikesByUser(data)).then((response: any) => {

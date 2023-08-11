@@ -23,8 +23,20 @@ const ReplyCardList = () => {
   };
 
   useEffect(() => {
-    if (allPosts) {
-      setIsLoading(false);
+    if (allPosts !== null) {
+      if (
+        allPosts.length !== 0 &&
+        allPosts[0].postAuthorUserName === userName
+      ) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        dispatch(getAllRepliesByUser(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
+      }
     } else {
       setIsLoading(true);
       dispatch(getAllRepliesByUser(data)).then((response: any) => {
@@ -33,8 +45,7 @@ const ReplyCardList = () => {
         }
       });
     }
-  }, [dispatch, userName, user.userID]);
-
+  }, [userName, user.userID]);
   return (
     <div className="flex w-full flex-col-reverse justify-center items-center gap-y-4">
       {isLoading ? (

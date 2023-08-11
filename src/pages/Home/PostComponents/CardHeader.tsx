@@ -1,7 +1,10 @@
 /** @format */
 
 import React, { ReactNode } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { resetUserDetails } from "../../../redux/postSlice";
+import { AppDispatch } from "../../../redux/store";
 
 interface CardHeaderProps {
   firstName: string;
@@ -20,6 +23,9 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   createdAt,
   children,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const userDetails = useSelector((state: any) => state.posts.userDetails);
+
   const dateAndTime = new Date(createdAt);
   const formattedDateAndTime = `${dateAndTime.toLocaleTimeString("en-us", {
     timeZone: "Asia/Manila",
@@ -38,7 +44,17 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   const fullName = fullNameArray?.join(" ");
 
   const userProfile = (event: any) => {
-    navigate(`/${userName}`);
+    if (userDetails) {
+      if (userDetails.userName === userName) {
+        navigate(`/${userName}`);
+      } else {
+        dispatch(resetUserDetails());
+        navigate(`/${userName}`);
+      }
+    } else {
+      navigate(`/${userName}`);
+    }
+
     event.stopPropagation();
   };
   return (

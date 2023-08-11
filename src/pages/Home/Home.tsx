@@ -53,10 +53,6 @@ export default function Home() {
             <div className="w-full flex flex-col justify-center items-center gap-y-4">
               <LoadingCard />
               <LoadingCard />
-              <LoadingCard />
-              <LoadingCard />
-              <LoadingCard />
-              <LoadingCard />
             </div>
           ) : (
             posts.map((post: any) => {

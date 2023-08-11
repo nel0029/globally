@@ -67,7 +67,7 @@ interface MainState {
   userPostsList: PostsDataProps[] | null;
   userRepliesList: ReplyDataProps[] | null;
   userRepostsList: RepostDataProps[] | null;
-  userLikesList: any[] | null;
+  userLikesList: any | null;
   userDetails: UserDetails | null;
   userFollowing: UserProps[] | null;
   userFollowers: UserProps[] | null;
@@ -95,6 +95,17 @@ const postSlice: any = createSlice({
   reducers: {
     getLastConversation: (state, action) => {
       state.lastConversation = action.payload;
+    },
+    resetUserDetails: (state) => {
+      state.userDetails = null;
+    },
+    resetAllPostsList: (state) => {
+      state.userFollowers = null;
+      state.userFollowing = null;
+      state.userLikesList = null;
+      state.userPostsList = null;
+      state.userRepliesList = null;
+      state.userRepostsList = null;
     },
   },
   extraReducers: (builder) => {
@@ -1079,5 +1090,6 @@ const postSlice: any = createSlice({
   },
 });
 
-export const { getLastConversation } = postSlice.actions;
+export const { getLastConversation, resetUserDetails, resetAllPostsList } =
+  postSlice.actions;
 export default postSlice.reducer;

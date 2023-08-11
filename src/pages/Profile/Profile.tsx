@@ -36,7 +36,7 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(getUserDetails(data));
-  }, [dispatch, userName]);
+  }, [userName, dispatch]);
 
   const userDetails: UserDetails = useSelector(
     (state: any) => state.posts.userDetails

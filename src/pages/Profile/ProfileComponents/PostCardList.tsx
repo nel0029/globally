@@ -21,8 +21,20 @@ const PostCardList = () => {
   };
 
   useEffect(() => {
-    if (allPosts) {
-      setIsLoading(false);
+    if (allPosts !== null) {
+      if (
+        allPosts.length !== 0 &&
+        allPosts[0].postAuthorUserName === userName
+      ) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        dispatch(getAllPostsByUser(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
+      }
     } else {
       setIsLoading(true);
       dispatch(getAllPostsByUser(data)).then((response: any) => {
@@ -31,7 +43,7 @@ const PostCardList = () => {
         }
       });
     }
-  }, [dispatch, userName, user.userID]);
+  }, [userName, user.userID]);
 
   return (
     <div className="flex w-full flex-col-reverse justify-center items-center gap-y-4">
