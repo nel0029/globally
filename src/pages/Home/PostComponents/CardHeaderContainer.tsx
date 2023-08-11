@@ -3,16 +3,19 @@
 import React, { useContext, useState, useRef, useEffect, useMemo } from "react";
 import { IonIcon } from "@ionic/react";
 import { pencilOutline, trashOutline } from "ionicons/icons";
-import { NavLink, useNavigate } from "react-router-dom";
-import { PostsDataProps } from "../../../types/PostTypes";
+import { useNavigate } from "react-router-dom";
 import MenuContainer from "../../../common/MenuContainer";
 import MenuItem from "../../../common/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../common/Modal";
 import {
   deletePost,
+  deleteReply,
+  deleteRepost,
   getUserDetails,
   updatePost,
+  updateReply,
+  updateRepost,
 } from "../../../redux/asynActions/postAsynActions";
 import { AppDispatch } from "../../../redux/store";
 import {
@@ -28,13 +31,14 @@ import DeleteButton from "../../../common/DeleteButton";
 import { CardProps } from "./Card";
 import TextAreaInput from "../../../common/TextAreaInput";
 import FollowButtonsCotainer from "../../../common/FollowButtonsCotainer";
+import socket from "../../../sockets/socket";
 
 export interface HeaderProps {
   post: CardProps;
   authorized: boolean;
 }
 
-const post: React.FC<HeaderProps> = ({ post, authorized }) => {
+const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: any) => state.user.userData);
   const [editModal, setEditModal] = useState(false);
@@ -42,16 +46,13 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
   const [initialPostCaption, setInitialPostCaption] = useState(post.caption);
   const [postCaption, setPostCaption] = useState(post.caption);
   const navigate = useNavigate();
+  const fullNameArray = [
+    post.postAuthorFirstName,
+    post.postAuthorFirstName,
+    post.postAuthorLastName,
+  ];
+  const fullName = fullNameArray?.join(" ");
 
-  const userProfile = (event: any) => {
-    const data: GetUserDetailsData = {
-      userName: post.postAuthorUserName,
-      authorID: user.userID,
-    };
-    dispatch(getUserDetails(data));
-
-    navigate(`/${post.postAuthorUserName}`);
-  };
   const openEditModal = () => {
     setEditModal(!editModal);
     if (editModal == false) {
@@ -62,28 +63,63 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
     }
   };
 
-  const editPost = () => {
+  const editPost = (postType: string) => {
     const updatePostData: UpdatePostData = {
       _id: post._id,
       authorID: user.userID,
       caption: postCaption,
     };
-    dispatch(updatePost(updatePostData));
-    setInitialPostCaption(postCaption); // Update the initial value after editing
+    switch (postType) {
+      case "post":
+        dispatch(updatePost(updatePostData));
+        setInitialPostCaption(postCaption);
+
+      case "reply":
+        dispatch(updateReply(updatePostData));
+        setInitialPostCaption(postCaption);
+
+      case "repost":
+        dispatch(updateRepost(updatePostData));
+        setInitialPostCaption(postCaption);
+
+      default:
+        return;
+    }
   };
 
   const openDeleteModal = () => {
     setDeleteModal(!deleteModal);
   };
 
-  const removePost = () => {
+  const removePost = (type: string) => {
     const deletePostData: DeletePostData = {
       authorID: user.userID,
       postID: post._id,
     };
-    dispatch(deletePost(deletePostData));
+    switch (type) {
+      case "post":
+        dispatch(deletePost(deletePostData));
+        openDeleteModal();
+      case "reply":
+        socket.emit("deleteReply", {
+          actorID: user.userID,
+          targetID: post.parentAuthorID,
+          actionID: post._id,
+        });
 
-    openDeleteModal();
+        dispatch(deleteReply(deletePostData));
+        openDeleteModal();
+      case "repost":
+        socket.emit("deleteRepost", {
+          actorID: user.userID,
+          targetID: post.parentAuthorID,
+          actionID: post._id,
+        });
+        dispatch(deleteRepost(deletePostData));
+        openDeleteModal();
+      default:
+        return;
+    }
   };
   return (
     <div className=" w-full flex flex-row flex-shrink">
@@ -137,10 +173,7 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
               src={post.postAuthorAvatarURL.url}
             />
             <div className="flex-grow flex flex-col justify-center leading-none">
-              <p className="text-base font-bold">
-                {post.postAuthorFirstName} {post.postAuthorMiddleName}{" "}
-                {post.postAuthorLastName}
-              </p>
+              <p className="text-base font-bold">{fullName}</p>
               <p className="text-sm">@{post.postAuthorUserName}</p>
             </div>
           </div>
@@ -156,7 +189,7 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
           </div>
           <div className="w-full flex flex-row justify-end gap-x-2">
             <CancelButton onClick={[openEditModal]}>Cancel</CancelButton>
-            <ConfirmButton onClick={[editPost, openEditModal]}>
+            <ConfirmButton onClick={[() => editPost(post.type), openEditModal]}>
               Update
             </ConfirmButton>
           </div>
@@ -167,13 +200,14 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
           <div className="font-bold">Deleting Post</div>
           <div className="py-5">
             <p className="break-all text-center">
-              {" "}
-              Are you sure you want to delete this Post?
+              Are you sure you want to delete this {post.type}?
             </p>
           </div>
           <div className="w-full flex justify-end items-center gap-x-2">
             <CancelButton onClick={[openDeleteModal]}>Cancel</CancelButton>
-            <DeleteButton onClick={[removePost]}>Delete</DeleteButton>
+            <DeleteButton onClick={[() => removePost(post.type)]}>
+              Delete
+            </DeleteButton>
           </div>
         </Modal>
       )}
@@ -181,4 +215,4 @@ const post: React.FC<HeaderProps> = ({ post, authorized }) => {
   );
 };
 
-export default post;
+export default CardHeaderContainer;

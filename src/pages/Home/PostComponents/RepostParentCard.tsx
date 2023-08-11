@@ -87,8 +87,8 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
             avatarURL={parentAuthorAvatarURL?.url}
           />
         </div>
-        <div className="w-full">
-          <div className="flex flex-col  flex-shrink max-w-[calc(100%-8px)] overflow-x-hidden">
+        <div className="w-full flex flex-col gap-y-2">
+          <div className="flex flex-col flex-shrink max-w-[calc(100%-8px)] overflow-x-hidden ">
             <div
               onClick={userProfile}
               className="max-w-[calc(100%-10px)] flex flex-shrink hover:underline hover:text-secondary font-bold overflow-hidden text-ellipsis whitespace-nowrap"

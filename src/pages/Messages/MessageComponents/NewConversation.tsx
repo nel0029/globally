@@ -26,6 +26,9 @@ import { getConvoInfoByUserID } from "../../../redux/asynActions/messageAsyncAct
 const NewConversation = () => {
   const user = useSelector((state: any) => state.user.userData);
   const userList = useSelector((state: any) => state.messages.userList);
+  const conversationList: any[] = useSelector(
+    (state: any) => state.messages.conversationList
+  );
   const responseConvoInfo = useSelector(
     (state: any) => state.messages.responseConvoInfo
   );
@@ -76,14 +79,23 @@ const NewConversation = () => {
 
   const handleChange = (event: any) => {
     const userID = event.currentTarget.value;
-    const selectedUser = userList.find((user: any) => user._id === userID);
-    setSelectedReceiver(selectedUser);
-    const data = {
-      senderID: user.userID,
-      receiverID: selectedUser._id,
-    };
-    dispatch(getConvoInfoByUserID(data));
-    dispatch(deleteUserList());
+    const receiverIndex = conversationList?.findIndex(
+      (convo: any) => convo.receiverID === userID
+    );
+
+    if (conversationList && receiverIndex !== -1) {
+      navigate(`/messages/${conversationList[receiverIndex]._id}`);
+    } else {
+      const selectedUser = userList.find((user: any) => user._id === userID);
+      setSelectedReceiver(selectedUser);
+      const data = {
+        senderID: user.userID,
+        receiverID: selectedUser._id,
+      };
+
+      dispatch(getConvoInfoByUserID(data));
+      dispatch(deleteUserList());
+    }
   };
 
   const handleSendMessage = () => {
@@ -95,17 +107,8 @@ const NewConversation = () => {
 
     socket.emit("createNewMessage", data);
     scrollToBottom();
+    navigate(`/messages/${responseConvoInfo._id}`);
   };
-
-  const userListMemoized = useMemo(() => userList, [userList]);
-  const responseConvoInfoMemoized = useMemo(
-    () => responseConvoInfo,
-    [responseConvoInfo]
-  );
-  const responseReceiverInfoMemoized = useMemo(
-    () => responseReceiverInfo,
-    [responseReceiverInfo]
-  );
 
   return (
     <div className="z-[100] h-[100dvh] fixed lg:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
@@ -117,21 +120,21 @@ const NewConversation = () => {
           <IonIcon icon={arrowBackOutline} />
         </div>
         <div className="py-1 flex-[1] flex flex-row items-center gap-x-2">
-          {responseReceiverInfoMemoized ? (
+          {responseReceiverInfo ? (
             <UserMessageCard
-              _id={responseReceiverInfoMemoized._id}
-              avatarURL={responseReceiverInfoMemoized.avatarURL.url}
-              firstName={responseReceiverInfoMemoized.userFirstName}
-              middleName={responseReceiverInfoMemoized.userMiddleName}
-              lastName={responseReceiverInfoMemoized.userLastName}
-              userName={responseReceiverInfoMemoized.userName}
+              _id={responseReceiverInfo?._id}
+              avatarURL={responseReceiverInfo?.avatarURL.url}
+              firstName={responseReceiverInfo?.userFirstName}
+              middleName={responseReceiverInfo?.userMiddleName}
+              lastName={responseReceiverInfo?.userLastName}
+              userName={responseReceiverInfo?.userName}
             />
           ) : (
             <div className="flex-[1] flex flex-row items-center gap-x-2">
               <div className="font-bold">To:</div>
               <div className="flex-1 relative">
                 <input
-                  placeholder="Username"
+                  placeholder="@username"
                   className="w-full flex-shrink bg-transparent border-none outline-none"
                   type="text"
                   value={userName}
@@ -141,9 +144,9 @@ const NewConversation = () => {
             </div>
           )}
 
-          {userListMemoized && (
+          {userList && (
             <div className="absolute border dark:border-Dark300 bg-white dark:bg-Dark200 rounded-lg top-[100%] right-0 left-0">
-              {userListMemoized.map((user: any) => (
+              {userList.map((user: any) => (
                 <label key={user._id} className="flex flex-row items-center">
                   <input
                     value={user._id}

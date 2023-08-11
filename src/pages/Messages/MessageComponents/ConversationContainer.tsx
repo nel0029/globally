@@ -18,6 +18,7 @@ import { AppDispatch } from "../../../redux/store";
 import {
   MessageDataProps,
   createNewConvo,
+  resetConversationInfo,
   resetMessages,
   updateConvo,
 } from "../../../redux/messageSlice";
@@ -68,6 +69,7 @@ const ConversationContainer = () => {
 
     return () => {
       socket.emit("leaveConversation", data);
+      dispatch(resetConversationInfo());
       dispatch(resetMessages());
     };
   }, [conversationID, location.pathname]);
@@ -78,7 +80,11 @@ const ConversationContainer = () => {
     }
   }, [messages.length]);
 
-  const goBack = () => navigate("/messages");
+  const goBack = () => {
+    navigate("/messages");
+    dispatch(resetConversationInfo());
+    dispatch(resetMessages());
+  };
 
   const handleSendMessage = () => {
     const data = {

@@ -3,19 +3,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { chatboxOutline } from "ionicons/icons";
+import { chatbox } from "ionicons/icons";
 import { useNavigate } from "react-router-dom";
 import CardAvatar from "./CardAvatar";
 import RepostParentCard from "./RepostParentCard";
 import CardCaption from "./CardCaption";
-import PostHeader from "./PostHeader";
-import ReplyHeader from "./ReplyHeader";
-import RepostHeader from "./RepostHeader";
-import PostInteractions from "./PostInteractions";
 import CardMedia from "./CardMedia";
 import { useSelector } from "react-redux";
 import CardInteractionsContainer from "./CardInteractionsContainer";
 import PollOptionsCard from "./PollOptionsCard";
+import CardHeaderContainer from "./CardHeaderContainer";
 
 interface OptionProps {
   _id?: string;
@@ -80,16 +77,7 @@ const Card = (card: MainCardProps) => {
   const isReply = card.type === "reply";
   const isRepost = card.type === "repost";
   const authorized = card.authorID === user.userID;
-  const setCardHeader = (type: string) => {
-    switch (type) {
-      case "reply":
-        return <ReplyHeader reply={card} authorized={authorized} />;
-      case "repost":
-        return <RepostHeader repost={card} authorized={authorized} />;
-      default:
-        return <PostHeader post={card} authorized={authorized} />;
-    }
-  };
+
   const navigate = useNavigate();
   const route = () => {
     if (card.type === "post") {
@@ -120,14 +108,14 @@ const Card = (card: MainCardProps) => {
   };
 
   return (
-    <div className="w-full max-w-[700px] flex flex-col rounded-lg cursor-pointer border dark:border-Dark300 bg-white dark:bg-Dark200 ">
+    <div className="w-full max-w-[700px] flex flex-col rounded-lg cursor-pointer border dark:border-Dark300 bg-white dark:bg-Dark200 overflow-hidden">
       {card.isInHomeRoute && isReply && (
-        <div className="flex-grow flex flex-row items-center text-xs md:text-sm whitespace-nowrap truncate gap-x-1 text-slate-500 p-1">
+        <div className=" w-full flex-grow flex flex-row items-center text-sm whitespace-nowrap truncate gap-x-1 text-gray-500 px-1 pt-1 overflow-hidden">
           <span className="flex justify-center items-center text-secondary1">
-            <IonIcon icon={chatboxOutline} />
+            <IonIcon icon={chatbox} />
           </span>
           <NavLink
-            className="hover:underline cursor-pointer hover:text-secondary font-semibold"
+            className="hover:underline cursor-pointer hover:text-secondary font-semibold text-black"
             to={`/${card.postAuthorUserName}`}
           >
             {card.postAuthorUserName}
@@ -135,27 +123,27 @@ const Card = (card: MainCardProps) => {
 
           <span> replied to </span>
           <NavLink
-            className=" hover:underline cursor-pointer hover:text-secondary font-semibold"
+            className=" hover:underline cursor-pointer hover:text-secondary font-semibold text-black"
             to={`/${card.parentUserName}/${replyRoute()}/${card.parentPostID}`}
           >
-            {card.parentUserName}'s {card.parentType}
+            this {card.parentType}
           </NavLink>
         </div>
       )}
 
-      <div className="w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer">
+      <div className="w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer gap-y-1">
         <div
           onClick={handlePostDetail}
-          className="w-full flex flex-row justify-center items-start gap-x-3"
+          className="w-full flex flex-row justify-center items-start gap-x-2"
         >
-          <div className="p-2">
+          <div className="py-1 px-1">
             <CardAvatar
               userName={card.postAuthorUserName}
               avatarURL={card.postAuthorAvatarURL.url}
             />
           </div>
-          <div className="max-w-full flex-shrink flex-grow flex flex-col gap-y-1 pb-2">
-            {setCardHeader(card.type)}
+          <div className="max-w-full flex-shrink flex-grow flex flex-col gap-y-2">
+            <CardHeaderContainer post={card} authorized={authorized} />
             <CardCaption bgColor={card.bgColor} caption={card.caption} />
             <CardMedia mediaURL={card.mediaURL} />
             {isRepost && (

@@ -53,7 +53,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
   return (
     <div
       onClick={(event: any) => event.stopPropagation()}
-      className="w-full flex flex-col justify-center items-center gap-y-2 py-2 flex-shrink"
+      className="w-full flex flex-col justify-center items-center gap-y-2 flex-shrink"
     >
       {options &&
         options.map((option: OptionProps, index: number) => (
@@ -72,7 +72,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
             />
             <div
               className={`${
-                option._id === optionChoosedID ? "text-secondary1" : ""
+                option._id === optionChoosedID ? "text-secondary" : ""
               } z-10 flex items-center justify-center`}
             >
               <IonIcon
@@ -94,7 +94,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
               {option.body}
             </div>
             <div
-              className="z-1 absolute bg-secondary top-0 left-0 right-0 bottom-0 bg-opacity-40 "
+              className="z-1 absolute bg-secondary top-0 left-0 right-0 bottom-0 bg-opacity-20 "
               style={{
                 width: `${
                   option.count ? (option.count / totalRespondents) * 100 : 0
@@ -108,11 +108,13 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
         ))}
       {hasChoosed &&
         (totalRespondents > 1 ? (
-          <div className="w-full text-gray-400">
+          <div className="w-full text-gray-400 line-clamp-1">
             You and {totalRespondents - 1} others responds to this poll
           </div>
         ) : (
-          <div className="w-full text-gray-400">You responds to this poll</div>
+          <div className="w-full text-gray-400 line-clamp-1">
+            You responds to this poll
+          </div>
         ))}
     </div>
   );

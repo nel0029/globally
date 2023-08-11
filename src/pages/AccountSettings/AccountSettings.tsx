@@ -24,7 +24,7 @@ import {
 } from "../../redux/asynActions/userAsyncActions";
 import CancelButton from "../../common/CancelButton";
 import { setMode } from "../../redux/themeSlice";
-import { logOut } from "../../redux/usersSlice";
+import { logOut, resetAccountData } from "../../redux/usersSlice";
 import { useNavigate } from "react-router";
 
 const AccountSettings = () => {
@@ -87,7 +87,7 @@ const AccountSettings = () => {
   };
 
   const handleSaveChanges = () => {
-    if (matchedPassword) {
+    if (newPassword && matchedPassword) {
       const data = {
         userID: user.userID,
         userName: userName,
@@ -117,7 +117,7 @@ const AccountSettings = () => {
         avatarURL: profilePicture,
         coverPhotoURL: coverPhoto,
       };
-      alert("Password Not Matched");
+      setCurrentPassword("");
       dispatch(updateUserAccount(data));
     }
   };
@@ -135,6 +135,7 @@ const AccountSettings = () => {
   const handleLogOut = () => {
     dispatch(setMode(false));
     dispatch(logOut());
+    dispatch(resetAccountData());
     navigate("/");
   };
 

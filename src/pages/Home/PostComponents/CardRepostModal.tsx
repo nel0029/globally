@@ -55,6 +55,8 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
   parentCaption,
   parentBGColor,
 }) => {
+  const fullNameArray = [firstName, middleName, lastName];
+  const fullName = fullNameArray?.join(" ");
   const handleConfirmButtonClick = () => {
     confirmButtonFunctions.forEach((func) => {
       if (typeof func === "function") {
@@ -73,12 +75,12 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
   return (
     <Modal setModal={setModal}>
       <div className="w-full flex flex-row justify-center items-start p-2 gap-x-2">
-        <CardAvatar userName={userName} avatarURL={avatarURL} />
+        <div>
+          <CardAvatar userName={userName} avatarURL={avatarURL} />
+        </div>
         <div className="flex flex-col flex-1 flex-shrink">
           <div className="leading-4 p-1">
-            <div className="flex flex-row gap-x-1 font-bold">
-              {firstName} {middleName} {lastName}
-            </div>
+            <div className="flex flex-row gap-x-1 font-bold">{fullName}</div>
             <div className="text-xs">@{userName}</div>
           </div>
           <div className="w-full rounded-lg">

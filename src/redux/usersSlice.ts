@@ -87,6 +87,9 @@ const usersSlice = createSlice({
     resetRegisterMessage: (state) => {
       state.registerMessage = "";
     },
+    resetAccountData: (state) => {
+      state.accountData = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -157,7 +160,7 @@ const usersSlice = createSlice({
         const response = action.payload;
         console.log(response);
         localStorage.setItem("userName", response.userName);
-        localStorage.setItem("avatarURL", response.avatarURL);
+        localStorage.setItem("avatarURL", response.avatarURL.url);
         localStorage.setItem("coverPhotoURL", response.coverPhotoURL);
         localStorage.setItem("userFirstName", response.userFirstName);
         localStorage.setItem("userMiddleName", response.userMiddleName);
@@ -175,6 +178,10 @@ const usersSlice = createSlice({
       });
   },
 });
-export const { logOut, resetAuthMessage, resetRegisterMessage } =
-  usersSlice.actions;
+export const {
+  logOut,
+  resetAuthMessage,
+  resetRegisterMessage,
+  resetAccountData,
+} = usersSlice.actions;
 export default usersSlice.reducer;

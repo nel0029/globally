@@ -28,7 +28,7 @@ import {
   resetNotificationsCount,
 } from "../redux/messageSlice";
 import socket from "../sockets/socket";
-import { logOut } from "../redux/usersSlice";
+import { logOut, resetAccountData } from "../redux/usersSlice";
 
 const NavBar = () => {
   const user = useSelector((state: any) => state.user.userData);
@@ -94,6 +94,7 @@ const NavBar = () => {
   const handleLogOut = () => {
     dispatch(setMode(false));
     dispatch(logOut());
+    dispatch(resetAccountData());
     navigate("/");
   };
 
