@@ -15,7 +15,7 @@ const CoverPhoto: React.FC<CoverPhotoProps> = ({ coverPhotoURL }) => {
           src={coverPhotoURL}
         />
       ) : (
-        <div className="w-full h-full flex items-center justify-center mt-4 bg-gray-300 rounded dark:bg-gray-700"></div>
+        <div className="w-full h-full flex items-center justify-center bg-gray-300 dark:bg-gray-700"></div>
       )}
     </div>
   );
