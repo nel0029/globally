@@ -149,21 +149,23 @@ const UserCard: React.FC<UserProps> = ({
         className={`${inProfileRoute ? "hidden" : ""}`}
         onClick={(event: any) => event.stopPropagation()}
       >
-        {user.userID !== _id && isUserFollowed ? (
-          <div
-            className="py-1 px-4 border-2 border-slate-400 rounded-full"
-            onClick={unfollowUser}
-          >
-            Unfollow
-          </div>
-        ) : (
-          <div
-            className="py-1 px-4 border-2 border-secondary bg-secondary text-white rounded-full"
-            onClick={followUser}
-          >
-            Follow
-          </div>
-        )}
+        {user.userID !== _id ? (
+          isUserFollowed ? (
+            <div
+              className="py-1 px-4 border-2 border-slate-400 rounded-full"
+              onClick={unfollowUser}
+            >
+              Unfollow
+            </div>
+          ) : (
+            <div
+              className="py-1 px-4 border-2 border-secondary bg-secondary text-white rounded-full"
+              onClick={followUser}
+            >
+              Follow
+            </div>
+          )
+        ) : null}
       </div>
     </div>
   );
