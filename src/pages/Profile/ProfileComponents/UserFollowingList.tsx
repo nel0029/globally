@@ -61,10 +61,7 @@ const UserFollowingList = () => {
         <UserCard
           key={users._id}
           _id={users._id}
-          avatarURL={{
-            id: "",
-            url: "",
-          }}
+          avatarURL={users.avatarURL}
           firstName={users.userFirstName}
           middleName={users.userMiddleName}
           lastName={users.userLastName}
