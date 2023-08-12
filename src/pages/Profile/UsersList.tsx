@@ -13,16 +13,21 @@ import { arrowBackOutline } from "ionicons/icons";
 
 const UsersList = () => {
   const { userName } = useParams();
-  const userDetails = useSelector((state: any) => state.posts.userDetails);
-  const user = useSelector((state: any) => state.user.userData);
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const userDetails = useSelector((state: any) => state.posts.userDetails);
+  const user = useSelector((state: any) => state.user.userData);
+
   const [activeTab, setActiveTab] = useState(location.pathname);
+  const [isLoading, setIsLoading] = useState(false);
+
   const fullNameArray = [
-    userDetails.userFirstName,
-    userDetails.userMiddleName,
-    userDetails.userLastName,
+    userDetails?.userFirstName,
+    userDetails?.userMiddleName,
+    userDetails?.userLastName,
   ];
   const fullName = fullNameArray?.join(" ");
   const data = {
@@ -31,7 +36,25 @@ const UsersList = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserDetails(data));
+    if (userDetails) {
+      if (userDetails.userName === userName) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        dispatch(getUserDetails(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
+      }
+    } else {
+      setIsLoading(true);
+      dispatch(getUserDetails(data)).then((response: any) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          setIsLoading(false);
+        }
+      });
+    }
   }, [dispatch, userName]);
 
   const goToUserFollowing = () => {
@@ -49,7 +72,7 @@ const UsersList = () => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-y-2">
+    <div className="w-full z-50 fixed top-0 bottom-0 left-0 right-0 lg:static flex flex-col dark:bg-Dark100 bg-slate-100">
       <Header>
         <div
           onClick={goToUserDetails}
@@ -57,17 +80,27 @@ const UsersList = () => {
         >
           <IonIcon icon={arrowBackOutline} />
         </div>
-        <div className="flex flex-col leading-6">
+        <div className="flex flex-col ">
           <TitleText>
-            <div className="w-full flex flex-row items-center">{fullName}</div>
+            <div className="w-full flex flex-row items-center gap-y-1">
+              {isLoading ? (
+                <div className=" h-[28px] w-[100px]"> </div>
+              ) : (
+                fullName
+              )}
+            </div>
           </TitleText>
           <div className="flex items-center text-xs xl:text-sm text-gray-400">
-            @{userDetails?.userName}
+            {isLoading ? (
+              <div className=" h-[20px] xl:h-[22px] w-[100px]"> </div>
+            ) : (
+              <span>@{userDetails?.userName}</span>
+            )}
           </div>
         </div>
       </Header>
 
-      <div className="w-full p-2 flex flex-row items-center justify-start gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scrollbar">
+      <div className="w-full p-2 flex flex-row items-center justify-start gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scrollbar bg-white dark:bg-Dark200">
         <div
           onClick={goToUserFollowing}
           className={`${

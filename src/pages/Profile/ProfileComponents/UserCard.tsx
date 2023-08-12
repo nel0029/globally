@@ -26,6 +26,7 @@ export interface UserProps {
   isUserFollowed?: boolean;
   followID?: string | null;
   inProfileRoute: boolean;
+  isLoading: boolean;
 }
 
 const UserCard: React.FC<UserProps> = ({
@@ -39,6 +40,7 @@ const UserCard: React.FC<UserProps> = ({
   followID,
   _id,
   inProfileRoute,
+  isLoading,
 }) => {
   const navigate = useNavigate();
   const goToUserProfile = () => {
@@ -47,6 +49,9 @@ const UserCard: React.FC<UserProps> = ({
 
   const user = useSelector((state: any) => state.user.userData);
   const dispatch = useDispatch<AppDispatch>();
+
+  const fullNameArray = [firstName, middleName, lastName];
+  const fullName = fullNameArray?.join(" ");
 
   const followUser = () => {
     const data: FollowData = {
@@ -69,37 +74,97 @@ const UserCard: React.FC<UserProps> = ({
   return (
     <div
       onClick={goToUserProfile}
-      className="w-full flex flex-row justify-around cursor-pointer bg-white dark:bg-Dark200 rounded-lg p-2"
+      className={`${
+        isLoading && "animate-pulse"
+      } w-full flex flex-row justify-around cursor-pointer bg-white dark:bg-Dark200 p-2 border-y dark:border-Dark200`}
     >
-      <div className="px-2 ">
-        <div className="w-[40px] h-[40px] rounded-[50%]">
-          <img
-            className="w-full h-full object-cover aspect-square rounded-[50%]"
-            src={avatarURL.url}
-          />
+      {!avatarURL.url ? (
+        <div className="pr-2 animate-pulse">
+          <div className="w-[40px] h-[40px] rounded-[50%]">
+            <svg
+              className="w-full h-full bg-gray-100 dark:bg-gray-300 text-gray-200 dark:text-gray-700 rounded-full"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+            </svg>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-grow flex-col justify-start items-start flex-shrink overflow-x-hidden leading-none gap-y-1">
-        <div className="flex flex-row flex-shrink hover:underline hover:text-secondary font-bold overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer gap-x-1">
-          <span>{firstName}</span>
-          <span>{middleName}</span>
-          <span>{lastName}</span>
+      ) : isLoading ? (
+        <div className="pr-2">
+          <div className="w-[40px] h-[40px] rounded-[50%]">
+            <svg
+              className="w-full h-full bg-gray-100 dark:bg-gray-300 text-gray-200 dark:text-gray-700 rounded-full"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+            </svg>
+          </div>
         </div>
-        <div className="flex-shrink text-gray-400 font-light overflow-hidden text-ellipsis whitespace-nowrap ">
-          @{userName}
-        </div>
-        <div className=" line-clamp-1">{bio}</div>
-      </div>
-
-      {inProfileRoute && (
-        <div onClick={(event: any) => event.stopPropagation()}>
-          {user.userID === _id ? null : isUserFollowed ? (
-            <CancelButton onClick={[unfollowUser]}>Unfollow</CancelButton>
-          ) : (
-            <ConfirmButton onClick={[followUser]}>Follow</ConfirmButton>
-          )}
+      ) : (
+        <div className="pr-2 ">
+          <div className="w-[40px] h-[40px] rounded-[50%]">
+            <img
+              className="w-full h-full object-cover aspect-square rounded-[50%]"
+              src={avatarURL.url}
+            />
+          </div>
         </div>
       )}
+
+      <div className="flex flex-grow flex-col justify-start items-start flex-shrink overflow-x-hidden leading-none gap-y-1">
+        <div className="flex flex-row flex-shrink hover:underline hover:text-secondary font-bold overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer gap-x-1">
+          {isLoading ? (
+            <div className="pt-1">
+              <div className=" h-3 w-[200px] bg-gray-200 rounded dark:bg-Dark300"></div>
+            </div>
+          ) : (
+            fullName
+          )}
+        </div>
+        <div className="flex-shrink text-gray-400 font-light overflow-hidden text-ellipsis whitespace-nowrap ">
+          {isLoading ? (
+            <div className="pt-1">
+              <div className=" h-3 w-[100px] bg-gray-200 rounded dark:bg-Dark300"></div>
+            </div>
+          ) : (
+            <span>@{userName}</span>
+          )}
+        </div>
+        {isLoading ? (
+          <div className="py-1">
+            <div className=" h-3 w-[150px] bg-gray-200 rounded dark:bg-Dark300"></div>
+          </div>
+        ) : (
+          <div className=" line-clamp-1">{bio}</div>
+        )}
+      </div>
+
+      <div
+        className={`${inProfileRoute ? "hidden" : ""}`}
+        onClick={(event: any) => event.stopPropagation()}
+      >
+        {isUserFollowed ? (
+          <div
+            className="py-1 px-4 border-2 border-slate-400 rounded-full"
+            onClick={unfollowUser}
+          >
+            Unfollow
+          </div>
+        ) : (
+          <div
+            className="py-1 px-4 border-2 border-secondary bg-secondary text-white rounded-full"
+            onClick={followUser}
+          >
+            Follow
+          </div>
+        )}
+      </div>
     </div>
   );
 };

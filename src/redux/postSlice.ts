@@ -842,7 +842,41 @@ const postSlice: any = createSlice({
         if (state.userDetails !== null) {
           if (state.userDetails._id === followResponse.followingID) {
             state.userDetails.isFollowedUser = true;
-            state.userDetails.followID = followResponse.followID;
+            state.userDetails.followID = null;
+          }
+
+          if (state.userFollowers !== null) {
+            const followerIndex = state.userFollowers.findIndex(
+              (follower: any) => follower._id === followResponse.followingID
+            );
+
+            const userID = localStorage.getItem("userID");
+            if (state.userDetails._id === userID) {
+              state.userFollowing = state.userFollowers.filter(
+                (follower: any) => follower._id !== followResponse.followingID
+              );
+            } else {
+              state.userFollowers[followerIndex].isUserFollowed = true;
+              state.userFollowers[followerIndex].followID =
+                followResponse.followID;
+            }
+          }
+
+          if (state.userFollowing !== null) {
+            const followerIndex = state.userFollowing.findIndex(
+              (follower: any) => follower._id === followResponse.followingID
+            );
+
+            const userID = localStorage.getItem("userID");
+            if (state.userDetails._id === userID) {
+              state.userFollowing = state.userFollowing.filter(
+                (follower: any) => follower._id !== followResponse.followingID
+              );
+            } else {
+              state.userFollowing[followerIndex].isUserFollowed = true;
+              state.userFollowing[followerIndex].followID =
+                followResponse.followID;
+            }
           }
         }
 
