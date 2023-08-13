@@ -46,7 +46,7 @@ export default function Home() {
         </div>
       </Header>
 
-      <div className="w-full flex flex-col justify-start items-center gap-y-4 px-2 ">
+      <div className="w-full flex flex-col justify-start items-center gap-y-2 px-2 ">
         <CreateNewPost />
         <div className="flex w-full flex-col-reverse justify-center items-center gap-y-2">
           {isLoading ? (
@@ -55,9 +55,12 @@ export default function Home() {
               <LoadingCard />
             </div>
           ) : (
-            posts.map((post: any) => {
-              return <Card isInHomeRoute={true} key={post._id} {...post} />;
-            })
+            <React.Fragment>
+              <div className="p-2">No more posts</div>
+              {posts.map((post: any) => (
+                <Card isInHomeRoute={true} key={post._id} {...post} />
+              ))}
+            </React.Fragment>
           )}
         </div>
       </div>

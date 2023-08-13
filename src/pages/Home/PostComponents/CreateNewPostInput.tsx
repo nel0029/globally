@@ -44,12 +44,12 @@ export default function CreateNewPostInput() {
       bgColor: backgroundColor,
     };
 
-    dispatch(createPost(newPost));
-
-    setPostBody("");
-    setSelectedFiles([]);
-    setPollOptionList([]);
-    setPoll(false);
+    dispatch(createPost(newPost)).then(() => {
+      setPostBody("");
+      setSelectedFiles([]);
+      setPollOptionList([]);
+      setPoll(false);
+    });
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,7 +236,7 @@ export default function CreateNewPostInput() {
                 multiple={selectedFiles.length < 10 ? true : undefined}
                 disabled={
                   true
-                  //poll || selectedFiles.length >= 10
+                  // poll || selectedFiles.length >= 10 || hasBackgroundColor
                 }
                 style={{ display: "none" }}
                 onChange={handleFileChange}

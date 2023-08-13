@@ -78,7 +78,7 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
         <div>
           <CardAvatar userName={userName} avatarURL={avatarURL} />
         </div>
-        <div className="flex flex-col flex-1 flex-shrink">
+        <div className="flex flex-col flex-1 flex-shrink gap-y-2">
           <div className="leading-4 p-1">
             <div className="flex flex-row gap-x-1 font-bold">{fullName}</div>
             <div className="text-xs">@{userName}</div>
@@ -116,7 +116,7 @@ const CardRepostModal: React.FC<CardRepostModalProps> = ({
               </div>
             </div>
           </div>
-          <div className="flex flex-row justify-end items-center">
+          <div className="flex flex-row justify-end items-center gap-x-1">
             <CircularProgress
               percentage={repostCaption.length}
               max={99}

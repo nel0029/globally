@@ -131,12 +131,12 @@ const Card = (card: MainCardProps) => {
         </div>
       )}
 
-      <div className="w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer gap-y-1">
+      <div className="w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer gap-y-2">
         <div
           onClick={handlePostDetail}
           className="w-full flex flex-row justify-center items-start gap-x-2"
         >
-          <div className="py-1 px-1">
+          <div className="p-1">
             <CardAvatar
               userName={card.postAuthorUserName}
               avatarURL={card.postAuthorAvatarURL.url}
@@ -145,7 +145,7 @@ const Card = (card: MainCardProps) => {
           <div className="max-w-full flex-shrink flex-grow flex flex-col gap-y-2">
             <CardHeaderContainer post={card} authorized={authorized} />
             <CardCaption bgColor={card.bgColor} caption={card.caption} />
-            <CardMedia mediaURL={card.mediaURL} />
+            {card.mediaURL.length > 0 && <CardMedia mediaURL={card.mediaURL} />}
             {isRepost && (
               <RepostParentCard
                 parentUserName={card.parentUserName}

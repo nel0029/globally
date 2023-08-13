@@ -25,7 +25,7 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
         bgColor
           ? "text-white placeholder:text-white"
           : "bg-transparent dark:bg-Dark200"
-      } dark:bg-Dark200 border rounded-lg dark:border-Dark300 outline-none w-full h-[75px] resize-none py-1 px-2`}
+      } dark:bg-Dark200 border dark:border-Dark300 outline-none w-full h-[75px] resize-none py-1 px-2`}
       placeholder={placeholder}
     />
   );
