@@ -73,6 +73,7 @@ const usersSlice = createSlice({
   reducers: {
     resetAuthMessage: (state) => {
       state.authMessage = "";
+      state.valid = null;
     },
     logOut: () => {
       localStorage.removeItem("token");
@@ -110,9 +111,11 @@ const usersSlice = createSlice({
       })
       .addCase(logIn.rejected, (state, action) => {
         state.authStatus = "Error";
+        const serverResponse = action.payload;
+
         const response = "Invalid Email, Username and Password";
 
-        if (response) {
+        if (serverResponse) {
           state.authMessage = response;
         }
       })

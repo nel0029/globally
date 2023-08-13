@@ -27,13 +27,15 @@ function LogIn() {
       logInID: logInID,
       password: password,
     };
-    dispatch(logIn(userData)).then(() => {
+    dispatch(logIn(userData)).then((response: any) => {
       setIsServerLoading(false);
-      navigate("/");
-      dispatch(resetAuthMessage());
+      console.log("response: ", response);
+      if (!response.error) {
+        e.preventDefault();
+        navigate("/");
+        dispatch(resetAuthMessage());
+      }
     });
-
-    e.preventDefault();
   };
 
   const handleUseDemoAccount1 = (e: any) => {
@@ -108,7 +110,9 @@ function LogIn() {
                 </div>
               </div>
             </div>
-
+            {authMessage && (
+              <div className="w-full text-primary">{authMessage}</div>
+            )}
             <button
               onClick={handleSubmit}
               className="basis-0 py-1 px-2 rounded-full outline-none bg-secondary cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
@@ -130,7 +134,7 @@ function LogIn() {
             </button>
           </div>
         </div>
-        {authMessage && <div>{authMessage}</div>}
+
         <div className="flex flex-row items-center gap-x-2 py-3">
           <div>Don't have an account?</div>
           <div

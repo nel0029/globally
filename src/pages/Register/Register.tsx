@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import useDebounce from "./Hooks/useDebounce";
 import { IonIcon } from "@ionic/react";
 import { eyeOutline, eyeOffOutline } from "ionicons/icons";
-import { resetRegisterMessage } from "../../redux/usersSlice";
+import { resetAuthMessage, resetRegisterMessage } from "../../redux/usersSlice";
 import CircleLoader from "../../common/CircleLoader";
 
 function Register() {
@@ -24,6 +24,12 @@ function Register() {
   );
   const [showPassWord, setShowPassword] = useState(false);
   const [isServerLoading, setIsServerLoading] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [firstNameError, setFirsNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [userNameError, setUserNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -56,16 +62,28 @@ function Register() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    setIsServerLoading(true);
-    event.preventDefault();
-    dispatch(registerUser(formData)).then((response: any) => {
-      // Redirect to login page
-      if (response.meta.requestStatus === "fulfilled") {
-        setIsServerLoading(false);
-        goToLogIn();
-        dispatch(resetRegisterMessage());
-      }
-    });
+    if (
+      !formData.userFirstName ||
+      !formData.userLastName ||
+      !formData.email ||
+      !formData.userName ||
+      !formData.password
+    ) {
+      event.preventDefault();
+      setFormError("Please fill this field");
+    } else {
+      setIsServerLoading(true);
+      event.preventDefault();
+      dispatch(registerUser(formData)).then((response: any) => {
+        // Redirect to login page
+        if (response.meta.requestStatus === "fulfilled") {
+          setIsServerLoading(false);
+          dispatch(resetRegisterMessage());
+          dispatch(resetAuthMessage());
+          goToLogIn();
+        }
+      });
+    }
   };
 
   const handleShowPassword = () => {
@@ -84,19 +102,33 @@ function Register() {
             onSubmit={handleSubmit}
           >
             {registerMessage && <div>{registerMessage}</div>}
-            <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
-              <div className="text-gray-400 text-sm">First Name</div>
+            <div
+              className={`${
+                formError && !formData.userFirstName
+                  ? "border border-primary"
+                  : "border"
+              } flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}
+            >
+              <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
+                <span>First Name</span>
+                <span className="text-primary">
+                  {formError && !formData.userFirstName
+                    ? ` * ${formError}`
+                    : ""}
+                </span>
+              </div>
               <input
                 className="bg-transparent text-base outline-none"
                 type="text"
-                required
                 name="userFirstName"
                 value={formData.userFirstName}
                 onChange={onChange}
               />
             </div>
-            <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
-              <div className="text-gray-400 text-sm">Middle Name</div>
+            <div className={`flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}>
+              <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
+                Middle Name
+              </div>
               <input
                 className="bg-transparent text-base outline-none"
                 type="text"
@@ -105,8 +137,19 @@ function Register() {
                 onChange={onChange}
               />
             </div>
-            <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
-              <div className="text-gray-400 text-sm">Last Name</div>
+            <div
+              className={`${
+                formError && !formData.userLastName
+                  ? "border border-primary"
+                  : "border"
+              } flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}
+            >
+              <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
+                <span>Last Name</span>
+                <span className="text-primary">
+                  {formError && !formData.userLastName ? ` * ${formError}` : ""}
+                </span>
+              </div>
               <input
                 className="bg-transparent text-base outline-none"
                 type="text"
@@ -115,8 +158,19 @@ function Register() {
                 onChange={onChange}
               />
             </div>
-            <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
-              <div className="text-gray-400 text-sm">Email</div>
+            <div
+              className={`${
+                formError && !formData.email
+                  ? "border border-primary"
+                  : "border"
+              } flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}
+            >
+              <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
+                <span>Email</span>
+                <span className="text-primary">
+                  {formError && !formData.email ? ` * ${formError}` : ""}
+                </span>
+              </div>
               <input
                 className="bg-transparent text-base outline-none"
                 type="text"
@@ -126,21 +180,19 @@ function Register() {
               />
             </div>
             <div
-              className={`flex flex-col rounded-lg py-1 px-2 gap-y-0.5 border`}
+              className={`${
+                formError && !formData.userName
+                  ? "border border-primary"
+                  : "border"
+              } flex flex-col rounded-lg py-1 px-2 gap-y-0.5 border`}
             >
-              <div className="text-gray-400 text-sm flex flex-row items-center gap-x-2">
-                <div>Username</div>
-                <div>
-                  {userName ? (
-                    <div
-                      className={`text-sm ${
-                        !valid ? "text-primary" : "text-secondary1"
-                      }`}
-                    >
-                      {message ? message : null}
-                    </div>
-                  ) : null}
-                </div>
+              <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
+                <span>User Name</span>
+                <span className="text-primary">
+                  {formError && !formData.userFirstName
+                    ? ` * ${formError}`
+                    : ""}
+                </span>
               </div>
               <input
                 className="bg-transparent text-base outline-none"
@@ -149,10 +201,30 @@ function Register() {
                 value={formData.userName}
                 onChange={onChange}
               />
+              {userName ? (
+                <div
+                  className={`text-sm ${
+                    !valid ? "text-primary" : "text-secondary1"
+                  }`}
+                >
+                  {message ? message : null}
+                </div>
+              ) : null}
             </div>
 
-            <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
-              <div className="text-gray-400 text-sm">Password</div>
+            <div
+              className={`${
+                formError && !formData.password
+                  ? "border border-primary"
+                  : "border"
+              } flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}
+            >
+              <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
+                <span>Password</span>
+                <span className="text-primary">
+                  {formError && !formData.password ? ` * ${formError}` : ""}
+                </span>
+              </div>
               <div className="w-full flex flex-row items-center gap-x-2">
                 <input
                   className="flex-grow bg-transparent text-base outline-none"
