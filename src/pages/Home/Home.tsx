@@ -39,7 +39,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex-1 h-full w-full flex flex-col items-center justify-start gap-y-2 overflow-y-auto">
+    <div className="flex-1 h-auto w-full flex flex-col items-center justify-start gap-y-2 ">
       <Header>
         <div className="flex justify-center items-center font-bold text-2xl rounded-full text-secondary">
           Home

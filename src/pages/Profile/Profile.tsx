@@ -127,7 +127,7 @@ export default function Profile() {
   const isInUserProfile = location.pathname.includes(`/${user.userName}`);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center flex-shrink">
+    <div className="w-full h-auto flex flex-col items-center justify-center flex-shrink">
       <Header>
         {!isInUserProfile && <BackButton />}
         <div className="flex flex-col leading-6">
