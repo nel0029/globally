@@ -53,7 +53,7 @@ const UserFollowerList = () => {
     }
   }, []);
   return (
-    <div className="w-full flex flex-col justify-center gap-y-2 py-1">
+    <div className="w-full flex flex-col justify-center gap-y-2">
       {isLoading ? (
         <>
           <UserCard isLoading={isLoading} />

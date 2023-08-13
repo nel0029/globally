@@ -115,7 +115,7 @@ const Card = (card: MainCardProps) => {
             <IonIcon icon={chatbox} />
           </span>
           <NavLink
-            className="hover:underline cursor-pointer hover:text-secondary font-semibold text-black"
+            className="hover:underline cursor-pointer hover:text-secondary font-semibold text-black dark:text-white dark:text-opacity-[87%]"
             to={`/${card.postAuthorUserName}`}
           >
             {card.postAuthorUserName}
@@ -123,7 +123,7 @@ const Card = (card: MainCardProps) => {
 
           <span> replied to </span>
           <NavLink
-            className=" hover:underline cursor-pointer hover:text-secondary font-semibold text-black"
+            className=" hover:underline cursor-pointer hover:text-secondary font-semibold text-black dark:text-white dark:text-opacity-[87%]"
             to={`/${card.parentUserName}/${replyRoute()}/${card.parentPostID}`}
           >
             this {card.parentType}

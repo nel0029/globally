@@ -39,6 +39,13 @@ const ConversationContainer = () => {
   const location = useLocation();
   const [messageText, setMessageText] = useState("");
 
+  const fullNameArray = [
+    conversationInfo?.receiverFirstName,
+    conversationInfo?.receiverMiddleName,
+    conversationInfo?.receiverLastName,
+  ];
+  const fullName = fullNameArray?.join(" ");
+
   const scrollToBottom = () => {
     if (messages && messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: "auto" });
@@ -114,15 +121,14 @@ const ConversationContainer = () => {
                   <IonIcon icon={arrowBackOutline} />
                 </div>
                 <div className="flex flex-row gap-x-2">
-                  <CardAvatar
-                    width="32px"
-                    height="32px"
-                    avatarURL={conversationInfo.avatarURL?.url}
-                  />
-                  <div className="flex flex-row gap-x-1">
-                    <span>{conversationInfo.receiverFirstName}</span>
-                    <span>{conversationInfo.receiverMiddleName}</span>
-                    <span>{conversationInfo.receiverLastName}</span>
+                  <CardAvatar avatarURL={conversationInfo.avatarURL?.url} />
+                  <div className="flex flex-col gap-y-1 justify-center">
+                    <div className="flex flex-row gap-x-1 text-[16px] leading-[16px] font-bold">
+                      {fullName}
+                    </div>
+                    <div className="flex flex-row gap-x-1 text-[16px] leading-[16px] text-gray-500">
+                      @{conversationInfo.userName}
+                    </div>
                   </div>
                 </div>
               </div>

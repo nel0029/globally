@@ -66,6 +66,10 @@ export default function Profile() {
     }
   }, [userName, dispatch]);
 
+  const handleTabChange = (tabUrl: string) => {
+    setActiveTab(tabUrl);
+  };
+
   const goToUserPosts = () => {
     navigate(`/${userDetails?.userName}`, { replace: true });
     handleTabChange(activeTab);
@@ -98,12 +102,6 @@ export default function Profile() {
     navigate(`/${userDetails?.userName}/followers`);
   };
 
-  ////////////////////////////
-
-  const handleTabChange = (tabUrl: string) => {
-    setActiveTab(tabUrl);
-  };
-
   const handleScroll = () => {
     const currentScrollPosition = window.scrollY;
 
@@ -123,6 +121,13 @@ export default function Profile() {
   }, [activeTab, scrollPositions]);
 
   const isInUserProfile = location.pathname.includes(`/${user.userName}`);
+
+  useEffect(() => {
+    navigate(`/${userDetails?.userName}`, { replace: true });
+    handleTabChange(activeTab);
+    setActiveTab(`/${userDetails?.userName}`);
+  }, []);
+
   return (
     <div className="w-full flex flex-col items-center justify-center flex-shrink">
       <Header>
@@ -194,11 +199,9 @@ export default function Profile() {
 
           <div className="w-full flex flex-col px-2 justify-start">
             <div className="w-full flex flex-row items-center gap-x-1 text-lg font-bold">
-              <span>{userDetails?.userFirstName}</span>
-              <span>{userDetails?.userMiddleName}</span>
-              <span>{userDetails?.userLastName}</span>
+              {fullName}
             </div>
-
+            <div className="text-gray-500">@{userDetails?.userName}</div>
             <div className="w-full text-base py-2">{userDetails?.bio}</div>
             <div className="w-full flex flex-row items-center gap-x-2 flex-wrap ">
               <div
@@ -226,46 +229,77 @@ export default function Profile() {
         </div>
 
         <div className="w-full overflow-x-auto flex flex-row border-b dark:border-Dark300 mb-2">
-          <div
-            onClick={goToUserPosts}
-            className={`${
-              activeTab === `/${userDetails?.userName}`
-                ? "border-b-4 border-secondary font-bold"
-                : ""
-            } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-          >
-            Posts
-          </div>
-          <div
-            onClick={goToUserReplies}
-            className={`${
-              activeTab === `/${userDetails?.userName}/replies`
-                ? "border-b-4 border-secondary font-bold"
-                : ""
-            } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-          >
-            Replies
-          </div>
-          <div
-            onClick={goToUserReposts}
-            className={`${
-              activeTab === `/${userDetails?.userName}/reposts`
-                ? "border-b-4 border-secondary font-bold"
-                : ""
-            } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-          >
-            Reposts
-          </div>
-          <div
-            onClick={goToUserLikes}
-            className={`${
-              activeTab === `/${userDetails?.userName}/likes`
-                ? "border-b-4 border-secondary font-bold"
-                : ""
-            } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-          >
-            Likes
-          </div>
+          {userDetails ? (
+            <React.Fragment>
+              <div
+                onClick={goToUserPosts}
+                className={`${
+                  activeTab === `/${userDetails?.userName}`
+                    ? "border-b-4 border-secondary font-bold"
+                    : ""
+                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Posts
+              </div>
+              <div
+                onClick={goToUserReplies}
+                className={`${
+                  activeTab === `/${userDetails?.userName}/replies`
+                    ? "border-b-4 border-secondary font-bold"
+                    : ""
+                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Replies
+              </div>
+              <div
+                onClick={goToUserReposts}
+                className={`${
+                  activeTab === `/${userDetails?.userName}/reposts`
+                    ? "border-b-4 border-secondary font-bold"
+                    : ""
+                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Reposts
+              </div>
+              <div
+                onClick={goToUserLikes}
+                className={`${
+                  activeTab === `/${userDetails?.userName}/likes`
+                    ? "border-b-4 border-secondary font-bold"
+                    : ""
+                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Likes
+              </div>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div
+                onClick={goToUserPosts}
+                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Posts
+              </div>
+              <div
+                onClick={goToUserReplies}
+                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Replies
+              </div>
+              <div
+                onClick={goToUserReposts}
+                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Reposts
+              </div>
+              <div
+                onClick={goToUserLikes}
+                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              >
+                Likes
+              </div>
+            </React.Fragment>
+          )}
         </div>
       </div>
       <div className="w-full px-2" onScroll={handleScroll}>

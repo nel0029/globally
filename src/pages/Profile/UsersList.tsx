@@ -100,14 +100,14 @@ const UsersList = () => {
         </div>
       </Header>
 
-      <div className="w-full p-2 flex flex-row items-center justify-start gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scrollbar bg-white dark:bg-Dark200">
+      <div className="w-full px-2 flex flex-row items-center justify-start gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scrollbar bg-white dark:bg-Dark300 border-y dark:border-Dark400">
         <div
           onClick={goToUserFollowing}
           className={`${
             activeTab === `/${userDetails?.userName}/following`
               ? "border-b-4 border-secondary font-bold"
               : ""
-          } py-1 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center cursor-pointer`}
+          } py-3 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center cursor-pointer`}
         >
           Following
         </div>
@@ -117,7 +117,7 @@ const UsersList = () => {
             activeTab === `/${userDetails?.userName}/followers`
               ? "border-b-4 border-secondary font-bold"
               : ""
-          } py-1 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center cursor-pointer`}
+          } py-3 px-5 flex-shrink-0 flex-1 flex flex-row justify-center items-center cursor-pointer`}
         >
           Followers
         </div>

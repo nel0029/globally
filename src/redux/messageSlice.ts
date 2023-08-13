@@ -138,13 +138,13 @@ interface MessageState {
 
 const initialState: MessageState = {
   contactList: null,
-  messages: [],
+  messages: null,
   conversationInfo: null,
-  conversationList: [],
-  conversationRequestList: [],
+  conversationList: null,
+  conversationRequestList: null,
   responseConvoInfo: null,
   responseReceiverInfo: null,
-  userList: [],
+  userList: null,
   notificationList: null,
   unseenNotification: null,
   unseenMessagesCount: null,
