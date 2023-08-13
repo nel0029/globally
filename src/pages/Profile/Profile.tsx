@@ -172,23 +172,24 @@ export default function Profile() {
             )}
           </div>
           <div className="w-full flex flex-row items-center justify-end ">
-            {user.userID === userDetails?._id ? (
-              <ConfirmButton
-                className="pl-4 pr-6 py-1 rounded-full"
-                onClick={[() => navigate("/account/setting")]}
-              >
-                <div className="text-sm sm:text-base flex flex-row items-center gap-x-2">
-                  <IonIcon icon={cogOutline} />
-                  <span className="">Edit Profile</span>
-                </div>
-              </ConfirmButton>
-            ) : (
-              <FollowBlockContainer
-                isFollowedUser={userDetails?.isFollowedUser}
-                followID={userDetails?.followID}
-                userFollowingID={userDetails?._id}
-              />
-            )}
+            {!isLoading &&
+              (user.userID === userDetails?._id ? (
+                <ConfirmButton
+                  className="pl-4 pr-6 py-1 rounded-full"
+                  onClick={[() => navigate("/account/setting")]}
+                >
+                  <div className="text-sm sm:text-base flex flex-row items-center gap-x-2">
+                    <IonIcon icon={cogOutline} />
+                    <span className="">Edit Profile</span>
+                  </div>
+                </ConfirmButton>
+              ) : (
+                <FollowBlockContainer
+                  isFollowedUser={userDetails?.isFollowedUser}
+                  followID={userDetails?.followID}
+                  userFollowingID={userDetails?._id}
+                />
+              ))}
           </div>
 
           <div className="w-full flex flex-col px-2 justify-start">
