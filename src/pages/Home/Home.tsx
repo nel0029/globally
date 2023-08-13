@@ -50,7 +50,7 @@ export default function Home() {
         <CreateNewPost />
         <div className="flex w-full flex-col-reverse justify-center items-center gap-y-2">
           {isLoading ? (
-            <div className="w-full flex flex-col justify-center items-center gap-y-4">
+            <div className="w-full flex flex-col justify-center items-center gap-y-2">
               <LoadingCard />
               <LoadingCard />
             </div>

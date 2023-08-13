@@ -46,7 +46,7 @@ const PostCardList = () => {
   }, [userName, user.userID]);
 
   return (
-    <div className="flex w-full flex-col-reverse justify-center items-center gap-y-4">
+    <div className="flex w-full flex-col-reverse justify-center items-center gap-y-2">
       {isLoading ? (
         <React.Fragment>
           <LoadingCard />
