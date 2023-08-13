@@ -95,12 +95,17 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
               className="z-1 absolute bg-secondary top-0 left-0 right-0 bottom-0 bg-opacity-20 "
               style={{
                 width: `${
-                  option.count ? (option.count / totalRespondents) * 100 : 0
+                  option.count
+                    ? Math.round((option.count / totalRespondents) * 100)
+                    : 0
                 }%`,
               }}
             ></div>
             <div>
-              {option.count ? (option.count / totalRespondents) * 100 : 0}%
+              {option.count
+                ? Math.round((option.count / totalRespondents) * 100)
+                : 0}
+              %
             </div>
           </label>
         ))}
