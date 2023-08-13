@@ -11,7 +11,7 @@ import { getUserFollowers } from "../../../redux/asynActions/postAsynActions";
 const UserFollowerList = () => {
   const { userName } = useParams<{ userName: string }>();
   const user = useSelector((state: any) => state.user.userData);
-  const userFollowing = useSelector((state: any) => state.posts.userFollowers);
+  const userFollower = useSelector((state: any) => state.posts.userFollowers);
   const dispatch = useDispatch<AppDispatch>();
 
   const userDetails = useSelector((state: any) => state.posts.userDetails);
@@ -31,20 +31,17 @@ const UserFollowerList = () => {
       userName: userName || "",
       userID: user.userID,
     };
-    if (userDetails) {
-      if (userDetails.userName === userName) {
+
+    if (userFollower !== null) {
+      if (userFollower[0]?.userFollowingUserName === userName) {
         setIsLoading(false);
       } else {
-        if (userFollowing !== null) {
-          setIsLoading(false);
-        } else {
-          setIsLoading(true);
-          dispatch(getUserFollowers(data)).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              setIsLoading(false);
-            }
-          });
-        }
+        setIsLoading(true);
+        dispatch(getUserFollowers(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
       }
     } else {
       setIsLoading(true);
@@ -57,7 +54,7 @@ const UserFollowerList = () => {
   }, []);
   return (
     <div className="w-full flex flex-col justify-center gap-y-2 py-1">
-      {userFollowing?.map((users: any) => (
+      {userFollower?.map((users: any) => (
         <UserCard
           key={users._id}
           _id={users._id}

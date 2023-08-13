@@ -31,20 +31,17 @@ const UserFollowingList = () => {
       userName: userName || "",
       userID: user.userID,
     };
-    if (userDetails) {
-      if (userDetails.userName === userName) {
+
+    if (userFollowing !== null) {
+      if (userFollowing[0].userFollowerUserName === userName) {
         setIsLoading(false);
       } else {
-        if (userFollowing !== null) {
-          setIsLoading(false);
-        } else {
-          setIsLoading(true);
-          dispatch(getUserFollowing(data)).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              setIsLoading(false);
-            }
-          });
-        }
+        setIsLoading(true);
+        dispatch(getUserFollowing(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
       }
     } else {
       setIsLoading(true);
