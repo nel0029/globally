@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
 import { createNewPollResponse } from "../../../redux/asynActions/postAsynActions";
 import { IonIcon } from "@ionic/react";
-import { checkmarkCircle, checkmarkCircleOutline } from "ionicons/icons";
+import { squareOutline, checkbox } from "ionicons/icons";
 
 interface OptionProps {
   _id?: string;
@@ -77,9 +77,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
             >
               <IonIcon
                 icon={`${
-                  option._id === optionChoosedID
-                    ? checkmarkCircle
-                    : checkmarkCircleOutline
+                  option._id === optionChoosedID ? checkbox : squareOutline
                 }`}
               />
             </div>
