@@ -54,22 +54,28 @@ const UserFollowerList = () => {
   }, []);
   return (
     <div className="w-full flex flex-col justify-center gap-y-2 py-1">
-      {userFollower?.map((users: any) => (
-        <UserCard
-          key={users._id}
-          _id={users._id}
-          avatarURL={users.avatarURL}
-          firstName={users.userFirstName}
-          middleName={users.userMiddleName}
-          lastName={users.userLastName}
-          userName={users.userName}
-          bio={users.bio}
-          isUserFollowed={users.isUserFollowed}
-          followID={users.followID}
-          inProfileRoute={isInProfileRoute()}
-          isLoading={isLoading}
-        />
-      ))}
+      {isLoading ? (
+        <>
+          <UserCard isLoading={isLoading} />
+        </>
+      ) : (
+        userFollower?.map((users: any) => (
+          <UserCard
+            key={users._id}
+            _id={users._id}
+            avatarURL={users.avatarURL}
+            firstName={users.userFirstName}
+            middleName={users.userMiddleName}
+            lastName={users.userLastName}
+            userName={users.userName}
+            bio={users.bio}
+            isUserFollowed={users.isUserFollowed}
+            followID={users.followID}
+            inProfileRoute={isInProfileRoute()}
+            isLoading={isLoading}
+          />
+        ))
+      )}
     </div>
   );
 };

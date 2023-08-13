@@ -16,17 +16,17 @@ interface avatarURLProps {
 }
 
 export interface UserProps {
-  _id: string;
-  avatarURL: avatarURLProps;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  userName: string;
-  bio: string;
+  _id?: string;
+  avatarURL?: avatarURLProps;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
+  userName?: string;
+  bio?: string;
   isUserFollowed?: boolean;
   followID?: string | null;
-  inProfileRoute: boolean;
-  isLoading: boolean;
+  inProfileRoute?: boolean;
+  isLoading?: boolean;
 }
 
 const UserCard: React.FC<UserProps> = ({
@@ -55,7 +55,7 @@ const UserCard: React.FC<UserProps> = ({
 
   const followUser = () => {
     const data: FollowData = {
-      userFollowingID: _id,
+      userFollowingID: _id ? _id : "",
       userID: user.userID,
     };
 
@@ -78,7 +78,7 @@ const UserCard: React.FC<UserProps> = ({
         isLoading && "animate-pulse"
       } w-full flex flex-row justify-around cursor-pointer bg-white dark:bg-Dark200 p-2 border-y dark:border-Dark200`}
     >
-      {!avatarURL.url ? (
+      {!avatarURL?.url ? (
         <div className="pr-2 animate-pulse">
           <div className="w-[40px] h-[40px] rounded-[50%]">
             <svg
