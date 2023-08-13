@@ -28,7 +28,7 @@ export default function Profile() {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const fullNameArray = [
     userDetails?.userFirstName,
     userDetails?.userMiddleName,
@@ -201,32 +201,34 @@ export default function Profile() {
               isLoading ? "animate-pulse" : ""
             }`}
           >
-            <div className="w-full flex flex-row items-center gap-x-1 text-lg font-bold">
+            <div className="w-full flex flex-row items-center gap-x-1 text-[18px] font-bold">
               {isLoading ? (
-                <div className="h-[20px] w-[200px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
+                <div className="h-[14px] w-[200px] my-[2px] bg-gray-200 dark:bg-gray-700 rounded-full " />
               ) : (
                 fullName
               )}
             </div>
             {isLoading ? (
-              <div className="h-[16px] w-[100px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
+              <div className="h-[12px] w-[100px] my-[2px] bg-gray-200 dark:bg-gray-700 rounded-full " />
             ) : (
-              <div className="text-gray-500">@{userDetails?.userName}</div>
+              <div className="text-gray-500 text-[16px]">
+                @{userDetails?.userName}
+              </div>
             )}
             {isLoading ? (
               <div className="h-[16px] w-[150px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
             ) : (
-              <div className="w-full text-base py-2">
+              <div className="w-full text-[16px] py-1 text-gray-500">
                 {userDetails?.bio ? (
                   userDetails.bio
                 ) : (
-                  <div className="h-[24px]" />
+                  <div className="h-[16px] py-1" />
                 )}
               </div>
             )}
             <div className="w-full flex flex-row items-center gap-x-2 flex-wrap ">
               {isLoading ? (
-                <div className="h-[16px] w-[75px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
+                <div className="h-[16px] w-[75px] my-[2px] bg-gray-200 dark:bg-gray-700 rounded-full " />
               ) : (
                 <div
                   onClick={goToUserFollowing}
@@ -242,7 +244,7 @@ export default function Profile() {
                 </div>
               )}
               {isLoading ? (
-                <div className="h-[16px] w-[75px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
+                <div className="h-[16px] w-[75px] my-[2px] bg-gray-200 dark:bg-gray-700 rounded-full " />
               ) : (
                 <div
                   onClick={goToUserFollowers}
