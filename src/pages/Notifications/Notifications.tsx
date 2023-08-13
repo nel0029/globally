@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../common/Header";
 import TitleText from "../../common/TitleText";
 import { IonIcon } from "@ionic/react";
@@ -11,15 +11,9 @@ import { NotificationsProps } from "../../redux/messageSlice";
 import { getAllNotifications } from "../../redux/asynActions/messageAsyncActions";
 import { useNavigate } from "react-router";
 import CardAvatar from "../Home/PostComponents/CardAvatar";
+import LoadingNotificationCard from "./LoadingNotificationCard";
 
 const Notifications = () => {
-  useEffect(() => {
-    const data = {
-      userID: user.userID,
-    };
-    dispatch(getAllNotifications(data));
-  }, []);
-
   const user = useSelector((state: any) => state.user.userData);
   const notifications = useSelector(
     (state: any) => state.messages.notificationList
@@ -27,6 +21,7 @@ const Notifications = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const date = (createdAt: string) => {
     const dateAndTime = new Date(createdAt);
@@ -97,6 +92,22 @@ const Notifications = () => {
     }
   };
 
+  useEffect(() => {
+    const data = {
+      userID: user.userID,
+    };
+    if (notifications) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+      dispatch(getAllNotifications(data)).then((response: any) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          setIsLoading(false);
+        }
+      });
+    }
+  }, []);
+
   return (
     <div className="w-full h-full flex-grow flex flex-col items-center justify-start">
       <Header>
@@ -104,12 +115,23 @@ const Notifications = () => {
           <div className="py-0.5">Notifications</div>
         </TitleText>
       </Header>
-      <div className="w-full flex flex-col-reverse px-1 mt-2 gap-y-2 overflow-y-auto">
-        {notifications?.length > 0 ? (
+      <div className="w-full flex-1 flex flex-col-reverse justify-end overflow-y-auto">
+        {isLoading ? (
+          <React.Fragment>
+            <LoadingNotificationCard />
+            <LoadingNotificationCard />
+            <LoadingNotificationCard />
+            <LoadingNotificationCard />
+            <LoadingNotificationCard />
+            <LoadingNotificationCard />
+            <LoadingNotificationCard />
+            <LoadingNotificationCard />
+          </React.Fragment>
+        ) : notifications?.length > 0 ? (
           notifications.map((notification: NotificationsProps) => (
             <div
               key={notification._id}
-              className="w-full border dark:border-Dark300 bg-white dark:bg-Dark200 rounded-lg px-1 py-2 flex flex-row items-center gap-x-2"
+              className="w-full border-y dark:border-Dark300 bg-white dark:bg-Dark200 px-1 py-2 flex flex-row items-center gap-x-2"
             >
               <div className="px-1">
                 <CardAvatar
@@ -148,7 +170,7 @@ const Notifications = () => {
             </div>
           ))
         ) : (
-          <div className="flex-grow flex flex-col gap-y-2 justify-center items-center">
+          <div className="w-full h-full flex-grow flex flex-col gap-y-2 justify-center items-center ">
             <div className="text-4xl font-extrabold">No notifications</div>
             <div>All your notifactions are found here</div>
           </div>
