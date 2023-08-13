@@ -1,15 +1,21 @@
-import React, { ReactNode } from 'react'
+/** @format */
+
+import React, { ReactNode } from "react";
 
 interface CancelButtonProps {
-  onClick: ((val?: any) => void)[],
-  children: ReactNode,
-  className?: string
+  onClick?: ((val?: any) => void)[];
+  children: ReactNode;
+  className?: string;
 }
 
-const CancelButton: React.FC<CancelButtonProps> = ({ onClick, children, className }) => {
+const CancelButton: React.FC<CancelButtonProps> = ({
+  onClick,
+  children,
+  className,
+}) => {
   const handleOnClick = () => {
-    onClick.forEach((func) => {
-      if (typeof func === 'function') {
+    onClick?.forEach((func) => {
+      if (typeof func === "function") {
         func();
       }
     });
@@ -17,10 +23,13 @@ const CancelButton: React.FC<CancelButtonProps> = ({ onClick, children, classNam
   return (
     <button
       onClick={handleOnClick}
-      className={`${className ? className : 'rounded-full  px-5 py-1'} border-2 border-slate-400`}>
+      className={`${
+        className ? className : "rounded-full  px-5 py-1"
+      } border-2 border-slate-400`}
+    >
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default CancelButton
+export default CancelButton;

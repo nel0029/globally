@@ -16,6 +16,7 @@ import CoverPhoto from "./ProfileComponents/CoverPhoto";
 import { UserDetails } from "../../redux/postSlice";
 import UserDetailsAvatar from "./ProfileComponents/UserDetailsAvatar";
 import FollowBlockContainer from "./ProfileComponents/FollowBlockContainer";
+import CancelButton from "../../common/CancelButton";
 
 export default function Profile() {
   const { userName } = useParams<{ userName: string }>();
@@ -174,53 +175,86 @@ export default function Profile() {
             )}
           </div>
           <div className="w-full flex flex-row items-center justify-end ">
-            {!isLoading &&
-              (user.userID === userDetails?._id ? (
-                <ConfirmButton
-                  className="pl-4 pr-6 py-1 rounded-full"
-                  onClick={[() => navigate("/account/setting")]}
-                >
-                  <div className="text-sm sm:text-base flex flex-row items-center gap-x-2">
-                    <IonIcon icon={cogOutline} />
-                    <span className="">Edit Profile</span>
-                  </div>
-                </ConfirmButton>
-              ) : (
-                <FollowBlockContainer
-                  isFollowedUser={userDetails?.isFollowedUser}
-                  followID={userDetails?.followID}
-                  userFollowingID={userDetails?._id}
-                />
-              ))}
+            {isLoading ? (
+              <CancelButton>Unfollow</CancelButton>
+            ) : user.userID === userDetails?._id ? (
+              <ConfirmButton
+                className="pl-4 pr-6 py-1 rounded-full"
+                onClick={[() => navigate("/account/setting")]}
+              >
+                <div className="text-sm sm:text-base flex flex-row items-center gap-x-2">
+                  <IonIcon icon={cogOutline} />
+                  <span className="">Edit Profile</span>
+                </div>
+              </ConfirmButton>
+            ) : (
+              <FollowBlockContainer
+                isFollowedUser={userDetails?.isFollowedUser}
+                followID={userDetails?.followID}
+                userFollowingID={userDetails?._id}
+              />
+            )}
           </div>
 
-          <div className="w-full flex flex-col px-2 justify-start">
+          <div
+            className={`w-full flex flex-col px-2 justify-start ${
+              isLoading ? "animate-pulse" : ""
+            }`}
+          >
             <div className="w-full flex flex-row items-center gap-x-1 text-lg font-bold">
-              {fullName}
+              {isLoading ? (
+                <div className="h-[20px] w-[200px] my-1 bg-gray-700 rounded-full " />
+              ) : (
+                fullName
+              )}
             </div>
-            <div className="text-gray-500">@{userDetails?.userName}</div>
-            <div className="w-full text-base py-2">{userDetails?.bio}</div>
+            {isLoading ? (
+              <div className="h-[16px] w-[100px] my-1 bg-gray-700 rounded-full " />
+            ) : (
+              <div className="text-gray-500">@{userDetails?.userName}</div>
+            )}
+            {isLoading ? (
+              <div className="h-[16px] w-[150px] my-1 bg-gray-700 rounded-full " />
+            ) : (
+              <div className="w-full text-base py-2">
+                {userDetails?.bio ? (
+                  userDetails.bio
+                ) : (
+                  <div className="h-[24px]" />
+                )}
+              </div>
+            )}
             <div className="w-full flex flex-row items-center gap-x-2 flex-wrap ">
-              <div
-                onClick={goToUserFollowing}
-                className="text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer"
-              >
-                <span className="font-semibold ">
-                  {userDetails?.followingsCount}
-                </span>
-                <span className="font-semibold text-gray-400 ">Following</span>
-                <div className="hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400"></div>
-              </div>
-              <div
-                onClick={goToUserFollowers}
-                className="text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer"
-              >
-                <span className="font-semibold">
-                  {userDetails?.followersCount}
-                </span>
-                <span className="font-semibold text-gray-400">Followers</span>
-                <div className="hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400"></div>
-              </div>
+              {isLoading ? (
+                <div className="h-[16px] w-[75px] my-1 bg-gray-700 rounded-full " />
+              ) : (
+                <div
+                  onClick={goToUserFollowing}
+                  className="text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer"
+                >
+                  <span className="font-semibold ">
+                    {userDetails?.followingsCount}
+                  </span>
+                  <span className="font-semibold text-gray-400 ">
+                    Following
+                  </span>
+                  <div className="hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400"></div>
+                </div>
+              )}
+              {isLoading ? (
+                <div className="h-[16px] w-[75px] my-1 bg-gray-700 rounded-full " />
+              ) : (
+                <div
+                  onClick={goToUserFollowers}
+                  className="text-sm flex flex-row items-center gap-x-1 group relative cursor-pointer"
+                >
+                  <span className="font-semibold">
+                    {userDetails?.followersCount}
+                  </span>
+                  <span className="font-semibold text-gray-400">Followers</span>
+                  <div className="hidden group-hover:flex absolute left-0 right-0 bottom-[2px] border-b-2 border-gray-400"></div>
+                </div>
+              )}
             </div>
           </div>
         </div>
