@@ -47,6 +47,9 @@ export default function Profile() {
   useEffect(() => {
     if (userDetails) {
       if (userDetails.userName === userName) {
+        navigate(`/${userDetails.userName}`, { replace: true });
+        handleTabChange(activeTab);
+        setActiveTab(`/${userDetails?.userName}`);
         setIsLoading(false);
       } else {
         setIsLoading(true);
@@ -121,12 +124,6 @@ export default function Profile() {
   }, [activeTab, scrollPositions]);
 
   const isInUserProfile = location.pathname.includes(`/${user.userName}`);
-
-  useEffect(() => {
-    navigate(`/${userDetails?.userName}`, { replace: true });
-    handleTabChange(activeTab);
-    setActiveTab(`/${userDetails?.userName}`);
-  }, []);
 
   return (
     <div className="w-full flex flex-col items-center justify-center flex-shrink">
