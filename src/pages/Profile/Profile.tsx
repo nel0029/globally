@@ -150,7 +150,7 @@ export default function Profile() {
         <div className="w-full">
           {isLoading ? (
             <div className="relative w-full aspect-3/1">
-              <div className="w-full h-full flex items-center justify-center bg-gray-300 dark:bg-gray-700"></div>
+              <div className="w-full h-full flex items-center justify-center bg-gray-300 dark bg-gray-200:dark:bg-gray-700"></div>
             </div>
           ) : (
             <CoverPhoto coverPhotoURL={userDetails?.coverPhotoURL.url} />
@@ -203,18 +203,18 @@ export default function Profile() {
           >
             <div className="w-full flex flex-row items-center gap-x-1 text-lg font-bold">
               {isLoading ? (
-                <div className="h-[20px] w-[200px] my-1 bg-gray-700 rounded-full " />
+                <div className="h-[20px] w-[200px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
               ) : (
                 fullName
               )}
             </div>
             {isLoading ? (
-              <div className="h-[16px] w-[100px] my-1 bg-gray-700 rounded-full " />
+              <div className="h-[16px] w-[100px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
             ) : (
               <div className="text-gray-500">@{userDetails?.userName}</div>
             )}
             {isLoading ? (
-              <div className="h-[16px] w-[150px] my-1 bg-gray-700 rounded-full " />
+              <div className="h-[16px] w-[150px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
             ) : (
               <div className="w-full text-base py-2">
                 {userDetails?.bio ? (
@@ -226,7 +226,7 @@ export default function Profile() {
             )}
             <div className="w-full flex flex-row items-center gap-x-2 flex-wrap ">
               {isLoading ? (
-                <div className="h-[16px] w-[75px] my-1 bg-gray-700 rounded-full " />
+                <div className="h-[16px] w-[75px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
               ) : (
                 <div
                   onClick={goToUserFollowing}
@@ -242,7 +242,7 @@ export default function Profile() {
                 </div>
               )}
               {isLoading ? (
-                <div className="h-[16px] w-[75px] my-1 bg-gray-700 rounded-full " />
+                <div className="h-[16px] w-[75px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
               ) : (
                 <div
                   onClick={goToUserFollowers}
