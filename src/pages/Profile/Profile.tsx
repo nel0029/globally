@@ -310,7 +310,7 @@ const Profile: React.FC<ProfileProps> = ({ scrollPos }) => {
                 activeTab === `/${userDetails?.userName}`
                   ? "border-b-4 border-secondary font-bold"
                   : ""
-              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              } flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Posts
             </div>
@@ -320,7 +320,7 @@ const Profile: React.FC<ProfileProps> = ({ scrollPos }) => {
                 activeTab === `/${userDetails?.userName}/replies`
                   ? "border-b-4 border-secondary font-bold"
                   : ""
-              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              } flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Replies
             </div>
@@ -330,7 +330,7 @@ const Profile: React.FC<ProfileProps> = ({ scrollPos }) => {
                 activeTab === `/${userDetails?.userName}/reposts`
                   ? "border-b-4 border-secondary font-bold"
                   : ""
-              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              } flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Reposts
             </div>
@@ -340,7 +340,7 @@ const Profile: React.FC<ProfileProps> = ({ scrollPos }) => {
                 activeTab === `/${userDetails?.userName}/likes`
                   ? "border-b-4 border-secondary font-bold"
                   : ""
-              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              } flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Likes
             </div>
@@ -349,25 +349,25 @@ const Profile: React.FC<ProfileProps> = ({ scrollPos }) => {
           <React.Fragment>
             <div
               onClick={goToUserPosts}
-              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              className={`flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Posts
             </div>
             <div
               onClick={goToUserReplies}
-              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              className={`flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Replies
             </div>
             <div
               onClick={goToUserReposts}
-              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              className={`flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Reposts
             </div>
             <div
               onClick={goToUserLikes}
-              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+              className={`flex justify-center items-center py-3 px-3 hover:bg-opacity-20 cursor-pointer`}
             >
               Likes
             </div>
