@@ -4,11 +4,15 @@ import React, { ReactNode } from "react";
 
 interface HeaderProps {
   children: ReactNode;
+  headerRef?: React.Ref<HTMLDivElement>;
 }
 
-const Header: React.FC<HeaderProps> = ({ children }) => {
+const Header: React.FC<HeaderProps> = ({ children, headerRef }) => {
   return (
-    <div className="z-30 w-full flex flex-row items-center bg-white border-b dark:border-b-0 dark:bg-Dark300 sticky top-0 gap-x-2 p-2 ">
+    <div
+      ref={headerRef}
+      className="z-30 w-full flex flex-row items-center bg-white border-b dark:border-b-0 dark:bg-Dark300 sticky top-0 gap-x-2 p-2 "
+    >
       {children}
     </div>
   );

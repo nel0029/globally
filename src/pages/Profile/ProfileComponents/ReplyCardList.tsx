@@ -54,9 +54,20 @@ const ReplyCardList = () => {
           <LoadingCard />
         </React.Fragment>
       ) : (
-        allPosts?.map((post: ReplyDataProps) => {
-          return <Card key={post._id} {...post} />;
-        })
+        <React.Fragment>
+          {allPosts?.length > 0 ? (
+            <React.Fragment>
+              <div className="flex-1">No more posts</div>
+              {allPosts?.map((post: ReplyDataProps) => (
+                <Card key={post._id} {...post} />
+              ))}
+            </React.Fragment>
+          ) : (
+            <div className="w-full flex-1 flex justify-center pt-8">
+              <div className="font-bold text-xl">This user has no posts</div>
+            </div>
+          )}
+        </React.Fragment>
       )}
     </div>
   );

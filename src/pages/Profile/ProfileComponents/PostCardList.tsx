@@ -46,16 +46,27 @@ const PostCardList = () => {
   }, [userName, user.userID]);
 
   return (
-    <div className="flex w-full flex-col-reverse justify-center items-center gap-y-2">
+    <div className="flex w-full h-full flex-col-reverse justify-center items-center gap-y-2">
       {isLoading ? (
         <React.Fragment>
           <LoadingCard />
           <LoadingCard />
         </React.Fragment>
       ) : (
-        allPosts?.map((post: CardProps) => {
-          return <Card key={post._id} {...post} />;
-        })
+        <React.Fragment>
+          {allPosts?.length > 0 ? (
+            <React.Fragment>
+              <div className="flex-1">No more posts</div>
+              {allPosts?.map((post: CardProps) => (
+                <Card key={post._id} {...post} />
+              ))}
+            </React.Fragment>
+          ) : (
+            <div className="w-full flex-1 flex justify-center pt-8">
+              <div className="font-bold text-xl">This user has no replies</div>
+            </div>
+          )}
+        </React.Fragment>
       )}
     </div>
   );

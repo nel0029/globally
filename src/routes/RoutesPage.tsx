@@ -22,7 +22,11 @@ import Messages from "../pages/Messages/Messages";
 import Notifications from "../pages/Notifications/Notifications";
 import AccountSettings from "../pages/AccountSettings/AccountSettings";
 
-export default function RoutePage() {
+interface RoutePageProps {
+  pos: number;
+}
+
+const RoutePage: React.FC<RoutePageProps> = ({ pos }) => {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
@@ -31,7 +35,7 @@ export default function RoutePage() {
           <Route path="following" element={<UserFollowingList />} />
           <Route path="followers" element={<UserFollowerList />} />
         </Route>
-        <Route path="/:userName" element={<Profile />}>
+        <Route path="/:userName" element={<Profile scrollPos={pos} />}>
           <Route path="" element={<PostCardList />} />
           <Route path="replies" element={<ReplyCardList />} />
           <Route path="reposts" element={<RepostCardList />} />
@@ -57,4 +61,6 @@ export default function RoutePage() {
       </Route>
     </Routes>
   );
-}
+};
+
+export default RoutePage;

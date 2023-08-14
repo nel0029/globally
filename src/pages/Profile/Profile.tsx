@@ -2,7 +2,7 @@
 
 import { IonIcon } from "@ionic/react";
 import { cogOutline } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Outlet, useParams } from "react-router";
 import Header from "../../common/Header";
 import BackButton from "../../common/BackButton";
@@ -18,7 +18,11 @@ import UserDetailsAvatar from "./ProfileComponents/UserDetailsAvatar";
 import FollowBlockContainer from "./ProfileComponents/FollowBlockContainer";
 import CancelButton from "../../common/CancelButton";
 
-export default function Profile() {
+interface ProfileProps {
+  scrollPos: number;
+}
+
+const Profile: React.FC<ProfileProps> = ({ scrollPos }) => {
   const { userName } = useParams<{ userName: string }>();
   const user = useSelector((state: any) => state.user.userData);
   const userDetails: UserDetails = useSelector(
@@ -29,6 +33,8 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState(location.pathname);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState<number | undefined>(0);
+
   const fullNameArray = [
     userDetails?.userFirstName,
     userDetails?.userMiddleName,
@@ -106,8 +112,8 @@ export default function Profile() {
     navigate(`/${userDetails?.userName}/followers`);
   };
 
-  const handleScroll = () => {
-    const currentScrollPosition = window.scrollY;
+  const handleScroll = (event: any) => {
+    const currentScrollPosition = event.srcElement.body.scrollTop;
 
     setScrollPositions({
       ...scrollPositions,
@@ -116,19 +122,44 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    //window.addEventListener("scroll", (event: any) => handleScroll(event));
 
-    // Clean up the event listener on component unmount
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      //window.removeEventListener("scroll", (event: any) => handleScroll(event));
     };
   }, [activeTab, scrollPositions]);
 
   const isInUserProfile = location.pathname.includes(`/${user.userName}`);
 
+  const header = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (header) {
+      if (header.current) {
+        const newHeight = header.current.offsetHeight;
+
+        setHeaderHeight(newHeight);
+      }
+    }
+  }, [header.current?.offsetHeight]);
+
+  const [profileTabChangeBG, setProfileTabChangeBG] = useState(false);
+
+  useEffect(() => {
+    const userInfo = document.getElementById("user-details");
+    if (header.current && userInfo) {
+      const bannerHeight = header.current.offsetHeight + userInfo.offsetHeight;
+      if (scrollPos >= bannerHeight - 60) {
+        setProfileTabChangeBG(true);
+      } else {
+        setProfileTabChangeBG(false);
+      }
+    }
+  }, [scrollPos]);
+
   return (
-    <div className="w-full h-auto flex flex-col items-center justify-center flex-shrink">
-      <Header>
+    <div className="w-full flex flex-col items-center justify-center flex-shrink transition-colors ease-in-out duration-300">
+      <Header headerRef={header}>
         {!isInUserProfile && <BackButton />}
         <div className="flex flex-col leading-6">
           <TitleText>
@@ -146,7 +177,10 @@ export default function Profile() {
         </div>
       </Header>
 
-      <div className="flex-grow w-full flex flex-col gap-y-2 flex-shrink ">
+      <div
+        id="user-details"
+        className=" flex-grow w-full flex flex-col gap-y-2 flex-shrink "
+      >
         <div className="w-full">
           {isLoading ? (
             <div className="relative w-full aspect-3/1">
@@ -260,84 +294,95 @@ export default function Profile() {
             </div>
           </div>
         </div>
-
-        <div className="w-full overflow-x-auto flex flex-row border-b dark:border-Dark300 mb-2">
-          {userDetails ? (
-            <React.Fragment>
-              <div
-                onClick={goToUserPosts}
-                className={`${
-                  activeTab === `/${userDetails?.userName}`
-                    ? "border-b-4 border-secondary font-bold"
-                    : ""
-                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Posts
-              </div>
-              <div
-                onClick={goToUserReplies}
-                className={`${
-                  activeTab === `/${userDetails?.userName}/replies`
-                    ? "border-b-4 border-secondary font-bold"
-                    : ""
-                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Replies
-              </div>
-              <div
-                onClick={goToUserReposts}
-                className={`${
-                  activeTab === `/${userDetails?.userName}/reposts`
-                    ? "border-b-4 border-secondary font-bold"
-                    : ""
-                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Reposts
-              </div>
-              <div
-                onClick={goToUserLikes}
-                className={`${
-                  activeTab === `/${userDetails?.userName}/likes`
-                    ? "border-b-4 border-secondary font-bold"
-                    : ""
-                } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Likes
-              </div>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <div
-                onClick={goToUserPosts}
-                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Posts
-              </div>
-              <div
-                onClick={goToUserReplies}
-                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Replies
-              </div>
-              <div
-                onClick={goToUserReposts}
-                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Reposts
-              </div>
-              <div
-                onClick={goToUserLikes}
-                className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
-              >
-                Likes
-              </div>
-            </React.Fragment>
-          )}
-        </div>
       </div>
-      <div className="w-full px-2" onScroll={handleScroll}>
+      <div
+        className={`${
+          profileTabChangeBG
+            ? "bg-white dark:bg-Dark200"
+            : "dark:bg-Dark100 bg-slate-100"
+        } sticky top-[60px] left-0 right-0 z-50 w-full overflow-x-auto flex flex-row border-b dark:border-Dark300 mb-2`}
+      >
+        {userDetails ? (
+          <React.Fragment>
+            <div
+              onClick={goToUserPosts}
+              className={`${
+                activeTab === `/${userDetails?.userName}`
+                  ? "border-b-4 border-secondary font-bold"
+                  : ""
+              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Posts
+            </div>
+            <div
+              onClick={goToUserReplies}
+              className={`${
+                activeTab === `/${userDetails?.userName}/replies`
+                  ? "border-b-4 border-secondary font-bold"
+                  : ""
+              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Replies
+            </div>
+            <div
+              onClick={goToUserReposts}
+              className={`${
+                activeTab === `/${userDetails?.userName}/reposts`
+                  ? "border-b-4 border-secondary font-bold"
+                  : ""
+              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Reposts
+            </div>
+            <div
+              onClick={goToUserLikes}
+              className={`${
+                activeTab === `/${userDetails?.userName}/likes`
+                  ? "border-b-4 border-secondary font-bold"
+                  : ""
+              } flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Likes
+            </div>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <div
+              onClick={goToUserPosts}
+              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Posts
+            </div>
+            <div
+              onClick={goToUserReplies}
+              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Replies
+            </div>
+            <div
+              onClick={goToUserReposts}
+              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Reposts
+            </div>
+            <div
+              onClick={goToUserLikes}
+              className={`flex justify-center items-center py-1 px-3 hover:bg-opacity-20 cursor-pointer`}
+            >
+              Likes
+            </div>
+          </React.Fragment>
+        )}
+      </div>
+      <div
+        id="tabs"
+        className="w-full px-2 min-h-[calc(100vh-180px)] xl:h-auto overflow-y-scroll"
+        onScroll={(event: any) => handleScroll(event)}
+      >
         <Outlet />
       </div>
     </div>
   );
-}
+};
+
+export default Profile;

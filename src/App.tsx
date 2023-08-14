@@ -111,6 +111,17 @@ const App = () => {
       return 0;
     }
   };
+
+  const [scrollPos, setScrollPos] = useState(0);
+
+  useEffect(() => {
+    const main = document.getElementById("main");
+    if (main) {
+      main.addEventListener("scroll", () => {
+        setScrollPos(main.scrollTop);
+      });
+    }
+  }, [scrollPos]);
   return (
     <div
       className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
@@ -128,9 +139,10 @@ const App = () => {
                       style={{
                         paddingBottom: setBottomPadding(),
                       }}
+                      id="main"
                       className={`w-full flex flex-col flex-grow justify-start h-full overflow-y-auto`}
                     >
-                      <RoutesPage />
+                      <RoutesPage pos={scrollPos} />
                     </div>
                   </div>
                   <BottomNavigation />
