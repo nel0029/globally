@@ -298,9 +298,9 @@ const Profile: React.FC<ProfileProps> = ({ scrollPos }) => {
       <div
         className={`${
           profileTabChangeBG
-            ? "bg-white dark:bg-Dark300 border-t"
-            : "dark:bg-Dark100 bg-slate-100"
-        } sticky top-[60px] left-0 right-0 z-50 w-full overflow-x-auto flex flex-row border-b dark:border-Dark300 mb-2`}
+            ? "bg-white dark:bg-Dark300 border-y dark:border-Dark400"
+            : "dark:bg-Dark100 bg-slate-100 border-b dark:border-Dark300"
+        } sticky top-[60px] left-0 right-0 z-50 w-full overflow-x-auto flex flex-row mb-2`}
       >
         {userDetails ? (
           <React.Fragment>
