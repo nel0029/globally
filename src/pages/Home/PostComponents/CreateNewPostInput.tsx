@@ -97,7 +97,7 @@ export default function CreateNewPostInput() {
   const handleOptionOnChange = (event: any) => {
     const newValue = event.target.value;
     if (newValue.length > 25) {
-      setOption(newValue.slice(0, 24));
+      setOption(newValue.slice(0, 25));
     } else {
       setOption(newValue);
     }

@@ -20,7 +20,7 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
   const handleChange = (event: any) => {
     const newValue = event.target.value;
     if (newValue.length > maxLength) {
-      setBody(newValue.slice(0, maxLength - 1));
+      setBody(newValue.slice(0, maxLength));
     } else {
       setBody(newValue);
     }
