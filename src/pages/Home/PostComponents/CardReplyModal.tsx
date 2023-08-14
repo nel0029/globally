@@ -86,6 +86,7 @@ const CardReplyModal: React.FC<CardReplyModalProps> = ({
         </div>
         <div className="w-full">
           <TextAreaInput
+            maxLength={99}
             placeholder="Reply"
             body={replyCaption}
             setBody={setReplyCaption}

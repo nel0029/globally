@@ -95,7 +95,12 @@ export default function CreateNewPostInput() {
   };
 
   const handleOptionOnChange = (event: any) => {
-    setOption(event.target.value);
+    const newValue = event.target.value;
+    if (newValue.length > 25) {
+      setOption(newValue.slice(0, 24));
+    } else {
+      setOption(newValue);
+    }
   };
 
   return (
@@ -107,6 +112,7 @@ export default function CreateNewPostInput() {
         className="w-full flex flex-col justify-center items-center"
       >
         <TextAreaInput
+          maxLength={99}
           bgColor={backgroundColor}
           body={postBody}
           setBody={setPostBody}

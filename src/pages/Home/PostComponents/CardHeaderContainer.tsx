@@ -179,6 +179,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
           </div>
           <div className="w-full">
             <TextAreaInput
+              maxLength={99}
               placeholder="Edit your post"
               body={postCaption}
               setBody={setPostCaption}

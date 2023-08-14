@@ -7,6 +7,7 @@ interface TextAreaInputProps {
   setBody: React.Dispatch<React.SetStateAction<string>>;
   placeholder: string;
   bgColor?: string;
+  maxLength: number;
 }
 
 const TextAreaInput: React.FC<TextAreaInputProps> = ({
@@ -14,13 +15,22 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
   setBody,
   placeholder,
   bgColor,
+  maxLength,
 }) => {
+  const handleChange = (event: any) => {
+    const newValue = event.target.value;
+    if (newValue.length > maxLength) {
+      setBody(newValue.slice(0, maxLength - 1));
+    } else {
+      setBody(newValue);
+    }
+  };
   return (
     <textarea
       style={{ background: bgColor }}
-      maxLength={99}
+      maxLength={maxLength}
       value={body}
-      onChange={(event: any) => setBody(event.target.value)}
+      onChange={(event: any) => handleChange(event)}
       className={`${
         bgColor
           ? "text-white placeholder:text-white"
