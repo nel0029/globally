@@ -1,15 +1,17 @@
-import React, { ReactNode } from 'react'
+/** @format */
+
+import React, { ReactNode } from "react";
 
 interface TitleTextProps {
-    children: ReactNode
+  children: ReactNode;
 }
 
 const TitleText: React.FC<TitleTextProps> = ({ children }) => {
-    return (
-        <div className='text-lg font-bold flex-grow'>
-            {children}
-        </div>
-    )
-}
+  return (
+    <div className="flex justify-center items-center font-bold text-2xl">
+      {children}
+    </div>
+  );
+};
 
-export default TitleText
+export default TitleText;

@@ -34,7 +34,7 @@ import {
   ReplyDataProps,
   RepostDataProps,
 } from "../types/PostTypes";
-import { userData } from "../data/UserData";
+
 import { UserProps } from "../pages/Profile/ProfileComponents/UserCard";
 
 interface MediaProps {

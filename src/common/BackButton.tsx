@@ -1,21 +1,28 @@
-import React from 'react'
-import { useNavigate } from 'react-router'
-import { IonIcon } from '@ionic/react'
-import { arrowBackOutline } from 'ionicons/icons'
+/** @format */
 
-const BackButton = () => {
-    const navigate = useNavigate()
+import React from "react";
+import { useNavigate } from "react-router";
+import { IonIcon } from "@ionic/react";
+import { arrowBackOutline } from "ionicons/icons";
 
-    const goBack = () => {
-        navigate(-1)
-    }
-    return (
-        <div
-            onClick={goBack}
-            className='flex justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer'>
-            <IonIcon icon={arrowBackOutline} />
-        </div>
-    )
+interface BackButtonProps {
+  onClick?: (val: any) => void;
 }
 
-export default BackButton
+const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+  return (
+    <div
+      onClick={onClick ? onClick : goBack}
+      className="flex justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer"
+    >
+      <IonIcon icon={arrowBackOutline} />
+    </div>
+  );
+};
+
+export default BackButton;

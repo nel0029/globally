@@ -47,7 +47,7 @@ const ConversationCard: React.FC<ConversationCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className="flex flex-row py-2 cursor-pointer border dark:border-Dark300 hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10"
+      className="flex flex-row py-2 cursor-pointer border-y dark:border-Dark300 hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10"
     >
       <div className="px-2 relative">
         <CardAvatar avatarURL={avatarURL} />

@@ -60,7 +60,7 @@ export interface PollResponse {
 export interface NewPost {
   authorID: string;
   caption: string;
-  files: File[] | null;
+  file: File | null;
   hasPoll: boolean;
   pollOptions: string[] | null;
   bgColor: string;
@@ -71,7 +71,7 @@ export interface NewReply {
   parentType: string;
   authorID: string;
   caption: string;
-  files: File[] | null;
+  file: File | null;
 }
 
 export interface UpdatePostData {

@@ -21,6 +21,12 @@ import UserFollowerList from "../pages/Profile/ProfileComponents/UserFollowerLis
 import Messages from "../pages/Messages/Messages";
 import Notifications from "../pages/Notifications/Notifications";
 import AccountSettings from "../pages/AccountSettings/AccountSettings";
+import Explore from "../pages/Explore/Explore";
+import SearchResultsTop from "../pages/Explore/ExploreComponents/SearchResultsTop";
+import SearchResultsPosts from "../pages/Explore/ExploreComponents/SearchResultsPosts";
+import SearchResultsUsers from "../pages/Explore/ExploreComponents/SearchResultsUsers";
+import SearchResults from "../pages/Explore/ExploreComponents/SearchResults";
+import TrendingHashtags from "../pages/Explore/ExploreComponents/TrendingHashtags";
 
 interface RoutePageProps {
   pos: number;
@@ -31,21 +37,17 @@ const RoutePage: React.FC<RoutePageProps> = ({ pos }) => {
     <Routes>
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<Home />} />
-        <Route path="/:userName" element={<UsersList />}>
-          <Route path="following" element={<UserFollowingList />} />
-          <Route path="followers" element={<UserFollowerList />} />
-        </Route>
-        <Route path="/:userName" element={<Profile scrollPos={pos} />}>
-          <Route path="" element={<PostCardList />} />
-          <Route path="replies" element={<ReplyCardList />} />
-          <Route path="reposts" element={<RepostCardList />} />
-          <Route path="likes" element={<LikedPostCardList />} />
-        </Route>
-
         <Route path="/messages/*" element={<Messages />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/account/setting" element={<AccountSettings />} />
-
+        <Route path="/explore" element={<Explore />}>
+          <Route index element={<TrendingHashtags />} />
+          <Route path="search" element={<SearchResults />}>
+            <Route path="top/*" element={<SearchResultsTop />} />
+            <Route path="posts/*" element={<SearchResultsPosts />} />
+            <Route path="users/*" element={<SearchResultsUsers />} />
+          </Route>
+        </Route>
         <Route
           path="/:userName/posts/:postID"
           element={<PostDetailsContainer />}
@@ -58,6 +60,18 @@ const RoutePage: React.FC<RoutePageProps> = ({ pos }) => {
           path="/:userName/reposts/:postID"
           element={<RepostDetailsContainer />}
         />
+
+        <Route path="/:userName" element={<UsersList />}>
+          <Route path="following" element={<UserFollowingList />} />
+          <Route path="followers" element={<UserFollowerList />} />
+        </Route>
+
+        <Route path="/:userName" element={<Profile scrollPos={pos} />}>
+          <Route path="" element={<PostCardList />} />
+          <Route path="replies" element={<ReplyCardList />} />
+          <Route path="reposts" element={<RepostCardList />} />
+          <Route path="likes" element={<LikedPostCardList />} />
+        </Route>
       </Route>
     </Routes>
   );

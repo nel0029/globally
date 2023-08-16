@@ -14,7 +14,7 @@ import {
   powerOutline,
   enterOutline,
   sunnyOutline,
-  earthOutline,
+  search,
 } from "ionicons/icons";
 import Header from "../common/Header";
 import TitleText from "../common/TitleText";
@@ -45,8 +45,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const isAuthenticated = localStorage.getItem("token");
-
   useEffect(() => {
     const data = {
       userID: user.userID,
@@ -54,11 +52,20 @@ const NavBar = () => {
     if (localStorage.getItem("userID")) {
       dispatch(getUnseenNotifications(data));
     }
-  }, []);
+
+    setActiveTab(location.pathname);
+  }, [location.pathname]);
+
+  const isAuthenticated = localStorage.getItem("token");
 
   const goToHome = () => {
     navigate("/");
     setActiveTab("/");
+  };
+
+  const goToExplore = () => {
+    navigate("/explore");
+    setActiveTab("/explore");
   };
 
   const goToUserProfile = () => {
@@ -122,6 +129,16 @@ const NavBar = () => {
           >
             <IonIcon icon={homeOutline} />
             <div className="hidden lg:flex items-center">Home</div>
+          </div>
+
+          <div
+            onClick={goToExplore}
+            className={`${
+              activeTab.includes("explore") ? " text-secondary " : ""
+            } flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
+          >
+            <IonIcon icon={search} />
+            <div className="hidden lg:flex items-center">Explore</div>
           </div>
 
           <div

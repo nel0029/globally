@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   homeOutline,
@@ -11,6 +11,8 @@ import {
   person,
   mail,
   notifications,
+  search,
+  searchOutline,
 } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
@@ -23,12 +25,22 @@ const BottomNavigation = () => {
   const user = useSelector((state: any) => state.user.userData);
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
+
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    setActiveTab(location.pathname);
+  }, [location.pathname]);
 
   const goToHome = () => {
     navigate("/");
     setActiveTab("/");
+  };
+
+  const goToExplore = () => {
+    navigate("/explore");
+    setActiveTab("/explore");
   };
 
   const goToUserProfile = () => {
@@ -69,6 +81,16 @@ const BottomNavigation = () => {
         onClick={goToHome}
       >
         <IonIcon icon={activeTab === "/" ? home : homeOutline} />
+      </div>
+      <div
+        className={`${
+          activeTab.includes("/explore") ? "text-secondary" : ""
+        } flex justify-center items-center text-4xl`}
+        onClick={goToExplore}
+      >
+        <IonIcon
+          icon={activeTab.includes("/explore") ? search : searchOutline}
+        />
       </div>
       <div
         className={`${

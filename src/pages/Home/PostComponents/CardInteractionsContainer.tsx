@@ -65,7 +65,7 @@ const CardInteractionsContainer = (card: CardProps) => {
       parentType: card.type,
       authorID: user.userID,
       caption: replyCaption,
-      files: selectedFiles,
+      file: selectedFiles[0],
     };
     dispatch(createReply(newReply)).then((response: any) =>
       socket.emit("newReply", {
@@ -114,9 +114,17 @@ const CardInteractionsContainer = (card: CardProps) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files) {
-      const filesArray = Array.from(files);
-      setSelectedFiles(filesArray);
+
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      if (selectedFiles.length + 1 > 10) {
+        event.preventDefault();
+        alert("Cannot upload more than 10 files");
+        return;
+      }
+
+      setSelectedFiles((prevFiles) => [...prevFiles, file]);
     }
   };
 

@@ -190,7 +190,7 @@ export const createPost = createAsyncThunk(
   async (formData: NewPost) => {
     try {
       const headers = {
-        //"Content-Type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
         ...axios.defaults.headers.common,
       };
 
@@ -211,7 +211,7 @@ export const updatePost = createAsyncThunk<UpdatedPost, UpdatePostData>(
   async (postData) => {
     try {
       const headers = {
-        //"Content-Type": "multipart/form-data",
+        // //8"Content-Type": "multipart/form-data",
         ...axios.defaults.headers.common,
       };
       const reponse = await axios.put("/update/post", postData, {
@@ -245,8 +245,8 @@ export const createReply = createAsyncThunk(
   async (replyData: NewReply) => {
     try {
       const headers = {
-        //"Content-Type": "multipart/form-data", // Set the correct content type for file uploads
-        ...axios.defaults.headers.common, // Merge with default headers
+        "Content-Type": "multipart/form-data",
+        ...axios.defaults.headers.common,
       };
 
       const response = await axios.post("/new/reply", replyData, { headers });
@@ -317,8 +317,7 @@ export const deleteRepost = createAsyncThunk<DeleteRepost, DeleteRepostData>(
     try {
       const { authorID, postID } = repostData;
       const response = await axios.delete(
-        `/delete/repost/?postID=${postID}&authorID=${authorID}`,
-        {}
+        `/delete/repost/?postID=${postID}&authorID=${authorID}`
       );
       return response.data;
     } catch (error) {

@@ -109,8 +109,8 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
             </div>
           </label>
         ))}
-      {hasChoosed &&
-        (totalRespondents > 1 ? (
+      {hasChoosed ? (
+        totalRespondents > 1 ? (
           <div className="w-full text-gray-400 line-clamp-1">
             You and {totalRespondents - 1} others responds to this poll
           </div>
@@ -118,7 +118,16 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
           <div className="w-full text-gray-400 line-clamp-1">
             You responds to this poll
           </div>
-        ))}
+        )
+      ) : totalRespondents > 1 ? (
+        <div className="w-full text-gray-400 line-clamp-1">
+          {totalRespondents} users respond to this poll
+        </div>
+      ) : (
+        <div className="w-full text-gray-400 line-clamp-1">
+          {totalRespondents} user responds to this poll
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 /** @format */
 
 import React from "react";
+import { useNavigate } from "react-router";
 
 interface CardCaptionProps {
   caption?: string;
@@ -13,7 +14,32 @@ const CardCaption: React.FC<CardCaptionProps> = ({
   bgColor,
   parentBGColor,
 }) => {
+  const navigate = useNavigate();
   const captionLines = caption?.split("\n");
+
+  const gotTo = (word: string, event: any) => {
+    event.stopPropagation();
+    navigate(`/explore/search/top?q=${word.slice(1, word.length)}`);
+  };
+  const wrapWordsWithSpan = (text: string) => {
+    const words = text.split(" ");
+    return words.map((word, index) => {
+      if (word.match(/^#[^\W_]+$/)) {
+        return (
+          <span
+            onClick={(event: any) => gotTo(word, event)} // Assuming you have a function 'gotTo' defined elsewhere
+            className="text-secondary"
+            key={index}
+          >
+            {word}{" "}
+          </span>
+        );
+      } else {
+        return word + " ";
+      }
+    });
+  };
+
   return (
     <div
       style={{ background: bgColor ? bgColor : parentBGColor }}
@@ -27,7 +53,7 @@ const CardCaption: React.FC<CardCaptionProps> = ({
     >
       {captionLines?.map((line, index) => (
         <p key={index} className=" lg:text-xl leading-5 break-words">
-          {line}
+          {wrapWordsWithSpan(line)}
         </p>
       ))}
     </div>

@@ -22,7 +22,6 @@ export default function Home() {
 
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: any) => state.user.userData);
-  const userID = localStorage.getItem("userID");
 
   useEffect(() => {
     if (posts.length !== 0) {
@@ -41,7 +40,7 @@ export default function Home() {
   return (
     <div className="flex-1 h-auto w-full flex flex-col items-center justify-start gap-y-2 ">
       <Header>
-        <div className="flex justify-center items-center font-bold text-2xl rounded-full text-secondary">
+        <div className="flex justify-center items-center font-bold text-2xl text-secondary">
           Home
         </div>
       </Header>

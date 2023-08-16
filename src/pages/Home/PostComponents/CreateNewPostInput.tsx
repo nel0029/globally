@@ -38,7 +38,7 @@ export default function CreateNewPostInput() {
     const newPost: NewPost = {
       authorID: user.userID,
       caption: postBody,
-      files: selectedFiles,
+      file: selectedFiles[0],
       hasPoll: hasPoll,
       pollOptions: pollOptionList,
       bgColor: backgroundColor,
@@ -54,16 +54,17 @@ export default function CreateNewPostInput() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files) {
-      const filesArray = Array.from(files);
 
-      if (selectedFiles.length + filesArray.length > 10) {
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      if (selectedFiles.length + 1 > 10) {
         event.preventDefault();
-        alert(`Cannot upload files more than 10`);
+        alert("Cannot upload more than 10 files");
         return;
       }
 
-      setSelectedFiles((prevFiles) => [...prevFiles, ...filesArray]);
+      setSelectedFiles((prevFiles) => [...prevFiles, file]);
     }
   };
 
@@ -239,10 +240,8 @@ export default function CreateNewPostInput() {
                 id="fileInput"
                 name="file"
                 accept="image/*"
-                multiple={selectedFiles.length < 10 ? true : undefined}
                 disabled={
-                  true
-                  // poll || selectedFiles.length >= 10 || hasBackgroundColor
+                  poll || hasBackgroundColor || selectedFiles.length > 0
                 }
                 style={{ display: "none" }}
                 onChange={handleFileChange}

@@ -68,19 +68,21 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const data = {
-      userID: user.userID,
+      userID: user?.userID,
     };
     if (token) {
-      socket.on("newNotification", (data: any) =>
-        dispatch(addNewNotifcation(data))
-      );
-      socket.on("removeNotification", (data: any) => {
-        dispatch(removeNotifcation(data));
-      });
-      socket.on("newMessageCount", (data: any) =>
-        dispatch(updateUnseenMessagesCount(data))
-      );
-      dispatch(getUnseenMessagesCount(data));
+      if (user && user.userID !== null) {
+        socket.on("newNotification", (data: any) =>
+          dispatch(addNewNotifcation(data))
+        );
+        socket.on("removeNotification", (data: any) => {
+          dispatch(removeNotifcation(data));
+        });
+        socket.on("newMessageCount", (data: any) =>
+          dispatch(updateUnseenMessagesCount(data))
+        );
+        dispatch(getUnseenMessagesCount(data));
+      }
     }
 
     return () => {
@@ -88,7 +90,7 @@ const App = () => {
       socket.off("newNotification");
       socket.off("removeNotification");
     };
-  }, []);
+  }, [user?.userID]);
 
   const bottomNav = document.getElementById("bottom-nav");
 
@@ -129,6 +131,8 @@ const App = () => {
       <div className="w-full h-full flex flex-col flex-grow relative overflow-hidden ">
         {user ? (
           <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<LogIn />} />
             <Route
               path="/*"
               element={
@@ -149,8 +153,6 @@ const App = () => {
                 </div>
               }
             />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<LogIn />} />
           </Routes>
         ) : (
           <div> Loading... </div>

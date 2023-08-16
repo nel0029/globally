@@ -64,7 +64,9 @@ const LikedPostCardList = () => {
             </React.Fragment>
           ) : (
             <div className="w-full flex-1 flex justify-center pt-8">
-              <div className="font-bold text-xl">This user has no reposts</div>
+              <div className="font-bold text-xl">
+                This user has no liked posts to show
+              </div>
             </div>
           )}
         </React.Fragment>

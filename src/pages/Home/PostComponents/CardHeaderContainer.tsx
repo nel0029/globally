@@ -73,15 +73,15 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
       case "post":
         dispatch(updatePost(updatePostData));
         setInitialPostCaption(postCaption);
-
+        break;
       case "reply":
         dispatch(updateReply(updatePostData));
         setInitialPostCaption(postCaption);
-
+        break;
       case "repost":
         dispatch(updateRepost(updatePostData));
         setInitialPostCaption(postCaption);
-
+        break;
       default:
         return;
     }
@@ -99,7 +99,9 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
     switch (type) {
       case "post":
         dispatch(deletePost(deletePostData));
+
         openDeleteModal();
+        break;
       case "reply":
         socket.emit("deleteReply", {
           actorID: user.userID,
@@ -108,7 +110,9 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
         });
 
         dispatch(deleteReply(deletePostData));
+
         openDeleteModal();
+        break;
       case "repost":
         socket.emit("deleteRepost", {
           actorID: user.userID,
@@ -116,7 +120,9 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
           actionID: post._id,
         });
         dispatch(deleteRepost(deletePostData));
+
         openDeleteModal();
+        break;
       default:
         return;
     }

@@ -126,8 +126,7 @@ const CardReplyModal: React.FC<CardReplyModalProps> = ({
             id={fileInputID}
             name="file"
             accept="image/*"
-            disabled={true}
-            multiple
+            disabled={selectedFiles.length > 0}
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
