@@ -33,7 +33,7 @@ const SearchNavBar = () => {
   const searchBarHeight = searchBar?.offsetHeight;
   return (
     <div
-      className={`z-50 w-full flex flex-row items-center justify-around bg-white dark:bg-Dark300 pt-1 sticky top-[${searchBarHeight}px]`}
+      className={`z-50 w-full flex flex-row items-center justify-around bg-white dark:bg-Dark300 pt-1 sticky top-[49px] left-0 right-0`}
     >
       <div
         onClick={goToTopResults}

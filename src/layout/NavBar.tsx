@@ -12,9 +12,11 @@ import {
   notificationsOutline,
   moonOutline,
   powerOutline,
-  enterOutline,
   sunnyOutline,
   search,
+  settings,
+  settingsOutline,
+  chevronDown,
 } from "ionicons/icons";
 import Header from "../common/Header";
 import TitleText from "../common/TitleText";
@@ -42,6 +44,8 @@ const NavBar = () => {
 
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -89,6 +93,10 @@ const NavBar = () => {
     socket.emit("resetNotificationsCount", data);
   };
 
+  const openSettings = () => {
+    setIsSettingsOpen(!isSettingsOpen);
+  };
+
   const goToAccountSettings = () => {
     navigate("/account/setting");
     setActiveTab("/account/setting");
@@ -106,7 +114,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="lg:max-w-[300px] h-full flex-grow-0 sticky hidden lg:flex flex-col items-center justify-center left-0 top-0 bottom-0 border-r dark:border-Dark300">
+    <nav className="lg:max-w-[300px] h-full flex-grow-0 sticky hidden lg:flex flex-col items-center justify-center left-0 top-0 bottom-0 border-r dark:border-Dark300">
       <Header>
         <div className="flex justify-center items-center w-[32px] rounded-full text-secondary">
           <img
@@ -125,9 +133,11 @@ const NavBar = () => {
             onClick={goToHome}
             className={`${
               activeTab === "/" ? " text-secondary " : ""
-            } flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
+            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
           >
-            <IonIcon icon={homeOutline} />
+            <div className="text-2xl flex justify-center items-center">
+              <IonIcon icon={homeOutline} />
+            </div>
             <div className="hidden lg:flex items-center">Home</div>
           </div>
 
@@ -135,9 +145,11 @@ const NavBar = () => {
             onClick={goToExplore}
             className={`${
               activeTab.includes("explore") ? " text-secondary " : ""
-            } flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
+            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
           >
-            <IonIcon icon={search} />
+            <div className="text-2xl flex justify-center items-center">
+              <IonIcon icon={search} />
+            </div>
             <div className="hidden lg:flex items-center">Explore</div>
           </div>
 
@@ -145,9 +157,11 @@ const NavBar = () => {
             onClick={goToUserProfile}
             className={` ${
               activeTab === `/${user.userName}` ? " text-secondary" : ""
-            } flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
+            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
           >
-            <IonIcon icon={personOutline} />
+            <div className="text-2xl flex justify-center items-center">
+              <IonIcon icon={personOutline} />
+            </div>
             <div className="hidden lg:flex items-center">Profile</div>
           </div>
 
@@ -155,10 +169,12 @@ const NavBar = () => {
             onClick={goToMessages}
             className={`${
               activeTab === "/messages" ? " text-secondary " : ""
-            }  flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
+            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="flex justify-center items-center relative">
-              <IonIcon icon={mailOutline} />
+              <div className="text-2xl flex justify-center items-center">
+                <IonIcon icon={mailOutline} />
+              </div>
               {messageNotif?.unseenMessagesCount > 0 ? (
                 <div className="w-2 h-2 bg-primary rounded-full absolute top-0 right-0" />
               ) : null}
@@ -170,10 +186,12 @@ const NavBar = () => {
             onClick={goToNotifications}
             className={`${
               activeTab === "/notifications" ? " text-secondary " : ""
-            } flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
+            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="flex justify-center items-center relative">
-              <IonIcon icon={notificationsOutline} />
+              <div className="text-2xl flex justify-center items-center">
+                <IonIcon icon={notificationsOutline} />
+              </div>
               {notificationCount &&
               notificationCount.unseenNotificationsCount > 0 ? (
                 <div className="w-2 h-2 bg-primary rounded-full absolute top-0 right-0" />
@@ -181,59 +199,89 @@ const NavBar = () => {
             </div>
             <div className="hidden lg:flex items-center">Notifications</div>
           </div>
-        </div>
-
-        <div className="w-full flex flex-col items-center lg:items-start gap-y-2">
-          <div
-            onClick={goToAccountSettings}
-            className={`${
-              activeTab === "/account/setting" ? " text-secondary " : ""
-            } flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
-          >
-            <div className=" w-7 h-7 flex justify-center items-center rounded-full">
-              <img
-                className="w-full h-full object-contain aspect-square rounded-full"
-                src={user.avatarURL}
-              />
-            </div>
-            <div className="hidden lg:flex items-center whitespace-nowrap">
-              Account Settings
-            </div>
-          </div>
 
           <div
-            onClick={setThemeMode}
             className={`${
-              mode ? " text-secondary " : ""
-            } flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
+              isSettingsOpen ? "h-[168px]" : "[38px]"
+            } relative w-full flex flex-col items-center lg:items-start transition-all ease-in-out duration-200 overflow-hidden`}
           >
-            <IonIcon icon={mode ? moonOutline : sunnyOutline} />
-            <div className="hidden lg:flex items-center">
-              {mode ? "Dark Mode" : "Light Mode"}
+            <div
+              onClick={openSettings}
+              className={`z-50 dark:bg-Dark100 bg-slate-100 w-full flex flex-row items-center justify-between text-xl gap-x-2 p-2 py-1 cursor-pointer hover:text-secondary`}
+            >
+              <div className="flex flex-row items-center gap-x-2">
+                <div className=" text-2xl flex justify-center items-center">
+                  <IonIcon icon={settingsOutline} />
+                </div>
+                <div className="hidden lg:flex items-center">Settings</div>
+              </div>
+              <div
+                className={`${
+                  isSettingsOpen ? " -rotate-180" : ""
+                } transition-transform ease-in-out duration-300 flex justify-center items-center `}
+              >
+                <IonIcon icon={chevronDown} />
+              </div>
+            </div>
+
+            <div
+              className={`absolute ${
+                isSettingsOpen ? "top-[38px]" : "top-0"
+              } left-0 right-0 overflow-hidden flex flex-col gap-y-2 transition-all ease-in-out duration-100`}
+            >
+              {isSettingsOpen && (
+                <div
+                  onClick={goToAccountSettings}
+                  className={`${
+                    activeTab === "/account/setting" ? " text-secondary " : ""
+                  } ${
+                    isSettingsOpen ? "max-h-[38px] flex" : " max-h-[0px] hidden"
+                  } flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+                >
+                  <div className=" w-6 h-6 flex justify-center items-center rounded-full">
+                    <img
+                      className="w-full h-full object-contain aspect-square rounded-full"
+                      src={user.avatarURL}
+                    />
+                  </div>
+                  <div className="hidden lg:flex items-center whitespace-nowrap">
+                    Account
+                  </div>
+                </div>
+              )}
+
+              <div
+                onClick={setThemeMode}
+                className={`${mode && " text-secondary "} ${
+                  isSettingsOpen ? " max-h-[38px] flex" : " max-h-[0px] hidden"
+                } flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+              >
+                <div className="text-2xl flex justify-center items-center">
+                  <IonIcon icon={mode ? moonOutline : sunnyOutline} />
+                </div>
+                <div className="hidden lg:flex items-center">
+                  {mode ? "Dark Mode" : "Light Mode"}
+                </div>
+              </div>
+
+              {isSettingsOpen && (
+                <div
+                  onClick={handleLogOut}
+                  className={` ${
+                    isSettingsOpen ? "max-h-[38px] flex" : " max-h-[0px] hidden"
+                  } flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary `}
+                >
+                  <div className="text-2xl flex justify-center items-center">
+                    <IonIcon icon={powerOutline} />
+                  </div>
+                  <div className="hidden lg:flex items-center">Log Out</div>
+                </div>
+              )}
             </div>
           </div>
-
-          {isAuthenticated ? (
-            <div
-              onClick={handleLogOut}
-              className={` flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
-            >
-              <IonIcon icon={powerOutline} />
-              <div className="hidden lg:flex items-center">Log Out</div>
-            </div>
-          ) : (
-            <div
-              className={`${
-                activeTab === "/login" ? " text-secondary " : ""
-              } flex flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary hover:scale-110`}
-            >
-              <IonIcon icon={enterOutline} />
-              <div className="hidden lg:flex items-center">Log In</div>
-            </div>
-          )}
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

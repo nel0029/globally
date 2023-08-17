@@ -21,6 +21,7 @@ import {
 import Register from "./pages/Register/Register";
 import LogIn from "./pages/LogIn/LogIn";
 import { serverAddress } from "./config/Config";
+import Settings from "./pages/Settings/Settings";
 
 const App = () => {
   axios.defaults.baseURL = serverAddress;
@@ -126,9 +127,10 @@ const App = () => {
   }, [scrollPos]);
   return (
     <div
-      className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] overflow-hidden`}
+      className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] `}
     >
-      <div className="w-full h-full flex flex-col flex-grow relative overflow-hidden ">
+      <Settings />
+      <div className="w-full h-full flex flex-col flex-grow">
         {user ? (
           <Routes>
             <Route path="/register" element={<Register />} />
@@ -144,7 +146,7 @@ const App = () => {
                         paddingBottom: setBottomPadding(),
                       }}
                       id="main"
-                      className={`w-full flex flex-col flex-grow justify-start h-full overflow-y-auto`}
+                      className={`w-full flex flex-col flex-grow justify-start h-full overflow-y-auto static xl:relative`}
                     >
                       <RoutesPage pos={scrollPos} />
                     </div>

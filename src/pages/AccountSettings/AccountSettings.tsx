@@ -26,6 +26,7 @@ import CancelButton from "../../common/CancelButton";
 import { setMode } from "../../redux/themeSlice";
 import { logOut, resetAccountData } from "../../redux/usersSlice";
 import { useNavigate } from "react-router";
+import BackButton from "../../common/BackButton";
 
 const AccountSettings = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -141,74 +142,16 @@ const AccountSettings = () => {
   };
 
   return (
-    <div className="w-full flex-grow flex flex-col items-center justify-center gap-y-2">
+    <div className=" w-full flex-grow flex flex-col items-center gap-y-2">
       <Header>
+        <div className="block xl:hidden">
+          <BackButton />
+        </div>
         <TitleText>
           <div className="py-0.5">Account Settings</div>
         </TitleText>
       </Header>
       <div className="w-full flex flex-col items-center flex-grow px-2 gap-y-4">
-        <div className="w-full flex flex-col gap-y-2 ">
-          <div className="flex flex-row items-center justify-between ">
-            <div className="font-bold text-lg">Profile Picture</div>
-            <label
-              htmlFor="fileInput"
-              className="flex flex-row items-center gap-x-1 text-lg hover:underline hover:text-secondary cursor-pointer"
-            >
-              <div className="flex justify-center items-center">
-                <IonIcon icon={brush} />
-              </div>
-              <div>Edit</div>
-            </label>
-            <input
-              type="file"
-              id="fileInput"
-              name="avatarURL"
-              accept="image/*"
-              disabled={true}
-              style={{ display: "none" }}
-              onChange={(event: any) =>
-                setProfilePicture(event.target.files[0])
-              }
-            />
-          </div>
-          <div className="flex flex-col items-center gap-y-2">
-            {profilePicture ? (
-              <CardAvatar
-                avatarURL={URL.createObjectURL(profilePicture)}
-                fontSize="75px"
-                width="150px"
-                height="150px"
-              />
-            ) : (
-              <CardAvatar
-                avatarURL={account?.avatarURL.url}
-                width="150px"
-                height="150px"
-                fontSize="75px"
-              />
-            )}
-            <div></div>
-          </div>
-        </div>
-        <div className="w-full flex flex-col">
-          <div className="flex flex-row items-center justify-between">
-            <div className="font-bold text-lg">Cover Photo</div>
-            <div className="flex flex-row items-center gap-x-1 text-lg hover:underline hover:text-secondary cursor-pointer">
-              <div className="flex justify-center items-center">
-                <IonIcon icon={brush} />
-              </div>
-              <div>Edit</div>
-            </div>
-          </div>
-          <div>
-            {coverPhoto ? (
-              <CoverPhoto coverPhotoURL={URL.createObjectURL(coverPhoto)} />
-            ) : (
-              <CoverPhoto coverPhotoURL={account?.coverPhotoURL.url} />
-            )}
-          </div>
-        </div>
         <div className="w-full flex flex-col">
           <div className="font-bold text-lg">Profile Info</div>
           <div className="w-full flex flex-col gap-y-2">
@@ -342,10 +285,7 @@ const AccountSettings = () => {
           {authMessage && <div>{authMessage}</div>}
         </div>
         <div className="w-full flex flex-row items-center py-5">
-          <ConfirmButton
-            disabled={!currentPassword}
-            onClick={[handleSaveChanges]}
-          >
+          <ConfirmButton onClick={[handleSaveChanges]}>
             Save Changes
           </ConfirmButton>
         </div>

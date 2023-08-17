@@ -66,7 +66,7 @@ const RoutePage: React.FC<RoutePageProps> = ({ pos }) => {
           <Route path="followers" element={<UserFollowerList />} />
         </Route>
 
-        <Route path="/:userName" element={<Profile scrollPos={pos} />}>
+        <Route path="/:userName" element={<Profile />}>
           <Route path="" element={<PostCardList />} />
           <Route path="replies" element={<ReplyCardList />} />
           <Route path="reposts" element={<RepostCardList />} />

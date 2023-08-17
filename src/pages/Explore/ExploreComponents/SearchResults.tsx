@@ -19,7 +19,7 @@ const SearchResults = () => {
   const searchBar = document.getElementById("search-bar");
   const searchBarHeight = searchBar?.offsetHeight;
   return (
-    <div className={`w-full h-auto flex flex-col sticky top-0 left-0 right-0`}>
+    <div className={`w-full flex flex-col `}>
       <SearchNavBar />
       <div className="flex-1 w-full h-auto px-2 pt-2">
         <Outlet />

@@ -72,7 +72,7 @@ const Explore = () => {
   const searchBar = document.getElementById("search-bar");
   const searchBarHeight = searchBar?.offsetHeight;
   return (
-    <div className="w-full flex flex-col items-center flex-shrink">
+    <div className="w-full flex flex-col flex-shrink">
       <div id="search-bar" className="w-full sticky top-0 z-50">
         <Header>
           <div className="w-full flex flex-row items-center ">
@@ -85,7 +85,7 @@ const Explore = () => {
           </div>
         </Header>
       </div>
-      <div className={`w-full flex-1 sticky top-[48px] left-0 right-0`}>
+      <div className={`w-full h-auto flex-1`}>
         <Outlet />
       </div>
     </div>
