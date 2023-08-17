@@ -34,6 +34,8 @@ const Profile = () => {
 
   useEffect(() => {
     setIsInUserProfile(true);
+
+    setIsInUserProfile(true);
     return () => {
       setIsInUserProfile(false);
     };

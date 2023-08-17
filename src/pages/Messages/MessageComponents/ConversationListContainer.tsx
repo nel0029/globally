@@ -70,7 +70,7 @@ const ConversationListContainer = () => {
     <div className="w-full h-full sticky top-0 overflow-auto flex-grow flex flex-col lg:border-r lg:dark:border-Dark300">
       <Header>
         <TitleText>Conversations</TitleText>
-        <div className="flex justify-center items-center">
+        <div className="flex-1 flex flex-row justify-end items-center">
           <button
             onClick={createNewConvo}
             className="flex justify-center items-center p-1 text-2xl rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer"

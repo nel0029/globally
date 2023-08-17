@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/store";
-import { openMenu } from "../../redux/themeSlice";
+import { openMenu, setMode } from "../../redux/themeSlice";
 import { IonIcon } from "@ionic/react";
 import {
   person,
@@ -22,15 +22,18 @@ import SettingsHeader from "./components/SettingsHeader";
 
 import AccountAvatar from "./components/AccountAvatar";
 import { getAccountData } from "../../redux/asynActions/userAsyncActions";
+import { logOut, resetAccountData } from "../../redux/usersSlice";
 
 const Settings = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const isMenuOpen = useSelector((state: any) => state.theme.isMenuOpen);
+  // const isMenuOpen = useSelector((state: any) => state.theme.isMenuOpen);
   const user = useSelector((state: any) => state.user.userData);
   const account = useSelector((state: any) => state.user.accountData);
+  const mode = useSelector((state: any) => state.theme.darkMode);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const fullNameArray = [
     account?.userFirstName,
@@ -53,27 +56,44 @@ const Settings = () => {
         }
       });
     }
-    if (isMenuOpen === true) {
+
+    if (location.pathname === "/settings") {
       document.body.style.overflowY = "hidden";
+      setIsMenuOpen(true);
     }
-  }, [isMenuOpen]);
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname === "/settings") {
+      setIsMenuOpen(true);
+    } else {
+      setIsMenuOpen(false);
+    }
+  }, [location.pathname]);
 
   const handleCloseMenu = () => {
-    dispatch(openMenu(false));
+    navigate(-1);
   };
 
   const goToUserProfile = () => {
-    dispatch(openMenu(false));
-    setTimeout(() => {
-      navigate(`/${user?.userName}`);
-    }, 300);
+    navigate(`/${user?.userName}`, { replace: true });
   };
 
+  const setThemeMode = () => {
+    dispatch(setMode(!mode));
+  };
+
+  const handleLogOut = () => {
+    dispatch(setMode(false));
+    dispatch(logOut());
+    dispatch(resetAccountData());
+    navigate("/");
+  };
   return (
     <div
       className={`z-50 fixed w-full h-screen top-0 bottom-0 -right-full ${
         isMenuOpen ? " -translate-x-full" : " translate-x-0"
-      } transition-transform ease-in-out duration-300 flex flex-col dark:bg-Dark100 bg-slate-100`}
+      } transition-transform ease-in-out duration-300 flex flex-col dark:bg-Dark100 bg-slate-100 overflow-hidden`}
     >
       <div className="w-full flex flex-col relative">
         <SettingsHeader>
@@ -125,6 +145,7 @@ const Settings = () => {
             <div className="flex items-center ">Dark Mode</div>
           </div>
           <div
+            onClick={handleLogOut}
             className={` w-full flex flex-row items-center gap-x-2 p-2 cursor-pointer hover:text-secondary`}
           >
             <div className="text-2xl flex justify-center items-center text-secondary">

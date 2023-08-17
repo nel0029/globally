@@ -29,11 +29,13 @@ export default function Home() {
     } else {
       setIsLoading(true);
 
-      dispatch(getPosts(user.userID)).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          setIsLoading(false);
-        }
-      });
+      setTimeout(() => {
+        dispatch(getPosts(user.userID)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
+      }, 2000);
     }
   }, []);
 
