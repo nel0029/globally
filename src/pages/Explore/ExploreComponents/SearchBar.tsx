@@ -45,7 +45,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, setValue, onSubmit }) => {
         <IonIcon icon={search} />
       </div>
       <input
-        className="w-full outline-none border-none bg-transparent py-1 text-xl font-semibold"
+        className="w-full outline-none border-none bg-transparent py-1 font-semibold"
         type="text"
         placeholder={q ? q : "Search..."}
         value={value}
