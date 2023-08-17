@@ -34,7 +34,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, setValue, onSubmit }) => {
         isFocused
           ? "border border-secondary outline outline-1 outline-secondary"
           : "border dark:border-Dark400"
-      } w-full flex flex-row items-center rounded-full px-2 gap-x-1 sticky top-0`}
+      } w-full flex flex-row items-center rounded-full py-1 px-2 gap-x-1 sticky top-0`}
       onSubmit={onSubmit}
     >
       <div
