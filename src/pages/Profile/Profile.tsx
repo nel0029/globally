@@ -113,8 +113,8 @@ const Profile = () => {
   };
 
   const goBack = () => {
-    navigate(-1);
     setIsInUserProfile(false);
+    navigate(-1);
   };
   return (
     <div
