@@ -137,10 +137,11 @@ const Settings = () => {
             <div className="flex items-center ">Account Settings</div>
           </div>
           <div
+            onClick={setThemeMode}
             className={` w-full flex flex-row items-center gap-x-2 p-2 cursor-pointer hover:text-secondary`}
           >
             <div className="text-2xl flex justify-center items-center text-secondary">
-              <IonIcon icon={moon} />
+              <IonIcon icon={mode ? moon : sunny} />
             </div>
             <div className="flex items-center ">Dark Mode</div>
           </div>
