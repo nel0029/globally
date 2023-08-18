@@ -32,6 +32,7 @@ export interface PostsDataProps {
   hasPoll?: boolean;
   pollID?: string;
   pollOptions?: OptionProps[];
+  verified?: boolean;
 }
 
 export interface ReplyDataProps {

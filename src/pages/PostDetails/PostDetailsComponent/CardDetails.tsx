@@ -11,8 +11,9 @@ import CardDetailsHeaderMenu from "./CardDetailsHeaderMenu";
 import PollOptionsCard from "../../Home/PostComponents/PollOptionsCard";
 
 interface OptionProps {
-  _id: string;
-  body: string;
+  _id?: string;
+  body?: string;
+  count?: number;
 }
 
 interface MediaProps {
@@ -58,7 +59,7 @@ export interface CardDetailsProps {
   hasChoosed?: boolean;
   optionChoosedID?: string;
   pollRespondentsCount?: number;
-  verified: boolean;
+  verified?: boolean;
 }
 
 const CardDetails = (details: CardDetailsProps) => {

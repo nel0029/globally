@@ -9,7 +9,7 @@ interface CardDetailsHeaderProps {
   firstName: string;
   middleName: string;
   lastName: string;
-  verified: boolean;
+  verified?: boolean;
 }
 
 const CardDetailsHeader: React.FC<CardDetailsHeaderProps> = ({
