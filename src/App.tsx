@@ -103,20 +103,6 @@ const App = () => {
     }
   }, [bottomNav, bottomNav?.offsetHeight]);
 
-  const setBottomPadding = () => {
-    const windowWidth = window.innerWidth;
-    const defaultPadding = 76;
-    if (windowWidth < 1024) {
-      if (bottomNavHeight > 0) {
-        return bottomNavHeight + 8;
-      } else {
-        return defaultPadding;
-      }
-    } else {
-      return 0;
-    }
-  };
-
   const [scrollPos, setScrollPos] = useState(0);
 
   useEffect(() => {
@@ -157,11 +143,8 @@ const App = () => {
                   <div className="w-full h-full flex flex-col lg:flex-row justify-center items-start flex-1 overflow-y-scroll">
                     <NavBar />
                     <div
-                      style={{
-                        paddingBottom: setBottomPadding(),
-                      }}
                       id="main"
-                      className={`w-full flex flex-col flex-1 justify-start h-full  static xl:relative`}
+                      className={`w-full flex flex-col flex-1 justify-start pb-[76px] static xl:relative`}
                     >
                       <RoutesPage pos={scrollPos} />
                     </div>
