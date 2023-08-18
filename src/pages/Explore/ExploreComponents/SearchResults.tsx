@@ -21,7 +21,7 @@ const SearchResults = () => {
   return (
     <div className={`w-full flex flex-col `}>
       <SearchNavBar />
-      <div className="flex-1 w-full h-auto px-2 pt-2">
+      <div className="flex-1 w-full h-auto p-2">
         <Outlet />
       </div>
     </div>

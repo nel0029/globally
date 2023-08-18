@@ -11,7 +11,7 @@ const SettingsHeader: React.FC<HeaderProps> = ({ children, headerRef }) => {
   return (
     <div
       ref={headerRef}
-      className="z-30 w-full flex flex-row items-center sticky top-0 right-0 left-0 gap-x-2 p-2 "
+      className="z-30 w-full flex flex-row items-center fixed top-0 right-0 left-0 gap-x-2 p-2 "
     >
       {children}
     </div>

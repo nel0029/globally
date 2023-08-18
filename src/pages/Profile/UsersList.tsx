@@ -58,17 +58,17 @@ const UsersList = () => {
   }, [dispatch, userName]);
 
   const goToUserFollowing = () => {
-    navigate(`/${userDetails?.userName}/following`);
+    navigate(`/${userDetails?.userName}/following`, { replace: true });
     setActiveTab(`/${userDetails?.userName}/following`);
   };
 
   const goToUserFollowers = () => {
-    navigate(`/${userDetails?.userName}/followers`);
+    navigate(`/${userDetails?.userName}/followers`, { replace: true });
     setActiveTab(`/${userDetails?.userName}/followers`);
   };
 
   const goToUserDetails = () => {
-    navigate(`/${userDetails?.userName}`);
+    navigate(-1);
   };
 
   return (

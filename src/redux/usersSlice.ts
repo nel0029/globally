@@ -75,7 +75,7 @@ const usersSlice = createSlice({
       state.authMessage = "";
       state.valid = null;
     },
-    logOut: () => {
+    logOut: (state) => {
       localStorage.removeItem("token");
       localStorage.removeItem("userID");
       localStorage.removeItem("userName");
@@ -84,6 +84,12 @@ const usersSlice = createSlice({
       localStorage.removeItem("userMiddleName");
       localStorage.removeItem("userLastName");
       localStorage.removeItem("coverPhotoURL");
+      state.accountData = null;
+      state.authMessage = "";
+      state.authStatus = "";
+      state.registerMessage = "";
+      state.userFollower = null;
+      state.userFollowing = null;
     },
     resetRegisterMessage: (state) => {
       state.registerMessage = "";

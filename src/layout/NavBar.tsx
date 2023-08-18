@@ -133,7 +133,7 @@ const NavBar = () => {
             onClick={goToHome}
             className={`${
               activeTab === "/" ? " text-secondary " : ""
-            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+            } w-full flex flex-row items-center gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="text-2xl flex justify-center items-center">
               <IonIcon icon={homeOutline} />
@@ -145,7 +145,7 @@ const NavBar = () => {
             onClick={goToExplore}
             className={`${
               activeTab.includes("explore") ? " text-secondary " : ""
-            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+            } w-full flex flex-row items-center gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="text-2xl flex justify-center items-center">
               <IonIcon icon={search} />
@@ -157,7 +157,7 @@ const NavBar = () => {
             onClick={goToUserProfile}
             className={` ${
               activeTab === `/${user.userName}` ? " text-secondary" : ""
-            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+            } w-full flex flex-row items-center gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="text-2xl flex justify-center items-center">
               <IonIcon icon={personOutline} />
@@ -168,8 +168,8 @@ const NavBar = () => {
           <div
             onClick={goToMessages}
             className={`${
-              activeTab === "/messages" ? " text-secondary " : ""
-            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+              activeTab.includes("/messages") ? " text-secondary " : ""
+            } w-full flex flex-row items-center gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="flex justify-center items-center relative">
               <div className="text-2xl flex justify-center items-center">
@@ -186,7 +186,7 @@ const NavBar = () => {
             onClick={goToNotifications}
             className={`${
               activeTab === "/notifications" ? " text-secondary " : ""
-            } w-full flex flex-row items-center gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+            }  w-full flex flex-row items-center gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="flex justify-center items-center relative">
               <div className="text-2xl flex justify-center items-center">
@@ -226,7 +226,7 @@ const NavBar = () => {
 
             <div
               className={`absolute ${
-                isSettingsOpen ? "top-[38px]" : "top-0"
+                isSettingsOpen ? "top-[42px]" : "top-0"
               } left-0 right-0 overflow-hidden flex flex-col gap-y-2 transition-all ease-in-out duration-100`}
             >
               {isSettingsOpen && (
@@ -236,7 +236,7 @@ const NavBar = () => {
                     activeTab === "/account/setting" ? " text-secondary " : ""
                   } ${
                     isSettingsOpen ? "max-h-[38px] flex" : " max-h-[0px] hidden"
-                  } flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+                  } flex-row items-center text-xl gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
                 >
                   <div className=" w-6 h-6 flex justify-center items-center rounded-full">
                     <img
@@ -252,15 +252,15 @@ const NavBar = () => {
 
               <div
                 onClick={setThemeMode}
-                className={`${mode && " text-secondary "} ${
+                className={`${
                   isSettingsOpen ? " max-h-[38px] flex" : " max-h-[0px] hidden"
-                } flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary`}
+                } flex-row items-center text-xl gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
               >
                 <div className="text-2xl flex justify-center items-center">
-                  <IonIcon icon={mode ? moonOutline : sunnyOutline} />
+                  <IonIcon icon={mode ? sunnyOutline : moonOutline} />
                 </div>
                 <div className="hidden lg:flex items-center">
-                  {mode ? "Dark Mode" : "Light Mode"}
+                  {mode ? "Light Mode" : "Dark Mode"}
                 </div>
               </div>
 
@@ -269,7 +269,7 @@ const NavBar = () => {
                   onClick={handleLogOut}
                   className={` ${
                     isSettingsOpen ? "max-h-[38px] flex" : " max-h-[0px] hidden"
-                  } flex-row items-center text-xl gap-x-2 p-2 lg:pl-4 lg:pr-6 py-1 cursor-pointer hover:text-secondary `}
+                  } flex-row items-center text-xl gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary `}
                 >
                   <div className="text-2xl flex justify-center items-center">
                     <IonIcon icon={powerOutline} />

@@ -42,8 +42,16 @@ export default function Home() {
   return (
     <div className="flex-1 h-auto w-full flex flex-col items-center justify-start gap-y-2 ">
       <Header>
-        <div className="flex justify-center items-center font-bold text-2xl text-secondary">
+        <div className="hidden xl:flex justify-center items-center font-bold text-2xl text-secondary">
           Home
+        </div>
+        <div className="flex-1 w-full flex xl:hidden flex-row justify-center items-center">
+          <div className="flex justify-center items-center w-[32px] rounded-full text-secondary">
+            <img
+              className="w-[32px] rounded-full object-cover"
+              src="/icon-512x512.png"
+            />
+          </div>
         </div>
       </Header>
 

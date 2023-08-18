@@ -13,7 +13,7 @@ interface AvatarURL {
 
 const AccountAvatar: React.FC<AvatarURL> = ({ avatarURL }) => {
   return (
-    <div className="w-[75px] h-[75px]">
+    <div className="absolute w-[100px] h-[100px] -translate-y-1/2">
       {avatarURL ? (
         <div className="w-full h-full flex justify-center items-center rounded-full aspect-square border-[3px] lg:border-[5px] border-slate-100 dark:border-Dark100">
           <img

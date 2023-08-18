@@ -25,11 +25,12 @@ import {
 import CancelButton from "../../common/CancelButton";
 import { setMode } from "../../redux/themeSlice";
 import { logOut, resetAccountData } from "../../redux/usersSlice";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import BackButton from "../../common/BackButton";
 
 const AccountSettings = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
   const user = useSelector((state: any) => state.user.userData);
   const account = useSelector((state: any) => state.user.accountData);
   const [userFirstName, setUserFirstName] = useState("");
@@ -51,6 +52,16 @@ const AccountSettings = () => {
   const authMessage = useSelector((state: any) => state.user.authMessage);
   const mode = useSelector((state: any) => state.theme.darkMode);
   const navigate = useNavigate();
+
+  const [isInAccountSettings, setIsInAccountSettings] = useState(false);
+
+  useEffect(() => {
+    setIsInAccountSettings(true);
+
+    return () => {
+      setIsInAccountSettings(false);
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     const data = {
@@ -141,11 +152,21 @@ const AccountSettings = () => {
     navigate("/");
   };
 
+  const goBack = () => {
+    setIsInAccountSettings(false);
+    navigate(-1);
+  };
   return (
-    <div className=" w-full flex-grow flex flex-col items-center gap-y-2">
+    <div
+      className={`${
+        isInAccountSettings
+          ? " translate-x-full xl:translate-x-0"
+          : " translate-x-0"
+      } z-50 fixed xl:absolute overflow-y-auto xl:overflow-y-visible top-0 -left-full h-screen xl:h-auto w-full flex-grow flex flex-col items-center gap-y-2 dark:bg-Dark100 bg-slate-100 transition-transform ease-in-out duration-300`}
+    >
       <Header>
         <div className="block xl:hidden">
-          <BackButton />
+          <BackButton onClick={goBack} />
         </div>
         <TitleText>
           <div className="py-0.5">Account Settings</div>
@@ -288,22 +309,6 @@ const AccountSettings = () => {
           <ConfirmButton onClick={[handleSaveChanges]}>
             Save Changes
           </ConfirmButton>
-        </div>
-      </div>
-      <div className="w-full flex lg:hidden flex-col p-2 border dark:border-Dark300 mx-1 rounded-lg gap-y-2">
-        <div
-          onClick={setThemeMode}
-          className="flex flex-row items-center gap-x-1 text-xl cursor-pointer"
-        >
-          <IonIcon icon={mode ? moonOutline : sunnyOutline} />
-          <div>{mode ? "Dark Mode" : "Light Mode"}</div>
-        </div>
-        <div
-          onClick={handleLogOut}
-          className="flex flex-row items-center gap-x-1 text-xl"
-        >
-          <IonIcon icon={powerOutline} />
-          <div>Log Out</div>
         </div>
       </div>
     </div>

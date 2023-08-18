@@ -22,6 +22,8 @@ import Register from "./pages/Register/Register";
 import LogIn from "./pages/LogIn/LogIn";
 import { serverAddress } from "./config/Config";
 import Settings from "./pages/Settings/Settings";
+import TrendingHashtags from "./pages/Explore/ExploreComponents/TrendingHashtags";
+import SearchBar from "./pages/Explore/ExploreComponents/SearchBar";
 
 const App = () => {
   axios.defaults.baseURL = serverAddress;
@@ -125,6 +127,18 @@ const App = () => {
       });
     }
   }, [scrollPos]);
+
+  const handleIsInMessageRoute = (currentRoute: string): boolean => {
+    if (currentRoute?.startsWith("/messages")) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  useEffect(() => {
+    handleIsInMessageRoute(location.pathname);
+  }, [location.pathname]);
   return (
     <div
       className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] `}
@@ -140,17 +154,22 @@ const App = () => {
               path="/*"
               element={
                 <div className="w-full h-full flex flex-col flex-grow transition-colors ease-in-out duration-300 ">
-                  <div className="w-full h-full flex flex-col lg:flex-row justify-center items-start flex-1 ">
+                  <div className="w-full h-full flex flex-col lg:flex-row justify-center items-start flex-1 overflow-y-scroll">
                     <NavBar />
                     <div
                       style={{
                         paddingBottom: setBottomPadding(),
                       }}
                       id="main"
-                      className={`w-full flex flex-col flex-grow justify-start h-full overflow-y-auto static xl:relative`}
+                      className={`w-full flex flex-col flex-1 justify-start h-full  static xl:relative`}
                     >
                       <RoutesPage pos={scrollPos} />
                     </div>
+                    {handleIsInMessageRoute(location.pathname) && (
+                      <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
+                        <TrendingHashtags />
+                      </div>
+                    )}
                   </div>
                   <BottomNavigation />
                 </div>

@@ -35,7 +35,6 @@ const Profile = () => {
   useEffect(() => {
     setIsInUserProfile(true);
 
-    setIsInUserProfile(true);
     return () => {
       setIsInUserProfile(false);
     };
@@ -107,11 +106,11 @@ const Profile = () => {
   };
 
   const goToUserFollowing = () => {
-    navigate(`/${userDetails?.userName}/following`);
+    navigate(`/${userDetails?.userName}/following`, { replace: true });
   };
 
   const goToUserFollowers = () => {
-    navigate(`/${userDetails?.userName}/followers`);
+    navigate(`/${userDetails?.userName}/followers`, { replace: true });
   };
 
   const goBack = () => {
@@ -148,7 +147,7 @@ const Profile = () => {
 
         <div
           id="user-details"
-          className=" bg-white dark:bg-Dark300 flex-grow w-full flex flex-col gap-y-2 flex-shrink "
+          className=" bg-white dark:bg-Dark200 flex-grow w-full flex flex-col gap-y-2 flex-shrink "
         >
           <div className="w-full">
             {isLoading ? (
@@ -267,7 +266,7 @@ const Profile = () => {
           </div>
         </div>
         <div
-          className={`bg-white dark:bg-Dark300 sticky top-[60px] left-0 right-0 z-50 w-full overflow-x-auto flex flex-row mb-2`}
+          className={`bg-white dark:bg-Dark200 sticky top-[60px] left-0 right-0 z-50 w-full overflow-x-auto flex flex-row mb-2`}
         >
           {userDetails ? (
             <React.Fragment>
