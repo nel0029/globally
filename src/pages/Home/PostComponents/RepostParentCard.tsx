@@ -35,6 +35,7 @@ interface RepostParentCardProps {
   hasChoosed?: boolean;
   optionChoosedID?: string;
   pollRespondentsCount?: number;
+  parentAuthorVerified?: boolean;
 }
 
 const RepostParentCard: React.FC<RepostParentCardProps> = ({
@@ -53,6 +54,7 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
   optionChoosedID,
   pollRespondentsCount,
   pollOptions,
+  parentAuthorVerified,
 }) => {
   const navigate = useNavigate();
   const route = () => {
@@ -88,14 +90,17 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
           />
         </div>
         <div className="w-full flex flex-col gap-y-2">
-          <div className="flex flex-col flex-shrink max-w-[calc(100%-8px)] overflow-x-hidden ">
+          <div className="flex flex-row flex-shrink max-w-[calc(100%-8px)] line-clamp-1 gap-x-1 overflow-x-hidden ">
             <div
               onClick={userProfile}
-              className="max-w-[calc(100%-10px)] flex flex-shrink hover:underline hover:text-secondary font-bold overflow-hidden text-ellipsis whitespace-nowrap"
+              className="max-w-[calc(100%-10px)] flex flex-shrink hover:underline hover:text-secondary font-bold whitespace-nowrap"
             >
               {parentAuthorFirstName} {parentAuthorMiddleName}{" "}
               {parentAuthorLastName}
             </div>
+            {parentAuthorVerified && (
+              <img className="w-[20px] h-[20px]" src="/blue-check.png" />
+            )}
             <div className="flex flex-shrink font-light overflow-hidden text-ellipsis whitespace-nowrap bg-transparent">
               @{parentUserName}
             </div>

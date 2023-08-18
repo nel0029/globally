@@ -27,6 +27,7 @@ export interface UserProps {
   followID?: string | null;
   inProfileRoute?: boolean;
   isLoading?: boolean;
+  verified: boolean;
 }
 
 const UserCard: React.FC<UserProps> = ({
@@ -41,6 +42,7 @@ const UserCard: React.FC<UserProps> = ({
   _id,
   inProfileRoute,
   isLoading,
+  verified,
 }) => {
   const navigate = useNavigate();
   const goToUserProfile = () => {
@@ -125,6 +127,9 @@ const UserCard: React.FC<UserProps> = ({
             </div>
           ) : (
             fullName
+          )}
+          {verified && (
+            <img className="w-[20px] h-[20px]" src="/blue-check.png" />
           )}
         </div>
         <div className="flex-shrink text-gray-400 font-light overflow-hidden text-ellipsis whitespace-nowrap ">

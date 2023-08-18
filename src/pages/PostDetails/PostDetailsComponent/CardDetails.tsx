@@ -58,6 +58,7 @@ export interface CardDetailsProps {
   hasChoosed?: boolean;
   optionChoosedID?: string;
   pollRespondentsCount?: number;
+  verified: boolean;
 }
 
 const CardDetails = (details: CardDetailsProps) => {
@@ -91,6 +92,7 @@ const CardDetails = (details: CardDetailsProps) => {
               middleName={details.postAuthorMiddleName}
               lastName={details.postAuthorLastName}
               userName={details.postAuthorUserName}
+              verified={details.verified}
             />
             <CardDetailsHeaderMenu
               {...details}

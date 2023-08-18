@@ -66,6 +66,8 @@ export interface CardProps {
   parentHasPoll?: boolean;
   parentPollRespondentsCount?: number;
   parentPollOptions?: OptionProps[];
+  verified?: boolean;
+  parentAuthorVerified?: boolean;
 }
 
 interface MainCardProps extends CardProps {
@@ -142,7 +144,7 @@ const Card = (card: MainCardProps) => {
               avatarURL={card.postAuthorAvatarURL.url}
             />
           </div>
-          <div className="max-w-full flex-shrink flex-grow flex flex-col gap-y-2">
+          <div className="w-full flex-shrink flex-grow flex flex-col gap-y-2">
             <CardHeaderContainer post={card} authorized={authorized} />
             <CardCaption bgColor={card.bgColor} caption={card.caption} />
             {card.mediaURL?.length > 0 && (
@@ -165,6 +167,7 @@ const Card = (card: MainCardProps) => {
                 hasChoosed={card.hasChoosed}
                 pollRespondentsCount={card.parentPollRespondentsCount}
                 optionChoosedID={card.optionChoosedID}
+                parentAuthorVerified={card.parentAuthorVerified}
               />
             )}
             {card.hasPoll && (

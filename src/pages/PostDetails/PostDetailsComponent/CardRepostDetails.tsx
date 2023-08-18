@@ -57,6 +57,8 @@ export interface CardRepostDetailsProps {
   parentHasPoll?: boolean;
   parentPollRespondentsCount?: number;
   parentPollOptions?: OptionProps[];
+  verified: boolean;
+  parentAuthorVerified: boolean;
 }
 
 const CardRepostDetails = (details: CardRepostDetailsProps) => {
@@ -91,6 +93,7 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
               middleName={details.postAuthorMiddleName}
               lastName={details.postAuthorLastName}
               userName={details.postAuthorUserName}
+              verified={details.verified}
             />
             <CardDetailsHeaderMenu
               {...details}
@@ -122,6 +125,7 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
               pollOptions={details.parentPollOptions}
               pollRespondentsCount={details.parentPollRespondentsCount}
               hasPoll={details.parentHasPoll}
+              parentAuthorVerified={details.parentAuthorVerified}
             />
           )}
           <div className="flex items-center text-xs xl:text-sm text-gray-400">

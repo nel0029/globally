@@ -56,7 +56,7 @@ const UserFollowerList = () => {
     <div className="w-full flex flex-col justify-center gap-y-2">
       {isLoading ? (
         <>
-          <UserCard isLoading={isLoading} />
+          <UserCard verified={false} isLoading={isLoading} />
         </>
       ) : (
         userFollower?.map((users: any) => (
@@ -73,6 +73,7 @@ const UserFollowerList = () => {
             followID={users.followID}
             inProfileRoute={isInProfileRoute()}
             isLoading={isLoading}
+            verified={users.verified}
           />
         ))
       )}

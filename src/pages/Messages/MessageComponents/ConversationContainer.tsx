@@ -88,7 +88,7 @@ const ConversationContainer = () => {
   }, [messages.length]);
 
   const goBack = () => {
-    navigate("/messages");
+    navigate(-1);
     dispatch(resetConversationInfo());
     dispatch(resetMessages());
   };
@@ -125,6 +125,12 @@ const ConversationContainer = () => {
                   <div className="flex flex-col gap-y-1 justify-center">
                     <div className="flex flex-row gap-x-1 text-[16px] leading-[16px] font-bold">
                       {fullName}
+                      {conversationInfo?.verified && (
+                        <img
+                          className="w-[20px] h-[20px]"
+                          src="/blue-check.png"
+                        />
+                      )}
                     </div>
                     <div className="flex flex-row gap-x-1 text-[16px] leading-[16px] text-gray-500">
                       @{conversationInfo.userName}

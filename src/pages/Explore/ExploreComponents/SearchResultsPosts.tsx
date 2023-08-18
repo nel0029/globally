@@ -66,6 +66,8 @@ const SearchResultsPosts = () => {
           pollRespondentsCount={post.pollRespondentsCount}
           hasChoosed={post.hasChoosed}
           optionChoosedID={post.optionChoosedID}
+          verified={post.verified}
+          parentAuthorVerified={post.parentAuthorVerified}
         />
       ))}
     </div>

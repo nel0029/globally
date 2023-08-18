@@ -57,6 +57,7 @@ export interface UserDetails {
   followingsCount: number;
   followersCount: number;
   allPostsCount: number;
+  verified: boolean;
 }
 
 interface MainState {

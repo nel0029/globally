@@ -13,6 +13,7 @@ interface CardHeaderProps {
   userName: string;
   createdAt: string;
   children?: ReactNode;
+  verified?: boolean;
 }
 
 const CardHeader: React.FC<CardHeaderProps> = ({
@@ -22,6 +23,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   userName,
   createdAt,
   children,
+  verified,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const userDetails = useSelector((state: any) => state.posts.userDetails);
@@ -58,18 +60,20 @@ const CardHeader: React.FC<CardHeaderProps> = ({
     event.stopPropagation();
   };
   return (
-    <div className="w-full flex flex-row flex-shrink h-auto justify-stretch items-center py-1 overflow-hidden">
-      <div className="flex flex-col justify-start gap-x-2 leading-none flex-1 flex-shrink ">
-        <div className="flex flex-row items-center gap-x-2 text-[1rem] leading-[1.25rem] cursor-pointer flex-shrink flex-wrap max-w-[calc(100%-8px)] overflow-x-hidden">
+    <div className="flex-1 flex flex-row h-auto justify-stretch items-center py-1 overflow-hidden">
+      <div className="w-full flex flex-col justify-start gap-x-2 leading-none flex-1">
+        <div className="w-full flex flex-row items-center gap-x-1 text-[1rem] leading-[1.25rem] flex-wrap cursor-pointer">
           <div
             onClick={userProfile}
-            className="flex-shrink hover:underline hover:text-secondary font-bold overflow-hidden text-ellipsis whitespace-nowrap "
+            className="w-full flex flex-row hover:underline hover:text-secondary font-bold whitespace-nowrap flex-nowrap"
           >
             {fullName}
+            {verified && (
+              <img className="w-[20px] h-[20px]" src="/blue-check.png" />
+            )}
           </div>
-          <div className="flex-shrink font-light overflow-hidden text-ellipsis whitespace-nowrap ">
-            @{userName}
-          </div>
+
+          <div className="font-light">@{userName}</div>
         </div>
         <div className="flex-1 text-xs xl:text-sm text-gray-500">
           ● {formattedDateAndTime}

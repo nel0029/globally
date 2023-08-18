@@ -49,6 +49,8 @@ export default function CreateNewPostInput() {
       setSelectedFiles([]);
       setPollOptionList([]);
       setPoll(false);
+      setBackgroundColor("");
+      setHasBackgroundColor(false);
     });
   };
 

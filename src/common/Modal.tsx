@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect } from "react";
 import ModalContainer from "./ModalContainer";
 
 interface ModalProps {
@@ -9,9 +9,16 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ children, setModal }) => {
+  useEffect(() => {
+    document.body.style.overflowY = "hidden";
+
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, []);
   return (
     <div
-      className={`fixed w-full inset-5 flex flex-col justify-center items-center bg-black bg-opacity-90 right-0 left-0 top-0 bottom-0 px-2 z-[1000]`}
+      className={` w-screen h-screen fixed left-0 right-0 bottom-0 top-0 flex flex-col justify-center items-center bg-black bg-opacity-90 px-2 z-50`}
     >
       <ModalContainer setModal={setModal}>{children}</ModalContainer>
     </div>

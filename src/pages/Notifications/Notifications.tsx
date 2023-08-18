@@ -12,6 +12,7 @@ import { getAllNotifications } from "../../redux/asynActions/messageAsyncActions
 import { useNavigate } from "react-router";
 import CardAvatar from "../Home/PostComponents/CardAvatar";
 import LoadingNotificationCard from "./LoadingNotificationCard";
+import NotificationAvatar from "./NotificationAvatar";
 
 const Notifications = () => {
   const user = useSelector((state: any) => state.user.userData);
@@ -134,9 +135,10 @@ const Notifications = () => {
               className="w-full border-y dark:border-Dark300 bg-white dark:bg-Dark200 px-1 py-2 flex flex-row items-center gap-x-2"
             >
               <div className="px-1">
-                <CardAvatar
+                <NotificationAvatar
                   userName={notification.actorUserName}
                   avatarURL={notification.actorAvatarURL.url}
+                  verified={notification.verified}
                 />
               </div>
 

@@ -15,6 +15,7 @@ interface ConversationCardProps {
   lastMessageTimestamps: string;
   lastMessage: string;
   onClick: (val: any) => void;
+  verified: boolean;
 }
 
 const ConversationCard: React.FC<ConversationCardProps> = ({
@@ -29,6 +30,7 @@ const ConversationCard: React.FC<ConversationCardProps> = ({
   unseenMessagesCount,
   isActive,
   onClick,
+  verified,
 }) => {
   const dateAndTime = new Date(lastMessageTimestamps);
   const formattedDateAndTime = `${dateAndTime.toLocaleTimeString("en-us", {
@@ -59,6 +61,9 @@ const ConversationCard: React.FC<ConversationCardProps> = ({
         <div className="w-full flex flex-col">
           <div className="flex flex-row font-bold items-center gap-x-1">
             {fullName}
+            {verified && (
+              <img className="w-[20px] h-[20px]" src="/blue-check.png" />
+            )}
           </div>
           <div className="text-sm text-gray-500">{formattedDateAndTime}</div>
         </div>

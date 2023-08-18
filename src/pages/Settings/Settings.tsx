@@ -131,9 +131,17 @@ const Settings = () => {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <span className="min-h-[20px] text-[20px] font-bold">
-                    {fullName}
-                  </span>
+                  <div className="w-full flex flex-row items-center gap-x-1">
+                    <span className="min-h-[20px] text-[20px] font-bold">
+                      {fullName}
+                    </span>
+                    {account?.verified && (
+                      <img
+                        className="w-[20px] h-[20px]"
+                        src="/blue-check.png"
+                      />
+                    )}
+                  </div>
                   <span className="min-h-[16px] text-[16px] text-gray-500">
                     @{account?.userName}
                   </span>

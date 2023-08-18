@@ -33,11 +33,12 @@ const Profile = () => {
   const [isInUserProfile, setIsInUserProfile] = useState(false);
 
   useEffect(() => {
-    setIsInUserProfile(true);
-
-    return () => {
+    setActiveTab(location.pathname);
+    if (location.pathname.includes(`${userName}`) === true) {
+      setIsInUserProfile(true);
+    } else {
       setIsInUserProfile(false);
-    };
+    }
   }, [location.pathname]);
 
   const fullNameArray = [
@@ -114,19 +115,16 @@ const Profile = () => {
   };
 
   const goBack = () => {
-    setIsInUserProfile(false);
     navigate(-1);
   };
   return (
     <div
       id="profile-route"
       className={`${
-        isInUserProfile
-          ? " translate-x-full xl:translate-x-0"
-          : " translate-x-0"
-      } z-50 dark:bg-Dark100 bg-slate-100 fixed xl:absolute overflow-auto xl:overflow-visible h-screen top-0 -left-full xl:left-0 w-full transition-all ease-in-out duration-300`}
+        isInUserProfile ? "left-0" : "-left-full"
+      } z-50 dark:bg-Dark100 bg-slate-100 absolute top-0 xl:left-0 w-full transition-[left] ease-in-out duration-300`}
     >
-      <div>
+      <div className="w-full h-auto">
         <Header>
           <BackButton onClick={goBack} />
           <div className="flex flex-col leading-6">
@@ -136,6 +134,9 @@ const Profile = () => {
                   <div className=" h-[24px] w-[100px]"> </div>
                 ) : (
                   fullName
+                )}
+                {userDetails?.verified && (
+                  <img className="w-[20px] h-[20px]" src="/blue-check.png" />
                 )}
               </div>
             </TitleText>
@@ -208,6 +209,9 @@ const Profile = () => {
                   <div className="h-[14px] w-[200px] my-[2px] bg-gray-200 dark:bg-gray-700 rounded-full " />
                 ) : (
                   fullName
+                )}
+                {userDetails?.verified && (
+                  <img className="w-[20px] h-[20px]" src="/blue-check.png" />
                 )}
               </div>
               {isLoading ? (
@@ -342,7 +346,7 @@ const Profile = () => {
         </div>
         <div
           id="tabs"
-          className="w-full px-2 min-h-[calc(100vh-180px)] xl:h-auto overflow-y-scroll"
+          className="w-full px-2 min-h-[calc(100vh-180px)] xl:h-auto "
         >
           <Outlet />
         </div>

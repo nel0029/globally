@@ -62,6 +62,7 @@ export interface ConversationListProps {
   receiverLastName: string | null;
   createdAt: string;
   unseenMessagesCount: number;
+  verified: boolean;
 }
 
 export interface ConversationRequestsProps {
@@ -111,6 +112,7 @@ export interface NotificationsProps {
   actorAvatarURL: MediaProps;
   targetID: string;
   createdAt: string;
+  verified: boolean;
 }
 
 export interface UnseenNotificationsProps {

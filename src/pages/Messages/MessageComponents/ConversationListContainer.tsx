@@ -7,10 +7,7 @@ import { useNavigate } from "react-router";
 import { getConversationList } from "../../../redux/asynActions/messageAsyncActions";
 import Header from "../../../common/Header";
 import TitleText from "../../../common/TitleText";
-import {
-  ConversationListProps,
-  ConversationMembersProps,
-} from "../../../redux/messageSlice";
+import { ConversationListProps } from "../../../redux/messageSlice";
 import { IonIcon } from "@ionic/react";
 import { createOutline } from "ionicons/icons";
 import ConversationCard from "./ConversationCard";
@@ -119,6 +116,7 @@ const ConversationListContainer = () => {
                   lastMessageTimestamps={conversation.lastMessageTimestamps}
                   isActive={conversation.isActive}
                   unseenMessagesCount={conversation.unseenMessagesCount}
+                  verified={conversation.verified}
                 />
               )
             )

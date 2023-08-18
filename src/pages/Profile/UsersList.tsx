@@ -88,6 +88,9 @@ const UsersList = () => {
               ) : (
                 fullName
               )}
+              {userDetails?.verified && (
+                <img className="w-[20px] h-[20px]" src="/blue-check.png" />
+              )}
             </div>
           </TitleText>
           <div className="flex items-center text-xs xl:text-sm text-gray-400">
@@ -100,7 +103,7 @@ const UsersList = () => {
         </div>
       </Header>
 
-      <div className="w-full px-2 flex flex-row items-center justify-start gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scrollbar bg-white dark:bg-Dark300 border-y dark:border-Dark400">
+      <div className="w-full px-2 flex flex-row items-center justify-start gap-x-2 overflow-x-auto flex-nowrap flex-shrink snap-mandatory scroll-px-9 transform-gpu no-scrollbar bg-white dark:bg-Dark200 border-y dark:border-Dark400">
         <div
           onClick={goToUserFollowing}
           className={`${
