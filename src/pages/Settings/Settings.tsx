@@ -47,7 +47,7 @@ const Settings = () => {
     const data = {
       userID: user.userID,
     };
-    if (account) {
+    if (account !== null) {
       setIsLoading(false);
     } else {
       setIsLoading(true);
@@ -56,13 +56,14 @@ const Settings = () => {
           setIsLoading(false);
         }
       });
+      console.log(isLoading);
     }
 
     if (location.pathname === "/settings") {
       document.body.style.overflowY = "hidden";
       setIsMenuOpen(true);
     }
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     if (location.pathname === "/settings") {
@@ -111,22 +112,43 @@ const Settings = () => {
           </div>
         </SettingsHeader>
         <div className="w-full flex flex-col border-b dark:border-Dark300">
-          <AccountCoverPhoto coverPhotoURL={account?.coverPhotoURL?.url} />
+          <AccountCoverPhoto
+            isLoading={isLoading}
+            coverPhotoURL={account?.coverPhotoURL?.url}
+          />
           <div className=" w-full flex flex-row px-2">
             <div className="w-[100px] relative">
-              <AccountAvatar avatarURL={account?.avatarURL} />
+              <AccountAvatar
+                isLoading={isLoading}
+                avatarURL={account?.avatarURL}
+              />
             </div>
-            <div className="flex-1 flex flex-col px-2 overflow-hidden">
-              <span className="text-[20px] font-bold">{fullName}</span>
-              <span className="text-base text-gray-500">
-                @{account?.userName}
-              </span>
+            <div className="flex-1 flex flex-col p-2 overflow-hidden">
+              {isLoading ? (
+                <React.Fragment>
+                  <div className="mb-[2px] h-[18px] w-[150px] rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+                  <div className="mt-[2px] h-[14px] w-[100px] rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <span className="min-h-[20px] text-[20px] font-bold">
+                    {fullName}
+                  </span>
+                  <span className="min-h-[16px] text-[16px] text-gray-500">
+                    @{account?.userName}
+                  </span>
+                </React.Fragment>
+              )}
             </div>
           </div>
-          <div className="w-full text-xl min-h-[44divx] p-2 line-clamp-3 break-words">
-            {bioLines?.map((line: string, index: number) => (
-              <p key={index}>{line}</p>
-            ))}
+          <div className="w-full text-[20px] min-h-[44px] p-2 line-clamp-3 break-words">
+            {isLoading ? (
+              <div className=" h-[20px] w-[150px] rounded-full bg-gray-300 dark:bg-gray-600 animate-pulse"></div>
+            ) : (
+              bioLines?.map((line: string, index: number) => (
+                <p key={index}>{line}</p>
+              ))
+            )}
           </div>
         </div>
         <div className="w-full flex-1 gap-y-2 flex flex-col text-2xl p-2">
