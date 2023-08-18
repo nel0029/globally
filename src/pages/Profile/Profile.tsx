@@ -122,7 +122,7 @@ const Profile = () => {
       id="profile-route"
       className={`${
         isInUserProfile ? "left-0" : "-left-full"
-      } z-50 dark:bg-Dark100 bg-slate-100 absolute top-0 xl:left-0 w-full transition-[left] ease-in-out duration-300`}
+      } z-50 dark:bg-Dark100 bg-slate-100 absolute top-0 xl:left-0 w-full h-full transition-[left] ease-in-out duration-300`}
     >
       <div className="w-full h-auto">
         <Header>
@@ -346,7 +346,7 @@ const Profile = () => {
         </div>
         <div
           id="tabs"
-          className="w-full px-2 min-h-[calc(100vh-180px)] xl:h-auto "
+          className="w-full px-2 min-h-[calc(100vh-180px)] xl:h-auto dark:bg-Dark100 bg-slate-100"
         >
           <Outlet />
         </div>
