@@ -140,11 +140,11 @@ const App = () => {
               path="/*"
               element={
                 <div className="w-full h-full flex flex-col flex-grow transition-colors ease-in-out duration-300 ">
-                  <div className="w-full h-full flex flex-col lg:flex-row justify-center items-start flex-1 overflow-y-scroll">
+                  <div className="w-full h-full flex flex-col lg:flex-row justify-start flex-1 overflow-y-scroll">
                     <NavBar />
                     <div
                       id="main"
-                      className={`w-full flex flex-col flex-1 justify-start pb-[76px] static xl:relative`}
+                      className={`w-full flex flex-col flex-1 justify-start pb-[76px] xl:relative`}
                     >
                       <RoutesPage pos={scrollPos} />
                     </div>

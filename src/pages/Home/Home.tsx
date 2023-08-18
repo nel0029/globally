@@ -55,14 +55,14 @@ export default function Home() {
         </div>
       </Header>
 
-      <div className="w-full flex flex-col justify-start items-center gap-y-2 px-2 ">
+      <div className="w-full h-full flex flex-col justify-start items-center gap-y-2 px-2 ">
         <CreateNewPost />
-        <div className="flex w-full flex-col-reverse justify-center items-center gap-y-2">
+        <div className="flex w-full flex-col-reverse justify-start items-center gap-y-2">
           {isLoading ? (
-            <div className="w-full flex flex-col justify-center items-center gap-y-2">
+            <React.Fragment>
               <LoadingCard />
               <LoadingCard />
-            </div>
+            </React.Fragment>
           ) : (
             <React.Fragment>
               <div className="p-2">No more posts</div>
