@@ -132,38 +132,34 @@ const App = () => {
     <div
       className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] relative overflow-auto`}
     >
-      {user ? (
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/settings" element={<Settings />} />
-          {window.innerWidth >= 1280 ? (
-            <Route
-              path="/*"
-              element={
-                <div className="hidden w-full h-full xl:flex flex-row justify-start flex-1 overflow-y-scroll ">
-                  <NavBar />
-                  <div
-                    id="main"
-                    className={`w-full flex flex-col flex-1 justify-start relative`}
-                  >
-                    <RoutesPage pos={scrollPos} />
-                  </div>
-                  {handleIsInMessageRoute(location.pathname) && (
-                    <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
-                      <TrendingHashtags />
-                    </div>
-                  )}
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/settings" element={<Settings />} />
+        {window.innerWidth >= 1280 ? (
+          <Route
+            path="/*"
+            element={
+              <div className="hidden w-full h-full xl:flex flex-row justify-start flex-1 overflow-y-scroll ">
+                <NavBar />
+                <div
+                  id="main"
+                  className={`w-full flex flex-col flex-1 justify-start relative`}
+                >
+                  <RoutesPage pos={scrollPos} />
                 </div>
-              }
-            ></Route>
-          ) : (
-            <Route path="/*" element={<MobileLayout />} />
-          )}
-        </Routes>
-      ) : (
-        <div> Loading... </div>
-      )}
+                {handleIsInMessageRoute(location.pathname) && (
+                  <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
+                    <TrendingHashtags />
+                  </div>
+                )}
+              </div>
+            }
+          ></Route>
+        ) : (
+          <Route path="/*" element={<MobileLayout />} />
+        )}
+      </Routes>
     </div>
   );
 };
