@@ -64,7 +64,7 @@ const ConversationListContainer = () => {
     navigate(`/messages/${conversationID}`);
 
   return (
-    <div className="w-full h-full sticky top-0 overflow-auto flex-grow flex flex-col lg:border-r lg:dark:border-Dark300">
+    <div className="w-full h-full sticky top-0 overflow-auto flex-1 flex flex-col lg:border-r lg:dark:border-Dark300">
       <Header>
         <TitleText>Conversations</TitleText>
         <div className="flex-1 flex flex-row justify-end items-center">

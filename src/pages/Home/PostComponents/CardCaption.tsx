@@ -49,10 +49,10 @@ const CardCaption: React.FC<CardCaptionProps> = ({
           : parentBGColor
           ? "min-h-[150px] flex flex-col justify-center text-center rounded-lg font-bold p-4 text-white text-opacity-[87%]"
           : ""
-      }`}
+      } w-full`}
     >
       {captionLines?.map((line, index) => (
-        <p key={index} className=" lg:text-xl leading-5 break-words">
+        <p key={index} className=" text-xl break-words">
           {wrapWordsWithSpan(line)}
         </p>
       ))}

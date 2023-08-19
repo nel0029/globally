@@ -3,9 +3,9 @@
 import RoutesPage from "./routes/RoutesPage";
 import axios from "axios";
 import NavBar from "./layout/NavBar";
-import BottomNavigation from "./layout/BottomNavigation";
+
 import { Routes, Route, useLocation } from "react-router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import socket from "./sockets/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "./redux/store";
@@ -24,6 +24,9 @@ import { serverAddress } from "./config/Config";
 import Settings from "./pages/Settings/Settings";
 import TrendingHashtags from "./pages/Explore/ExploreComponents/TrendingHashtags";
 import SearchBar from "./pages/Explore/ExploreComponents/SearchBar";
+import MobileLayout from "./routes/MobileLayout";
+import MobileLayoutFullScreen from "./routes/MobileLayoutFullScreen";
+import MobileLayoutWithBottomNav from "./routes/MobileLayoutWithBottomNav";
 
 const App = () => {
   axios.defaults.baseURL = serverAddress;
@@ -127,42 +130,40 @@ const App = () => {
   }, [location.pathname]);
   return (
     <div
-      className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] `}
+      className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] relative overflow-auto`}
     >
-      <Settings />
-      <div className="w-full h-full flex flex-col flex-grow">
-        {user ? (
-          <Routes>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/settings" element={<Settings />} />
+      {user ? (
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/settings" element={<Settings />} />
+          {window.innerWidth >= 1280 ? (
             <Route
               path="/*"
               element={
-                <div className="w-full h-full flex flex-col flex-grow transition-colors ease-in-out duration-300 ">
-                  <div className="w-full h-full flex flex-col lg:flex-row justify-start flex-1 overflow-y-scroll ">
-                    <NavBar />
-                    <div
-                      id="main"
-                      className={`w-full flex flex-col flex-1 justify-start pb-[76px] xl:relative`}
-                    >
-                      <RoutesPage pos={scrollPos} />
-                    </div>
-                    {handleIsInMessageRoute(location.pathname) && (
-                      <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
-                        <TrendingHashtags />
-                      </div>
-                    )}
+                <div className="hidden w-full h-full xl:flex flex-row justify-start flex-1 overflow-y-scroll ">
+                  <NavBar />
+                  <div
+                    id="main"
+                    className={`w-full flex flex-col flex-1 justify-start relative`}
+                  >
+                    <RoutesPage pos={scrollPos} />
                   </div>
-                  <BottomNavigation />
+                  {handleIsInMessageRoute(location.pathname) && (
+                    <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
+                      <TrendingHashtags />
+                    </div>
+                  )}
                 </div>
               }
-            />
-          </Routes>
-        ) : (
-          <div> Loading... </div>
-        )}
-      </div>
+            ></Route>
+          ) : (
+            <Route path="/*" element={<MobileLayout />} />
+          )}
+        </Routes>
+      ) : (
+        <div> Loading... </div>
+      )}
     </div>
   );
 };

@@ -77,12 +77,19 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
     navigate(`/${parentUserName}`);
     event.stopPropagation();
   };
+
+  const fullNameArray = [
+    parentAuthorFirstName,
+    parentAuthorMiddleName,
+    parentAuthorLastName,
+  ];
+  const fullName = fullNameArray.join(" ");
   return (
     <div
       onClick={goToParentPost}
-      className="w-full rounded-lg cursor-pointer overflow-hidden"
+      className="w-full rounded-lg cursor-pointer overflow-x-hidden"
     >
-      <div className="dark:border-Dark300 border rounded-lg flex flex-row items-start w-full p-2 gap-x-2">
+      <div className="w-full dark:border-Dark300 border rounded-lg flex flex-row items-start p-2 gap-x-2">
         <div className="w-[40px] pt-1">
           <CardAvatar
             userName={parentUserName}
@@ -90,17 +97,17 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
           />
         </div>
         <div className="w-full flex flex-col gap-y-2">
-          <div className="flex flex-row flex-shrink max-w-[calc(100%-8px)] line-clamp-1 gap-x-1 overflow-x-hidden ">
+          <div className="w-full flex flex-col flex-shrink max-w-[calc(100%-8px)] line-clamp-1 gap-x-1 overflow-x-hidden ">
             <div
               onClick={userProfile}
-              className="max-w-[calc(100%-10px)] flex flex-shrink hover:underline hover:text-secondary font-bold whitespace-nowrap"
+              className="flex flex-row flex-shrink hover:underline hover:text-secondary font-bold whitespace-nowrap"
             >
-              {parentAuthorFirstName} {parentAuthorMiddleName}{" "}
-              {parentAuthorLastName}
+              <span>{fullName} </span>
+              {parentAuthorVerified && (
+                <img className="w-[20px] h-[20px]" src="/blue-check.png" />
+              )}
             </div>
-            {parentAuthorVerified && (
-              <img className="w-[20px] h-[20px]" src="/blue-check.png" />
-            )}
+
             <div className="flex flex-shrink font-light overflow-hidden text-ellipsis whitespace-nowrap bg-transparent">
               @{parentUserName}
             </div>

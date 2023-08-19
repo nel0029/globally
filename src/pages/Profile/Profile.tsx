@@ -34,7 +34,7 @@ const Profile = () => {
 
   useEffect(() => {
     setActiveTab(location.pathname);
-    if (location.pathname.includes(`${userName}`) === true) {
+    if (location.pathname.startsWith(`/${userName}`)) {
       setIsInUserProfile(true);
     } else {
       setIsInUserProfile(false);
@@ -115,6 +115,7 @@ const Profile = () => {
   };
 
   const goBack = () => {
+    setIsInUserProfile(false);
     navigate(-1);
   };
   return (
@@ -122,7 +123,7 @@ const Profile = () => {
       id="profile-route"
       className={`${
         isInUserProfile ? "left-0" : "-left-full"
-      } z-50 dark:bg-Dark100 bg-slate-100 absolute top-0 xl:left-0 w-full h-full transition-[left] ease-in-out duration-300`}
+      } z-50 dark:bg-Dark100 bg-slate-100 absolute top-0 xl:left-0 w-full transition-[left] ease-in-out duration-300`}
     >
       <div className="w-full h-auto">
         <Header>

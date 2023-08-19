@@ -74,6 +74,7 @@ const Settings = () => {
   }, [location.pathname]);
 
   const handleCloseMenu = () => {
+    setIsMenuOpen(false);
     navigate(-1);
   };
 

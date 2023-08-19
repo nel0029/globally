@@ -144,7 +144,7 @@ const Card = (card: MainCardProps) => {
               avatarURL={card.postAuthorAvatarURL.url}
             />
           </div>
-          <div className="w-full flex-shrink flex-grow flex flex-col gap-y-2">
+          <div className="w-full flex-shrink flex-grow flex flex-col gap-y-2 ">
             <CardHeaderContainer post={card} authorized={authorized} />
             <CardCaption bgColor={card.bgColor} caption={card.caption} />
             {card.mediaURL?.length > 0 && (
