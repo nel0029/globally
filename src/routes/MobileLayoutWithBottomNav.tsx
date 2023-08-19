@@ -16,7 +16,7 @@ import SearchResultsUsers from "../pages/Explore/ExploreComponents/SearchResults
 
 const MobileLayoutWithBottomNav = () => {
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-auto flex flex-col">
       <Routes>
         {/* With Bottom Nav */}
         <Route element={<PrivateRoutes />}>

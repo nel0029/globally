@@ -30,7 +30,7 @@ import MobileLayoutFullScreen from "./MobileLayoutFullScreen";
 
 const MobileLayout = () => {
   return (
-    <div className="w-full h-full flex flex-col overflow-y-auto">
+    <div className="w-full h-auto flex flex-col overflow-y-auto">
       <Routes>
         {/* Full Screen */}
         <Route element={<PrivateRoutes />}>
