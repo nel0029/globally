@@ -30,6 +30,7 @@ function LogIn() {
       password: password,
     };
     dispatch(logIn(userData));
+    e.preventDefault();
   };
 
   const handleUseDemoAccount1 = (e: any) => {
@@ -48,15 +49,7 @@ function LogIn() {
       logInID: "demoaccount2",
       password: "12345678",
     };
-    dispatch(logIn(userData)).then((response: any) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        if (isLogIn) {
-          setIsServerLoading(false);
-          dispatch(resetAuthMessage());
-          navigate("/");
-        }
-      }
-    });
+    dispatch(logIn(userData));
     e.preventDefault();
   };
 
@@ -70,7 +63,6 @@ function LogIn() {
 
   useEffect(() => {
     if (isLogIn === true) {
-      alert("Success");
       setIsServerLoading(false);
       navigate("/");
       dispatch(resetAuthMessage());
