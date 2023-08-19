@@ -130,7 +130,7 @@ const App = () => {
   }, [location.pathname]);
   return (
     <div
-      className={`h-full w-full flex flex-col dark:text-white dark:text-opacity-[87%] relative overflow-auto`}
+      className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] relative overflow-auto`}
     >
       {user ? (
         <Routes>

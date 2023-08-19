@@ -110,7 +110,7 @@ const NavBar = () => {
     dispatch(setMode(false));
     dispatch(logOut());
     dispatch(resetAccountData());
-    navigate("/");
+    navigate("/login");
   };
 
   return (

@@ -40,7 +40,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex-1 h-auto w-full flex flex-col items-center justify-start gap-y-2 ">
+    <div className="flex-1 w-full flex flex-col items-center justify-start gap-y-2 ">
       <Header>
         <div className="hidden xl:flex justify-center items-center font-bold text-2xl text-secondary">
           Home
@@ -55,7 +55,7 @@ export default function Home() {
         </div>
       </Header>
 
-      <div className="w-full h-full flex flex-col justify-start items-center gap-y-2 px-2 ">
+      <div className="w-full flex flex-col justify-start items-center gap-y-2 px-2 ">
         <CreateNewPost />
         <div className="flex w-full flex-col-reverse justify-start items-center gap-y-2">
           {isLoading ? (

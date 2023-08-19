@@ -56,12 +56,6 @@ const Settings = () => {
           setIsLoading(false);
         }
       });
-      console.log(isLoading);
-    }
-
-    if (location.pathname === "/settings") {
-      document.body.style.overflowY = "hidden";
-      setIsMenuOpen(true);
     }
   }, [isLoading]);
 
@@ -94,20 +88,20 @@ const Settings = () => {
     dispatch(setMode(false));
     dispatch(logOut());
     dispatch(resetAccountData());
-    navigate("/");
+    navigate("/login");
   };
   const bioLines = account?.bio?.split("\n");
   return (
     <div
-      className={`z-50 fixed w-full h-screen top-0 bottom-0 -right-full ${
+      className={`z-50 fixed w-full h-full top-0 -right-full ${
         isMenuOpen ? " -translate-x-full" : " translate-x-0"
-      } transition-transform ease-in-out duration-300 flex flex-col dark:bg-Dark100 bg-slate-100 overflow-hidden`}
+      } fixed transition-transform ease-in-out duration-300 flex flex-col dark:bg-Dark100 bg-slate-100 `}
     >
-      <div className="w-full flex flex-col relative">
+      <div className="w-full h-full flex flex-col overflow-y-auto">
         <SettingsHeader>
           <div
             onClick={handleCloseMenu}
-            className="flex justify-center items-center p-2 rounded-full text-2xl"
+            className="flex justify-center items-center p-2 rounded-full text-2xl bg-white dark:bg-Dark200"
           >
             <IonIcon icon={closeOutline} />
           </div>

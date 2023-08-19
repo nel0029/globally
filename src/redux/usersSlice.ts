@@ -36,7 +36,7 @@ export interface AccountData {
 }
 
 interface UserState {
-  userData: UserData;
+  userData: UserData | null;
   authStatus: string;
   authMessage: string;
   registerMessage: string;
@@ -76,13 +76,14 @@ const usersSlice = createSlice({
       state.valid = null;
     },
     logOut: (state) => {
+      localStorage.clear();
+      state.userData = null;
       state.accountData = null;
       state.authMessage = "";
       state.authStatus = "";
       state.registerMessage = "";
       state.userFollower = null;
       state.userFollowing = null;
-      localStorage.clear();
     },
     resetRegisterMessage: (state) => {
       state.registerMessage = "";

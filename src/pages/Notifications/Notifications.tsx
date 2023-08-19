@@ -116,7 +116,7 @@ const Notifications = () => {
           <div className="py-0.5">Notifications</div>
         </TitleText>
       </Header>
-      <div className="w-full flex-1 flex flex-col-reverse justify-end overflow-y-auto">
+      <div className="w-full flex-1 flex flex-col-reverse justify-end ">
         {isLoading ? (
           <React.Fragment>
             <LoadingNotificationCard />
