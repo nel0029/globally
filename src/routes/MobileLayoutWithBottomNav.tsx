@@ -17,22 +17,24 @@ import SearchResultsUsers from "../pages/Explore/ExploreComponents/SearchResults
 const MobileLayoutWithBottomNav = () => {
   return (
     <div className="w-full h-auto flex flex-col">
-      <Routes>
-        {/* With Bottom Nav */}
-        <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/messages/*" element={<Messages />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/explore/*" element={<Explore />}>
-            <Route index element={<TrendingHashtags />} />
-            <Route path="search" element={<SearchResults />}>
-              <Route path="top/*" element={<SearchResultsTop />} />
-              <Route path="posts/*" element={<SearchResultsPosts />} />
-              <Route path="users/*" element={<SearchResultsUsers />} />
+      <div className="w-full flex flex-col pb-[76px]">
+        <Routes>
+          {/* With Bottom Nav */}
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/messages/*" element={<Messages />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/explore/*" element={<Explore />}>
+              <Route index element={<TrendingHashtags />} />
+              <Route path="search" element={<SearchResults />}>
+                <Route path="top/*" element={<SearchResultsTop />} />
+                <Route path="posts/*" element={<SearchResultsPosts />} />
+                <Route path="users/*" element={<SearchResultsUsers />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </div>
       <BottomNavigation />
     </div>
   );
