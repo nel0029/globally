@@ -29,7 +29,9 @@ export const logIn = createAsyncThunk(
   "userSlice/logIn",
   async (userData: LogInUserData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/auth/login", userData);
+      const response = await axios.post("/auth/login", userData, {
+        withCredentials: true,
+      });
 
       return response.data;
     } catch (error: any) {
@@ -47,6 +49,15 @@ export const logIn = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk("logOut", async () => {
+  try {
+    const response = await axios.post("/auth/logout");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const registerUser = createAsyncThunk(
   "userSlice/registerUser",

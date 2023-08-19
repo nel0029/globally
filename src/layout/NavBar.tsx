@@ -31,6 +31,7 @@ import {
 } from "../redux/messageSlice";
 import socket from "../sockets/socket";
 import { logOut, resetAccountData } from "../redux/usersSlice";
+import { logout } from "../redux/asynActions/userAsyncActions";
 
 const NavBar = () => {
   const user = useSelector((state: any) => state.user.userData);
@@ -59,8 +60,6 @@ const NavBar = () => {
 
     setActiveTab(location.pathname);
   }, [location.pathname]);
-
-  const isAuthenticated = localStorage.getItem("token");
 
   const goToHome = () => {
     navigate("/");
@@ -109,6 +108,7 @@ const NavBar = () => {
   const handleLogOut = () => {
     dispatch(setMode(false));
     dispatch(logOut());
+    dispatch(logout());
     dispatch(resetAccountData());
     navigate("/login");
   };

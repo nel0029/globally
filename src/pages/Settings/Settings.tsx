@@ -21,7 +21,10 @@ import BackButton from "../../common/BackButton";
 import SettingsHeader from "./components/SettingsHeader";
 
 import AccountAvatar from "./components/AccountAvatar";
-import { getAccountData } from "../../redux/asynActions/userAsyncActions";
+import {
+  getAccountData,
+  logout,
+} from "../../redux/asynActions/userAsyncActions";
 import { logOut, resetAccountData } from "../../redux/usersSlice";
 import AccountCoverPhoto from "./components/AccountCoverPhoto";
 
@@ -87,6 +90,7 @@ const Settings = () => {
   const handleLogOut = () => {
     dispatch(setMode(false));
     dispatch(logOut());
+    dispatch(logout());
     dispatch(resetAccountData());
     navigate("/login");
   };

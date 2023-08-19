@@ -10,11 +10,11 @@ import {
   updateUserAccount,
   verifyUserName,
   isServerActive,
+  logout,
 } from "./asynActions/userAsyncActions";
 import { UserProps } from "../pages/Profile/ProfileComponents/UserCard";
 
 export interface UserData {
-  token: string | null;
   userID: string | null;
   userName: string | null;
   avatarURL: string | null;
@@ -45,17 +45,17 @@ interface UserState {
   userFollowing: UserProps[] | null;
   accountData: AccountData | null;
   isServerActive: any | null;
+  isLogIn: boolean;
 }
 
 const initialState: UserState = {
   userData: {
-    token: localStorage.getItem("token") || null,
     userID: localStorage.getItem("userID") || null,
     userName: localStorage.getItem("userName") || null,
-    avatarURL: localStorage.getItem("avatarURL") || null,
-    userFirstName: localStorage.getItem("userFirstName") || null,
-    userMiddleName: localStorage.getItem("userMiddleName") || null,
-    userLastName: localStorage.getItem("userLastName") || null,
+    avatarURL: null,
+    userFirstName: null,
+    userMiddleName: null,
+    userLastName: null,
   },
   authStatus: "",
   authMessage: "",
@@ -65,6 +65,7 @@ const initialState: UserState = {
   accountData: null,
   registerMessage: "",
   isServerActive: false,
+  isLogIn: false,
 };
 
 const usersSlice = createSlice({
@@ -100,14 +101,11 @@ const usersSlice = createSlice({
       .addCase(logIn.fulfilled, (state, action) => {
         state.authStatus = "Success";
         const authData = action.payload;
-        localStorage.setItem("token", authData.token);
+        if (authData.userID) {
+          state.isLogIn = true;
+        }
         localStorage.setItem("userID", authData.userID);
         localStorage.setItem("userName", authData.userName);
-        localStorage.setItem("avatarURL", authData.avatarURL.url);
-        localStorage.setItem("coverPhotoURL", authData.coverPhotoURL);
-        localStorage.setItem("userFirstName", authData.userFirstName);
-        localStorage.setItem("userMiddleName", authData.userMiddleName);
-        localStorage.setItem("userLastName", authData.userLastName);
       })
       .addCase(logIn.rejected, (state, action) => {
         state.authStatus = "Error";
@@ -164,10 +162,6 @@ const usersSlice = createSlice({
         console.log(response);
         localStorage.setItem("userName", response.userName);
         localStorage.setItem("avatarURL", response.avatarURL.url);
-        localStorage.setItem("coverPhotoURL", response.coverPhotoURL);
-        localStorage.setItem("userFirstName", response.userFirstName);
-        localStorage.setItem("userMiddleName", response.userMiddleName);
-        localStorage.setItem("userLastName", response.userLastName);
 
         state.accountData = response;
         state.authMessage = "";
@@ -178,6 +172,12 @@ const usersSlice = createSlice({
       .addCase(isServerActive.fulfilled, (state, action) => {
         const response = action.payload;
         state.isServerActive = response.message;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        const isLogOut = action.payload;
+        if (isLogOut === true) {
+          state.isLogIn = false;
+        }
       });
   },
 });

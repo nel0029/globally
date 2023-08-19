@@ -30,12 +30,13 @@ import MobileLayoutWithBottomNav from "./routes/MobileLayoutWithBottomNav";
 
 const App = () => {
   axios.defaults.baseURL = serverAddress;
-  axios.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${localStorage.getItem("token")}`;
+
+  axios.defaults.withCredentials = true;
+  axios.defaults.headers.common["Access-Control-Allow-Credentials"] = true;
   axios.defaults.headers.post["Content-Type"] = "application/json";
   const mode = useSelector((state: any) => state.theme.darkMode);
   const user = useSelector((state: any) => state.user.userData);
+  const isLogIn = useSelector((state: any) => state.user.isLogIn);
   const body = document.getElementById("body");
   const [bottomNavHeight, setBottomNavHeight] = useState(0);
 
@@ -72,11 +73,10 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const data = {
       userID: user?.userID,
     };
-    if (token) {
+    if (isLogIn) {
       if (user && user.userID !== null) {
         socket.on("newNotification", (data: any) =>
           dispatch(addNewNotifcation(data))
@@ -93,10 +93,10 @@ const App = () => {
 
     return () => {
       // Clean up the event listeners when the component unmounts
-      socket.off("newNotification");
-      socket.off("removeNotification");
+      socket?.off("newNotification");
+      socket?.off("removeNotification");
     };
-  }, [user?.userID]);
+  }, [user?.userID, isLogIn]);
 
   const bottomNav = document.getElementById("bottom-nav");
 
