@@ -58,10 +58,14 @@ function LogIn() {
       logInID: "demoaccount2",
       password: "12345678",
     };
-    dispatch(logIn(userData)).then(() => {
-      setIsServerLoading(false);
-      navigate("/");
-      dispatch(resetAuthMessage());
+    dispatch(logIn(userData)).then((response: any) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        if (localStorage.getItem("token")) {
+          setIsServerLoading(false);
+          navigate("/");
+          dispatch(resetAuthMessage());
+        }
+      }
     });
     e.preventDefault();
   };
