@@ -82,14 +82,7 @@ const usersSlice = createSlice({
       state.registerMessage = "";
       state.userFollower = null;
       state.userFollowing = null;
-      localStorage.removeItem("token");
-      localStorage.removeItem("userID");
-      localStorage.removeItem("userName");
-      localStorage.removeItem("avatarURL");
-      localStorage.removeItem("userFirstName");
-      localStorage.removeItem("userMiddleName");
-      localStorage.removeItem("userLastName");
-      localStorage.removeItem("coverPhotoURL");
+      localStorage.clear();
     },
     resetRegisterMessage: (state) => {
       state.registerMessage = "";
