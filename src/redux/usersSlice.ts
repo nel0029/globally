@@ -65,7 +65,7 @@ const initialState: UserState = {
   accountData: null,
   registerMessage: "",
   isServerActive: false,
-  isLogIn: localStorage.getItem("isLogIn") === "true",
+  isLogIn: false,
 };
 
 const usersSlice = createSlice({
@@ -103,6 +103,7 @@ const usersSlice = createSlice({
 
         if (authData.isLogIn === true) {
           localStorage.setItem("isLogIn", "true");
+          state.isLogIn = true;
         }
 
         localStorage.setItem("userID", authData.userID);

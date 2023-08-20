@@ -17,6 +17,7 @@ import LoadingCard from "./PostComponents/LoadingCard";
 
 export default function Home() {
   const posts = useSelector((state: any) => state.posts.PostData || []);
+  const isLogIn = useSelector((state: any) => state.user.isLogIn);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,20 +25,22 @@ export default function Home() {
   const user = useSelector((state: any) => state.user.userData);
 
   useEffect(() => {
-    if (posts.length !== 0) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
+    if (isLogIn === false) {
+      if (posts.length !== 0) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
 
-      setTimeout(() => {
         dispatch(getPosts(user.userID)).then((response: any) => {
           if (response.meta.requestStatus === "fulfilled") {
             setIsLoading(false);
           }
         });
-      }, 2000);
+      }
+    } else {
+      setIsLoading(true);
     }
-  }, []);
+  }, [isLogIn]);
 
   return (
     <div className="flex-1 w-full flex flex-col items-center justify-start gap-y-2 ">

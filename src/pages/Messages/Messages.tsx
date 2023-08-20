@@ -28,6 +28,8 @@ import {
 const Messages = () => {
   const { userID } = useParams();
   const user = useSelector((state: any) => state.user.userData);
+  const isLogIn = useSelector((state: any) => state.user.isLogIn);
+
   const [messageText, setMessageText] = useState("");
   const [recievedMessage, setRecievedMessage] = useState<any[]>([]);
   const [mentions, setMentions] = useState([]);
