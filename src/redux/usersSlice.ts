@@ -65,7 +65,7 @@ const initialState: UserState = {
   accountData: null,
   registerMessage: "",
   isServerActive: false,
-  isLogIn: false,
+  isLogIn: localStorage.getItem("isLogIn") === "true",
 };
 
 const usersSlice = createSlice({
@@ -101,10 +101,11 @@ const usersSlice = createSlice({
       .addCase(logIn.fulfilled, (state, action) => {
         state.authStatus = "Success";
         const authData = action.payload;
+
         if (authData.userID) {
-          state.isLogIn = true;
           localStorage.setItem("isLogIn", "true");
         }
+
         localStorage.setItem("userID", authData.userID);
         localStorage.setItem("userName", authData.userName);
       })
