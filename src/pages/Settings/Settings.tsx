@@ -27,6 +27,7 @@ import {
 } from "../../redux/asynActions/userAsyncActions";
 import { logOut, resetAccountData } from "../../redux/usersSlice";
 import AccountCoverPhoto from "./components/AccountCoverPhoto";
+import CircleLoader from "../../common/CircleLoader";
 
 const Settings = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,6 +39,7 @@ const Settings = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogOutLoading, setIsLogOutLoading] = useState(false);
 
   const fullNameArray = [
     account?.userFirstName,
@@ -48,7 +50,7 @@ const Settings = () => {
 
   useEffect(() => {
     const data = {
-      userID: user.userID,
+      userID: user?.userID,
     };
     if (account !== null) {
       setIsLoading(false);
@@ -88,11 +90,16 @@ const Settings = () => {
   };
 
   const handleLogOut = () => {
+    setIsLogOutLoading(true);
     dispatch(setMode(false));
     dispatch(logOut());
-    dispatch(logout());
-    dispatch(resetAccountData());
-    navigate("/login");
+    dispatch(logout()).then((response: any) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        dispatch(resetAccountData());
+        setIsLogOutLoading(false);
+        navigate("/login");
+      }
+    });
   };
   const bioLines = account?.bio?.split("\n");
   return (
@@ -196,6 +203,7 @@ const Settings = () => {
               <IonIcon icon={power} />
             </div>
             <div className="flex items-center ">Log Out</div>
+            {isLogOutLoading && <CircleLoader />}
           </div>
         </div>
       </div>

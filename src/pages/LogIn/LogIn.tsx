@@ -21,7 +21,8 @@ function LogIn() {
   const navigate = useNavigate();
   const authMessage = useSelector((state: any) => state.user.authMessage);
   const user = useSelector((state: any) => state.user.userData);
-  const isLogIn = useSelector((state: any) => state.user.isLogIn);
+  const isLogInState = useSelector((state: any) => state.user.isLogIn);
+  const isLogIn = localStorage.getItem("isLogIn");
 
   const handleSubmit = (e: any) => {
     setIsServerLoading(true);
@@ -29,7 +30,15 @@ function LogIn() {
       logInID: logInID,
       password: password,
     };
-    dispatch(logIn(userData));
+    dispatch(logIn(userData)).then((response: any) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        if (response.payload.isLogIn === true) {
+          dispatch(resetAuthMessage());
+          setIsServerLoading(false);
+          navigate("/");
+        }
+      }
+    });
     e.preventDefault();
   };
 
@@ -39,7 +48,15 @@ function LogIn() {
       logInID: "demoaccount",
       password: "12345678",
     };
-    dispatch(logIn(userData));
+    dispatch(logIn(userData)).then((response: any) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        if (response.payload.isLogIn === true) {
+          dispatch(resetAuthMessage());
+          setIsServerLoading(false);
+          navigate("/");
+        }
+      }
+    });
     e.preventDefault();
   };
 
@@ -49,7 +66,15 @@ function LogIn() {
       logInID: "demoaccount2",
       password: "12345678",
     };
-    dispatch(logIn(userData));
+    dispatch(logIn(userData)).then((response: any) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        if (response.payload.isLogIn === true) {
+          dispatch(resetAuthMessage());
+          setIsServerLoading(false);
+          navigate("/");
+        }
+      }
+    });
     e.preventDefault();
   };
 
@@ -61,13 +86,6 @@ function LogIn() {
     setShowPassword(!showPassWord);
   };
 
-  useEffect(() => {
-    if (isLogIn === true) {
-      setIsServerLoading(false);
-      navigate("/");
-      dispatch(resetAuthMessage());
-    }
-  }, [isLogIn]);
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center gap-y-2">
       <div className="w-full max-w-[500px] flex flex-col items-center justify-center border rounded-lg">

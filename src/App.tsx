@@ -25,8 +25,6 @@ import Settings from "./pages/Settings/Settings";
 import TrendingHashtags from "./pages/Explore/ExploreComponents/TrendingHashtags";
 import SearchBar from "./pages/Explore/ExploreComponents/SearchBar";
 import MobileLayout from "./routes/MobileLayout";
-import MobileLayoutFullScreen from "./routes/MobileLayoutFullScreen";
-import MobileLayoutWithBottomNav from "./routes/MobileLayoutWithBottomNav";
 
 const App = () => {
   axios.defaults.baseURL = serverAddress;

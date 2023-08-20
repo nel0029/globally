@@ -77,7 +77,6 @@ const usersSlice = createSlice({
       state.valid = null;
     },
     logOut: (state) => {
-      localStorage.clear();
       state.userData = null;
       state.accountData = null;
       state.authMessage = "";
@@ -102,7 +101,7 @@ const usersSlice = createSlice({
         state.authStatus = "Success";
         const authData = action.payload;
 
-        if (authData.userID) {
+        if (authData.isLogIn === true) {
           localStorage.setItem("isLogIn", "true");
         }
 
@@ -176,9 +175,10 @@ const usersSlice = createSlice({
         state.isServerActive = response.message;
       })
       .addCase(logout.fulfilled, (state, action) => {
-        const isLogOut = action.payload;
-        if (isLogOut === true) {
-          state.isLogIn = false;
+        const response = action.payload;
+
+        if (response.isLogIn === false) {
+          localStorage.clear();
         }
       });
   },

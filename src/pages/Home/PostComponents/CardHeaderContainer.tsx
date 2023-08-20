@@ -93,7 +93,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
 
   const removePost = (type: string) => {
     const deletePostData: DeletePostData = {
-      authorID: user.userID,
+      authorID: user?.userID,
       postID: post._id,
     };
     switch (type) {
@@ -104,7 +104,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
         break;
       case "reply":
         socket.emit("deleteReply", {
-          actorID: user.userID,
+          actorID: user?.userID,
           targetID: post.parentAuthorID,
           actionID: post._id,
         });
@@ -115,7 +115,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
         break;
       case "repost":
         socket.emit("deleteRepost", {
-          actorID: user.userID,
+          actorID: user?.userID,
           targetID: post.parentAuthorID,
           actionID: post._id,
         });
@@ -140,7 +140,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
 
       <div className="overflow-visible">
         <MenuContainer>
-          {post.authorID !== user.userID ? (
+          {post.authorID !== user?.userID ? (
             <FollowButtonsCotainer
               authorID={post.authorID}
               postAuthorUserName={post.postAuthorUserName}

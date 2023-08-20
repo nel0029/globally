@@ -78,7 +78,7 @@ const Card = (card: MainCardProps) => {
   const user = useSelector((state: any) => state.user.userData);
   const isReply = card.type === "reply";
   const isRepost = card.type === "repost";
-  const authorized = card.authorID === user.userID;
+  const authorized = card.authorID === user?.userID;
 
   const navigate = useNavigate();
   const route = () => {
