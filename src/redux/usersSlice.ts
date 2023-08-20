@@ -103,6 +103,7 @@ const usersSlice = createSlice({
         const authData = action.payload;
         if (authData.userID) {
           state.isLogIn = true;
+          localStorage.setItem("isLogIn", "true");
         }
         localStorage.setItem("userID", authData.userID);
         localStorage.setItem("userName", authData.userName);
