@@ -48,7 +48,7 @@ const Settings = () => {
   const lastName = localStorage.getItem("userLastName");
   const avatarURL = localStorage.getItem("avatarURL");
   const coverPhotoURL = localStorage.getItem("coverPhotoURL");
-  const verified = localStorage.getItem("coverPhotoURL");
+  const verified = localStorage.getItem("verified");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
