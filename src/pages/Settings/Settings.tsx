@@ -48,7 +48,7 @@ const Settings = () => {
   const lastName = localStorage.getItem("userLastName");
   const avatarURL = localStorage.getItem("avatarURL");
   const coverPhotoURL = localStorage.getItem("coverPhotoURL");
-  const verified = localStorage.getItem("coverPhotoURL") === "true";
+  const verified = localStorage.getItem("coverPhotoURL");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -158,7 +158,7 @@ const Settings = () => {
                     <span className="min-h-[20px] text-[20px] font-bold">
                       {fullName}
                     </span>
-                    {verified === true && (
+                    {verified === "true" && (
                       <img
                         className="w-[20px] h-[20px]"
                         src="/blue-check.png"
