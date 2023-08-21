@@ -142,7 +142,7 @@ const RepostDetailsContainer = () => {
               postReplies.replies.map((reply: ReplyDataProps) => {
                 return (
                   <div
-                    className="w-full cursor-pointer reply-card"
+                    className="w-full cursor-pointer "
                     key={reply._id}
                     onClick={() =>
                       goToReply(reply.postAuthorUserName, reply._id)

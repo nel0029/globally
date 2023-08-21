@@ -112,7 +112,7 @@ const ReplyDetailsContainer = () => {
         <div className="text-lg font-bold">Reply</div>
       </Header>
 
-      <div className="w-full flex-grow flex flex-col items-center gap-y-2 px-2">
+      <div className="w-full flex-grow flex flex-col items-center gap-y-2 px-2 pb-2">
         {isLoading ? (
           <LoadingCard />
         ) : (
