@@ -42,6 +42,7 @@ const NavBar = () => {
   const user = useSelector((state: any) => state.user.userData);
   const mode = useSelector((state: any) => state.theme.darkMode);
   const userID = localStorage.getItem("userID");
+  const avatarURL = localStorage.getItem("avatarURL");
   const notificationCount = useSelector(
     (state: any) => state.messages.unseenNotification
   );

@@ -125,6 +125,7 @@ const usersSlice = createSlice({
         localStorage.setItem("avatarURL", authData.avatarURL);
         localStorage.setItem("coverPhotoURL", authData.coverPhotoURL);
         localStorage.setItem("bio", authData.bio);
+        localStorage.setItem("verified", authData.verified);
       })
       .addCase(logIn.rejected, (state, action) => {
         state.authStatus = "Error";
