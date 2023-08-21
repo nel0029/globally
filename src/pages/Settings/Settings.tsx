@@ -87,7 +87,9 @@ const Settings = () => {
   };
 
   const goToUserProfile = () => {
-    navigate(`/${userName}`, { replace: true });
+    if (userName) {
+      navigate(`/${userName}`, { replace: true });
+    }
   };
 
   const goToAccountSettings = () => {
