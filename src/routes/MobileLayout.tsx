@@ -32,7 +32,6 @@ const MobileLayout = () => {
   return (
     <div className="w-full h-full flex flex-col overflow-y-auto">
       <Routes>
-        {/* Full Screen */}
         <Route element={<PrivateRoutes />}>
           <Route element={<MobileLayoutFullScreen />}>
             <Route path="/account/setting" element={<AccountSettings />} />
