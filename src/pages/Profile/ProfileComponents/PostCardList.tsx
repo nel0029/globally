@@ -22,10 +22,7 @@ const PostCardList = () => {
 
   useEffect(() => {
     if (allPosts !== null) {
-      if (
-        allPosts.length !== 0 &&
-        allPosts[0].postAuthorUserName === userName
-      ) {
+      if (allPosts.userName === userName) {
         setIsLoading(false);
       } else {
         setIsLoading(true);
@@ -43,7 +40,7 @@ const PostCardList = () => {
         }
       });
     }
-  }, [userName, user.userID]);
+  }, [dispatch, userName, user.userID]);
 
   return (
     <div className="flex w-full h-full flex-col-reverse justify-center items-center gap-y-2">
@@ -54,10 +51,10 @@ const PostCardList = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {allPosts?.length > 0 ? (
+          {allPosts?.posts.length > 0 ? (
             <React.Fragment>
               <div className="flex-1">No more posts</div>
-              {allPosts?.map((post: CardProps) => (
+              {allPosts?.posts.map((post: CardProps) => (
                 <Card key={post._id} {...post} />
               ))}
             </React.Fragment>

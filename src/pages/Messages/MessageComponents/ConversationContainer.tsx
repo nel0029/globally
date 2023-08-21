@@ -28,7 +28,7 @@ import MessageInputContainer from "./MessageInputContainer";
 
 const ConversationContainer = () => {
   const { conversationID } = useParams<string>();
-  const user = useSelector((state: any) => state.user.userData);
+  const userID = localStorage.getItem("userID");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const messageContainerRef = useRef(document.createElement("div"));
@@ -55,29 +55,32 @@ const ConversationContainer = () => {
   useEffect(() => {
     const data = {
       conversationID: conversationID,
-      userID: user.userID,
+      userID: userID,
     };
+    if (userID) {
+      dispatch(getConversationInfo(data)).then(() =>
+        dispatch(getAllMessages(data))
+      );
 
-    dispatch(getConversationInfo(data)).then(() =>
-      dispatch(getAllMessages(data))
-    );
+      const conversationData = {
+        conversationID: conversationID,
+        memberID: userID,
+      };
 
-    const conversationData = {
-      conversationID: conversationID,
-      memberID: user.userID,
-    };
+      const unseenMessagesData = {
+        userID: userID,
+      };
+      dispatch(getUnseenMessagesCount(unseenMessagesData));
 
-    const unseenMessagesData = {
-      userID: user.userID,
-    };
-    dispatch(getUnseenMessagesCount(unseenMessagesData));
-
-    socket.emit("joinConversation", conversationData);
+      socket.emit("joinConversation", conversationData);
+    }
 
     return () => {
-      socket.emit("leaveConversation", data);
-      dispatch(resetConversationInfo());
-      dispatch(resetMessages());
+      if (userID) {
+        socket.emit("leaveConversation", data);
+        dispatch(resetConversationInfo());
+        dispatch(resetMessages());
+      }
     };
   }, [conversationID, location.pathname]);
 
@@ -97,7 +100,7 @@ const ConversationContainer = () => {
     const data = {
       text: messageText,
       conversationID: conversationID,
-      senderID: user.userID,
+      senderID: userID,
     };
 
     socket.emit("sendMessage", data);

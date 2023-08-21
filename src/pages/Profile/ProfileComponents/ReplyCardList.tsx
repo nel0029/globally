@@ -14,9 +14,7 @@ const ReplyCardList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state: any) => state.user.userData);
-  const allPosts: ReplyDataProps[] = useSelector(
-    (state: any) => state.posts.userRepliesList
-  );
+  const allPosts = useSelector((state: any) => state.posts.userRepliesList);
   const data: any = {
     userName: userName || "",
     authorID: user.userID,
@@ -24,10 +22,7 @@ const ReplyCardList = () => {
 
   useEffect(() => {
     if (allPosts !== null) {
-      if (
-        allPosts.length !== 0 &&
-        allPosts[0].postAuthorUserName === userName
-      ) {
+      if (allPosts.userName === userName) {
         setIsLoading(false);
       } else {
         setIsLoading(true);
@@ -45,7 +40,8 @@ const ReplyCardList = () => {
         }
       });
     }
-  }, [userName, user.userID]);
+  }, [dispatch, userName, user.userID]);
+
   return (
     <div className="flex w-full h-full flex-col-reverse justify-center items-center gap-y-2">
       {isLoading ? (

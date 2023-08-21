@@ -18,29 +18,27 @@ import LoadingCard from "./PostComponents/LoadingCard";
 export default function Home() {
   const posts = useSelector((state: any) => state.posts.PostData || []);
   const isLogIn = useSelector((state: any) => state.user.isLogIn);
-
+  const userID = localStorage.getItem("userID");
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: any) => state.user.userData);
 
   useEffect(() => {
-    if (isLogIn === false) {
+    if (userID) {
       if (posts.length !== 0) {
         setIsLoading(false);
       } else {
         setIsLoading(true);
 
-        dispatch(getPosts(user.userID)).then((response: any) => {
+        dispatch(getPosts(userID)).then((response: any) => {
           if (response.meta.requestStatus === "fulfilled") {
             setIsLoading(false);
           }
         });
       }
-    } else {
-      setIsLoading(true);
     }
-  }, [isLogIn]);
+  }, [userID]);
 
   return (
     <div className="flex-1 w-full flex flex-col items-center justify-start gap-y-2 ">
@@ -60,9 +58,11 @@ export default function Home() {
 
       <div className="w-full flex flex-col justify-start items-center gap-y-2 px-2 ">
         <CreateNewPost />
-        <div className="flex w-full flex-col-reverse justify-start items-center gap-y-2">
+        <div className="w-full  flex flex-col-reverse justify-start items-center gap-y-2">
           {isLoading ? (
             <React.Fragment>
+              <LoadingCard />
+              <LoadingCard />
               <LoadingCard />
               <LoadingCard />
             </React.Fragment>

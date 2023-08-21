@@ -112,16 +112,27 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
               @{parentUserName}
             </div>
           </div>
-          <CardCaption parentBGColor={parentBGColor} caption={parentCaption} />
-          {parentMediaURL ? <CardMedia mediaURL={parentMediaURL} /> : null}
-          {hasPoll && (
-            <PollOptionsCard
-              postID={parentPostID}
-              options={pollOptions}
-              hasChoosed={hasChoosed}
-              pollRespondentsCount={pollRespondentsCount}
-              optionChoosedID={optionChoosedID}
-            />
+          {parentCaption || parentMediaURL || hasPoll ? (
+            <React.Fragment>
+              <CardCaption
+                parentBGColor={parentBGColor}
+                caption={parentCaption}
+              />
+              {parentMediaURL ? <CardMedia mediaURL={parentMediaURL} /> : null}
+              {hasPoll && (
+                <PollOptionsCard
+                  postID={parentPostID}
+                  options={pollOptions}
+                  hasChoosed={hasChoosed}
+                  pollRespondentsCount={pollRespondentsCount}
+                  optionChoosedID={optionChoosedID}
+                />
+              )}
+            </React.Fragment>
+          ) : (
+            <div className="w-full min-h-[100px] flex justify-center items-center">
+              <span>This post is not existed</span>
+            </div>
           )}
         </div>
       </div>

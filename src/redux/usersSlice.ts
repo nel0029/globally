@@ -21,6 +21,10 @@ export interface UserData {
   userFirstName: string | null;
   userMiddleName: string | null;
   userLastName: string | null;
+
+  coverPhotoURL: string | null;
+  bio: string | null;
+  verified: boolean;
 }
 
 export interface AccountData {
@@ -33,6 +37,7 @@ export interface AccountData {
   email: string | null;
   coverPhotoURL: string | null;
   bio: string | null;
+  verified: boolean;
 }
 
 interface UserState {
@@ -52,10 +57,13 @@ const initialState: UserState = {
   userData: {
     userID: localStorage.getItem("userID") || null,
     userName: localStorage.getItem("userName") || null,
-    avatarURL: null,
-    userFirstName: null,
-    userMiddleName: null,
-    userLastName: null,
+    avatarURL: localStorage.getItem("avatarURL") || null,
+    userFirstName: localStorage.getItem("userFirstName") || null,
+    userMiddleName: localStorage.getItem("userMiddleName") || null,
+    userLastName: localStorage.getItem("userLastName") || null,
+    coverPhotoURL: localStorage.getItem("coverPhotoURL") || null,
+    bio: localStorage.getItem("bio") || null,
+    verified: localStorage.getItem("verified") === "true",
   },
   authStatus: "",
   authMessage: "",
@@ -91,6 +99,9 @@ const usersSlice = createSlice({
     resetAccountData: (state) => {
       state.accountData = null;
     },
+    resetUserState: (state) => {
+      state = initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -108,6 +119,12 @@ const usersSlice = createSlice({
 
         localStorage.setItem("userID", authData.userID);
         localStorage.setItem("userName", authData.userName);
+        localStorage.setItem("userFirstName", authData.userFirstName);
+        localStorage.setItem("userMiddleName", authData.userMiddleName);
+        localStorage.setItem("userLastName", authData.userLastName);
+        localStorage.setItem("avatarURL", authData.avatarURL);
+        localStorage.setItem("coverPhotoURL", authData.coverPhotoURL);
+        localStorage.setItem("bio", authData.bio);
       })
       .addCase(logIn.rejected, (state, action) => {
         state.authStatus = "Error";
@@ -189,5 +206,6 @@ export const {
   resetAuthMessage,
   resetRegisterMessage,
   resetAccountData,
+  resetUserState,
 } = usersSlice.actions;
 export default usersSlice.reducer;

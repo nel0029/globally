@@ -78,7 +78,7 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
 
   const repostParent = details.type === "repost";
   return (
-    <div className="w-full flex flex-col p-2 border dark:border-Dark300 rounded-lg bg-white dark:bg-Dark200">
+    <div className="w-full max-w-[700px] flex flex-col p-2 border dark:border-Dark300 rounded-lg bg-white dark:bg-Dark200">
       <div className="flex flex-col justify-center">
         <div className="flex flex-row items-center gap-x-2">
           <div className="w-[40px]">

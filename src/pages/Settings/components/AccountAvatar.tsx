@@ -2,13 +2,8 @@
 
 import React from "react";
 
-interface MediaProps {
-  id: string;
-  url: string;
-}
-
 interface AvatarURL {
-  avatarURL?: MediaProps;
+  avatarURL?: string;
   isLoading?: boolean;
 }
 
@@ -31,7 +26,7 @@ const AccountAvatar: React.FC<AvatarURL> = ({ avatarURL, isLoading }) => {
         <div className="w-full h-full flex justify-center items-center rounded-full aspect-square border-[3px] lg:border-[5px] border-slate-100 dark:border-Dark100">
           <img
             className="object-cover w-full h-full rounded-full "
-            src={avatarURL && avatarURL.url}
+            src={avatarURL}
           />
         </div>
       ) : (

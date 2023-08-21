@@ -30,30 +30,8 @@ const Messages = () => {
   const user = useSelector((state: any) => state.user.userData);
   const isLogIn = useSelector((state: any) => state.user.isLogIn);
 
-  const [messageText, setMessageText] = useState("");
-  const [recievedMessage, setRecievedMessage] = useState<any[]>([]);
-  const [mentions, setMentions] = useState([]);
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    socket.off("response");
-    socket.on("response", (messageData: any) => {
-      setRecievedMessage((prev: any) => [...prev, messageData]);
-    });
-  }, []);
-
-  useEffect(() => {
-    const userID = user.userID;
-    socket.emit("userConnected", userID);
-  }, [socket]);
-
-  useEffect(() => {
-    socket.on("getAllMessages", (messages: any[]) => {
-      setRecievedMessage(messages);
-    });
-  }, [socket]);
 
   const renderConversationList = () => {
     if (location.pathname.includes("/messages/r/requests")) {
@@ -82,63 +60,16 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    socket.on("sendMessage", (data: any) => {
-      const { conversation, message } = data;
-      dispatch(createNewMessage(message));
-      dispatch(updateConvo(conversation));
-    });
-  }, []);
-
-  useEffect(() => {
-    socket.on("createNewMessage", (data: any) => {
-      const { conversation } = data;
-
-      dispatch(createNewConvo(conversation));
-      navigate(`/messages/${conversation.conversationID}`);
-    });
-  }, []);
-
-  useEffect(() => {
-    socket.on("joinConversation", (data: any) => {
-      dispatch(updateConvo(data));
-    });
-  }, []);
-
-  useEffect(() => {
-    socket.on("receiveMessage", (data: any) => {
-      const { conversation, message } = data;
-      dispatch(updateConvo(conversation));
-      dispatch(createNewMessage(message));
-    });
-  }, []);
-
-  const [bottomNavHeight, setBottomNavHeight] = useState(0);
-  const [containerHeight, setContainerHeight] = useState(0);
-
-  useEffect(() => {
-    const bottomNav = document.getElementById("bottom-nav");
-    if (bottomNav) {
-      setBottomNavHeight(bottomNav.offsetHeight);
+    if (isLogIn) {
+      if (user) {
+        socket?.on("receiveMessage", (data: any) => {
+          const { conversation, message } = data;
+          dispatch(updateConvo(conversation));
+          dispatch(createNewMessage(message));
+        });
+      }
     }
-  }, []);
-
-  useEffect(() => {
-    // Update the container height when the window is resized
-    const updateContainerHeight = () => {
-      setContainerHeight(window.innerHeight - bottomNavHeight);
-    };
-
-    // Initial calculation
-    updateContainerHeight();
-
-    // Listen for window resize events
-    window.addEventListener("resize", updateContainerHeight);
-
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener("resize", updateContainerHeight);
-    };
-  }, [bottomNavHeight]);
+  }, [isLogIn]);
 
   return (
     <div

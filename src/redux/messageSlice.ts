@@ -248,6 +248,15 @@ const messageSlice = createSlice({
     resetConversationInfo: (state) => {
       state.conversationInfo = null;
     },
+    resetConversationList: (state) => {
+      state.conversationList = null;
+    },
+    resetNotificationList: (state) => {
+      state.notificationList = null;
+    },
+    resetMessageState: (state) => {
+      state = initialState;
+    },
   },
 
   extraReducers: (builder) => {
@@ -312,5 +321,8 @@ export const {
   updateUnseenMessagesCount,
   resetMessages,
   resetConversationInfo,
+  resetConversationList,
+  resetNotificationList,
+  resetMessageState,
 } = messageSlice.actions;
 export default messageSlice.reducer;

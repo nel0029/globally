@@ -64,10 +64,10 @@ interface MainState {
   PostData: any[] | null;
   status: string;
   postDetails: any | null;
-  postReplies: ReplyDataProps[] | null;
-  userPostsList: PostsDataProps[] | null;
-  userRepliesList: ReplyDataProps[] | null;
-  userRepostsList: RepostDataProps[] | null;
+  postReplies: any | null;
+  userPostsList: any | null;
+  userRepliesList: any | null;
+  userRepostsList: any | null;
   userLikesList: any | null;
   userDetails: UserDetails | null;
   userFollowing: UserProps[] | null;
@@ -107,6 +107,9 @@ const postSlice: any = createSlice({
       state.userPostsList = null;
       state.userRepliesList = null;
       state.userRepostsList = null;
+    },
+    resetPostsState: (state) => {
+      state = initialState;
     },
   },
   extraReducers: (builder) => {
@@ -162,7 +165,7 @@ const postSlice: any = createSlice({
 
         if (state.userPostsList !== null) {
           const postIndex = state.userPostsList.findIndex(
-            (post) => post._id === updatedPost._id
+            (post: any) => post._id === updatedPost._id
           );
           if (postIndex !== -1) {
             state.userPostsList[postIndex] = {
@@ -236,13 +239,13 @@ const postSlice: any = createSlice({
           state.postDetails.likesCount += 1;
         }
         if (state.postReplies !== null) {
-          const postIndex = state.postReplies.findIndex(
+          const postIndex = state.postReplies.replies.findIndex(
             (post: any) => post._id === likedPost.parentID
           );
           if (postIndex !== -1) {
-            state.postReplies[postIndex].isLiked = true;
-            state.postReplies[postIndex].likesCount += 1;
-            state.postReplies[postIndex].likeID = likedPost._id;
+            state.postReplies.replies[postIndex].isLiked = true;
+            state.postReplies.replies[postIndex].likesCount += 1;
+            state.postReplies.replies[postIndex].likeID = likedPost._id;
           }
         }
 
@@ -323,13 +326,13 @@ const postSlice: any = createSlice({
           state.postDetails.likesCount -= 1;
         }
         if (state.postReplies !== null) {
-          const postIndex = state.postReplies.findIndex(
+          const postIndex = state.postReplies.replies.findIndex(
             (post: any) => post._id === unlikedData.parentID
           );
           if (postIndex !== -1) {
-            state.postReplies[postIndex].isLiked = false;
-            state.postReplies[postIndex].likesCount -= 1;
-            state.postReplies[postIndex].likeID = unlikedData.likeID;
+            state.postReplies.replies[postIndex].isLiked = false;
+            state.postReplies.replies[postIndex].likesCount -= 1;
+            state.postReplies.replies[postIndex].likeID = unlikedData.likeID;
           }
         }
 
@@ -410,20 +413,20 @@ const postSlice: any = createSlice({
         if (state.postDetails !== null) {
           if (state.postDetails._id === newReply.parentPostID) {
             state.postDetails.repliesCount += 1;
-            state.postReplies = state.postReplies
-              ? [...state.postReplies, newReply]
+            state.postReplies.replies = state.postReplies.replies
+              ? [...state.postReplies.replies, newReply]
               : [newReply];
           }
         }
         if (state.postReplies !== null) {
-          const replyIndex: number = state.postReplies.findIndex(
+          const replyIndex: number = state.postReplies.replies.findIndex(
             (reply: any) => {
               return reply._id === newReply.parentPostID;
             }
           );
 
           if (replyIndex !== -1) {
-            state.postReplies[replyIndex].repliesCount += 1;
+            state.postReplies.replies[replyIndex].repliesCount += 1;
           }
         }
 
@@ -479,10 +482,10 @@ const postSlice: any = createSlice({
           }
 
           if (state.postReplies !== null) {
-            const replyIndex = state.postReplies.findIndex(
+            const replyIndex = state.postReplies.replies.findIndex(
               (reply: any) => reply._id === updatedReply._id
             );
-            state.postReplies[replyIndex].repliesCount += 1;
+            state.postReplies.replies[replyIndex].repliesCount += 1;
           }
 
           if (state.postDetails !== null) {
@@ -493,7 +496,7 @@ const postSlice: any = createSlice({
 
           if (state.userRepliesList !== null) {
             const postIndex = state.userRepliesList.findIndex(
-              (post) => post._id === updatedReply._id
+              (post: any) => post._id === updatedReply._id
             );
             if (postIndex !== -1) {
               state.userRepliesList[postIndex] = {
@@ -529,7 +532,7 @@ const postSlice: any = createSlice({
         }
         if (state.postDetails !== null) {
           if (state.postReplies !== null) {
-            state.postReplies = state.postReplies.filter(
+            state.postReplies.replies = state.postReplies.replies.filter(
               (reply: any) => reply._id !== deletedReplyID.postID
             );
             state.postDetails.repliesCount -= 1;
@@ -540,7 +543,7 @@ const postSlice: any = createSlice({
         }
 
         if (state.postReplies !== null) {
-          state.postReplies = state.postReplies.filter(
+          state.postReplies.replies = state.postReplies.replies.filter(
             (reply: ReplyDataProps) => reply._id !== deletedReplyID.postID
           );
         }
@@ -830,13 +833,14 @@ const postSlice: any = createSlice({
         }
 
         if (state.postReplies !== null) {
-          const replyIndex = state.postReplies.findIndex(
+          const replyIndex = state.postReplies.replies.findIndex(
             (reply: ReplyDataProps) =>
               reply.authorID === followResponse.followingID
           );
           if (replyIndex !== -1) {
-            state.postReplies[replyIndex].isFollowedAuthor = true;
-            state.postReplies[replyIndex].followID = followResponse.followID;
+            state.postReplies.replies[replyIndex].isFollowedAuthor = true;
+            state.postReplies.replies[replyIndex].followID =
+              followResponse.followID;
           }
         }
 
@@ -956,13 +960,13 @@ const postSlice: any = createSlice({
         }
 
         if (state.postReplies !== null) {
-          const replyIndex = state.postReplies.findIndex(
+          const replyIndex = state.postReplies.replies.findIndex(
             (reply: ReplyDataProps) =>
               reply.authorID === unfollowResponse.followingID
           );
           if (replyIndex !== -1) {
-            state.postReplies[replyIndex].isFollowedAuthor = false;
-            state.postReplies[replyIndex].followID = null;
+            state.postReplies.replies[replyIndex].isFollowedAuthor = false;
+            state.postReplies.replies[replyIndex].followID = null;
           }
         }
 
@@ -1125,6 +1129,10 @@ const postSlice: any = createSlice({
   },
 });
 
-export const { getLastConversation, resetUserDetails, resetAllPostsList } =
-  postSlice.actions;
+export const {
+  getLastConversation,
+  resetUserDetails,
+  resetAllPostsList,
+  resetPostsState,
+} = postSlice.actions;
 export default postSlice.reducer;

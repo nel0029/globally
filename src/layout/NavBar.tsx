@@ -23,19 +23,25 @@ import TitleText from "../common/TitleText";
 import NavItems from "../common/NavItems";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import { setMode } from "../redux/themeSlice";
+import { resetThemeState, setMode } from "../redux/themeSlice";
 import { getUnseenNotifications } from "../redux/asynActions/messageAsyncActions";
 import {
   addNewNotifcation,
+  resetConversationList,
+  resetMessageState,
+  resetNotificationList,
   resetNotificationsCount,
 } from "../redux/messageSlice";
 import socket from "../sockets/socket";
-import { logOut, resetAccountData } from "../redux/usersSlice";
+import { logOut, resetAccountData, resetUserState } from "../redux/usersSlice";
 import { logout } from "../redux/asynActions/userAsyncActions";
+import { resetExploreState } from "../redux/exploreSlice";
+import { resetPostsState } from "../redux/postSlice";
 
 const NavBar = () => {
   const user = useSelector((state: any) => state.user.userData);
   const mode = useSelector((state: any) => state.theme.darkMode);
+  const userID = localStorage.getItem("userID");
   const notificationCount = useSelector(
     (state: any) => state.messages.unseenNotification
   );
@@ -52,7 +58,7 @@ const NavBar = () => {
 
   useEffect(() => {
     const data = {
-      userID: user.userID,
+      userID: userID,
     };
     if (localStorage.getItem("userID")) {
       dispatch(getUnseenNotifications(data));
@@ -72,8 +78,8 @@ const NavBar = () => {
   };
 
   const goToUserProfile = () => {
-    navigate(`/${user.userName}`);
-    setActiveTab(`/${user.userName}`);
+    navigate(`/${user?.userName}`);
+    setActiveTab(`/${user?.userName}`);
   };
 
   const goToMessages = () => {
@@ -87,7 +93,7 @@ const NavBar = () => {
     dispatch(resetNotificationsCount());
 
     const data = {
-      userID: user.userID,
+      userID: userID,
     };
     socket.emit("resetNotificationsCount", data);
   };
@@ -106,11 +112,21 @@ const NavBar = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(setMode(false));
-    dispatch(logOut());
-    dispatch(logout());
-    dispatch(resetAccountData());
-    navigate("/login");
+    dispatch(logout()).then((response: any) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        dispatch(resetConversationList());
+        dispatch(resetNotificationList());
+        dispatch(setMode(false));
+        dispatch(logOut());
+        dispatch(resetAccountData());
+        dispatch(resetExploreState());
+        dispatch(resetMessageState());
+        dispatch(resetPostsState());
+        dispatch(resetThemeState());
+        dispatch(resetUserState());
+        navigate("/login");
+      }
+    });
   };
 
   return (
@@ -156,7 +172,7 @@ const NavBar = () => {
           <div
             onClick={goToUserProfile}
             className={` ${
-              activeTab === `/${user.userName}` ? " text-secondary" : ""
+              activeTab === `/${user?.userName}` ? " text-secondary" : ""
             } w-full flex flex-row items-center gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="text-2xl flex justify-center items-center">

@@ -140,3 +140,11 @@ body {
   text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000,
     0.5px 0.5px 0 #000;
 }
+.replies::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  border-left: 1px solid black;
+  width: 1px;
+  height: 100%;
+}

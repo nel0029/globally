@@ -15,11 +15,10 @@ import LoadingNotificationCard from "./LoadingNotificationCard";
 import NotificationAvatar from "./NotificationAvatar";
 
 const Notifications = () => {
-  const user = useSelector((state: any) => state.user.userData);
   const notifications = useSelector(
     (state: any) => state.messages.notificationList
   );
-
+  const userID = localStorage.getItem("userID");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +94,7 @@ const Notifications = () => {
 
   useEffect(() => {
     const data = {
-      userID: user.userID,
+      userID: userID,
     };
     if (notifications) {
       setIsLoading(false);
@@ -107,7 +106,7 @@ const Notifications = () => {
         }
       });
     }
-  }, []);
+  }, [userID]);
 
   return (
     <div className="w-full h-full flex-grow flex flex-col items-center justify-start">
@@ -116,7 +115,7 @@ const Notifications = () => {
           <div className="py-0.5">Notifications</div>
         </TitleText>
       </Header>
-      <div className="w-full flex-1 flex flex-col-reverse justify-end ">
+      <div className="w-full h-full flex-1 flex flex-col-reverse justify-end ">
         {isLoading ? (
           <React.Fragment>
             <LoadingNotificationCard />

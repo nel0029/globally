@@ -22,8 +22,7 @@ import socket from "../sockets/socket";
 import { openMenu } from "../redux/themeSlice";
 
 const BottomNavigation = () => {
-  const user = useSelector((state: any) => state.user.userData);
-  const isMenuOpen = useSelector((state: any) => state.theme.isMenuOpen);
+  const userID = localStorage.getItem("userID");
 
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
@@ -56,7 +55,7 @@ const BottomNavigation = () => {
     dispatch(resetNotificationsCount());
 
     const data = {
-      userID: user.userID,
+      userID: userID,
     };
     socket.emit("resetNotificationsCount", data);
   };

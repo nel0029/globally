@@ -35,6 +35,9 @@ const themeSlice = createSlice({
       state.matchedPosts = null;
       state.queryWords = null;
     },
+    resetExploreState: (state) => {
+      state = initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -49,5 +52,6 @@ const themeSlice = createSlice({
   },
 });
 
-export const { setQueryWords, resetMatchedPosts } = themeSlice.actions;
+export const { setQueryWords, resetMatchedPosts, resetExploreState } =
+  themeSlice.actions;
 export default themeSlice.reducer;

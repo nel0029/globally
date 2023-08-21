@@ -14,7 +14,7 @@ import ConversationCard from "./ConversationCard";
 import LoadingConversationCard from "./LoadingConversationCard";
 
 const ConversationListContainer = () => {
-  const user = useSelector((state: any) => state.user.userData);
+  const userID = localStorage.getItem("userID");
   const conversationList: any[] = useSelector(
     (state: any) => state.messages.conversationList
   );
@@ -23,40 +23,40 @@ const ConversationListContainer = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [sortedConversationList, setSortedConversationList] = useState<
     ConversationListProps[] | null
   >(null);
 
   useEffect(() => {
     const data = {
-      userID: user.userID,
+      userID: userID,
     };
 
-    if (sortedConversationList !== null) {
-      setIsLoading(false);
-    } else {
-      dispatch(getConversationList(data)).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
+    if (userID) {
+      if (conversationList !== null) {
+        if (conversationList?.length > 0) {
           setIsLoading(false);
-        }
-      });
-    }
-  }, []);
 
-  useEffect(() => {
-    if (conversationList !== null) {
-      const newConversationList = [...conversationList];
-      newConversationList?.sort((a, b) => {
-        const timestampA = new Date(a.lastMessageTimestamps);
-        const timestampB = new Date(b.lastMessageTimestamps);
-        return timestampA.getTime() - timestampB.getTime();
-      });
-      setSortedConversationList(newConversationList);
-    } else {
-      setIsLoading(true);
+          const newConversationList = [...conversationList];
+          newConversationList?.sort((a, b) => {
+            const timestampA = new Date(a.lastMessageTimestamps);
+            const timestampB = new Date(b.lastMessageTimestamps);
+            return timestampA.getTime() - timestampB.getTime();
+          });
+          setSortedConversationList(newConversationList);
+        } else {
+          setSortedConversationList([]);
+        }
+      } else {
+        setIsLoading(true);
+        dispatch(getConversationList(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
+      }
     }
-  }, [conversationList?.length]);
+  }, [userID, sortedConversationList?.length, conversationList?.length]);
 
   const createNewConvo = () => navigate("/messages/new");
 
@@ -88,8 +88,8 @@ const ConversationListContainer = () => {
               <LoadingConversationCard />
               <LoadingConversationCard />
             </React.Fragment>
-          ) : sortedConversationList && sortedConversationList.length > 0 ? (
-            sortedConversationList?.map(
+          ) : sortedConversationList && sortedConversationList.length !== 0 ? (
+            sortedConversationList.map(
               (conversation: ConversationListProps) => (
                 <ConversationCard
                   key={conversation._id}

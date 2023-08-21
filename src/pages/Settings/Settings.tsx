@@ -4,53 +4,62 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/store";
-import { openMenu, setMode } from "../../redux/themeSlice";
+import { resetThemeState, setMode } from "../../redux/themeSlice";
 import { IonIcon } from "@ionic/react";
 import {
   person,
   moon,
   power,
   sunny,
-  search,
   settings,
-  chevronDown,
   closeOutline,
 } from "ionicons/icons";
-import BackButton from "../../common/BackButton";
-
 import SettingsHeader from "./components/SettingsHeader";
-
 import AccountAvatar from "./components/AccountAvatar";
 import {
   getAccountData,
   logout,
 } from "../../redux/asynActions/userAsyncActions";
-import { logOut, resetAccountData } from "../../redux/usersSlice";
+import {
+  logOut,
+  resetAccountData,
+  resetUserState,
+} from "../../redux/usersSlice";
 import AccountCoverPhoto from "./components/AccountCoverPhoto";
 import CircleLoader from "../../common/CircleLoader";
+import {
+  resetConversationList,
+  resetMessageState,
+  resetNotificationList,
+} from "../../redux/messageSlice";
+import { resetExploreState } from "../../redux/exploreSlice";
+import { resetPostsState } from "../../redux/postSlice";
 
 const Settings = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  // const isMenuOpen = useSelector((state: any) => state.theme.isMenuOpen);
   const user = useSelector((state: any) => state.user.userData);
   const account = useSelector((state: any) => state.user.accountData);
   const mode = useSelector((state: any) => state.theme.darkMode);
+  const userID = localStorage.getItem("userID");
+  const userName = localStorage.getItem("userName");
+  const firstName = localStorage.getItem("userFirstName");
+  const middleName = localStorage.getItem("userMiddleName");
+  const lastName = localStorage.getItem("userLastName");
+  const avatarURL = localStorage.getItem("avatarURL");
+  const coverPhotoURL = localStorage.getItem("coverPhotoURL");
+  const verified = localStorage.getItem("coverPhotoURL") === "true";
 
   const [isLoading, setIsLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogOutLoading, setIsLogOutLoading] = useState(false);
 
-  const fullNameArray = [
-    account?.userFirstName,
-    account?.userMiddleName,
-    account?.userLastName,
-  ];
+  const fullNameArray = [firstName, middleName, lastName];
   const fullName = fullNameArray?.join(" ");
 
   useEffect(() => {
     const data = {
-      userID: user?.userID,
+      userID: userID,
     };
     if (account !== null) {
       setIsLoading(false);
@@ -78,7 +87,7 @@ const Settings = () => {
   };
 
   const goToUserProfile = () => {
-    navigate(`/${user?.userName}`, { replace: true });
+    navigate(`/${userName}`, { replace: true });
   };
 
   const goToAccountSettings = () => {
@@ -91,11 +100,19 @@ const Settings = () => {
 
   const handleLogOut = () => {
     setIsLogOutLoading(true);
-    dispatch(setMode(false));
-    dispatch(logOut());
+
     dispatch(logout()).then((response: any) => {
       if (response.meta.requestStatus === "fulfilled") {
         dispatch(resetAccountData());
+        dispatch(setMode(false));
+        dispatch(logOut());
+        dispatch(resetConversationList());
+        dispatch(resetNotificationList());
+        dispatch(resetExploreState());
+        dispatch(resetMessageState());
+        dispatch(resetPostsState());
+        dispatch(resetThemeState());
+        dispatch(resetUserState());
         setIsLogOutLoading(false);
         navigate("/login");
       }
@@ -120,13 +137,13 @@ const Settings = () => {
         <div className="w-full flex flex-col border-b dark:border-Dark300">
           <AccountCoverPhoto
             isLoading={isLoading}
-            coverPhotoURL={account?.coverPhotoURL?.url}
+            coverPhotoURL={coverPhotoURL ? coverPhotoURL : ""}
           />
           <div className=" w-full flex flex-row px-2">
             <div className="w-[100px] relative">
               <AccountAvatar
                 isLoading={isLoading}
-                avatarURL={account?.avatarURL}
+                avatarURL={avatarURL ? avatarURL : ""}
               />
             </div>
             <div className="flex-1 flex flex-col p-2 overflow-hidden">
@@ -141,7 +158,7 @@ const Settings = () => {
                     <span className="min-h-[20px] text-[20px] font-bold">
                       {fullName}
                     </span>
-                    {account?.verified && (
+                    {verified === true && (
                       <img
                         className="w-[20px] h-[20px]"
                         src="/blue-check.png"

@@ -29,17 +29,7 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState(location.pathname);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-
   const [isInUserProfile, setIsInUserProfile] = useState(false);
-
-  useEffect(() => {
-    setActiveTab(location.pathname);
-    if (location.pathname.startsWith(`/${userName}`)) {
-      setIsInUserProfile(true);
-    } else {
-      setIsInUserProfile(false);
-    }
-  }, [location.pathname]);
 
   const fullNameArray = [
     userDetails?.userFirstName,
@@ -118,6 +108,14 @@ const Profile = () => {
     setIsInUserProfile(false);
     navigate(-1);
   };
+
+  useEffect(() => {
+    setActiveTab(location.pathname);
+    setIsInUserProfile(true);
+
+    return () => setIsInUserProfile(false);
+  }, [isInUserProfile, location.pathname]);
+
   return (
     <div
       id="profile-route"

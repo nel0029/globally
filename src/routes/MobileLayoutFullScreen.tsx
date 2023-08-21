@@ -27,11 +27,6 @@ const MobileLayoutFullScreen = () => {
     <div className={` w-full h-full overflow-auto flex flex-col`}>
       <Routes>
         <Route element={<PrivateRoutes />}>
-          <Route path="/explore/search" element={<SearchResults />}>
-            <Route path="top/*" element={<SearchResultsTop />} />
-            <Route path="posts/*" element={<SearchResultsPosts />} />
-            <Route path="users/*" element={<SearchResultsUsers />} />
-          </Route>
           <Route path="/account/setting" element={<AccountSettings />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/:userName" element={<Profile />}>

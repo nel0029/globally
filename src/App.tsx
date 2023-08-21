@@ -128,7 +128,7 @@ const App = () => {
   }, [location.pathname]);
   return (
     <div
-      className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] relative overflow-auto`}
+      className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] relative`}
     >
       <Routes>
         <Route path="/register" element={<Register />} />
@@ -138,7 +138,7 @@ const App = () => {
           <Route
             path="/*"
             element={
-              <div className="hidden w-full h-full xl:flex flex-row justify-start flex-1 overflow-y-scroll ">
+              <div className="hidden w-full h-auto xl:flex flex-row justify-start flex-1 overflow-y-scroll ">
                 <NavBar />
                 <div
                   id="main"

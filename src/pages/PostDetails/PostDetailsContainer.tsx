@@ -6,7 +6,6 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import {
   getPostDetails,
   getAllRepliesByPostID,
-  getReplyDetails,
 } from "../../redux/asynActions/postAsynActions";
 import { AppDispatch } from "../../redux/store";
 import { useParams, useNavigate } from "react-router-dom";
@@ -20,6 +19,11 @@ import BackButton from "../../common/BackButton";
 import TitleText from "../../common/TitleText";
 import Card, { CardProps } from "../Home/PostComponents/Card";
 import PostNotExistsCard from "./PostDetailsComponent/PostNotExistsCard";
+import LoadingCard from "../Home/PostComponents/LoadingCard";
+
+interface PostDetailsProps extends CardProps {
+  exists: boolean;
+}
 
 const PostDetailsContainer = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,10 +31,15 @@ const PostDetailsContainer = () => {
     userName: string;
     postID: string;
   }>();
-  const postDetails: CardProps = useSelector(
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRepliesLoading, setIsRepliesLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const postDetails: PostDetailsProps = useSelector(
     (state: any) => state.posts.postDetails || null
   );
-  const postReplies: ReplyDataProps[] = useSelector(
+  const postReplies: any = useSelector(
     (state: any) => state.posts.postReplies || null
   );
   const user = useSelector((state: any) => state.user.userData);
@@ -43,8 +52,30 @@ const PostDetailsContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(getPostDetails(postData));
-  }, [dispatch, userName, postID, user.userID]);
+    if (!isLoaded) {
+      if (postDetails !== null) {
+        setIsLoaded(true);
+        setIsLoading(false);
+        if (postDetails._id !== postID) {
+          setIsLoading(true);
+          dispatch(getPostDetails(postData)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              setIsLoaded(true);
+              setIsLoading(false);
+            }
+          });
+        }
+      } else {
+        setIsLoading(true);
+        dispatch(getPostDetails(postData)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoaded(true);
+            setIsLoading(false);
+          }
+        });
+      }
+    }
+  }, [userName, postID, user.userID, isLoading]);
 
   const data: RepliesByPostIDData = {
     postID: postID || "",
@@ -54,50 +85,88 @@ const PostDetailsContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllRepliesByPostID(data));
-  }, [dispatch, userName, postID, user.userID]);
-
-  const goBack = () => {
-    navigate(-1);
-  };
+    if (postDetails !== null) {
+      if (postReplies !== null) {
+        if (postReplies.postID === postID) {
+          setIsRepliesLoading(false);
+        } else {
+          setIsRepliesLoading(true);
+          dispatch(getAllRepliesByPostID(data)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              setIsRepliesLoading(false);
+            }
+          });
+        }
+      } else {
+        setIsRepliesLoading(true);
+        dispatch(getAllRepliesByPostID(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsRepliesLoading(false);
+          }
+        });
+      }
+    }
+  }, [isLoading, userName, postID, user.userID]);
 
   const goToReply = (userName: string, postID: string) => {
     navigate(`/${userName}/replies/${postID}`);
   };
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-y-2">
+    <div className="w-full h-full flex flex-col items-center gap-y-2">
       <Header>
         <BackButton />
         <TitleText>Post</TitleText>
       </Header>
 
-      <div className="w-full flex-grow flex flex-col items-center justify-center gap-y-2 px-2">
-        {postDetails !== null ? (
-          <div className="w-full">
-            <CardDetails
-              fileInputID="postDetailsInputFileID"
-              {...postDetails}
-            />
-          </div>
+      <div className="w-full flex-grow flex flex-col items-center gap-y-2 px-2">
+        {isLoading ? (
+          <LoadingCard />
         ) : (
-          <PostNotExistsCard type={"post"} />
+          <React.Fragment>
+            {postDetails ? (
+              <div className="w-full">
+                <CardDetails
+                  fileInputID="postDetailsInputFileID"
+                  {...postDetails}
+                />
+              </div>
+            ) : (
+              <PostNotExistsCard type={"post"} />
+            )}
+          </React.Fragment>
         )}
 
-        <div className="w-full flex flex-col-reverse items-center justify-center gap-y-2">
-          {postReplies !== null ? (
-            postReplies.map((reply: ReplyDataProps) => {
-              return (
-                <div
-                  className="w-full cursor-pointer"
-                  key={reply._id}
-                  onClick={() => goToReply(reply.postAuthorUserName, reply._id)}
-                >
-                  <Card isInHomeRoute={false} {...reply} />
-                </div>
-              );
-            })
+        <div className="w-full flex flex-col-reverse items-center gap-y-2 overflow-y-auto replies">
+          {postDetails !== null ? (
+            isRepliesLoading ? (
+              <React.Fragment>
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+              </React.Fragment>
+            ) : postReplies !== null && postReplies?.replies.length > 0 ? (
+              postReplies.replies.map((reply: ReplyDataProps) => {
+                return (
+                  <div
+                    className="w-full cursor-pointer"
+                    key={reply._id}
+                    onClick={() =>
+                      goToReply(reply.postAuthorUserName, reply._id)
+                    }
+                  >
+                    <Card isInHomeRoute={false} {...reply} />
+                  </div>
+                );
+              })
+            ) : (
+              <div className="w-full h-[50px] flex flex-col justify-center items-center">
+                <div>No replies for this post</div>
+              </div>
+            )
           ) : (
-            <div> No replies for this post </div>
+            <div className="w-full h-[50px] flex flex-col justify-center items-center">
+              <div>No replies for this post</div>
+            </div>
           )}
         </div>
       </div>

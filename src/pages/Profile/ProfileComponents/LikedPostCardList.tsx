@@ -13,6 +13,7 @@ const LikedPostCardList = () => {
   const { userName } = useParams<{ userName: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const user = useSelector((state: any) => state.user.userData);
   const allLikedPosts = useSelector((state: any) => state.posts.userLikesList);
 
@@ -23,10 +24,7 @@ const LikedPostCardList = () => {
 
   useEffect(() => {
     if (allLikedPosts !== null) {
-      if (
-        allLikedPosts.length !== 0 &&
-        allLikedPosts[0].userName === userName
-      ) {
+      if (allLikedPosts.userName === userName) {
         setIsLoading(false);
       } else {
         setIsLoading(true);
@@ -37,6 +35,7 @@ const LikedPostCardList = () => {
         });
       }
     } else {
+      setIsLoaded(false);
       setIsLoading(true);
       dispatch(getAllLikesByUser(data)).then((response: any) => {
         if (response.meta.requestStatus === "fulfilled") {
@@ -55,10 +54,10 @@ const LikedPostCardList = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {allLikedPosts?.length > 0 ? (
+          {allLikedPosts?.posts.length > 0 ? (
             <React.Fragment>
               <div className="flex-1">No more posts</div>
-              {allLikedPosts?.map((post: CardProps) => (
+              {allLikedPosts?.posts.map((post: CardProps) => (
                 <Card key={post._id} {...post} />
               ))}
             </React.Fragment>
