@@ -258,7 +258,7 @@ const NavBar = () => {
                   <div className=" w-6 h-6 flex justify-center items-center rounded-full">
                     <img
                       className="w-full h-full object-contain aspect-square rounded-full"
-                      src={user.avatarURL}
+                      src={avatarURL ? avatarURL : ""}
                     />
                   </div>
                   <div className="hidden lg:flex items-center whitespace-nowrap">
