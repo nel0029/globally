@@ -136,7 +136,7 @@ const PostDetailsContainer = () => {
           </React.Fragment>
         )}
 
-        <div className="w-full flex flex-col-reverse items-center gap-y-2 overflow-y-auto ">
+        <div className="w-full flex flex-col-reverse items-center gap-y-2">
           {postDetails !== null ? (
             isRepliesLoading ? (
               <React.Fragment>

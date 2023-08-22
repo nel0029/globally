@@ -84,8 +84,10 @@ export const searchUser = createAsyncThunk(
   "userSlice/searchUser",
   async (data: any) => {
     try {
-      const { userName } = data;
-      const response = await axios.get(`/users/search?userName=${userName}`);
+      const { userName, requesterUserName } = data;
+      const response = await axios.get(
+        `/users/search?userName=${userName}&requesterUserName=${requesterUserName}`
+      );
       return response.data;
     } catch (error) {
       console.log(error);

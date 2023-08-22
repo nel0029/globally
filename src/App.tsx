@@ -15,7 +15,9 @@ import {
 } from "./redux/asynActions/messageAsyncActions";
 import {
   addNewNotifcation,
+  createNewMessage,
   removeNotifcation,
+  updateConvo,
   updateUnseenMessagesCount,
 } from "./redux/messageSlice";
 import Register from "./pages/Register/Register";
@@ -25,6 +27,28 @@ import Settings from "./pages/Settings/Settings";
 import TrendingHashtags from "./pages/Explore/ExploreComponents/TrendingHashtags";
 import SearchBar from "./pages/Explore/ExploreComponents/SearchBar";
 import MobileLayout from "./routes/MobileLayout";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import AccountSettings from "./pages/AccountSettings/AccountSettings";
+import Profile from "./pages/Profile/Profile";
+import PostCardList from "./pages/Profile/ProfileComponents/PostCardList";
+import ReplyCardList from "./pages/Profile/ProfileComponents/ReplyCardList";
+import RepostCardList from "./pages/Profile/ProfileComponents/RepostCardList";
+import LikedPostCardList from "./pages/Profile/ProfileComponents/LikedPostCardList";
+import PostDetailsContainer from "./pages/PostDetails/PostDetailsContainer";
+import ReplyDetailsContainer from "./pages/PostDetails/ReplyDetailsContainer";
+import RepostDetailsContainer from "./pages/PostDetails/RepostDetailsContainer";
+import UsersList from "./pages/Profile/UsersList";
+import UserFollowingList from "./pages/Profile/ProfileComponents/UserFollowingList";
+import UserFollowerList from "./pages/Profile/ProfileComponents/UserFollowerList";
+import Home from "./pages/Home/Home";
+import Messages from "./pages/Messages/Messages";
+import Notifications from "./pages/Notifications/Notifications";
+import Explore from "./pages/Explore/Explore";
+import SearchResults from "./pages/Explore/ExploreComponents/SearchResults";
+import SearchResultsTop from "./pages/Explore/ExploreComponents/SearchResultsTop";
+import SearchResultsPosts from "./pages/Explore/ExploreComponents/SearchResultsPosts";
+import SearchResultsUsers from "./pages/Explore/ExploreComponents/SearchResultsUsers";
+import BottomNavigation from "./layout/BottomNavigation";
 
 const App = () => {
   axios.defaults.baseURL = serverAddress;
@@ -126,6 +150,14 @@ const App = () => {
   useEffect(() => {
     handleIsInMessageRoute(location.pathname);
   }, [location.pathname]);
+
+  useEffect(() => {
+    socket?.on("receiveMessage", (data: any) => {
+      const { conversation, message } = data;
+      dispatch(updateConvo(conversation));
+      dispatch(createNewMessage(message));
+    });
+  }, []);
   return (
     <div
       className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] relative`}
@@ -134,29 +166,32 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/settings" element={<Settings />} />
-        {window.innerWidth >= 1280 ? (
-          <Route
-            path="/*"
-            element={
-              <div className="hidden w-full h-auto xl:flex flex-row justify-start flex-1 overflow-y-scroll ">
-                <NavBar />
-                <div
-                  id="main"
-                  className={`w-full flex flex-col flex-1 justify-start relative`}
-                >
-                  <RoutesPage pos={scrollPos} />
-                </div>
-                {handleIsInMessageRoute(location.pathname) && (
-                  <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
-                    <TrendingHashtags />
+
+        <Route element={<PrivateRoutes />}>
+          {window.innerWidth >= 1280 ? (
+            <Route
+              path="/*"
+              element={
+                <div className="hidden w-full h-auto xl:flex flex-row justify-start flex-1 overflow-y-scroll ">
+                  <NavBar />
+                  <div
+                    id="main"
+                    className={`w-full flex flex-col flex-1 justify-start relative`}
+                  >
+                    <RoutesPage pos={scrollPos} />
                   </div>
-                )}
-              </div>
-            }
-          ></Route>
-        ) : (
-          <Route path="/*" element={<MobileLayout />} />
-        )}
+                  {handleIsInMessageRoute(location.pathname) && (
+                    <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
+                      <TrendingHashtags />
+                    </div>
+                  )}
+                </div>
+              }
+            ></Route>
+          ) : (
+            <Route path="/*" element={<MobileLayout />} />
+          )}
+        </Route>
       </Routes>
     </div>
   );

@@ -62,6 +62,7 @@ const NewConversation = () => {
   useEffect(() => {
     const data = {
       userName: userNameDebounced,
+      requesterUserName: user?.userName,
     };
     dispatch(searchUser(data));
   }, [userNameDebounced, userName]);
@@ -107,7 +108,7 @@ const NewConversation = () => {
 
     socket.emit("createNewMessage", data);
     scrollToBottom();
-    navigate(`/messages/${responseConvoInfo._id}`);
+    navigate(`/messages`);
   };
 
   return (

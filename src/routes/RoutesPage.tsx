@@ -33,13 +33,13 @@ const RoutePage: React.FC<RoutePageProps> = ({ pos }) => {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
-        <Route path="/" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="/messages/*" element={<Messages />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/account/setting" element={<AccountSettings />} />
-        <Route path="/explore" element={<Explore />}>
+        <Route path="/explore/*" element={<Explore />}>
           <Route index element={<TrendingHashtags />} />
-          <Route path="search" element={<SearchResults />}>
+          <Route path="search/*" element={<SearchResults />}>
             <Route path="top/*" element={<SearchResultsTop />} />
             <Route path="posts/*" element={<SearchResultsPosts />} />
             <Route path="users/*" element={<SearchResultsUsers />} />
@@ -58,13 +58,13 @@ const RoutePage: React.FC<RoutePageProps> = ({ pos }) => {
           element={<RepostDetailsContainer />}
         />
 
-        <Route path="/:userName" element={<UsersList />}>
+        <Route path="/:userName/*" element={<UsersList />}>
           <Route path="following" element={<UserFollowingList />} />
           <Route path="followers" element={<UserFollowerList />} />
         </Route>
 
-        <Route path="/:userName" element={<Profile />}>
-          <Route path="" element={<PostCardList />} />
+        <Route path="/:userName/*" element={<Profile />}>
+          <Route index element={<PostCardList />} />
           <Route path="replies" element={<ReplyCardList />} />
           <Route path="reposts" element={<RepostCardList />} />
           <Route path="likes" element={<LikedPostCardList />} />

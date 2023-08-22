@@ -41,6 +41,33 @@ const CardHeader: React.FC<CardHeaderProps> = ({
     year: "numeric",
   })}`;
 
+  const formatDate = (createdAt: Date) => {
+    const now: Date = new Date();
+    const diff: number = (now.getTime() - createdAt.getTime()) / 1000; // Get time difference in seconds
+
+    if (diff < 10) {
+      return "just now";
+    } else if (diff < 60) {
+      return `${Math.floor(diff)} second${
+        Math.floor(diff) === 1 ? "" : "s"
+      } ago`;
+    } else if (diff < 3600) {
+      return `${Math.floor(diff / 60)} minute${
+        Math.floor(diff / 60) === 1 ? "" : "s"
+      } ago`;
+    } else if (diff < 86400) {
+      return `${Math.floor(diff / 3600)} hour${
+        Math.floor(diff / 3600) === 1 ? "" : "s"
+      } ago`;
+    } else if (diff < 2592000) {
+      return `${Math.floor(diff / 86400)} day${
+        Math.floor(diff / 86400) === 1 ? "" : "s"
+      } ago`;
+    } else {
+      return formattedDateAndTime;
+    }
+  };
+
   const navigate = useNavigate();
   const fullNameArray = [firstName, middleName, lastName];
   const fullName = fullNameArray?.join(" ");
@@ -76,7 +103,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
           <div className="font-light">@{userName}</div>
         </div>
         <div className="flex-1 text-xs xl:text-sm text-gray-500">
-          ● {formattedDateAndTime}
+          ● {formatDate(dateAndTime)}
         </div>
       </div>
       {children}

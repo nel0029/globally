@@ -22,6 +22,7 @@ import NoMessageRequestSelected from "./MessageComponents/NoMessageRequestSelect
 import {
   createNewConvo,
   createNewMessage,
+  setNewConvo,
   updateConvo,
 } from "../../redux/messageSlice";
 
@@ -60,16 +61,10 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    if (isLogIn) {
-      if (user) {
-        socket?.on("receiveMessage", (data: any) => {
-          const { conversation, message } = data;
-          dispatch(updateConvo(conversation));
-          dispatch(createNewMessage(message));
-        });
-      }
-    }
-  }, [isLogIn]);
+    socket?.on("createNewMessage", (data: any) => {
+      dispatch(setNewConvo(data));
+    });
+  }, []);
 
   return (
     <div
@@ -78,7 +73,7 @@ const Messages = () => {
     >
       <div className="flex-1 flex lg:hidden w-full h-full">
         <Routes>
-          <Route path="/" element={<ConversationListContainer />} />
+          <Route path="/*" element={<ConversationListContainer />} />
           <Route path="/new" element={<NewConversation />} />
           <Route path="/:conversationID" element={<ConversationContainer />} />
           <Route path="/r/requests" element={<MessageRequestListContainer />} />

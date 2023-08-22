@@ -173,7 +173,19 @@ const messageSlice = createSlice({
         state.conversationList = [...state.conversationList, newConvo];
       }
     },
-
+    setNewConvo: (state, action) => {
+      const newConvo = action.payload;
+      if (state.conversationList) {
+        console.log(newConvo);
+        state.conversationList = [
+          ...state.conversationList,
+          newConvo.conversation,
+        ];
+      } else {
+        console.log("No Convo");
+        state.conversationList = [newConvo.conversation];
+      }
+    },
     updateConvo: (state, action) => {
       const updatedConvo = action.payload;
 
@@ -324,5 +336,6 @@ export const {
   resetConversationList,
   resetNotificationList,
   resetMessageState,
+  setNewConvo,
 } = messageSlice.actions;
 export default messageSlice.reducer;

@@ -29,8 +29,8 @@ const MobileLayoutFullScreen = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/account/setting" element={<AccountSettings />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/:userName" element={<Profile />}>
-            <Route path="" element={<PostCardList />} />
+          <Route path="/:userName/*" element={<Profile />}>
+            <Route index element={<PostCardList />} />
             <Route path="replies" element={<ReplyCardList />} />
             <Route path="reposts" element={<RepostCardList />} />
             <Route path="likes" element={<LikedPostCardList />} />
@@ -48,7 +48,7 @@ const MobileLayoutFullScreen = () => {
             element={<RepostDetailsContainer />}
           />
 
-          <Route path="/:userName" element={<UsersList />}>
+          <Route path="/:userName/*" element={<UsersList />}>
             <Route path="following" element={<UserFollowingList />} />
             <Route path="followers" element={<UserFollowerList />} />
           </Route>

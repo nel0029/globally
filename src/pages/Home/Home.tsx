@@ -16,8 +16,8 @@ import Header from "../../common/Header";
 import LoadingCard from "./PostComponents/LoadingCard";
 
 export default function Home() {
-  const posts = useSelector((state: any) => state.posts.PostData || []);
-  const isLogIn = useSelector((state: any) => state.user.isLogIn);
+  const posts = useSelector((state: any) => state.posts.PostData);
+
   const userID = localStorage.getItem("userID");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,7 +26,7 @@ export default function Home() {
 
   useEffect(() => {
     if (userID) {
-      if (posts.length !== 0) {
+      if (posts !== null && posts.length !== 0) {
         setIsLoading(false);
       } else {
         setIsLoading(true);
@@ -69,7 +69,7 @@ export default function Home() {
           ) : (
             <React.Fragment>
               <div className="p-2">No more posts</div>
-              {posts.map((post: any) => (
+              {posts?.map((post: any) => (
                 <Card isInHomeRoute={true} key={post._id} {...post} />
               ))}
             </React.Fragment>

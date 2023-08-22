@@ -37,6 +37,8 @@ function LogIn() {
           setIsServerLoading(false);
           navigate("/");
         }
+      } else {
+        setIsServerLoading(false);
       }
     });
     e.preventDefault();
@@ -55,6 +57,8 @@ function LogIn() {
           setIsServerLoading(false);
           navigate("/");
         }
+      } else {
+        setIsServerLoading(false);
       }
     });
     e.preventDefault();
@@ -73,6 +77,8 @@ function LogIn() {
           setIsServerLoading(false);
           navigate("/");
         }
+      } else {
+        setIsServerLoading(false);
       }
     });
     e.preventDefault();

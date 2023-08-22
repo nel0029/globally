@@ -160,9 +160,9 @@ const AccountSettings = () => {
     <div
       className={`${
         isInAccountSettings
-          ? " translate-x-full xl:translate-x-0"
-          : " translate-x-0"
-      } z-50 fixed xl:absolute overflow-y-auto xl:overflow-y-visible top-0 -left-full h-screen xl:h-auto w-full flex-grow flex flex-col items-center gap-y-2 dark:bg-Dark100 bg-slate-100 transition-transform ease-in-out duration-300`}
+          ? " translate-x-full xl:translate-x-0 -left-full xl:left-0"
+          : " translate-x-0 -left-full xl:left-0"
+      } z-50 absolute overflow-y-auto xl:overflow-y-visible top-0 xl:left-0 h-screen xl:h-auto w-full flex-grow flex flex-col items-center gap-y-2 dark:bg-Dark100 bg-slate-100 transition-transform ease-in-out duration-300`}
     >
       <Header>
         <div className="block xl:hidden">

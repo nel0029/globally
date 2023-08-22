@@ -19,14 +19,13 @@ const MobileLayoutWithBottomNav = () => {
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col pb-[76px]">
         <Routes>
-          {/* With Bottom Nav */}
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/*" element={<Home />} />
             <Route path="/messages/*" element={<Messages />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/explore/*" element={<Explore />}>
               <Route index element={<TrendingHashtags />} />
-              <Route path="search" element={<SearchResults />}>
+              <Route path="search/*" element={<SearchResults />}>
                 <Route path="top/*" element={<SearchResultsTop />} />
                 <Route path="posts/*" element={<SearchResultsPosts />} />
                 <Route path="users/*" element={<SearchResultsUsers />} />

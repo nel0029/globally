@@ -51,7 +51,7 @@ const CardAvatar: React.FC<AvatarURLProps> = ({
           style={{ fontSize: fontSize ? fontSize : "20px" }}
           className={`w-full h-full bg-secondary rounded-full hover:ring-secondary hover:outline-1 flex justify-center items-center text-white`}
         >
-          <IonIcon name="person" />
+          <IonIcon icon={person} />
         </div>
       )}
     </div>

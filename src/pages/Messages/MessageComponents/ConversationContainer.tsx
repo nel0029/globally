@@ -57,27 +57,26 @@ const ConversationContainer = () => {
       conversationID: conversationID,
       userID: userID,
     };
-    if (userID) {
-      dispatch(getConversationInfo(data)).then(() =>
-        dispatch(getAllMessages(data))
-      );
 
-      const conversationData = {
-        conversationID: conversationID,
-        memberID: userID,
-      };
+    dispatch(getConversationInfo(data)).then(() =>
+      dispatch(getAllMessages(data))
+    );
 
-      const unseenMessagesData = {
-        userID: userID,
-      };
-      dispatch(getUnseenMessagesCount(unseenMessagesData));
+    const conversationData = {
+      conversationID: conversationID,
+      memberID: userID ? userID : "",
+    };
 
-      socket.emit("joinConversation", conversationData);
-    }
+    const unseenMessagesData = {
+      userID: userID ? userID : "",
+    };
+    dispatch(getUnseenMessagesCount(unseenMessagesData));
+
+    socket?.emit("joinConversation", conversationData);
 
     return () => {
       if (userID) {
-        socket.emit("leaveConversation", data);
+        socket?.emit("leaveConversation", data);
         dispatch(resetConversationInfo());
         dispatch(resetMessages());
       }
@@ -91,7 +90,7 @@ const ConversationContainer = () => {
   }, [messages.length]);
 
   const goBack = () => {
-    navigate(-1);
+    navigate("/messages");
     dispatch(resetConversationInfo());
     dispatch(resetMessages());
   };
@@ -103,7 +102,7 @@ const ConversationContainer = () => {
       senderID: userID,
     };
 
-    socket.emit("sendMessage", data);
+    socket?.emit("sendMessage", data);
     scrollToBottom();
     setMessageText("");
   };
