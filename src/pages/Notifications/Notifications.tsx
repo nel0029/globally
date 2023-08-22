@@ -109,13 +109,13 @@ const Notifications = () => {
   }, [userID]);
 
   return (
-    <div className="w-full h-full flex-grow flex flex-col items-center justify-start">
+    <div className="flex-1 w-full h-full flex-grow flex flex-col items-center justify-start">
       <Header>
         <TitleText>
           <div className="py-0.5">Notifications</div>
         </TitleText>
       </Header>
-      <div className="w-full h-full flex-1 flex flex-col-reverse justify-end ">
+      <div className="w-full flex-1 flex flex-col-reverse justify-end ">
         {isLoading ? (
           <React.Fragment>
             <LoadingNotificationCard />

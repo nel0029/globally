@@ -38,7 +38,7 @@ const SearchResultsPosts = () => {
   }, [matchedPosts?.length]);
 
   return (
-    <div className="w-full flex flex-col items-center gap-y-2">
+    <div className="w-full h-auto flex flex-col items-center gap-y-2">
       {matchedPosts?.map((post: CardProps) => (
         <Card
           isInHomeRoute={true}

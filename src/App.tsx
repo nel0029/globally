@@ -160,7 +160,7 @@ const App = () => {
   }, []);
   return (
     <div
-      className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] relative`}
+      className={`w-full h-full flex flex-col dark:text-white dark:text-opacity-[87%] relative `}
     >
       <Routes>
         <Route path="/register" element={<Register />} />

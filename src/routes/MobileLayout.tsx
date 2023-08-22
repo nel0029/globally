@@ -33,7 +33,7 @@ const MobileLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="w-full h-full flex flex-col overflow-y-auto">
+    <div className="flex-1 w-full h-auto flex flex-col">
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />

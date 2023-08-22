@@ -85,7 +85,7 @@ const Explore = () => {
           </div>
         </Header>
       </div>
-      <div className={`w-full h-auto flex-1`}>
+      <div className={`w-full h-full flex-1`}>
         <Outlet />
       </div>
     </div>
