@@ -72,7 +72,7 @@ const Explore = () => {
   const searchBar = document.getElementById("search-bar");
   const searchBarHeight = searchBar?.offsetHeight;
   return (
-    <div className="w-full flex-1 flex flex-col flex-shrink">
+    <div className="w-full h-full flex flex-col flex-shrink">
       <div id="search-bar" className="w-full sticky top-0 z-50">
         <Header>
           <div className="w-full flex flex-row items-center ">
