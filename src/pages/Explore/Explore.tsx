@@ -36,8 +36,10 @@ const Explore = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [clientHeight, setClientHeight] = useState<number>(0);
+  const [originalHeight, setOriginalHeight] = useState<number>(0);
 
   useEffect(() => {
+    setOriginalHeight(window.innerHeight);
     window.addEventListener("resize", () => {
       setClientHeight(window.innerHeight);
     });
@@ -183,6 +185,7 @@ const Explore = () => {
           ))}
         </div>
       )}
+      <div>ORIGINAL HEIGHT IS {originalHeight}</div>
       <div>CLIENT HEIGH IS {clientHeight}</div>
       <div className={`w-full flex-1 `}>
         <Outlet />
