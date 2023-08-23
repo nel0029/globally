@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Profile from "../pages/Profile/Profile";
@@ -33,7 +33,7 @@ const MobileLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="flex-1 w-full h-auto flex flex-col">
+    <div id="mobile-layout" className="flex-1 w-full h-auto flex flex-col ">
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />

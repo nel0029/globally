@@ -22,9 +22,9 @@ const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
   } else {
     document.body.style.overflowY = "visible";
   }
-  const handleFullView = (event: any) => {
+  const handleFullView = (event: any, params: boolean) => {
     event.stopPropagation();
-    setIsFullView(!isFullView);
+    setIsFullView(params);
   };
   const postImgDisplay = (mediaURL: MediaProps[]) => {
     switch (true) {
@@ -33,12 +33,14 @@ const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
           <div
             className={`${
               isFullView
-                ? "w-full max-w-[700px] h-full flex justify-center"
-                : `w-full h-auto aspect-3/4 border dark:border-Dark200`
-            }  rounded-lg  relative`}
+                ? "w-full h-full flex justify-center items-center"
+                : `w-full h-full border dark:border-Dark200`
+            }  rounded-lg relative`}
           >
             <img
-              className="absolute w-full h-full object-cover rounded-lg"
+              className={`${
+                isFullView ? "absolute w-auto h-auto" : "w-full h-auto"
+              }  object-cover rounded-lg`}
               src={mediaURL[0]?.url}
               alt="Post"
             />
@@ -66,18 +68,26 @@ const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
 
   return (
     <div
-      onClick={(event: any) => handleFullView(event)}
+      onClick={
+        isFullView ? () => {} : (event: any) => handleFullView(event, true)
+      }
       className={`${
         isFullView
           ? "fixed w-full h-full top-0 left-0 bottom-0 right-0 z-50 flex justify-center items-center bg-black backdrop-blur-md"
           : " w-full max-w-[500px] h-auto"
       }`}
     >
-      <div className="relative w-full h-full flex justify-center items-center">
+      <div
+        className={` ${
+          isFullView
+            ? "relative w-full max-w-[500px] h-full flex justify-center items-center"
+            : "w-full max-w-[500px] h-auto"
+        } `}
+      >
         {isFullView && (
           <div
-            onClick={(event: any) => handleFullView(event)}
-            className="z-50 absolute top-6 right-6 bg-Dark200 p-2 text-3xl text-Dark400 rounded-full flex justify-center items-center"
+            onClick={(event: any) => handleFullView(event, false)}
+            className="z-50 absolute top-5 right-5 bg-Dark200 p-2 text-3xl text-Dark400 rounded-full flex justify-center items-center"
           >
             <IonIcon icon={close} />
           </div>

@@ -28,6 +28,7 @@ export interface UserProps {
   inProfileRoute?: boolean;
   isLoading?: boolean;
   verified: boolean;
+  rounded?: string;
 }
 
 const UserCard: React.FC<UserProps> = ({
@@ -43,6 +44,7 @@ const UserCard: React.FC<UserProps> = ({
   inProfileRoute,
   isLoading,
   verified,
+  rounded,
 }) => {
   const navigate = useNavigate();
   const goToUserProfile = () => {
@@ -76,12 +78,12 @@ const UserCard: React.FC<UserProps> = ({
   return (
     <div
       onClick={goToUserProfile}
-      className={`${
-        isLoading && "animate-pulse"
+      className={`${isLoading && "animate-pulse"} ${
+        rounded && rounded
       } w-full flex flex-row justify-around cursor-pointer bg-white dark:bg-Dark200 p-2 border-y dark:border-Dark200`}
     >
       {!avatarURL?.url ? (
-        <div className="pr-2 animate-pulse">
+        <div className="pr-2 ">
           <div className="w-[40px] h-[40px] rounded-[50%]">
             <svg
               className="w-full h-full bg-gray-100 dark:bg-gray-300 text-gray-200 dark:text-gray-700 rounded-full"
@@ -132,7 +134,7 @@ const UserCard: React.FC<UserProps> = ({
             <img className="w-[20px] h-[20px]" src="/blue-check.png" />
           )}
         </div>
-        <div className="flex-shrink text-gray-400 font-light overflow-hidden text-ellipsis whitespace-nowrap ">
+        <div className="flex-shrink text-gray-400 font-light">
           {isLoading ? (
             <div className="pt-1">
               <div className=" h-3 w-[100px] bg-gray-200 rounded dark:bg-Dark300"></div>
@@ -145,8 +147,12 @@ const UserCard: React.FC<UserProps> = ({
           <div className="py-1">
             <div className=" h-3 w-[150px] bg-gray-200 rounded dark:bg-Dark300"></div>
           </div>
+        ) : bio ? (
+          <div className="py-1 line-clamp-1">{bio}</div>
         ) : (
-          <div className=" line-clamp-1">{bio}</div>
+          <div className="py-1">
+            <div className=" h-3 w-[150px] "></div>
+          </div>
         )}
       </div>
 
@@ -158,14 +164,14 @@ const UserCard: React.FC<UserProps> = ({
           (user.userID !== _id ? (
             isUserFollowed ? (
               <div
-                className="py-1 px-4 border-2 border-slate-400 rounded-full"
+                className="py-1 px-4 border-2 border-slate-400 rounded-full text-sm"
                 onClick={unfollowUser}
               >
                 Unfollow
               </div>
             ) : (
               <div
-                className="py-1 px-4 border-2 border-secondary bg-secondary text-white rounded-full"
+                className="py-1 px-4 border-2 border-secondary bg-secondary text-white rounded-full text-sm"
                 onClick={followUser}
               >
                 Follow

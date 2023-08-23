@@ -4,6 +4,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getAllTrendingHashtags,
   searchPostsByWord,
+  searchKeyWords,
+  searchWords,
+  searchUserByKeyWords,
 } from "./asynActions/exploreAsyncActions";
 
 interface HashtagsProps {
@@ -14,13 +17,19 @@ interface HashtagsProps {
 interface ExploreSliceInitialStateProps {
   trendingHashtags: HashtagsProps[] | null;
   queryWords: string | null;
+  topResults: any | null;
   matchedPosts: any[] | null;
+  matchedUsers: any[] | null;
+  matchedKeyWords: any[] | null;
 }
 
 const initialState: ExploreSliceInitialStateProps = {
   trendingHashtags: null,
   queryWords: null,
+  topResults: null,
   matchedPosts: null,
+  matchedUsers: null,
+  matchedKeyWords: null,
 };
 
 const themeSlice = createSlice({
@@ -38,6 +47,9 @@ const themeSlice = createSlice({
     resetExploreState: (state) => {
       state = initialState;
     },
+    resetMatchedKeyWords: (state) => {
+      state.matchedKeyWords = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -48,10 +60,29 @@ const themeSlice = createSlice({
       .addCase(searchPostsByWord.fulfilled, (state, action) => {
         const matchedPosts = action.payload;
         state.matchedPosts = matchedPosts;
+      })
+      .addCase(searchKeyWords.fulfilled, (state, action) => {
+        const response = action.payload;
+
+        state.matchedKeyWords = response;
+      })
+      .addCase(searchWords.fulfilled, (state, action) => {
+        const response = action.payload;
+
+        state.topResults = response;
+      })
+      .addCase(searchUserByKeyWords.fulfilled, (state, action) => {
+        const response = action.payload;
+
+        state.matchedUsers = response;
       });
   },
 });
 
-export const { setQueryWords, resetMatchedPosts, resetExploreState } =
-  themeSlice.actions;
+export const {
+  setQueryWords,
+  resetMatchedPosts,
+  resetExploreState,
+  resetMatchedKeyWords,
+} = themeSlice.actions;
 export default themeSlice.reducer;

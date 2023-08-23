@@ -30,3 +30,48 @@ export const searchPostsByWord = createAsyncThunk(
     }
   }
 );
+
+export const searchKeyWords = createAsyncThunk(
+  "searchKeyWords",
+  async (data: any) => {
+    try {
+      const { query, userID } = data;
+      const response = await axios.get(
+        `/explore/search/keywords?query=${query}&userID=${userID}`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const searchWords = createAsyncThunk(
+  "searchWords",
+  async (data: any) => {
+    try {
+      const { query, userID } = data;
+      const response = await axios.get(
+        `/explore/search/word?query=${query}&userID=${userID}`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const searchUserByKeyWords = createAsyncThunk(
+  "searchUsersByWords",
+  async (data: any) => {
+    try {
+      const { query, userID } = data;
+      const response = await axios.get(
+        `/explore/search/users?query=${query}&userID=${userID}`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);

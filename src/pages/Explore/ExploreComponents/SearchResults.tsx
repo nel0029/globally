@@ -16,12 +16,11 @@ const SearchResults = () => {
       dispatch(resetMatchedPosts());
     };
   }, []);
-  const searchBar = document.getElementById("search-bar");
-  const searchBarHeight = searchBar?.offsetHeight;
+
   return (
-    <div className={`w-full h-full flex flex-col `}>
+    <div className={`w-full flex flex-col `}>
       <SearchNavBar />
-      <div className="flex-1 w-full h-full p-2">
+      <div className="flex-1 w-full p-2 ">
         <Outlet />
       </div>
     </div>
