@@ -35,14 +35,39 @@ const Explore = () => {
   const [searchBody, setSearchBody] = useState<string>("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [clientHeight, setClientHeight] = useState<number>(0);
+  const [clientHeight, setClientHeight] = useState<number | null | undefined>(
+    0
+  );
   const [originalHeight, setOriginalHeight] = useState<number>(0);
 
   useEffect(() => {
     setOriginalHeight(window.innerHeight);
-    window.addEventListener("resize", () => {
-      setClientHeight(window.innerHeight);
-    });
+
+    if (window && window.visualViewport) {
+      // If window.visualViewport is available
+      setClientHeight(window.visualViewport.height);
+
+      const handleResize = () => {
+        setClientHeight(window?.visualViewport?.height);
+      };
+
+      window.visualViewport.addEventListener("resize", handleResize);
+
+      return () => {
+        window?.visualViewport?.removeEventListener("resize", handleResize);
+      };
+    } else {
+      // Fallback for browsers that do not support visualViewport
+      const handleResize = () => {
+        setClientHeight(window.innerHeight);
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, [clientHeight]);
 
   const keyWordsDebounced = useDebounce(searchBody, 1000);
