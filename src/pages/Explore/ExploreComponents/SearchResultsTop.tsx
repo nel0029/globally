@@ -50,82 +50,91 @@ const SearchResultsTop = () => {
 
   return (
     <div className="w-full flex flex-col items-center gap-y-1 ">
-      <div className="w-full flex flex-col gap-y-1">
-        <div className="font-bold">Users</div>
-        {topResults?.matchedUsers?.map((user: any) => (
-          <UserCard
-            key={user._id}
-            userName={user.userName}
-            firstName={user.userFirstName}
-            middleName={user.userMiddleName}
-            lastName={user.userLastName}
-            avatarURL={user.avatarURL}
-            verified={user.verified}
-            bio={user.bio}
-            rounded="rounded-lg"
-          />
-        ))}
-        <div className="py-1 text-secondary ">
-          <span onClick={goToMatchedUsers} className="cursor-pointer">
-            View all
-          </span>
+      {topResults?.matchedUsers && (
+        <React.Fragment>
+          <div className="w-full flex flex-col gap-y-1">
+            <div className="font-bold">Users</div>
+            {topResults.matchedUsers.map((user: any) => (
+              <UserCard
+                key={user._id}
+                userName={user.userName}
+                firstName={user.userFirstName}
+                middleName={user.userMiddleName}
+                lastName={user.userLastName}
+                avatarURL={user.avatarURL}
+                verified={user.verified}
+                bio={user.bio}
+                rounded="rounded-lg"
+              />
+            ))}
+            <div className="py-1 text-secondary ">
+              <span onClick={goToMatchedUsers} className="cursor-pointer">
+                View all
+              </span>
+            </div>
+          </div>
+          <div className="w-full border-b-2 dark:border-Dark300"></div>
+        </React.Fragment>
+      )}
+
+      {topResults?.matchedPosts && (
+        <div className="w-full flex flex-col gap-y-2">
+          <React.Fragment>
+            {topResults?.allPosts?.map((post: CardProps) => (
+              <Card
+                isInHomeRoute={true}
+                key={post._id}
+                _id={post._id}
+                authorID={post.authorID}
+                postAuthorFirstName={post.postAuthorFirstName}
+                postAuthorMiddleName={post.postAuthorMiddleName}
+                postAuthorLastName={post.postAuthorLastName}
+                postAuthorUserName={post.postAuthorUserName}
+                postAuthorAvatarURL={post.postAuthorAvatarURL}
+                parentAuthorFirstName={post.parentAuthorFirstName}
+                parentAuthorMiddleName={post.parentAuthorMiddleName}
+                parentAuthorLastName={post.parentAuthorLastName}
+                parentUserName={post.parentUserName}
+                parentAvatarURL={post.parentAvatarURL}
+                parentPostID={post.parentPostID}
+                parentAuthorID={post.parentAuthorID}
+                parentCaption={post.parentCaption}
+                parentMediaURL={post.parentMediaURL}
+                parentHasPoll={post.parentHasPoll}
+                parentPollOptions={post.parentPollOptions}
+                parentPollRespondentsCount={post.parentPollRespondentsCount}
+                parentLikesCount={post.parentLikesCount}
+                parentRepliesCount={post.parentRepliesCount}
+                parentRepostCount={post.parentRepostCount}
+                parentBGColor={post.parentBGColor}
+                type={post.type}
+                caption={post.caption}
+                mediaURL={post.mediaURL}
+                likeID={post.likeID}
+                isLiked={post.isLiked}
+                likesCount={post.likesCount}
+                repliesCount={post.repliesCount}
+                repostsCount={post.repostsCount}
+                isFollowedAuthor={post.isFollowedAuthor}
+                followID={post.followID}
+                createdAt={post.createdAt}
+                hasPoll={post.hasPoll}
+                pollOptions={post.pollOptions}
+                pollRespondentsCount={post.pollRespondentsCount}
+                hasChoosed={post.hasChoosed}
+                optionChoosedID={post.optionChoosedID}
+                verified={post.verified}
+                parentAuthorVerified={post.parentAuthorVerified}
+              />
+            ))}
+            <div className="py-1 text-secondary ">
+              <span onClick={goToMatchedPosts} className="cursor-pointer">
+                View all
+              </span>
+            </div>
+          </React.Fragment>
         </div>
-      </div>
-      <div className="w-full border-b-2 dark:border-Dark300"></div>
-      <div className="w-full flex flex-col gap-y-2">
-        {topResults?.allPosts?.map((post: CardProps) => (
-          <Card
-            isInHomeRoute={true}
-            key={post._id}
-            _id={post._id}
-            authorID={post.authorID}
-            postAuthorFirstName={post.postAuthorFirstName}
-            postAuthorMiddleName={post.postAuthorMiddleName}
-            postAuthorLastName={post.postAuthorLastName}
-            postAuthorUserName={post.postAuthorUserName}
-            postAuthorAvatarURL={post.postAuthorAvatarURL}
-            parentAuthorFirstName={post.parentAuthorFirstName}
-            parentAuthorMiddleName={post.parentAuthorMiddleName}
-            parentAuthorLastName={post.parentAuthorLastName}
-            parentUserName={post.parentUserName}
-            parentAvatarURL={post.parentAvatarURL}
-            parentPostID={post.parentPostID}
-            parentAuthorID={post.parentAuthorID}
-            parentCaption={post.parentCaption}
-            parentMediaURL={post.parentMediaURL}
-            parentHasPoll={post.parentHasPoll}
-            parentPollOptions={post.parentPollOptions}
-            parentPollRespondentsCount={post.parentPollRespondentsCount}
-            parentLikesCount={post.parentLikesCount}
-            parentRepliesCount={post.parentRepliesCount}
-            parentRepostCount={post.parentRepostCount}
-            parentBGColor={post.parentBGColor}
-            type={post.type}
-            caption={post.caption}
-            mediaURL={post.mediaURL}
-            likeID={post.likeID}
-            isLiked={post.isLiked}
-            likesCount={post.likesCount}
-            repliesCount={post.repliesCount}
-            repostsCount={post.repostsCount}
-            isFollowedAuthor={post.isFollowedAuthor}
-            followID={post.followID}
-            createdAt={post.createdAt}
-            hasPoll={post.hasPoll}
-            pollOptions={post.pollOptions}
-            pollRespondentsCount={post.pollRespondentsCount}
-            hasChoosed={post.hasChoosed}
-            optionChoosedID={post.optionChoosedID}
-            verified={post.verified}
-            parentAuthorVerified={post.parentAuthorVerified}
-          />
-        ))}
-        <div className="py-1 text-secondary ">
-          <span onClick={goToMatchedPosts} className="cursor-pointer">
-            View all
-          </span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

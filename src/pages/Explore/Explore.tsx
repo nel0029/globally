@@ -35,6 +35,13 @@ const Explore = () => {
   const [searchBody, setSearchBody] = useState<string>("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [clientHeight, setClientHeight] = useState<number>(0);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setClientHeight(window.innerHeight);
+    });
+  }, [clientHeight]);
 
   const keyWordsDebounced = useDebounce(searchBody, 1000);
 
@@ -176,6 +183,7 @@ const Explore = () => {
           ))}
         </div>
       )}
+      <div>CLIENT HEIGH IS {clientHeight}</div>
       <div className={`w-full flex-1 `}>
         <Outlet />
       </div>
