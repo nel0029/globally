@@ -53,7 +53,6 @@ const SearchResultsTop = () => {
       {topResults?.matchedUsers && (
         <React.Fragment>
           <div className="w-full flex flex-col gap-y-1">
-            <div className="font-bold">Users</div>
             {topResults.matchedUsers.map((user: any) => (
               <UserCard
                 key={user._id}

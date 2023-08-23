@@ -41,7 +41,7 @@ const SearchResultsUsers = () => {
   }, [matchedUsers?.length, query]);
 
   return (
-    <div className="w-full flex flex-col items-center  ">
+    <div className="w-full flex flex-col items-center gap-y-1 ">
       {matchedUsers?.map((user: any) => (
         <UserCard
           key={user._id}
