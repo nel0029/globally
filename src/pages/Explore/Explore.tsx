@@ -35,41 +35,6 @@ const Explore = () => {
   const [searchBody, setSearchBody] = useState<string>("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [clientHeight, setClientHeight] = useState<number | null | undefined>(
-    0
-  );
-  const [originalHeight, setOriginalHeight] = useState<number>(0);
-
-  useEffect(() => {
-    setOriginalHeight(window.innerHeight);
-
-    if (window && window.visualViewport) {
-      // If window.visualViewport is available
-      setClientHeight(window.visualViewport.height);
-
-      const handleResize = () => {
-        setClientHeight(window?.visualViewport?.height);
-        window.innerHeight = clientHeight ? clientHeight : window.innerHeight;
-      };
-
-      window.visualViewport.addEventListener("resize", handleResize);
-
-      return () => {
-        window?.visualViewport?.removeEventListener("resize", handleResize);
-      };
-    } else {
-      // Fallback for browsers that do not support visualViewport
-      const handleResize = () => {
-        setClientHeight(window.innerHeight);
-      };
-
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }
-  }, [clientHeight]);
 
   const keyWordsDebounced = useDebounce(searchBody, 1000);
 
@@ -181,7 +146,7 @@ const Explore = () => {
   };
 
   return (
-    <div className={`w-full h-full flex flex-col flex-shrink relative`}>
+    <div className={`w-full flex-1 flex flex-col flex-shrink relative`}>
       <div id="search-bar" className="w-full sticky top-0 z-50">
         <Header>
           <div className="w-full flex flex-row items-center ">
@@ -211,8 +176,7 @@ const Explore = () => {
           ))}
         </div>
       )}
-      <div>ORIGINAL HEIGHT IS {originalHeight}</div>
-      <div>CLIENT HEIGH IS {clientHeight}</div>
+
       <div className={`w-full flex-1 `}>
         <Outlet />
       </div>
