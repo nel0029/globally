@@ -49,6 +49,7 @@ const Explore = () => {
 
       const handleResize = () => {
         setClientHeight(window?.visualViewport?.height);
+        document.body.classList.add(`h-[${clientHeight}px]`);
       };
 
       window.visualViewport.addEventListener("resize", handleResize);
