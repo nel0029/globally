@@ -43,10 +43,10 @@ const Explore = () => {
       query: keyWordsDebounced,
       userID: user?.userID,
     };
-    dispatch(searchKeyWords(data));
 
     if (searchBody.length > 0) {
       document.body.style.overflowY = "hidden";
+      dispatch(searchKeyWords(data));
     } else {
       document.body.style.overflowY = "visible";
       dispatch(resetMatchedKeyWords());
