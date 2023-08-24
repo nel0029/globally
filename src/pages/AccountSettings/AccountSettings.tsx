@@ -1,42 +1,40 @@
 /** @format */
 
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../common/Header";
 import TitleText from "../../common/TitleText";
-import CardAvatar from "../Home/PostComponents/CardAvatar";
 import { IonIcon } from "@ionic/react";
 import {
-  brush,
   eyeOutline,
   eyeOffOutline,
-  moonOutline,
-  powerOutline,
-  sunnyOutline,
+  checkmarkCircle,
+  closeCircle,
 } from "ionicons/icons";
-import CoverPhoto from "../Profile/ProfileComponents/CoverPhoto";
 import ConfirmButton from "../../common/ConfirmButton";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import {
   getAccountData,
-  updateProfilePicture,
   updateUserAccount,
+  verifyUserName,
 } from "../../redux/asynActions/userAsyncActions";
 import CancelButton from "../../common/CancelButton";
-import { setMode } from "../../redux/themeSlice";
-import { logOut, resetAccountData } from "../../redux/usersSlice";
+import useDebounce from "../Register/Hooks/useDebounce";
 import { useNavigate, useLocation } from "react-router";
 import BackButton from "../../common/BackButton";
+import { resetValid } from "../../redux/usersSlice";
 
 const AccountSettings = () => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const user = useSelector((state: any) => state.user.userData);
   const account = useSelector((state: any) => state.user.accountData);
+  const valid = useSelector((state: any) => state.user.valid);
   const [userFirstName, setUserFirstName] = useState("");
   const [userMiddleName, setUserMiddleName] = useState("");
   const [userLastName, setUserLastName] = useState("");
   const [userName, setUserName] = useState("");
+  const [editUserName, setEditUserName] = useState(false);
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
@@ -49,11 +47,18 @@ const AccountSettings = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+  const [userNameError, setUserNameError] = useState("");
   const authMessage = useSelector((state: any) => state.user.authMessage);
-  const mode = useSelector((state: any) => state.theme.darkMode);
   const navigate = useNavigate();
 
   const [isInAccountSettings, setIsInAccountSettings] = useState(false);
+  const debouncedUserName = useDebounce(userName, 500);
+
+  useEffect(() => {
+    if (editUserName && userName) {
+      dispatch(verifyUserName(debouncedUserName));
+    }
+  }, [debouncedUserName]);
 
   useEffect(() => {
     setIsInAccountSettings(true);
@@ -65,7 +70,7 @@ const AccountSettings = () => {
 
   useEffect(() => {
     const data = {
-      userID: user.userID,
+      userID: user?.userID,
     };
 
     dispatch(getAccountData(data));
@@ -87,6 +92,10 @@ const AccountSettings = () => {
     setChangePassWord(true);
   };
 
+  const closeChangePasswordForm = () => {
+    setChangePassWord(false);
+  };
+
   const handleShowCurrentPassword = () => {
     setShowCurrentPassword(!showCurrentPassword);
   };
@@ -100,39 +109,26 @@ const AccountSettings = () => {
   };
 
   const handleSaveChanges = () => {
-    if (newPassword && matchedPassword) {
-      const data = {
-        userID: user.userID,
-        userName: userName,
-        userFirstName: userFirstName,
-        userMiddleName: userMiddleName,
-        userLastName: userLastName,
-        email: email,
-        bio: bio,
-        currentPassword: currentPassword,
-        newPassword: matchedPassword,
-        avatarURL: profilePicture,
-        coverPhotoURL: coverPhoto,
-      };
+    const data = {
+      userID: user?.userID,
+      userName: userName !== account?.userName ? userName : "",
+      userFirstName: userFirstName,
+      userMiddleName: userMiddleName,
+      userLastName: userLastName,
+      email: email !== account?.email ? email : "",
+      bio: bio,
+      currentPassword: currentPassword,
+      newPassword: matchedPassword,
+      avatarURL: profilePicture,
+      coverPhotoURL: coverPhoto,
+    };
 
-      dispatch(updateUserAccount(data));
-    } else {
-      const data = {
-        userID: user.userID,
-        userName: userName,
-        userFirstName: userFirstName,
-        userMiddleName: userMiddleName,
-        userLastName: userLastName,
-        email: email,
-        bio: bio,
-        currentPassword: currentPassword,
+    dispatch(updateUserAccount(data));
 
-        avatarURL: profilePicture,
-        coverPhotoURL: coverPhoto,
-      };
-      setCurrentPassword("");
-      dispatch(updateUserAccount(data));
-    }
+    setCurrentPassword("");
+    dispatch(updateUserAccount(data));
+
+    dispatch(resetValid());
   };
 
   useEffect(() => {
@@ -141,21 +137,12 @@ const AccountSettings = () => {
     }
   }, [confirmNewPassword, newPassword]);
 
-  const setThemeMode = () => {
-    dispatch(setMode(!mode));
-  };
-
-  const handleLogOut = () => {
-    dispatch(setMode(false));
-    dispatch(logOut());
-    dispatch(resetAccountData());
-    navigate("/");
-  };
-
   const goBack = () => {
     setIsInAccountSettings(false);
+    dispatch(resetValid());
     navigate(-1);
   };
+
   return (
     <div
       className={`${
@@ -179,7 +166,7 @@ const AccountSettings = () => {
             <div className="py-1">
               <div className="text-sm text-gray-500">First Name</div>
               <input
-                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2"
+                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2 focus:border-secondary"
                 name="userFirstName"
                 value={userFirstName}
                 onChange={(event: any) => setUserFirstName(event.target.value)}
@@ -189,7 +176,7 @@ const AccountSettings = () => {
             <div>
               <div className="text-sm text-gray-500">Middle Name</div>
               <input
-                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2"
+                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2 focus:border-secondary"
                 name="userMiddleName"
                 value={userMiddleName}
                 onChange={(event: any) => setUserMiddleName(event.target.value)}
@@ -199,7 +186,7 @@ const AccountSettings = () => {
             <div>
               <div className="text-sm text-gray-500">Last Name</div>
               <input
-                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2"
+                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2 focus:border-secondary"
                 name="userLastName"
                 value={userLastName}
                 onChange={(event: any) => setUserLastName(event.target.value)}
@@ -209,7 +196,7 @@ const AccountSettings = () => {
             <div>
               <div className="text-sm text-gray-500">Bio</div>
               <textarea
-                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2 resize-none h-[100px]"
+                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2 focus:border-secondary resize-none h-[100px]"
                 name="bio"
                 value={bio}
                 onChange={(event: any) => setBio(event.target.value)}
@@ -220,44 +207,59 @@ const AccountSettings = () => {
         <div className="w-full flex flex-col">
           <div className="font-bold text-lg">Account Info</div>
           <div className="w-full flex flex-col gap-y-2">
-            <div>
+            <div className="w-full flex flex-row items-center gap-x-1">
               <div className="text-sm text-gray-500">UserName</div>
-              <input
-                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2"
-                name="userName"
-                value={userName}
-                onChange={(event: any) => setUserName(event.target.value)}
-              />
+              {userName !== account?.userName && authMessage && (
+                <span
+                  className={`text-sm ${
+                    !valid ? "text-primary" : "text-secondary1"
+                  }`}
+                >
+                  {authMessage}
+                </span>
+              )}
             </div>
+            <input
+              className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2 focus:border-secondary"
+              onFocus={() => setEditUserName(true)}
+              onBlur={() => {
+                setEditUserName(false);
+              }}
+              name="userName"
+              value={userName}
+              onChange={(event: any) => setUserName(event.target.value)}
+            />
+
             <div>
               <div className="text-sm text-gray-500">Email Address</div>
               <input
-                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2"
+                className="w-full border dark:border-Dark300 rounded-lg bg-transparent outline-none p-2 focus:border-secondary"
                 name="email"
                 value={email}
                 onChange={(event: any) => setEmail(event.target.value)}
               />
             </div>
 
-            <div className="w-full flex flex-row items-center border dark:border-Dark300 rounded-lg p-2">
-              <input
-                value={currentPassword}
-                onChange={(event: any) =>
-                  setCurrentPassword(event.target.value)
-                }
-                type={`${showCurrentPassword ? "text" : "password"}`}
-                placeholder="Current Password"
-                className="flex-grow  bg-transparent outline-none "
-              />
-              <button onClick={handleShowCurrentPassword}>
-                <IonIcon
-                  icon={`${showCurrentPassword ? eyeOutline : eyeOffOutline}`}
-                />
-              </button>
-            </div>
-
             {changePassWord && (
               <div className="flex flex-col gap-y-2">
+                <div className="w-full flex flex-row items-center border dark:border-Dark300 rounded-lg p-2">
+                  <input
+                    value={currentPassword}
+                    onChange={(event: any) =>
+                      setCurrentPassword(event.target.value)
+                    }
+                    type={`${showCurrentPassword ? "text" : "password"}`}
+                    placeholder="Current Password"
+                    className="flex-grow  bg-transparent outline-none "
+                  />
+                  <button onClick={handleShowCurrentPassword}>
+                    <IonIcon
+                      icon={`${
+                        showCurrentPassword ? eyeOutline : eyeOffOutline
+                      }`}
+                    />
+                  </button>
+                </div>
                 <div className="w-full flex flex-row items-center border dark:border-Dark300 rounded-lg p-2">
                   <input
                     value={newPassword}
@@ -287,11 +289,22 @@ const AccountSettings = () => {
                   <button onClick={handleShowConfirmNewPassword}>
                     <IonIcon
                       icon={`${
-                        showConfirmNewPassword ? { eyeOutline } : eyeOffOutline
+                        showConfirmNewPassword ? eyeOutline : eyeOffOutline
                       }`}
                     />
                   </button>
                 </div>
+                {newPassword && newPassword !== confirmNewPassword ? (
+                  <span className="text-sm text-primary flex flex-row items-center gap-x-1">
+                    <IonIcon icon={closeCircle} />
+                    Password don't match
+                  </span>
+                ) : (
+                  <span className="text-sm text-secondary1 flex flex-row items-center gap-x-1">
+                    <IonIcon icon={checkmarkCircle} />
+                    Password match
+                  </span>
+                )}
               </div>
             )}
             {!changePassWord ? (
@@ -300,13 +313,25 @@ const AccountSettings = () => {
                   Change Password
                 </CancelButton>
               </div>
-            ) : null}
+            ) : (
+              <div>
+                <CancelButton onClick={[closeChangePasswordForm]}>
+                  Cancel Change Password
+                </CancelButton>
+              </div>
+            )}
           </div>
-
-          {authMessage && <div>{authMessage}</div>}
         </div>
         <div className="w-full flex flex-row items-center py-5">
-          <ConfirmButton onClick={[handleSaveChanges]}>
+          <ConfirmButton
+            disabled={
+              (editUserName && userName && !valid) ||
+              (newPassword && newPassword !== confirmNewPassword)
+                ? true
+                : false
+            }
+            onClick={[handleSaveChanges]}
+          >
             Save Changes
           </ConfirmButton>
         </div>

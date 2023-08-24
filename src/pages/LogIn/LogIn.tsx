@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router";
 import { LogInUserData } from "../../types/AuthUserTypes";
-import { resetAuthMessage } from "../../redux/usersSlice";
+import { resetAuthMessage, resetValid } from "../../redux/usersSlice";
 import { IonIcon } from "@ionic/react";
 import { eyeOutline, eyeOffOutline } from "ionicons/icons";
 import CircularProgress from "../../common/CircularProgress";
@@ -35,6 +35,7 @@ function LogIn() {
         if (response.payload.isLogIn === true) {
           dispatch(resetAuthMessage());
           setIsServerLoading(false);
+          dispatch(resetValid());
           navigate("/");
         }
       } else {
@@ -55,6 +56,7 @@ function LogIn() {
         if (response.payload.isLogIn === true) {
           dispatch(resetAuthMessage());
           setIsServerLoading(false);
+          dispatch(resetValid());
           navigate("/");
         }
       } else {
@@ -75,6 +77,7 @@ function LogIn() {
         if (response.payload.isLogIn === true) {
           dispatch(resetAuthMessage());
           setIsServerLoading(false);
+          dispatch(resetValid());
           navigate("/");
         }
       } else {

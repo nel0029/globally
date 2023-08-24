@@ -17,17 +17,21 @@ const SearchNavBar = () => {
 
   const goToTopResults = () => {
     setActiveTab("/explore/search/top");
-    navigate(`/explore/search/top?q=${query}`);
+    navigate(`/explore/search/top?q=${encodeURIComponent(query ? query : "")}`);
   };
 
   const goToPostsResults = () => {
     setActiveTab("/explore/search/posts");
-    navigate(`/explore/search/posts?q=${query}`);
+    navigate(
+      `/explore/search/posts?q=${encodeURIComponent(query ? query : "")}`
+    );
   };
 
   const goToUsersResults = () => {
     setActiveTab("/explore/search/users");
-    navigate(`/explore/search/users?q=${query}`);
+    navigate(
+      `/explore/search/users?q=${encodeURIComponent(query ? query : "")}`
+    );
   };
   const searchBar = document.getElementById("search-bar");
   const searchBarHeight = searchBar?.offsetHeight;

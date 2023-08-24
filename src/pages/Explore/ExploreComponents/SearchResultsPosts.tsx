@@ -21,7 +21,7 @@ const SearchResultsPosts = () => {
 
   useEffect(() => {
     const data = {
-      queryWords: query,
+      query: encodeURIComponent(query ? query : ""),
       userID: user?.userID,
     };
 

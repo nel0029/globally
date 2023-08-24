@@ -102,6 +102,9 @@ const usersSlice = createSlice({
     resetUserState: (state) => {
       state = initialState;
     },
+    resetValid: (state) => {
+      state.valid = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -187,7 +190,10 @@ const usersSlice = createSlice({
         state.authMessage = "";
       })
       .addCase(updateUserAccount.rejected, (state, action) => {
-        state.authMessage = "Incorrect Password";
+        const response: any = action.payload;
+        if (response) {
+          state.authMessage = response.data;
+        }
       })
       .addCase(isServerActive.fulfilled, (state, action) => {
         const response = action.payload;
@@ -208,5 +214,6 @@ export const {
   resetRegisterMessage,
   resetAccountData,
   resetUserState,
+  resetValid,
 } = usersSlice.actions;
 export default usersSlice.reducer;

@@ -68,7 +68,7 @@ const BottomNavigation = () => {
   return (
     <div
       id="bottom-nav"
-      className="z-20 sticky bottom-0 w-full flex lg:hidden flex-row items-center justify-around py-3 bg-white dark:bg-Dark200 text-3xl"
+      className="z-20 fixed bottom-0 w-full flex lg:hidden flex-row items-center justify-around py-3 bg-white dark:bg-Dark200 text-3xl"
     >
       <div
         className={`${

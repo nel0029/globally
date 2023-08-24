@@ -19,10 +19,10 @@ export const searchPostsByWord = createAsyncThunk(
   "searchPostsByWord",
   async (data: any) => {
     try {
-      const { queryWords, userID } = data;
+      const { query, userID } = data;
 
       const response = await axios.get(
-        `/explore/search/posts?query=${queryWords}&userID=${userID}`
+        `/explore/search/posts?query=${query}&userID=${userID}`
       );
       return response.data;
     } catch (error) {

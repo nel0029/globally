@@ -12,11 +12,15 @@ interface MediaProps {
 
 interface CardMediaProps {
   mediaURL: MediaProps[];
+  isFullView?: boolean;
+  setIsFullView?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
-  const [isFullView, setIsFullView] = useState(false);
-
+const CardMedia: React.FC<CardMediaProps> = ({
+  mediaURL,
+  isFullView,
+  setIsFullView,
+}) => {
   if (isFullView === true) {
     document.body.style.overflowY = "hidden";
   } else {
@@ -24,7 +28,9 @@ const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
   }
   const handleFullView = (event: any, params: boolean) => {
     event.stopPropagation();
-    setIsFullView(params);
+    if (setIsFullView) {
+      setIsFullView(params);
+    }
   };
   const postImgDisplay = (mediaURL: MediaProps[]) => {
     switch (true) {

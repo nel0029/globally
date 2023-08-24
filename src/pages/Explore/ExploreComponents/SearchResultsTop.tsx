@@ -24,7 +24,7 @@ const SearchResultsTop = () => {
 
   useEffect(() => {
     const data = {
-      query: query,
+      query: encodeURIComponent(query ? query : ""),
       userID: user?.userID,
     };
 
@@ -50,10 +50,10 @@ const SearchResultsTop = () => {
 
   return (
     <div className="w-full flex flex-col items-center gap-y-1 ">
-      {topResults?.matchedUsers && (
-        <React.Fragment>
-          <div className="w-full flex flex-col gap-y-1">
-            {topResults.matchedUsers.map((user: any) => (
+      {topResults?.matchedUsers?.length > 0 && (
+        <div className="w-full flex flex-col gap-y-2">
+          <React.Fragment>
+            {topResults?.matchedUsers?.map((user: any) => (
               <UserCard
                 key={user._id}
                 userName={user.userName}
@@ -71,12 +71,11 @@ const SearchResultsTop = () => {
                 View all
               </span>
             </div>
-          </div>
-          <div className="w-full border-b-2 dark:border-Dark300"></div>
-        </React.Fragment>
+          </React.Fragment>
+        </div>
       )}
 
-      {topResults?.matchedPosts && (
+      {topResults?.matchedPosts?.length > 0 && (
         <div className="w-full flex flex-col gap-y-2">
           <React.Fragment>
             {topResults?.allPosts?.map((post: CardProps) => (

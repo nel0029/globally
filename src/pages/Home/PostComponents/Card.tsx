@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { chatbox } from "ionicons/icons";
@@ -79,6 +79,7 @@ const Card = (card: MainCardProps) => {
   const isReply = card.type === "reply";
   const isRepost = card.type === "repost";
   const authorized = card.authorID === user?.userID;
+  const [isFullView, setIsFullView] = useState(false);
 
   const navigate = useNavigate();
   const route = () => {
@@ -110,7 +111,9 @@ const Card = (card: MainCardProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col cursor-pointer border-y-[0.5px] dark:border-Dark300 overflow-hidden">
+    <div
+      className={`w-full flex flex-col border-y-[0.5px] dark:border-Dark300 overflow-hidden`}
+    >
       {card.isInHomeRoute && isReply && (
         <div className=" w-full flex-grow flex flex-row items-center text-sm whitespace-nowrap truncate gap-x-1 text-gray-500 px-1 pt-1 overflow-hidden">
           <span className="flex justify-center items-center text-secondary1">
@@ -133,7 +136,11 @@ const Card = (card: MainCardProps) => {
         </div>
       )}
 
-      <div className="w-full flex flex-col justify-center items-center rounded-lg py-2 cursor-pointer gap-y-2">
+      <div
+        className={`${
+          isFullView ? "" : "cursor-pointer"
+        } w-full flex flex-col justify-center items-center rounded-lg py-2 gap-y-2`}
+      >
         <div className="w-full flex flex-row justify-center items-start gap-x-2">
           <div className="pt-1 pl-2">
             <CardAvatar
@@ -144,12 +151,22 @@ const Card = (card: MainCardProps) => {
           <div className="w-full flex-shrink flex-grow flex flex-col gap-y-2 pr-2">
             <CardHeaderContainer post={card} authorized={authorized} />
             <CardCaption
-              onClick={handlePostDetail}
+              onClick={
+                !isFullView
+                  ? handlePostDetail
+                  : (event: any) => {
+                      event.stopPropagation();
+                    }
+              }
               bgColor={card.bgColor}
               caption={card.caption}
             />
             {card.mediaURL?.length > 0 && (
-              <CardMedia mediaURL={card.mediaURL} />
+              <CardMedia
+                isFullView={isFullView}
+                setIsFullView={setIsFullView}
+                mediaURL={card.mediaURL}
+              />
             )}
             {isRepost && (
               <RepostParentCard

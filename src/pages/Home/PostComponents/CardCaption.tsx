@@ -7,7 +7,7 @@ interface CardCaptionProps {
   caption?: string;
   bgColor?: string;
   parentBGColor?: string;
-  onClick?: (val: any) => void;
+  onClick?: (val: any) => void | undefined;
 }
 
 const CardCaption: React.FC<CardCaptionProps> = ({

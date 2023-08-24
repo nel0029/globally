@@ -11,7 +11,11 @@ import { useNavigate } from "react-router-dom";
 import useDebounce from "./Hooks/useDebounce";
 import { IonIcon } from "@ionic/react";
 import { eyeOutline, eyeOffOutline } from "ionicons/icons";
-import { resetAuthMessage, resetRegisterMessage } from "../../redux/usersSlice";
+import {
+  resetAuthMessage,
+  resetRegisterMessage,
+  resetValid,
+} from "../../redux/usersSlice";
 import CircleLoader from "../../common/CircleLoader";
 
 function Register() {
@@ -58,6 +62,7 @@ function Register() {
 
   const goToLogIn = () => {
     dispatch(resetRegisterMessage());
+    dispatch(resetValid());
     navigate("/login");
   };
 
@@ -125,7 +130,9 @@ function Register() {
                 onChange={onChange}
               />
             </div>
-            <div className={`flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}>
+            <div
+              className={`flex flex-col rounded-lg py-1 px-2 gap-y-0.5 border`}
+            >
               <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
                 Middle Name
               </div>
@@ -189,9 +196,7 @@ function Register() {
               <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
                 <span>User Name</span>
                 <span className="text-primary">
-                  {formError && !formData.userFirstName
-                    ? ` * ${formError}`
-                    : ""}
+                  {formError && !formData.userName ? ` * ${formError}` : ""}
                 </span>
               </div>
               <input

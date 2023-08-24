@@ -63,32 +63,34 @@ const Explore = () => {
   const onSubmit = (event: any) => {
     event.preventDefault();
 
-    if (user.userID !== undefined) {
+    if (user?.userID !== undefined) {
       searchParams.set("q", searchBody);
       setSearchParams(searchParams);
 
       if (queryWords === null) {
         const data = {
           queryWords: searchBody,
-          userID: user.userID,
+          userID: user?.userID,
         };
         dispatch(searchPostsByWord(data)).then((response: any) => {
           if (response.meta.requestStatus === "fulfilled") {
             dispatch(setQueryWords(searchBody));
             navigate(`/explore/search/top?q=${searchBody}`);
+            setSearchBody("");
           }
         });
       } else {
         if (queryWords !== searchBody) {
           const data = {
             queryWords: searchBody,
-            userID: user.userID,
+            userID: user?.userID,
           };
           dispatch(resetMatchedPosts());
           dispatch(searchPostsByWord(data)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
               dispatch(setQueryWords(searchBody));
               navigate(`/explore/search/top?q=${searchBody}`);
+              setSearchBody("");
             }
           });
         }
@@ -97,14 +99,14 @@ const Explore = () => {
   };
 
   const goToTopResults = (word: string) => {
-    if (user.userID !== undefined) {
+    if (user?.userID !== undefined) {
       searchParams.set("q", word);
       setSearchParams(searchParams);
 
       if (queryWords === null) {
         const data = {
           queryWords: word,
-          userID: user.userID,
+          userID: user?.userID,
         };
         dispatch(searchPostsByWord(data)).then((response: any) => {
           if (response.meta.requestStatus === "fulfilled") {
@@ -117,7 +119,7 @@ const Explore = () => {
         if (queryWords !== word) {
           const data = {
             queryWords: word,
-            userID: user.userID,
+            userID: user?.userID,
           };
           dispatch(resetMatchedPosts());
           dispatch(searchPostsByWord(data)).then((response: any) => {
@@ -159,7 +161,7 @@ const Explore = () => {
           </div>
         </Header>
       </div>
-      {isFocused && (
+      {searchBody && isFocused && (
         <div className="z-[60] sticky top-[58px] w-full text-lg font-semibold flex flex-col dark:bg-black bg-Light100 h-full overflow-y-auto border-t dark:border-Dark400 cursor-pointer">
           {matchedKeyWords?.map((word: any) => (
             <div

@@ -20,7 +20,7 @@ const TrendingHashtags = () => {
   }, [trendingHashTags]);
 
   const goTo = (word: string) => {
-    navigate(`/explore/search/top?q=${word}`);
+    navigate(`/explore/search/top?q=${encodeURIComponent(`#${word}`)}`);
   };
   return (
     <div className="w-full h-full flex flex-col">
