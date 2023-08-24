@@ -136,7 +136,7 @@ const CardInteractionsContainer = (card: CardProps) => {
 
   return (
     <div
-      className="w-full flex flex-col border-t dark:border-t dark:border-Dark400"
+      className="w-full flex flex-row"
       onClick={(event: any) => event.stopPropagation()}
     >
       <CardInteractions
@@ -191,6 +191,7 @@ const CardInteractionsContainer = (card: CardProps) => {
           parentBGColor={card.parentBGColor}
         />
       )}
+      <div className="hidden xl:flex flex-1"></div>
     </div>
   );
 };

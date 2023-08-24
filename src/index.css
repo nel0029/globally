@@ -23,7 +23,7 @@ body {
 
 @layer components {
   .post_interactions {
-    @apply flex flex-grow justify-center items-center py-2 rounded-lg cursor-pointer gap-1;
+    @apply flex flex-grow items-center py-2 rounded-lg cursor-pointer gap-1;
   }
 
   .post_interactions_numbers {

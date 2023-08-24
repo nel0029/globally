@@ -7,6 +7,7 @@ import { AppDispatch } from "../../../redux/store";
 import { getAllPostsByUser } from "../../../redux/asynActions/postAsynActions";
 import Card, { CardProps } from "../../Home/PostComponents/Card";
 import LoadingCard from "../../Home/PostComponents/LoadingCard";
+import { UserDetails } from "../../../redux/postSlice";
 
 const PostCardList = () => {
   const { userName } = useParams<{ userName: string }>();
@@ -14,6 +15,9 @@ const PostCardList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: any) => state.user.userData);
   const allPosts = useSelector((state: any) => state.posts.userPostsList);
+  const userDetails: UserDetails = useSelector(
+    (state: any) => state.posts.userDetails
+  );
 
   const data: any = {
     userName: userName || "",
@@ -43,8 +47,8 @@ const PostCardList = () => {
   }, [dispatch, userName, user.userID]);
 
   return (
-    <div className="flex w-full h-full flex-col-reverse justify-center items-center gap-y-2">
-      {isLoading ? (
+    <React.Fragment>
+      {isLoading && !userDetails ? (
         <React.Fragment>
           <LoadingCard />
           <LoadingCard />
@@ -67,7 +71,7 @@ const PostCardList = () => {
           )}
         </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

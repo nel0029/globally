@@ -130,7 +130,7 @@ const RepostParentCard: React.FC<RepostParentCardProps> = ({
               )}
             </React.Fragment>
           ) : (
-            <div className="w-full min-h-[100px] flex justify-center items-center">
+            <div className="w-full min-h-[250px] flex justify-center items-center">
               <span>This post is not existed</span>
             </div>
           )}

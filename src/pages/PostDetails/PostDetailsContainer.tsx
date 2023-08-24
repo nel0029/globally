@@ -112,13 +112,13 @@ const PostDetailsContainer = () => {
     navigate(`/${userName}/replies/${postID}`);
   };
   return (
-    <div className="w-full h-full flex flex-col items-center gap-y-2">
+    <div className="w-full h-full flex flex-col items-center ">
       <Header>
         <BackButton />
         <TitleText>Post</TitleText>
       </Header>
 
-      <div className="w-full flex-grow flex flex-col items-center gap-y-2 px-2">
+      <div className="w-full flex-grow flex flex-col items-center ">
         {isLoading ? (
           <LoadingCard />
         ) : (

@@ -69,7 +69,7 @@ const Messages = () => {
   return (
     <div
       id="message-container"
-      className="w-full h-full flex-grow flex flex-col items-center justify-center gap-y-2 dark:bg-Dark100 bg-slate-100 relative"
+      className="w-full h-full flex-grow flex flex-col items-center justify-center gap-y-2 dark:bg-Dark100 bg-Light100 relative"
     >
       <div className="flex-1 flex lg:hidden w-full h-full">
         <Routes>

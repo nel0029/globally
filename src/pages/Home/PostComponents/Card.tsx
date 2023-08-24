@@ -110,7 +110,7 @@ const Card = (card: MainCardProps) => {
   };
 
   return (
-    <div className="w-full max-w-[700px] flex flex-col rounded-lg cursor-pointer border dark:border-Dark300 bg-white dark:bg-Dark200 overflow-hidden">
+    <div className="w-full flex flex-col cursor-pointer border-y-[0.5px] dark:border-Dark300 overflow-hidden">
       {card.isInHomeRoute && isReply && (
         <div className=" w-full flex-grow flex flex-row items-center text-sm whitespace-nowrap truncate gap-x-1 text-gray-500 px-1 pt-1 overflow-hidden">
           <span className="flex justify-center items-center text-secondary1">
@@ -133,20 +133,21 @@ const Card = (card: MainCardProps) => {
         </div>
       )}
 
-      <div className="w-full flex flex-col justify-center items-center rounded-lg p-2 cursor-pointer gap-y-2">
-        <div
-          onClick={handlePostDetail}
-          className="w-full flex flex-row justify-center items-start gap-x-2"
-        >
-          <div className="pt-1">
+      <div className="w-full flex flex-col justify-center items-center rounded-lg py-2 cursor-pointer gap-y-2">
+        <div className="w-full flex flex-row justify-center items-start gap-x-2">
+          <div className="pt-1 pl-2">
             <CardAvatar
               userName={card.postAuthorUserName}
               avatarURL={card.postAuthorAvatarURL.url}
             />
           </div>
-          <div className="w-full flex-shrink flex-grow flex flex-col gap-y-2 ">
+          <div className="w-full flex-shrink flex-grow flex flex-col gap-y-2 pr-2">
             <CardHeaderContainer post={card} authorized={authorized} />
-            <CardCaption bgColor={card.bgColor} caption={card.caption} />
+            <CardCaption
+              onClick={handlePostDetail}
+              bgColor={card.bgColor}
+              caption={card.caption}
+            />
             {card.mediaURL?.length > 0 && (
               <CardMedia mediaURL={card.mediaURL} />
             )}
@@ -179,9 +180,9 @@ const Card = (card: MainCardProps) => {
                 optionChoosedID={card.optionChoosedID}
               />
             )}
+            <CardInteractionsContainer {...card} />
           </div>
         </div>
-        <CardInteractionsContainer {...card} />
       </div>
     </div>
   );

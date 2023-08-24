@@ -224,7 +224,7 @@ const NavBar = () => {
           >
             <div
               onClick={openSettings}
-              className={`z-50 dark:bg-Dark100 bg-slate-100 w-full flex flex-row items-center justify-between text-xl gap-x-2 p-2 py-1 cursor-pointer hover:text-secondary`}
+              className={`z-50 dark:bg-Dark100 bg-Light100 w-full flex flex-row items-center justify-between text-xl gap-x-2 p-2 py-1 cursor-pointer hover:text-secondary`}
             >
               <div className="flex flex-row items-center gap-x-2">
                 <div className=" text-2xl flex justify-center items-center">

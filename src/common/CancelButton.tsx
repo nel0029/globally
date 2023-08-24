@@ -24,8 +24,8 @@ const CancelButton: React.FC<CancelButtonProps> = ({
     <button
       onClick={handleOnClick}
       className={`${
-        className ? className : "rounded-full  px-5 py-1"
-      } border-2 border-slate-400`}
+        className ? className : "rounded-lg  px-5 py-1"
+      } border border-slate-400`}
     >
       {children}
     </button>

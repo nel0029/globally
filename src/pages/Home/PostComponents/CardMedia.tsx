@@ -69,7 +69,11 @@ const CardMedia: React.FC<CardMediaProps> = ({ mediaURL }) => {
   return (
     <div
       onClick={
-        isFullView ? () => {} : (event: any) => handleFullView(event, true)
+        isFullView
+          ? (event: any) => {
+              event.stopPropagation;
+            }
+          : (event: any) => handleFullView(event, true)
       }
       className={`${
         isFullView

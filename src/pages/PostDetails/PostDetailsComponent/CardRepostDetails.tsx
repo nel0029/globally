@@ -78,9 +78,9 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
 
   const repostParent = details.type === "repost";
   return (
-    <div className="w-full max-w-[700px] flex flex-col p-2 border dark:border-Dark300 rounded-lg bg-white dark:bg-Dark200">
+    <div className="w-full flex flex-col border-y dark:border-Dark300 pt-2">
       <div className="flex flex-col justify-center">
-        <div className="flex flex-row items-center gap-x-2">
+        <div className="flex flex-row items-center gap-x-2 px-2">
           <div className="w-[40px]">
             <CardAvatar
               userName={details.postAuthorUserName}
@@ -103,7 +103,7 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
             />
           </div>
         </div>
-        <div className="w-full flex flex-col gap-y-2 py-2">
+        <div className="w-full flex flex-col gap-y-2 p-2">
           <CardCaption caption={details.caption} />
           {details.mediaURL.length > 0 ? (
             <CardMedia mediaURL={details.mediaURL} />
@@ -134,7 +134,7 @@ const CardRepostDetails = (details: CardRepostDetailsProps) => {
         </div>
       </div>
       <div className="flex flex-col">
-        <div className="w-full flex flex-row gap-x-2 py-1 border-y dark:border-Dark300">
+        <div className="w-full flex flex-row gap-x-2 border-y dark:border-Dark300 p-2">
           <div className="flex flex-row items-center flex-grow text-base gap-x-2">
             <div className="flex flex-row items-center gap-x-2">
               <span className="font-bold ">{details.likesCount}</span>

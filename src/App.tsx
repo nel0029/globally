@@ -49,6 +49,7 @@ import SearchResultsTop from "./pages/Explore/ExploreComponents/SearchResultsTop
 import SearchResultsPosts from "./pages/Explore/ExploreComponents/SearchResultsPosts";
 import SearchResultsUsers from "./pages/Explore/ExploreComponents/SearchResultsUsers";
 import BottomNavigation from "./layout/BottomNavigation";
+import Header from "./common/Header";
 
 const App = () => {
   axios.defaults.baseURL = serverAddress;
@@ -181,8 +182,15 @@ const App = () => {
                     <RoutesPage pos={scrollPos} />
                   </div>
                   {handleIsInMessageRoute(location.pathname) && (
-                    <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0">
-                      <TrendingHashtags />
+                    <div className="hidden xl:flex h-full w-full max-w-[400px] sticky top-0 flex-col border-l dark:border-Dark300 overflow-auto no-scrollbar">
+                      {!location.pathname.startsWith("/explore") && (
+                        <React.Fragment>
+                          <Header>
+                            <span className="text-2xl font-bold">Trending</span>
+                          </Header>
+                          <TrendingHashtags />
+                        </React.Fragment>
+                      )}
                     </div>
                   )}
                 </div>

@@ -72,7 +72,7 @@ const UsersList = () => {
   };
 
   return (
-    <div className="w-full z-50 fixed top-0 bottom-0 left-0 right-0 lg:static flex flex-col dark:bg-Dark100 bg-slate-100">
+    <div className="w-full z-50 fixed top-0 bottom-0 left-0 right-0 lg:static flex flex-col dark:bg-Dark100 bg-Light100">
       <Header>
         <div
           onClick={goToUserDetails}

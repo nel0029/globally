@@ -119,7 +119,7 @@ export default function CreateNewPostInput() {
           bgColor={backgroundColor}
           body={postBody}
           setBody={setPostBody}
-          placeholder="Create a new post"
+          placeholder="What's is happening?!"
         />
 
         {selectedFiles.length > 0 && (

@@ -7,12 +7,14 @@ interface CardCaptionProps {
   caption?: string;
   bgColor?: string;
   parentBGColor?: string;
+  onClick?: (val: any) => void;
 }
 
 const CardCaption: React.FC<CardCaptionProps> = ({
   caption,
   bgColor,
   parentBGColor,
+  onClick,
 }) => {
   const navigate = useNavigate();
   const captionLines = caption?.split("\n");
@@ -42,12 +44,17 @@ const CardCaption: React.FC<CardCaptionProps> = ({
 
   return (
     <div
+      onClick={onClick}
       style={{ background: bgColor ? bgColor : parentBGColor }}
       className={`${
         bgColor
-          ? "min-h-[150px] flex flex-col justify-center text-center rounded-lg font-bold p-4 text-white text-opacity-[87%]"
+          ? `${
+              bgColor === "#ffd166" ? "text-black" : "text-white"
+            } min-h-[150px] flex flex-col justify-center text-center rounded-lg font-bold p-4 text-opacity-[87%]`
           : parentBGColor
-          ? "min-h-[150px] flex flex-col justify-center text-center rounded-lg font-bold p-4 text-white text-opacity-[87%]"
+          ? `${
+              parentBGColor === "#ffd166" ? "text-black" : "text-white"
+            } min-h-[150px] flex flex-col justify-center text-center rounded-lg font-bold p-4 text-opacity-[87%]`
           : ""
       } w-full`}
     >

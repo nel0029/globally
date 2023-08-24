@@ -78,8 +78,8 @@ const CardDetails = (details: CardDetailsProps) => {
   })}`;
 
   return (
-    <div className="w-full max-w-[700px] flex flex-col p-2 bg-white dark:bg-Dark200 rounded-lg">
-      <div className="flex flex-col justify-center">
+    <div className="w-full flex flex-col border-y dark:border-Dark300 pt-2">
+      <div className="flex flex-col justify-center px-2">
         <div className="flex flex-row items-center gap-x-2">
           <div className="w-[40px]">
             <CardAvatar
@@ -122,7 +122,7 @@ const CardDetails = (details: CardDetailsProps) => {
         </div>
       </div>
       <div className="flex flex-col">
-        <div className="w-full flex flex-row gap-x-2 py-1 border-y dark:border-Dark400">
+        <div className="w-full flex flex-row gap-x-2 py-1 border-y dark:border-Dark400 px-2">
           <div className="flex flex-row items-center flex-grow text-base gap-x-2">
             <div className="flex flex-row items-center gap-x-2">
               <span className="font-bold ">{details.likesCount}</span>

@@ -8,6 +8,7 @@ import { getAllLikesByUser } from "../../../redux/asynActions/postAsynActions";
 import Card, { CardProps } from "../../Home/PostComponents/Card";
 import { GetAllUserLikes } from "../../../types/PostActionTypes";
 import LoadingCard from "../../Home/PostComponents/LoadingCard";
+import { UserDetails } from "../../../redux/postSlice";
 
 const LikedPostCardList = () => {
   const { userName } = useParams<{ userName: string }>();
@@ -16,6 +17,9 @@ const LikedPostCardList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const user = useSelector((state: any) => state.user.userData);
   const allLikedPosts = useSelector((state: any) => state.posts.userLikesList);
+  const userDetails: UserDetails = useSelector(
+    (state: any) => state.posts.userDetails
+  );
 
   const data: GetAllUserLikes = {
     userName: userName || "",
@@ -46,8 +50,8 @@ const LikedPostCardList = () => {
   }, [dispatch, userName, user.userID]);
 
   return (
-    <div className="flex w-full h-full flex-col-reverse justify-center items-center gap-y-2">
-      {isLoading ? (
+    <React.Fragment>
+      {isLoading && !userDetails ? (
         <React.Fragment>
           <LoadingCard />
           <LoadingCard />
@@ -70,7 +74,7 @@ const LikedPostCardList = () => {
           )}
         </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

@@ -8,6 +8,7 @@ import { getAllRepostsByUser } from "../../../redux/asynActions/postAsynActions"
 import { RepostDataProps } from "../../../types/PostTypes";
 import Card from "../../Home/PostComponents/Card";
 import LoadingCard from "../../Home/PostComponents/LoadingCard";
+import { UserDetails } from "../../../redux/postSlice";
 
 const RepostCardList = () => {
   const { userName } = useParams<{ userName: string }>();
@@ -15,6 +16,9 @@ const RepostCardList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state: any) => state.user.userData);
   const allPosts = useSelector((state: any) => state.posts.userRepostsList);
+  const userDetails: UserDetails = useSelector(
+    (state: any) => state.posts.userDetails
+  );
 
   const data: any = {
     userName: userName || "",
@@ -44,8 +48,8 @@ const RepostCardList = () => {
   }, [dispatch, userName, user.userID]);
 
   return (
-    <div className="flex w-full h-full flex-col-reverse justify-center items-center gap-y-2">
-      {isLoading ? (
+    <React.Fragment>
+      {isLoading && !userDetails ? (
         <React.Fragment>
           <LoadingCard />
           <LoadingCard />
@@ -68,7 +72,7 @@ const RepostCardList = () => {
           )}
         </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

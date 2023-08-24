@@ -19,6 +19,7 @@ export default {
         Dark400: "#575757",
         Dark500: "#717171",
         Dark600: "#8b8b8b",
+        Light100: "#F7FFFA",
       },
       aspectRatio: {
         "3/1": "3 / 1",

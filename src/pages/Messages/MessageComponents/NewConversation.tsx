@@ -112,7 +112,7 @@ const NewConversation = () => {
   };
 
   return (
-    <div className="z-[100] h-[100dvh] fixed lg:sticky top-0 bottom-0 dark:bg-Dark100 bg-slate-100 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
+    <div className="z-[100] h-[100dvh] fixed lg:sticky top-0 bottom-0 dark:bg-Dark100 bg-Light100 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
       <Header>
         <div
           onClick={goToMessages}
@@ -176,7 +176,7 @@ const NewConversation = () => {
       >
         {/* Message content */}
       </div>
-      <div className="sticky bottom-0 dark:bg-Dark100 bg-slate-100 w-full flex flex-row px-2 py-4 flex-shrink overflow-x-hidden">
+      <div className="sticky bottom-0 dark:bg-Dark100 bg-Light100 w-full flex flex-row px-2 py-4 flex-shrink overflow-x-hidden">
         <div className="flex-grow">
           <input
             placeholder="Aa"

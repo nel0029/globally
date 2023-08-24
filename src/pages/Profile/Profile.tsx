@@ -121,7 +121,7 @@ const Profile = () => {
       id="profile-route"
       className={`${
         isInUserProfile ? "left-0" : "-left-full"
-      } z-50 dark:bg-Dark100 bg-slate-100 absolute top-0 xl:left-0 w-full transition-[left] ease-in-out duration-300`}
+      } z-50 dark:bg-Dark100 bg-Light100 absolute top-0 xl:left-0 w-full transition-[left] ease-in-out duration-300`}
     >
       <div className="w-full h-auto">
         <Header>
@@ -269,7 +269,7 @@ const Profile = () => {
           </div>
         </div>
         <div
-          className={`bg-white dark:bg-Dark200 sticky top-[60px] left-0 right-0 z-50 w-full overflow-x-auto flex flex-row mb-2`}
+          className={`bg-white dark:bg-Dark200 sticky top-[60px] left-0 right-0 z-50 w-full overflow-x-auto flex flex-row`}
         >
           {userDetails ? (
             <React.Fragment>
@@ -345,7 +345,7 @@ const Profile = () => {
         </div>
         <div
           id="tabs"
-          className="w-full px-2 min-h-[calc(100vh-180px)] xl:h-auto dark:bg-Dark100 bg-slate-100"
+          className="w-full min-h-[calc(100vh-180px)] xl:h-auto dark:bg-Dark100 bg-Light100 flex flex-col-reverse justify-center items-center"
         >
           <Outlet />
         </div>

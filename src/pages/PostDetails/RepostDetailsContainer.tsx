@@ -107,13 +107,13 @@ const RepostDetailsContainer = () => {
     navigate(`/${userName}/replies/${postID}`);
   };
   return (
-    <div className="w-full h-full flex flex-col items-center gap-y-2">
+    <div className="w-full h-full flex flex-col items-center ">
       <Header>
         <BackButton />
         <div className="text-lg font-bold">Repost</div>
       </Header>
 
-      <div className="flex-1 w-full flex-grow flex flex-col items-center gap-y-2 px-2 pb-2">
+      <div className="flex-1 w-full flex-grow flex flex-col items-center pb-2">
         {isLoading ? (
           <LoadingCard />
         ) : (
@@ -127,10 +127,8 @@ const RepostDetailsContainer = () => {
             )}
           </React.Fragment>
         )}
-        {postReplies?.replies.length > 0 && (
-          <div className="w-full border-b-2 dark:border-Dark300"></div>
-        )}
-        <div className="w-full flex flex-col-reverse items-center gap-y-2">
+
+        <div className="w-full flex flex-col-reverse items-center ">
           {postDetails !== null ? (
             isRepliesLoading ? (
               <React.Fragment>

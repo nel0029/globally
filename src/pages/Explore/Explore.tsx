@@ -49,20 +49,16 @@ const Explore = () => {
       document.body.style.overflowY = "hidden";
     } else {
       document.body.style.overflowY = "visible";
+      dispatch(resetMatchedKeyWords());
     }
 
     if (isFocused) {
       document.body.style.overflowY = "hidden";
     } else {
       document.body.style.overflowY = "visible";
-    }
-  }, [keyWordsDebounced, isFocused]);
-
-  useEffect(() => {
-    if (searchBody.length < 1 || location.pathname !== "/explore") {
       dispatch(resetMatchedKeyWords());
     }
-  }, [keyWordsDebounced]);
+  }, [keyWordsDebounced, isFocused]);
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -163,13 +159,13 @@ const Explore = () => {
           </div>
         </Header>
       </div>
-      {searchBody && (
-        <div className="z-[60] fixed top-[58px] w-full text-lg font-semibold flex flex-col dark:bg-black bg-slate-100 h-full overflow-y-auto border-t dark:border-Dark400">
+      {isFocused && (
+        <div className="z-[60] sticky top-[58px] w-full text-lg font-semibold flex flex-col dark:bg-black bg-Light100 h-full overflow-y-auto border-t dark:border-Dark400 cursor-pointer">
           {matchedKeyWords?.map((word: any) => (
             <div
               key={word.name}
               onClick={() => goToTopResults(word.name)}
-              className="p-2 w-full border-b dark:border-Dark400 bg-white dark:bg-Dark100"
+              className="p-2 w-full border-b dark:border-Dark400 bg-white dark:bg-Dark100 hover:bg-black hover:bg-opacity-20"
             >
               {word.name}
             </div>
@@ -177,9 +173,11 @@ const Explore = () => {
         </div>
       )}
 
-      <div className={`w-full flex-1 `}>
-        <Outlet />
-      </div>
+      {!isFocused && (
+        <div className={`w-full flex-1 `}>
+          <Outlet />
+        </div>
+      )}
     </div>
   );
 };

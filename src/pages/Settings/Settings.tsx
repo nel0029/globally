@@ -125,7 +125,7 @@ const Settings = () => {
     <div
       className={`z-50 fixed w-full h-full top-0 -right-full ${
         isMenuOpen ? " -translate-x-full" : " translate-x-0"
-      } fixed transition-transform ease-in-out duration-300 flex flex-col dark:bg-Dark100 bg-slate-100 `}
+      } fixed transition-transform ease-in-out duration-300 flex flex-col dark:bg-Dark100 bg-Light100 `}
     >
       <div className="w-full h-full flex flex-col overflow-y-auto">
         <SettingsHeader>
