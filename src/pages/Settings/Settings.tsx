@@ -82,7 +82,7 @@ const Settings = () => {
     setIsMenuOpen(false);
     setTimeout(() => {
       navigate(-1);
-    }, 300);
+    }, 150);
   };
 
   const goToUserProfile = () => {
@@ -126,7 +126,7 @@ const Settings = () => {
     <div
       className={`${
         isMenuOpen ? "right-0" : "-right-full"
-      } transition-[right] ease-in-out duration-300 z-50 fixed w-full h-full top-0 flex flex-col dark:bg-Dark100 bg-Light100 `}
+      } transition-[right] ease-in-out duration-150 z-50 fixed w-full h-full top-0 flex flex-col dark:bg-Dark100 bg-Light100 `}
     >
       <div className="w-full h-full flex flex-col overflow-y-auto">
         <SettingsHeader>
