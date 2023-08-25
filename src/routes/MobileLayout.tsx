@@ -33,7 +33,7 @@ const MobileLayout = () => {
 
   return (
     <div id="mobile-layout" className="flex-1 w-full h-full flex flex-col ">
-      <div className="flex-1 w-full h-full flex flex-col pb-[60px]">
+      <div className="flex-1 w-full h-auto flex flex-col pb-[60px]">
         <Routes>
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
