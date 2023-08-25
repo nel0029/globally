@@ -166,7 +166,6 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/settings" element={<Settings />} />
 
         <Route element={<PrivateRoutes />}>
           {window.innerWidth >= 1280 ? (

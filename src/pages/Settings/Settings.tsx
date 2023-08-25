@@ -34,6 +34,7 @@ import {
 } from "../../redux/messageSlice";
 import { resetExploreState } from "../../redux/exploreSlice";
 import { resetPostsState } from "../../redux/postSlice";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const Settings = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -74,16 +75,14 @@ const Settings = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    if (location.pathname === "/settings") {
-      setIsMenuOpen(true);
-    } else {
-      setIsMenuOpen(false);
-    }
-  }, [location.pathname]);
+    setIsMenuOpen(true);
+  }, []);
 
   const handleCloseMenu = () => {
     setIsMenuOpen(false);
-    navigate(-1);
+    setTimeout(() => {
+      navigate(-1);
+    }, 300);
   };
 
   const goToUserProfile = () => {
@@ -93,7 +92,9 @@ const Settings = () => {
   };
 
   const goToAccountSettings = () => {
-    navigate("/account/setting", { replace: true });
+    if (userName) {
+      navigate("/account/setting", { replace: true });
+    }
   };
 
   const setThemeMode = () => {
@@ -123,18 +124,20 @@ const Settings = () => {
   const bioLines = account?.bio?.split("\n");
   return (
     <div
-      className={`z-50 fixed w-full h-full top-0 -right-full ${
-        isMenuOpen ? " -translate-x-full" : " translate-x-0"
-      } fixed transition-transform ease-in-out duration-300 flex flex-col dark:bg-Dark100 bg-Light100 `}
+      className={`${
+        isMenuOpen ? "right-0" : "-right-full"
+      } transition-[right] ease-in-out duration-300 z-50 fixed w-full h-full top-0 flex flex-col dark:bg-Dark100 bg-Light100 `}
     >
       <div className="w-full h-full flex flex-col overflow-y-auto">
         <SettingsHeader>
-          <div
-            onClick={handleCloseMenu}
-            className="flex justify-center items-center p-2 rounded-full text-2xl bg-white dark:bg-Dark200"
-          >
-            <IonIcon icon={closeOutline} />
-          </div>
+          {isMenuOpen && (
+            <div
+              onClick={handleCloseMenu}
+              className="flex justify-center items-center p-2 rounded-full text-2xl bg-white dark:bg-Dark200"
+            >
+              <IonIcon icon={closeOutline} />
+            </div>
+          )}
         </SettingsHeader>
         <div className="w-full flex flex-col border-b dark:border-Dark300">
           <AccountCoverPhoto

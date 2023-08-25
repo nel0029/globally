@@ -75,7 +75,7 @@ const SearchResultsTop = () => {
         </div>
       )}
 
-      {topResults?.matchedPosts?.length > 0 && (
+      {topResults?.allPosts?.length > 0 && (
         <div className="w-full flex flex-col gap-y-2">
           <React.Fragment>
             {topResults?.allPosts?.map((post: CardProps) => (
