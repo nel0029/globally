@@ -26,13 +26,14 @@ import SearchResults from "../pages/Explore/ExploreComponents/SearchResults";
 import TrendingHashtags from "../pages/Explore/ExploreComponents/TrendingHashtags";
 import Settings from "../pages/Settings/Settings";
 import BottomNavigation from "../layout/BottomNavigation";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const MobileLayout = () => {
   const location = useLocation();
 
   return (
     <div id="mobile-layout" className="flex-1 w-full h-full flex flex-col ">
-      <div className="flex-1 w-full h-auto flex flex-col pb-[60px]">
+      <div className="flex-1 w-full h-full flex flex-col pb-[60px]">
         <Routes>
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
