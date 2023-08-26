@@ -52,7 +52,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({
   const [deleteModal, setDeleteModal] = useState(false);
   const [initialPostCaption, setInitialPostCaption] = useState(card.caption);
   const [postCaption, setPostCaption] = useState(card.caption);
-  const authorized = card.postAuthorUserName == user.userName;
+  const authorized = card.postAuthorUserName === user?.userName;
   const navigate = useNavigate();
 
   const openEditModal = () => {
@@ -68,7 +68,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({
   const editPost = () => {
     const payload: UpdatePostData = {
       _id: card._id,
-      authorID: user.userID,
+      authorID: user?.userID,
       caption: postCaption,
     };
 
@@ -92,14 +92,14 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({
 
   const removePost = () => {
     const payload: DeleteDataProps = {
-      authorID: user.userID,
+      authorID: user?.userID,
       postID: card._id,
     };
 
     switch (updateAction) {
       case "reply":
         socket.emit("deleteReply", {
-          actorID: user.userID,
+          actorID: user?.userID,
           targetID: card.authorID,
           actionID: card._id,
         });
@@ -107,7 +107,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({
         break;
       case "repost":
         socket.emit("deleteRepost", {
-          actorID: user.userID,
+          actorID: user?.userID,
           targetID: card.authorID,
           actionID: card._id,
         });
@@ -125,7 +125,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({
     <div>
       <div className="z-10">
         <MenuContainer>
-          {card.authorID !== user.userID ? (
+          {card.authorID !== user?.userID ? (
             <MenuItem>
               {card.isFollowedAuthor ? (
                 <MenuButton>

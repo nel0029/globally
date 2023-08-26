@@ -39,14 +39,14 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
     const newRepost: NewRepost = {
       postID: details._id,
       parentType: details.type,
-      authorID: user.userID,
+      authorID: user?.userID,
       caption: repostCaption,
     };
 
     dispatch(createRepost(newRepost)).then((response: any) =>
       socket.emit("newRepost", {
         postID: details._id,
-        actorID: user.userID,
+        actorID: user?.userID,
         targetID: details.authorID,
         actionID: response.payload._id,
         actionType: "repost",
@@ -65,14 +65,14 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
     const newReply: NewReply = {
       postID: details._id,
       parentType: details.type,
-      authorID: user.userID,
+      authorID: user?.userID,
       caption: replyCaption,
       file: selectedFiles[0],
     };
     dispatch(createReply(newReply)).then((response: any) =>
       socket.emit("newReply", {
         postID: details._id,
-        actorID: user.userID,
+        actorID: user?.userID,
         targetID: details.authorID,
         actionID: response.payload._id,
         actionType: "reply",
@@ -88,13 +88,13 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
       actionType: "like",
       postID: details._id,
       parentType: details.type,
-      authorID: user.userID,
+      authorID: user?.userID,
       parentAuthorID: details.authorID,
     };
     dispatch(like(likeData)).then((response: any) =>
       socket.emit("newLike", {
         postID: details._id,
-        actorID: user.userID,
+        actorID: user?.userID,
         targetID: details.authorID,
         actionID: response.payload._id,
         actionType: "like",
@@ -106,11 +106,11 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
   const unlikeButton = () => {
     const likeData: UnlikeData = {
       likeID: details.likeID !== null ? details.likeID : "",
-      authorID: user.userID,
+      authorID: user?.userID,
     };
     socket.emit("unlike", {
       actionID: details.likeID,
-      actorID: user.userID,
+      actorID: user?.userID,
       targetID: details.authorID,
     });
     dispatch(unlike(likeData));
