@@ -31,6 +31,7 @@ const ReplyDetailsContainer = () => {
   const [isRepliesLoading, setIsRepliesLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInPostDetails, setIsInPostDetails] = useState(false);
+  const userID = localStorage.getItem("userID");
 
   const postDetails: PostsDataProps = useSelector(
     (state: any) => state.posts.postDetails || null
@@ -41,18 +42,27 @@ const ReplyDetailsContainer = () => {
   const user = useSelector((state: any) => state.user.userData);
   const navigate = useNavigate();
 
-  const postData: PostDetailsData = {
-    postID: postID || "",
-    userName: userName || "",
-    authorID: user?.userID || "",
-  };
-
   useEffect(() => {
-    if (!isLoaded) {
-      if (postDetails !== null) {
-        setIsLoaded(true);
-        setIsLoading(false);
-        if (postDetails._id !== postID) {
+    if (userID) {
+      const postData: PostDetailsData = {
+        postID: postID || "",
+        userName: userName || "",
+        authorID: userID,
+      };
+      if (!isLoaded) {
+        if (postDetails !== null) {
+          setIsLoaded(true);
+          setIsLoading(false);
+          if (postDetails._id !== postID) {
+            setIsLoading(true);
+            dispatch(getReplyDetails(postData)).then((response: any) => {
+              if (response.meta.requestStatus === "fulfilled") {
+                setIsLoaded(true);
+                setIsLoading(false);
+              }
+            });
+          }
+        } else {
           setIsLoading(true);
           dispatch(getReplyDetails(postData)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
@@ -61,17 +71,9 @@ const ReplyDetailsContainer = () => {
             }
           });
         }
-      } else {
-        setIsLoading(true);
-        dispatch(getReplyDetails(postData)).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            setIsLoaded(true);
-            setIsLoading(false);
-          }
-        });
       }
     }
-  }, [userName, postID, user?.userID, isLoading]);
+  }, [userID, userName, postID, user?.userID, isLoading]);
 
   const data: RepliesByPostIDData = {
     postID: postID || "",

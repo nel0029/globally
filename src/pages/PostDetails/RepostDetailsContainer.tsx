@@ -40,19 +40,29 @@ const RepostDetailsContainer = () => {
   const [isRepliesLoading, setIsRepliesLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInPostDetails, setIsInPostDetails] = useState(false);
-
-  const postData: PostDetailsData = {
-    postID: postID || "",
-    userName: userName || "",
-    authorID: user?.userID || "",
-  };
+  const userID = localStorage.getItem("userID");
 
   useEffect(() => {
-    if (!isLoaded) {
-      if (postDetails !== null) {
-        setIsLoaded(true);
-        setIsLoading(false);
-        if (postDetails._id !== postID) {
+    if (userID) {
+      const postData: PostDetailsData = {
+        postID: postID || "",
+        userName: userName || "",
+        authorID: userID,
+      };
+      if (!isLoaded) {
+        if (postDetails !== null) {
+          setIsLoaded(true);
+          setIsLoading(false);
+          if (postDetails._id !== postID) {
+            setIsLoading(true);
+            dispatch(getRepostDetails(postData)).then((response: any) => {
+              if (response.meta.requestStatus === "fulfilled") {
+                setIsLoaded(true);
+                setIsLoading(false);
+              }
+            });
+          }
+        } else {
           setIsLoading(true);
           dispatch(getRepostDetails(postData)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
@@ -61,17 +71,9 @@ const RepostDetailsContainer = () => {
             }
           });
         }
-      } else {
-        setIsLoading(true);
-        dispatch(getRepostDetails(postData)).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            setIsLoaded(true);
-            setIsLoading(false);
-          }
-        });
       }
     }
-  }, [userName, postID, user?.userID, isLoading]);
+  }, [userID, userName, postID, user?.userID, isLoading]);
 
   const data: RepliesByPostIDData = {
     postID: postID || "",
