@@ -88,18 +88,26 @@ const PostDetailsContainer = () => {
     }
   }, [userID, userName, postID, user?.userID, isLoading]);
 
-  const data: RepliesByPostIDData = {
-    postID: postID || "",
-    userName: userName || "",
-    authorID: user?.userID || "",
-    postType: "post",
-  };
-
   useEffect(() => {
-    if (postDetails !== null) {
-      if (postReplies !== null) {
-        if (postReplies.postID === postID) {
-          setIsRepliesLoading(false);
+    if (userID) {
+      const data: RepliesByPostIDData = {
+        postID: postID || "",
+        userName: userName || "",
+        authorID: userID,
+        postType: "post",
+      };
+      if (postDetails !== null) {
+        if (postReplies !== null) {
+          if (postReplies.postID === postID) {
+            setIsRepliesLoading(false);
+          } else {
+            setIsRepliesLoading(true);
+            dispatch(getAllRepliesByPostID(data)).then((response: any) => {
+              if (response.meta.requestStatus === "fulfilled") {
+                setIsRepliesLoading(false);
+              }
+            });
+          }
         } else {
           setIsRepliesLoading(true);
           dispatch(getAllRepliesByPostID(data)).then((response: any) => {
@@ -108,16 +116,9 @@ const PostDetailsContainer = () => {
             }
           });
         }
-      } else {
-        setIsRepliesLoading(true);
-        dispatch(getAllRepliesByPostID(data)).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            setIsRepliesLoading(false);
-          }
-        });
       }
     }
-  }, [isLoading, userName, postID, user?.userID]);
+  }, [userID, isLoading, userName, postID, user?.userID]);
 
   const goToReply = (userName: string, postID: string) => {
     navigate(`/${userName}/replies/${postID}`);
