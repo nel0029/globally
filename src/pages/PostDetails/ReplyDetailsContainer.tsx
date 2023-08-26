@@ -44,7 +44,7 @@ const ReplyDetailsContainer = () => {
   const postData: PostDetailsData = {
     postID: postID || "",
     userName: userName || "",
-    authorID: user.userID || "",
+    authorID: user?.userID || "",
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const ReplyDetailsContainer = () => {
   const data: RepliesByPostIDData = {
     postID: postID || "",
     userName: userName || "",
-    authorID: user.userID || "",
+    authorID: user?.userID || "",
     postType: "reply",
   };
   useEffect(() => {

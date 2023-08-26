@@ -49,7 +49,7 @@ const PostDetailsContainer = () => {
   const postData: PostDetailsData = {
     postID: postID || "",
     userName: userName || "",
-    authorID: user.userID || "",
+    authorID: user?.userID || "",
   };
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const PostDetailsContainer = () => {
   const data: RepliesByPostIDData = {
     postID: postID || "",
     userName: userName || "",
-    authorID: user.userID || "",
+    authorID: user?.userID || "",
     postType: "post",
   };
 
