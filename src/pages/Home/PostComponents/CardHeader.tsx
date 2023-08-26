@@ -74,7 +74,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
 
   const userProfile = (event: any) => {
     if (userDetails) {
-      if (userDetails.userName === userName) {
+      if (userDetails?.userName === userName) {
         navigate(`/${userName}`);
       } else {
         dispatch(resetUserDetails());

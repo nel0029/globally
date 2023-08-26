@@ -46,7 +46,7 @@ const UsersList = () => {
 
   useEffect(() => {
     if (userDetails) {
-      if (userDetails.userName === userName) {
+      if (userDetails?.userName === userName) {
         setIsLoading(false);
       } else {
         setIsLoading(true);

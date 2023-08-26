@@ -157,7 +157,7 @@ const CardInteractionsContainer = (card: CardProps) => {
           firstName={user.userFirstName}
           middleName={user.userMiddleName}
           lastName={user.userLastName}
-          userName={user.userName}
+          userName={user?.userName}
           replyCaption={replyCaption}
           setReplyCaption={setReplyCaption}
           handleFileChange={handleFileChange}
@@ -177,7 +177,7 @@ const CardInteractionsContainer = (card: CardProps) => {
           firstName={user.userFirstName}
           middleName={user.userMiddleName}
           lastName={user.userLastName}
-          userName={user.userName}
+          userName={user?.userName}
           repostCaption={repostCaption}
           postAuthorFirstName={card.postAuthorFirstName}
           postAuthorMiddleName={card.postAuthorMiddleName}

@@ -95,7 +95,9 @@ const ConversationListContainer = () => {
                   key={conversation._id}
                   onClick={() => openConvo(conversation._id)}
                   avatarURL={conversation.avatarURL.url}
-                  userName={conversation.userName ? conversation.userName : ""}
+                  userName={
+                    conversation?.userName ? conversation?.userName : ""
+                  }
                   firstName={
                     conversation.receiverFirstName
                       ? conversation.receiverFirstName

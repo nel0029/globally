@@ -45,8 +45,8 @@ const Profile = () => {
 
   useEffect(() => {
     if (userDetails) {
-      if (userDetails.userName === userName) {
-        navigate(`/${userDetails.userName}`, { replace: true });
+      if (userDetails?.userName === userName) {
+        navigate(`/${userDetails?.userName}`, { replace: true });
         handleTabChange(activeTab);
         setActiveTab(`/${userDetails?.userName}`);
         setIsLoading(false);

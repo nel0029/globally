@@ -28,7 +28,7 @@ const LikedPostCardList = () => {
 
   useEffect(() => {
     if (allLikedPosts !== null) {
-      if (allLikedPosts.userName === userName) {
+      if (allLikedPosts?.userName === userName) {
         setIsLoading(false);
       } else {
         setIsLoading(true);

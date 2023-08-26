@@ -27,7 +27,7 @@ const RepostCardList = () => {
 
   useEffect(() => {
     if (allPosts !== null) {
-      if (allPosts.userName === userName) {
+      if (allPosts?.userName === userName) {
         setIsLoading(false);
       } else {
         setIsLoading(true);

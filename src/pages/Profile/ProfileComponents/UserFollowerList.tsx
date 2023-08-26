@@ -19,7 +19,7 @@ const UserFollowerList = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const isInProfileRoute = () => {
-    if (user.userName === userDetails?.userName) {
+    if (user?.userName === userDetails?.userName) {
       return true;
     } else {
       return false;
@@ -67,7 +67,7 @@ const UserFollowerList = () => {
             firstName={users.userFirstName}
             middleName={users.userMiddleName}
             lastName={users.userLastName}
-            userName={users.userName}
+            userName={users?.userName}
             bio={users.bio}
             isUserFollowed={users.isUserFollowed}
             followID={users.followID}

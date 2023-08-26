@@ -135,7 +135,7 @@ const ConversationContainer = () => {
                       )}
                     </div>
                     <div className="flex flex-row gap-x-1 text-[16px] leading-[16px] text-gray-500">
-                      @{conversationInfo.userName}
+                      @{conversationInfo?.userName}
                     </div>
                   </div>
                 </div>

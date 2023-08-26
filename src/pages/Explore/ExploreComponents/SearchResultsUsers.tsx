@@ -45,7 +45,7 @@ const SearchResultsUsers = () => {
       {matchedUsers?.map((user: any) => (
         <UserCard
           key={user._id}
-          userName={user.userName}
+          userName={user?.userName}
           firstName={user.userFirstName}
           middleName={user.userMiddleName}
           lastName={user.userLastName}

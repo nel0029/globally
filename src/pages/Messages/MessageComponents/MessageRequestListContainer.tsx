@@ -56,7 +56,7 @@ const MessageRequestListContainer = () => {
             <ConversationRequestCard
               onClick={() => openConvo(conversation._id)}
               avatarURL={conversation.requesterAvatarURL}
-              userName={conversation.userName ? conversation.userName : ""}
+              userName={conversation?.userName ? conversation?.userName : ""}
               firstName={
                 conversation.requesterFirstName
                   ? conversation.requesterFirstName
