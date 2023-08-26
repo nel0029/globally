@@ -60,7 +60,7 @@ const UserCard: React.FC<UserProps> = ({
   const followUser = () => {
     const data: FollowData = {
       userFollowingID: _id ? _id : "",
-      userID: user.userID,
+      userID: user?.userID,
     };
 
     dispatch(follow(data));
@@ -69,7 +69,7 @@ const UserCard: React.FC<UserProps> = ({
   const unfollowUser = () => {
     const data: UnfollowData = {
       followID: followID || "",
-      userID: user.userID,
+      userID: user?.userID,
     };
 
     dispatch(unfollow(data));
@@ -161,7 +161,7 @@ const UserCard: React.FC<UserProps> = ({
         onClick={(event: any) => event.stopPropagation()}
       >
         {!isLoading &&
-          (user.userID !== _id ? (
+          (user?.userID !== _id ? (
             isUserFollowed ? (
               <div
                 className="py-1 px-4 border-2 border-slate-400 rounded-full text-sm"

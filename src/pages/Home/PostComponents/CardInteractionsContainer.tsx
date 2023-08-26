@@ -38,14 +38,14 @@ const CardInteractionsContainer = (card: CardProps) => {
     const newRepost: NewRepost = {
       postID: card._id,
       parentType: card.type,
-      authorID: user.userID,
+      authorID: user?.userID,
       caption: repostCaption,
     };
 
     dispatch(createRepost(newRepost)).then((response: any) => {
       socket.emit("newRepost", {
         postID: card._id,
-        actorID: user.userID,
+        actorID: user?.userID,
         targetID: card.authorID,
         actionID: response.payload._id,
         actionType: "repost",
@@ -63,14 +63,14 @@ const CardInteractionsContainer = (card: CardProps) => {
     const newReply: NewReply = {
       postID: card._id,
       parentType: card.type,
-      authorID: user.userID,
+      authorID: user?.userID,
       caption: replyCaption,
       file: selectedFiles[0],
     };
     dispatch(createReply(newReply)).then((response: any) =>
       socket.emit("newReply", {
         postID: card._id,
-        actorID: user.userID,
+        actorID: user?.userID,
         targetID: card.authorID,
         actionID: response.payload._id,
         actionType: "reply",
@@ -83,14 +83,14 @@ const CardInteractionsContainer = (card: CardProps) => {
     const likeData: NewLike = {
       postID: card._id,
       parentType: card.type,
-      authorID: user.userID,
+      authorID: user?.userID,
       parentAuthorID: card.authorID,
     };
 
     dispatch(like(likeData)).then((response: any) =>
       socket.emit("newLike", {
         postID: card._id,
-        actorID: user.userID,
+        actorID: user?.userID,
         targetID: card.authorID,
         actionID: response.payload._id,
         actionType: "like",
@@ -102,11 +102,11 @@ const CardInteractionsContainer = (card: CardProps) => {
   const unlikeButton = async () => {
     const likeData: UnlikeData = {
       likeID: card.likeID !== null ? card.likeID : "",
-      authorID: user.userID,
+      authorID: user?.userID,
     };
     socket.emit("unlike", {
       actionID: card.likeID,
-      actorID: user.userID,
+      actorID: user?.userID,
       targetID: card.authorID,
     });
     dispatch(unlike(likeData));

@@ -40,7 +40,7 @@ const Profile = () => {
 
   const data = {
     userName: userName || "",
-    authorID: user.userID || "",
+    authorID: user?.userID || "",
   };
 
   useEffect(() => {
@@ -181,7 +181,7 @@ const Profile = () => {
             <div className="w-full flex flex-row items-center justify-end ">
               {isLoading ? (
                 <CancelButton>Unfollow</CancelButton>
-              ) : user.userID === userDetails?._id ? (
+              ) : user?.userID === userDetails?._id ? (
                 <ConfirmButton
                   className="pl-4 pr-6 py-1 rounded-full"
                   onClick={[() => navigate("/account/setting")]}

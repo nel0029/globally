@@ -66,7 +66,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
   const editPost = (postType: string) => {
     const updatePostData: UpdatePostData = {
       _id: post._id,
-      authorID: user.userID,
+      authorID: user?.userID,
       caption: postCaption,
     };
     switch (postType) {

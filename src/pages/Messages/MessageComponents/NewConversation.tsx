@@ -90,7 +90,7 @@ const NewConversation = () => {
       const selectedUser = userList.find((user: any) => user._id === userID);
       setSelectedReceiver(selectedUser);
       const data = {
-        senderID: user.userID,
+        senderID: user?.userID,
         receiverID: selectedUser._id,
       };
 
@@ -101,7 +101,7 @@ const NewConversation = () => {
 
   const handleSendMessage = () => {
     const data = {
-      senderID: user.userID,
+      senderID: user?.userID,
       receiverID: responseReceiverInfo._id,
       text: messageText,
     };
@@ -157,7 +157,7 @@ const NewConversation = () => {
                   />
 
                   <UserMessageCard
-                    _id={user.userID}
+                    _id={user?.userID}
                     avatarURL={user.avatarURL.url}
                     firstName={user.userFirstName}
                     middleName={user.userMiddleName}

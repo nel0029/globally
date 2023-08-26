@@ -33,7 +33,7 @@ const UsersList = () => {
   const fullName = fullNameArray?.join(" ");
   const data = {
     userName: userName || "",
-    authorID: user.userID || "",
+    authorID: user?.userID || "",
   };
 
   useEffect(() => {

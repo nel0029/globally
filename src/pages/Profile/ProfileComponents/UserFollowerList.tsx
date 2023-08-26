@@ -29,7 +29,7 @@ const UserFollowerList = () => {
   useEffect(() => {
     const data: GetUserFollowerData = {
       userName: userName || "",
-      userID: user.userID,
+      userID: user?.userID,
     };
 
     if (userFollower !== null) {

@@ -27,7 +27,7 @@ const FollowBlockContainer: React.FC<FollowBlockContainerProps> = ({
   const followUser = () => {
     const data: FollowData = {
       userFollowingID: userFollowingID,
-      userID: user.userID,
+      userID: user?.userID,
     };
 
     dispatch(follow(data));
@@ -36,7 +36,7 @@ const FollowBlockContainer: React.FC<FollowBlockContainerProps> = ({
   const unfollowUser = () => {
     const data: UnfollowData = {
       followID: followID,
-      userID: user.userID,
+      userID: user?.userID,
     };
 
     dispatch(unfollow(data));

@@ -21,7 +21,7 @@ const PostCardList = () => {
 
   const data: any = {
     userName: userName || "",
-    authorID: user.userID,
+    authorID: user?.userID,
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const PostCardList = () => {
         }
       });
     }
-  }, [dispatch, userName, user.userID]);
+  }, [dispatch, userName, user?.userID]);
 
   return (
     <React.Fragment>

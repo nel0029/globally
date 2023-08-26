@@ -36,7 +36,7 @@ export default function CreateNewPostInput() {
 
   const createNewPost = () => {
     const newPost: NewPost = {
-      authorID: user.userID,
+      authorID: user?.userID,
       caption: postBody,
       file: selectedFiles[0],
       hasPoll: hasPoll,

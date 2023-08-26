@@ -23,7 +23,7 @@ const LikedPostCardList = () => {
 
   const data: GetAllUserLikes = {
     userName: userName || "",
-    userID: user.userID,
+    userID: user?.userID,
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const LikedPostCardList = () => {
         }
       });
     }
-  }, [dispatch, userName, user.userID]);
+  }, [dispatch, userName, user?.userID]);
 
   return (
     <React.Fragment>

@@ -22,7 +22,7 @@ const RepostCardList = () => {
 
   const data: any = {
     userName: userName || "",
-    authorID: user.userID,
+    authorID: user?.userID,
   };
 
   useEffect(() => {

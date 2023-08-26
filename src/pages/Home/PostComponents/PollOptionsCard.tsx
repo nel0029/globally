@@ -44,7 +44,7 @@ const PollOptionsCard: React.FC<PollOptionListProps> = ({
     const pollResponseData: PollResponse = {
       postID: postID || "",
       optionID: optionID,
-      respondentID: user.userID || "",
+      respondentID: user?.userID || "",
     };
     dispatch(createNewPollResponse(pollResponseData));
     event.stopPropagation();
