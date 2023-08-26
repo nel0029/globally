@@ -48,21 +48,11 @@ const ReplyDetailsContainer = () => {
   };
 
   useEffect(() => {
-    if (user && user?.userID) {
-      if (!isLoaded) {
-        if (postDetails !== null) {
-          setIsLoaded(true);
-          setIsLoading(false);
-          if (postDetails._id !== postID) {
-            setIsLoading(true);
-            dispatch(getReplyDetails(postData)).then((response: any) => {
-              if (response.meta.requestStatus === "fulfilled") {
-                setIsLoaded(true);
-                setIsLoading(false);
-              }
-            });
-          }
-        } else {
+    if (!isLoaded) {
+      if (postDetails !== null) {
+        setIsLoaded(true);
+        setIsLoading(false);
+        if (postDetails._id !== postID) {
           setIsLoading(true);
           dispatch(getReplyDetails(postData)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
@@ -71,9 +61,15 @@ const ReplyDetailsContainer = () => {
             }
           });
         }
+      } else {
+        setIsLoading(true);
+        dispatch(getReplyDetails(postData)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoaded(true);
+            setIsLoading(false);
+          }
+        });
       }
-    } else {
-      setIsLoading(true);
     }
   }, [userName, postID, user?.userID, isLoading]);
 
@@ -84,19 +80,10 @@ const ReplyDetailsContainer = () => {
     postType: "reply",
   };
   useEffect(() => {
-    if (user && user?.userID) {
-      if (postDetails !== null) {
-        if (postReplies !== null) {
-          if (postReplies.postID === postID) {
-            setIsRepliesLoading(false);
-          } else {
-            setIsRepliesLoading(true);
-            dispatch(getAllRepliesByPostID(data)).then((response: any) => {
-              if (response.meta.requestStatus === "fulfilled") {
-                setIsRepliesLoading(false);
-              }
-            });
-          }
+    if (postDetails !== null) {
+      if (postReplies !== null) {
+        if (postReplies.postID === postID) {
+          setIsRepliesLoading(false);
         } else {
           setIsRepliesLoading(true);
           dispatch(getAllRepliesByPostID(data)).then((response: any) => {
@@ -105,9 +92,14 @@ const ReplyDetailsContainer = () => {
             }
           });
         }
+      } else {
+        setIsRepliesLoading(true);
+        dispatch(getAllRepliesByPostID(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsRepliesLoading(false);
+          }
+        });
       }
-    } else {
-      setIsLoading(true);
     }
   }, [isLoading, userName, postID, user?.userID]);
 
