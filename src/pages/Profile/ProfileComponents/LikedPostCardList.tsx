@@ -20,6 +20,7 @@ const LikedPostCardList = () => {
   const userDetails: UserDetails = useSelector(
     (state: any) => state.posts.userDetails
   );
+  const userID = localStorage.getItem("userID");
 
   const data: GetAllUserLikes = {
     userName: userName || "",
@@ -27,10 +28,20 @@ const LikedPostCardList = () => {
   };
 
   useEffect(() => {
-    if (allLikedPosts !== null) {
-      if (allLikedPosts?.userName === userName) {
-        setIsLoading(false);
+    if (userID) {
+      if (allLikedPosts !== null) {
+        if (allLikedPosts?.userName === userName) {
+          setIsLoading(false);
+        } else {
+          setIsLoading(true);
+          dispatch(getAllLikesByUser(data)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              setIsLoading(false);
+            }
+          });
+        }
       } else {
+        setIsLoaded(false);
         setIsLoading(true);
         dispatch(getAllLikesByUser(data)).then((response: any) => {
           if (response.meta.requestStatus === "fulfilled") {
@@ -38,16 +49,8 @@ const LikedPostCardList = () => {
           }
         });
       }
-    } else {
-      setIsLoaded(false);
-      setIsLoading(true);
-      dispatch(getAllLikesByUser(data)).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          setIsLoading(false);
-        }
-      });
     }
-  }, [dispatch, userName, user?.userID]);
+  }, [userID, dispatch, userName, user?.userID]);
 
   return (
     <React.Fragment>

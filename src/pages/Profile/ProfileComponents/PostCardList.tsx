@@ -18,6 +18,7 @@ const PostCardList = () => {
   const userDetails: UserDetails = useSelector(
     (state: any) => state.posts.userDetails
   );
+  const userID = localStorage.getItem("userID");
 
   const data: any = {
     userName: userName || "",
@@ -25,9 +26,18 @@ const PostCardList = () => {
   };
 
   useEffect(() => {
-    if (allPosts !== null) {
-      if (allPosts?.userName === userName) {
-        setIsLoading(false);
+    if (userID) {
+      if (allPosts !== null) {
+        if (allPosts?.userName === userName) {
+          setIsLoading(false);
+        } else {
+          setIsLoading(true);
+          dispatch(getAllPostsByUser(data)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              setIsLoading(false);
+            }
+          });
+        }
       } else {
         setIsLoading(true);
         dispatch(getAllPostsByUser(data)).then((response: any) => {
@@ -36,15 +46,8 @@ const PostCardList = () => {
           }
         });
       }
-    } else {
-      setIsLoading(true);
-      dispatch(getAllPostsByUser(data)).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          setIsLoading(false);
-        }
-      });
     }
-  }, [dispatch, userName, user?.userID]);
+  }, [userID, dispatch, userName, user?.userID]);
 
   return (
     <React.Fragment>
