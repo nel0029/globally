@@ -21,24 +21,26 @@ const CardCaption: React.FC<CardCaptionProps> = ({
 
   const gotTo = (word: string, event: any) => {
     event.stopPropagation();
-    navigate(`/explore/search/top?q=${word.slice(1, word.length)}`);
+    navigate(`/explore/search/top?q=${encodeURIComponent(word)}`);
   };
+
   const wrapWordsWithSpan = (text: string) => {
-    const words = text.split(" ");
-    return words.map((word, index) => {
-      if (word.match(/^#[^\W_]+$/)) {
+    const parts = text.split(/(#[A-Za-z]+)/g);
+
+    return parts.map((part, index) => {
+      if (part.match(/#[A-Za-z]+/)) {
+        const hashtag = part.trim();
         return (
           <span
-            onClick={(event: any) => gotTo(word, event)} // Assuming you have a function 'gotTo' defined elsewhere
+            onClick={(event: any) => gotTo(hashtag, event)}
             className="text-secondary"
             key={index}
           >
-            {word}{" "}
+            {part}
           </span>
         );
-      } else {
-        return word + " ";
       }
+      return part;
     });
   };
 
