@@ -149,7 +149,10 @@ const Card = (card: MainCardProps) => {
               avatarURL={card.postAuthorAvatarURL.url}
             />
           </div>
-          <div className="w-full flex-shrink flex-grow flex flex-col gap-y-2 pr-2">
+          <div
+            onClick={handlePostDetail}
+            className="w-full flex-shrink flex-grow flex flex-col gap-y-2 pr-2"
+          >
             <CardHeaderContainer post={card} authorized={authorized} />
             <CardCaption
               onClick={
