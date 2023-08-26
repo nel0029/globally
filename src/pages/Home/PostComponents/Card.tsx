@@ -106,7 +106,9 @@ const Card = (card: MainCardProps) => {
   };
 
   const handlePostDetail = (event: any) => {
-    navigate(`/${card.postAuthorUserName}/${route()}/${card._id}`);
+    if (user) {
+      navigate(`/${card.postAuthorUserName}/${route()}/${card._id}`);
+    }
     event.stopPropagation();
   };
 
