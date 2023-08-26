@@ -94,10 +94,19 @@ const PostDetailsContainer = () => {
   };
 
   useEffect(() => {
-    if (postDetails !== null) {
-      if (postReplies !== null) {
-        if (postReplies.postID === postID) {
-          setIsRepliesLoading(false);
+    if (user && user.userID) {
+      if (postDetails !== null) {
+        if (postReplies !== null) {
+          if (postReplies.postID === postID) {
+            setIsRepliesLoading(false);
+          } else {
+            setIsRepliesLoading(true);
+            dispatch(getAllRepliesByPostID(data)).then((response: any) => {
+              if (response.meta.requestStatus === "fulfilled") {
+                setIsRepliesLoading(false);
+              }
+            });
+          }
         } else {
           setIsRepliesLoading(true);
           dispatch(getAllRepliesByPostID(data)).then((response: any) => {
@@ -106,14 +115,9 @@ const PostDetailsContainer = () => {
             }
           });
         }
-      } else {
-        setIsRepliesLoading(true);
-        dispatch(getAllRepliesByPostID(data)).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            setIsRepliesLoading(false);
-          }
-        });
       }
+    } else {
+      setIsLoading(true);
     }
   }, [isLoading, userName, postID, user.userID]);
 
