@@ -60,7 +60,7 @@ const PostDetailsContainer = () => {
       const postData: PostDetailsData = {
         postID: postID || "",
         userName: userName || "",
-        authorID: userID,
+        authorID: userID ? userID : user?.userID,
       };
       if (!isLoaded) {
         if (postDetails !== null) {
