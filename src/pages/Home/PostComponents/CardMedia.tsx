@@ -97,7 +97,7 @@ const CardMedia: React.FC<CardMediaProps> = ({
         {isFullView && (
           <div
             onClick={(event: any) => handleFullView(event, false)}
-            className="z-50 absolute top-5 right-5 bg-Dark200 p-2 text-3xl text-Dark400 rounded-full flex justify-center items-center"
+            className="z-50 absolute top-5 right-5 bg-Dark200 p-2 text-3xl text-Dark400 rounded-full flex justify-center items-center cursor-pointer"
           >
             <IonIcon icon={close} />
           </div>
