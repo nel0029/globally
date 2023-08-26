@@ -35,6 +35,7 @@ const PostDetailsContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRepliesLoading, setIsRepliesLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isInPostDetails, setIsInPostDetails] = useState(false);
 
   const postDetails: PostDetailsProps = useSelector(
     (state: any) => state.posts.postDetails || null
@@ -50,6 +51,14 @@ const PostDetailsContainer = () => {
     userName: userName || "",
     authorID: user.userID || "",
   };
+
+  useEffect(() => {
+    setIsInPostDetails(true);
+
+    return () => {
+      setIsInPostDetails(false);
+    };
+  }, []);
 
   useEffect(() => {
     if (!isLoaded) {
@@ -111,10 +120,21 @@ const PostDetailsContainer = () => {
   const goToReply = (userName: string, postID: string) => {
     navigate(`/${userName}/replies/${postID}`);
   };
+
+  const goback = () => {
+    setIsInPostDetails(false);
+    setTimeout(() => {
+      navigate(-1);
+    }, 150);
+  };
   return (
-    <div className="w-full h-full flex flex-col items-center ">
+    <div
+      className={`${
+        isInPostDetails ? "right-0 xl:right-0" : "-right-full xl:right-0"
+      } transition-[right] ease-in-out duration-150 absolute top-0 w-full h-full flex flex-col items-center `}
+    >
       <Header>
-        <BackButton />
+        <BackButton onClick={goback} />
         <TitleText>Post</TitleText>
       </Header>
 

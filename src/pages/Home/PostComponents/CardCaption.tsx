@@ -25,10 +25,10 @@ const CardCaption: React.FC<CardCaptionProps> = ({
   };
 
   const wrapWordsWithSpan = (text: string) => {
-    const parts = text.split(/(#[A-Za-z]+)/g);
+    const parts = text.split(/(#[A-Za-z0-9]+)/g);
 
     return parts.map((part, index) => {
-      if (part.match(/#[A-Za-z]+/)) {
+      if (part.match(/#[A-Za-z0-9]+/)) {
         const hashtag = part.trim();
         return (
           <span

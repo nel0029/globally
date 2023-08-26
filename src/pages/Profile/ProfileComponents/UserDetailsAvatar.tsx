@@ -15,7 +15,7 @@ const UserDetailsAvatar: React.FC<AvatarURL> = ({ avatarURL }) => {
   return (
     <div className="absolute top-0 transform translate-y-[-75%] w-full ">
       {avatarURL ? (
-        <div className=" flex justify-center items-center min-w-[60px] max-w-[150px] h-full rounded-full aspect-square border-[3px] lg:border-[5px] border-slate-100 dark:border-Dark100">
+        <div className=" flex justify-center items-center min-w-[60px] max-w-[150px] h-full rounded-full aspect-square border-[3px] lg:border-[5px] border-slate-100 dark:border-Dark200">
           <img
             className="object-cover w-full h-full rounded-full "
             src={avatarURL && avatarURL.url}

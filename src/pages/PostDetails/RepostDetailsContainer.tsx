@@ -39,6 +39,7 @@ const RepostDetailsContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRepliesLoading, setIsRepliesLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isInPostDetails, setIsInPostDetails] = useState(false);
 
   const postData: PostDetailsData = {
     postID: postID || "",
@@ -103,13 +104,31 @@ const RepostDetailsContainer = () => {
     }
   }, [isLoading, userName, postID, user.userID]);
 
+  useEffect(() => {
+    setIsInPostDetails(true);
+
+    return () => {
+      setIsInPostDetails(false);
+    };
+  }, []);
+
   const goToReply = (userName: string, postID: string) => {
     navigate(`/${userName}/replies/${postID}`);
   };
+  const goback = () => {
+    setIsInPostDetails(false);
+    setTimeout(() => {
+      navigate(-1);
+    }, 150);
+  };
   return (
-    <div className="w-full h-full flex flex-col items-center ">
+    <div
+      className={`${
+        isInPostDetails ? "right-0 xl:right-0" : "-right-full xl:right-0"
+      } transition-[right] ease-in-out duration-150 absolute top-0 w-full h-full flex flex-col items-center `}
+    >
       <Header>
-        <BackButton />
+        <BackButton onClick={goback} />
         <div className="text-lg font-bold">Repost</div>
       </Header>
 

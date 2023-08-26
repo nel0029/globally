@@ -23,6 +23,7 @@ const UsersList = () => {
 
   const [activeTab, setActiveTab] = useState(location.pathname);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInUserList, setIsInUserList] = useState(false);
 
   const fullNameArray = [
     userDetails?.userFirstName,
@@ -34,6 +35,14 @@ const UsersList = () => {
     userName: userName || "",
     authorID: user.userID || "",
   };
+
+  useEffect(() => {
+    setIsInUserList(true);
+
+    return () => {
+      setIsInUserList(false);
+    };
+  }, []);
 
   useEffect(() => {
     if (userDetails) {
@@ -68,11 +77,18 @@ const UsersList = () => {
   };
 
   const goToUserDetails = () => {
-    navigate(-1);
+    setIsInUserList(false);
+    setTimeout(() => {
+      navigate(-1);
+    }, 150);
   };
 
   return (
-    <div className="w-full z-50 fixed top-0 bottom-0 left-0 right-0 lg:static flex flex-col dark:bg-Dark100 bg-Light100">
+    <div
+      className={`${
+        isInUserList ? "right-0 xl:right-0" : "-right-full xl:right-0"
+      } transition-[right] ease-in-out duration-150 w-full max-h-full xl:h-auto z-50 fixed top-0 xl:static flex flex-col dark:bg-Dark100 bg-Light100`}
+    >
       <Header>
         <div
           onClick={goToUserDetails}

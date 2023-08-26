@@ -106,7 +106,9 @@ const Profile = () => {
 
   const goBack = () => {
     setIsInUserProfile(false);
-    navigate(-1);
+    setTimeout(() => {
+      navigate(-1);
+    }, 150);
   };
 
   useEffect(() => {
@@ -114,14 +116,14 @@ const Profile = () => {
     setIsInUserProfile(true);
 
     return () => setIsInUserProfile(false);
-  }, [isInUserProfile, location.pathname]);
+  }, []);
 
   return (
     <div
       id="profile-route"
       className={`${
-        isInUserProfile ? "left-0" : "-left-full"
-      } z-50 dark:bg-Dark100 bg-Light100 absolute top-0 xl:left-0 w-full transition-[left] ease-in-out duration-300`}
+        isInUserProfile ? "right-0 xl:right-0" : "-right-full xl:right-0"
+      } z-50 dark:bg-Dark100 bg-Light100 fixed xl:absolute top-0 w-full max-h-full xl:h-auto transition-[right] ease-in-out duration-150 overflow-y-auto xl:overflow-visible`}
     >
       <div className="w-full h-auto">
         <Header>
