@@ -15,6 +15,7 @@ const UserFollowingList = () => {
   const userDetails = useSelector((state: any) => state.posts.userDetails);
   const user = useSelector((state: any) => state.user.userData);
   const userFollowing = useSelector((state: any) => state.posts.userFollowing);
+  const userID = localStorage.getItem("userID");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,14 +28,23 @@ const UserFollowingList = () => {
   };
 
   useEffect(() => {
-    const data: GetUserFollowingData = {
-      userName: userName || "",
-      userID: user?.userID,
-    };
+    if (userID) {
+      const data: GetUserFollowingData = {
+        userName: userName || "",
+        userID: userID,
+      };
 
-    if (userFollowing !== null) {
-      if (userFollowing[0].userFollowerUserName === userName) {
-        setIsLoading(false);
+      if (userFollowing !== null) {
+        if (userFollowing[0].userFollowerUserName === userName) {
+          setIsLoading(false);
+        } else {
+          setIsLoading(true);
+          dispatch(getUserFollowing(data)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              setIsLoading(false);
+            }
+          });
+        }
       } else {
         setIsLoading(true);
         dispatch(getUserFollowing(data)).then((response: any) => {
@@ -43,15 +53,8 @@ const UserFollowingList = () => {
           }
         });
       }
-    } else {
-      setIsLoading(true);
-      dispatch(getUserFollowing(data)).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          setIsLoading(false);
-        }
-      });
     }
-  }, []);
+  }, [userID]);
   return (
     <div className="w-full flex  flex-col justify-center gap-y-2 ">
       {isLoading ? (
