@@ -22,13 +22,12 @@ const LikedPostCardList = () => {
   );
   const userID = localStorage.getItem("userID");
 
-  const data: GetAllUserLikes = {
-    userName: userName || "",
-    userID: user?.userID,
-  };
-
   useEffect(() => {
     if (userID) {
+      const data: GetAllUserLikes = {
+        userName: userName || "",
+        userID: userID,
+      };
       if (allLikedPosts !== null) {
         if (allLikedPosts?.userName === userName) {
           setIsLoading(false);

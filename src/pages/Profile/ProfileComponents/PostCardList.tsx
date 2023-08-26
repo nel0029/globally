@@ -20,13 +20,12 @@ const PostCardList = () => {
   );
   const userID = localStorage.getItem("userID");
 
-  const data: any = {
-    userName: userName || "",
-    authorID: user?.userID,
-  };
-
   useEffect(() => {
     if (userID) {
+      const data: any = {
+        userName: userName || "",
+        authorID: userID,
+      };
       if (allPosts !== null) {
         if (allPosts?.userName === userName) {
           setIsLoading(false);
