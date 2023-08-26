@@ -61,11 +61,21 @@ const PostDetailsContainer = () => {
   }, []);
 
   useEffect(() => {
-    if (!isLoaded) {
-      if (postDetails !== null) {
-        setIsLoaded(true);
-        setIsLoading(false);
-        if (postDetails._id !== postID) {
+    if (user && user?.userID) {
+      if (!isLoaded) {
+        if (postDetails !== null) {
+          setIsLoaded(true);
+          setIsLoading(false);
+          if (postDetails._id !== postID) {
+            setIsLoading(true);
+            dispatch(getPostDetails(postData)).then((response: any) => {
+              if (response.meta.requestStatus === "fulfilled") {
+                setIsLoaded(true);
+                setIsLoading(false);
+              }
+            });
+          }
+        } else {
           setIsLoading(true);
           dispatch(getPostDetails(postData)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
@@ -74,17 +84,11 @@ const PostDetailsContainer = () => {
             }
           });
         }
-      } else {
-        setIsLoading(true);
-        dispatch(getPostDetails(postData)).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            setIsLoaded(true);
-            setIsLoading(false);
-          }
-        });
       }
+    } else {
+      setIsLoading(true);
     }
-  }, [userName, postID, user.userID, isLoading]);
+  }, [userName, postID, user?.userID, isLoading]);
 
   const data: RepliesByPostIDData = {
     postID: postID || "",
@@ -94,7 +98,7 @@ const PostDetailsContainer = () => {
   };
 
   useEffect(() => {
-    if (user && user.userID) {
+    if (user && user?.userID) {
       if (postDetails !== null) {
         if (postReplies !== null) {
           if (postReplies.postID === postID) {
@@ -119,7 +123,7 @@ const PostDetailsContainer = () => {
     } else {
       setIsLoading(true);
     }
-  }, [isLoading, userName, postID, user.userID]);
+  }, [isLoading, userName, postID, user?.userID]);
 
   const goToReply = (userName: string, postID: string) => {
     navigate(`/${userName}/replies/${postID}`);

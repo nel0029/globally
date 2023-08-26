@@ -48,7 +48,7 @@ const RepostDetailsContainer = () => {
   };
 
   useEffect(() => {
-    if (user && user.userID) {
+    if (user && user?.userID) {
       if (!isLoaded) {
         if (postDetails !== null) {
           setIsLoaded(true);
@@ -75,7 +75,7 @@ const RepostDetailsContainer = () => {
     } else {
       setIsLoading(true);
     }
-  }, [userName, postID, user.userID, isLoading]);
+  }, [userName, postID, user?.userID, isLoading]);
 
   const data: RepliesByPostIDData = {
     postID: postID || "",
@@ -85,7 +85,7 @@ const RepostDetailsContainer = () => {
   };
 
   useEffect(() => {
-    if (user && user.userID) {
+    if (user && user?.userID) {
       if (postDetails !== null) {
         if (postReplies !== null) {
           if (postReplies.postID === postID) {
@@ -110,7 +110,7 @@ const RepostDetailsContainer = () => {
     } else {
       setIsLoading(true);
     }
-  }, [isLoading, userName, postID, user.userID]);
+  }, [isLoading, userName, postID, user?.userID]);
 
   useEffect(() => {
     setIsInPostDetails(true);
