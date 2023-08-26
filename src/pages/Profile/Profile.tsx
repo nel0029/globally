@@ -66,7 +66,7 @@ const Profile = () => {
         }
       });
     }
-  }, [userName, dispatch]);
+  }, [userName, dispatch, user?.userID]);
 
   const handleTabChange = (tabUrl: string) => {
     setActiveTab(tabUrl);
