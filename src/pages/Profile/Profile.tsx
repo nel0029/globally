@@ -30,6 +30,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isInUserProfile, setIsInUserProfile] = useState(false);
+  const userID = localStorage.getItem("userID");
 
   const fullNameArray = [
     userDetails?.userFirstName,
@@ -38,18 +39,26 @@ const Profile = () => {
   ];
   const fullName = fullNameArray?.join(" ");
 
-  const data = {
-    userName: userName || "",
-    authorID: user?.userID || "",
-  };
-
   useEffect(() => {
-    if (userDetails) {
-      if (userDetails?.userName === userName) {
-        navigate(`/${userDetails?.userName}`, { replace: true });
-        handleTabChange(activeTab);
-        setActiveTab(`/${userDetails?.userName}`);
-        setIsLoading(false);
+    if (userID) {
+      const data = {
+        userName: userName || "",
+        authorID: userID,
+      };
+      if (userDetails) {
+        if (userDetails?.userName === userName) {
+          navigate(`/${userDetails?.userName}`, { replace: true });
+          handleTabChange(activeTab);
+          setActiveTab(`/${userDetails?.userName}`);
+          setIsLoading(false);
+        } else {
+          setIsLoading(true);
+          dispatch(getUserDetails(data)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              setIsLoading(false);
+            }
+          });
+        }
       } else {
         setIsLoading(true);
         dispatch(getUserDetails(data)).then((response: any) => {
@@ -58,15 +67,8 @@ const Profile = () => {
           }
         });
       }
-    } else {
-      setIsLoading(true);
-      dispatch(getUserDetails(data)).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          setIsLoading(false);
-        }
-      });
     }
-  }, [userName, dispatch, user?.userID]);
+  }, [userID, userName, dispatch, user?.userID]);
 
   const handleTabChange = (tabUrl: string) => {
     setActiveTab(tabUrl);
