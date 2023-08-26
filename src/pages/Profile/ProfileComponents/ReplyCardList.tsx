@@ -48,7 +48,7 @@ const ReplyCardList = () => {
         });
       }
     }
-  }, [userID, dispatch, userName, user.userID]);
+  }, [userID, dispatch, userName, user?.userID]);
 
   return (
     <React.Fragment>
