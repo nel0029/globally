@@ -183,8 +183,21 @@ const usersSlice = createSlice({
       .addCase(updateUserAccount.fulfilled, (state, action) => {
         const response = action.payload;
         console.log(response);
-        localStorage.setItem("userName", response.userName);
-        localStorage.setItem("avatarURL", response.avatarURL.url);
+        response.userName &&
+          localStorage.setItem("userName", response.userName);
+        response.userFirstName &&
+          localStorage.setItem("userFirstName", response.userFirstName);
+        response.userMiddleName &&
+          localStorage.setItem("userMiddleName", response.userMiddleName);
+        response.userLastName &&
+          localStorage.setItem("userLastName", response.userLastName);
+        response.avatarURL &&
+          localStorage.setItem("avatarURL", response.avatarURL.url);
+        response.coverPhotoURL &&
+          localStorage.setItem("coverPhotoURL", response.coverPhotoURL.url);
+        response.bio && localStorage.setItem("bio", response.bio);
+        response.verified &&
+          localStorage.setItem("verified", response.verified);
 
         state.accountData = response;
         state.authMessage = "";

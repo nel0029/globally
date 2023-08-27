@@ -126,8 +126,8 @@ export const updateUserAccount = createAsyncThunk(
   async (data: any, { rejectWithValue }) => {
     try {
       const headers = {
-        "Content-Type": "multipart/form-data", // Set the correct content type for file uploads
-        ...axios.defaults.headers.common, // Merge with default headers
+        "Content-Type": "multipart/form-data",
+        ...axios.defaults.headers.common,
       };
       const response = await axios.put("/users/account/update", data, {
         headers,

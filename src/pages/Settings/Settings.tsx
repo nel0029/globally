@@ -190,7 +190,7 @@ const Settings = () => {
         <div className="w-full flex-1 gap-y-2 flex flex-col text-2xl p-2">
           <div
             onClick={goToUserProfile}
-            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200`}
+            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200 border dark:border-Dark200`}
           >
             <div className="text-2xl flex justify-center items-center text-secondary">
               <IonIcon icon={person} />
@@ -199,7 +199,7 @@ const Settings = () => {
           </div>
           <div
             onClick={goToAccountSettings}
-            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200`}
+            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200 border dark:border-Dark200`}
           >
             <div className="text-2xl flex justify-center items-center text-secondary">
               <IonIcon icon={settings} />
@@ -208,7 +208,7 @@ const Settings = () => {
           </div>
           <div
             onClick={setThemeMode}
-            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200`}
+            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200 border dark:border-Dark200`}
           >
             <div className="text-2xl flex justify-center items-center text-secondary">
               <IonIcon icon={mode ? sunny : moon} />
@@ -219,7 +219,7 @@ const Settings = () => {
           </div>
           <div
             onClick={handleLogOut}
-            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200`}
+            className={` w-full flex flex-row items-center gap-x-2 px-2 py-3 rounded-lg cursor-pointer hover:text-secondary bg-slate-100 dark:bg-Dark200 border dark:border-Dark200`}
           >
             <div className="text-2xl flex justify-center items-center text-secondary">
               <IonIcon icon={power} />

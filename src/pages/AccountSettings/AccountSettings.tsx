@@ -9,6 +9,7 @@ import {
   eyeOffOutline,
   checkmarkCircle,
   closeCircle,
+  camera,
 } from "ionicons/icons";
 import ConfirmButton from "../../common/ConfirmButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,10 +24,13 @@ import useDebounce from "../Register/Hooks/useDebounce";
 import { useNavigate, useLocation } from "react-router";
 import BackButton from "../../common/BackButton";
 import { resetValid } from "../../redux/usersSlice";
+import CoverPhoto from "../Profile/ProfileComponents/CoverPhoto";
+import CircleLoader from "../../common/CircleLoader";
 
 const AccountSettings = () => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
+  const userID = localStorage.getItem("userID");
   const user = useSelector((state: any) => state.user.userData);
   const account = useSelector((state: any) => state.user.accountData);
   const valid = useSelector((state: any) => state.user.valid);
@@ -47,7 +51,8 @@ const AccountSettings = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
-  const [userNameError, setUserNameError] = useState("");
+  const [isSavingLoading, setIsSavingLoading] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const authMessage = useSelector((state: any) => state.user.authMessage);
   const navigate = useNavigate();
 
@@ -69,13 +74,16 @@ const AccountSettings = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const data = {
-      userID: user?.userID,
-    };
+    if (userID) {
+      const data = {
+        userID: userID,
+      };
 
-    dispatch(getAccountData(data));
+      dispatch(getAccountData(data));
+    }
+
     setCurrentPassword("");
-  }, []);
+  }, [user?.userID, userID]);
 
   useEffect(() => {
     if (account) {
@@ -108,27 +116,47 @@ const AccountSettings = () => {
     setShowConfirmNewPassword(!showConfirmNewPassword);
   };
 
+  const handleAvatarOnChange = (event: any) => {
+    const file = event.target.files[0];
+
+    setProfilePicture(file);
+  };
+
+  const handleCoverPhotoOnChange = (event: any) => {
+    const file = event.target.files[0];
+
+    setCoverPhoto(file);
+  };
+
   const handleSaveChanges = () => {
-    const data = {
-      userID: user?.userID,
-      userName: userName !== account?.userName ? userName : "",
-      userFirstName: userFirstName,
-      userMiddleName: userMiddleName,
-      userLastName: userLastName,
-      email: email !== account?.email ? email : "",
-      bio: bio,
-      currentPassword: currentPassword,
-      newPassword: matchedPassword,
-      avatarURL: profilePicture,
-      coverPhotoURL: coverPhoto,
-    };
+    if (userID) {
+      const data = {
+        userID: userID,
+        userName: userName !== account?.userName ? userName : "",
+        userFirstName: userFirstName,
+        userMiddleName: userMiddleName,
+        userLastName: userLastName,
+        email: email !== account?.email ? email : "",
+        bio: bio ? bio : "",
+        currentPassword: currentPassword,
+        newPassword: matchedPassword,
 
-    dispatch(updateUserAccount(data));
+        avatarURL: profilePicture ? profilePicture : "",
+        coverPhotoURL: coverPhoto ? coverPhoto : "",
+      };
+      setIsSavingLoading(true);
+      dispatch(updateUserAccount(data)).then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          setIsSavingLoading(false);
+        } else {
+          setIsSavingLoading(false);
+        }
+      });
 
-    setCurrentPassword("");
-    dispatch(updateUserAccount(data));
+      setCurrentPassword("");
 
-    dispatch(resetValid());
+      dispatch(resetValid());
+    }
   };
 
   useEffect(() => {
@@ -143,6 +171,17 @@ const AccountSettings = () => {
     setTimeout(() => {
       navigate(-1);
     }, 150);
+  };
+
+  const discardChanges = () => {
+    setUserName(account?.userName);
+    setUserFirstName(account?.userFirstName);
+    setUserMiddleName(account?.userMiddleName);
+    setUserLastName(account?.userLastName);
+    setBio(account?.bio);
+    setEmail(account?.email);
+    setProfilePicture(null);
+    setCoverPhoto(null);
   };
 
   return (
@@ -160,6 +199,68 @@ const AccountSettings = () => {
         </TitleText>
       </Header>
       <div className="w-full flex flex-col items-center flex-grow px-2 gap-y-4">
+        <div className="w-full flex flex-col items-center">
+          <div className="w-full relative">
+            <CoverPhoto
+              coverPhotoURL={
+                coverPhoto
+                  ? URL.createObjectURL(coverPhoto)
+                  : account?.coverPhotoURL?.url
+                  ? account?.coverPhotoURL?.url
+                  : ""
+              }
+            />
+            <div className="absolute bottom-2 right-2 rounded-full bg-white dark:bg-Dark200 flex justify-center items-center ">
+              <label
+                className="p-1 text-2xl rounded-full flex justify-center items-center cursor-pointer"
+                htmlFor="fileInputCoverPhoto"
+              >
+                <IonIcon icon={camera} />
+              </label>
+              <input
+                type="file"
+                id="fileInputCoverPhoto"
+                name="coverPhoto"
+                accept="image/*"
+                className="hidden"
+                onChange={handleCoverPhotoOnChange}
+              />
+            </div>
+          </div>
+          <div className="w-full min-h-[40px]  relative px-2">
+            <div className="absolute top-0 transform translate-y-[-75%] w-[75px] h-[75px]">
+              <div className="relative flex justify-center items-center w-[100px] h-[100px] rounded-full aspect-square border-[3px] lg:border-[5px] border-slate-100 dark:border-Dark200">
+                <img
+                  className="object-cover w-full h-full rounded-full "
+                  src={
+                    profilePicture
+                      ? URL.createObjectURL(profilePicture)
+                      : account?.avatarURL?.url
+                      ? account?.avatarURL.url
+                      : ""
+                  }
+                />
+
+                <div className="absolute -bottom-1 -right-1 rounded-full bg-white dark:bg-Dark200 flex justify-center items-center ">
+                  <label
+                    className="p-1 text-2xl rounded-full flex justify-center items-center cursor-pointer"
+                    htmlFor="fileInput"
+                  >
+                    <IonIcon icon={camera} />
+                  </label>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    name="profilePicture"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleAvatarOnChange}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="w-full flex flex-col">
           <div className="font-bold text-lg">Profile Info</div>
           <div className="w-full flex flex-col gap-y-2">
@@ -322,17 +423,24 @@ const AccountSettings = () => {
             )}
           </div>
         </div>
-        <div className="w-full flex flex-row items-center py-5">
+        <div className="w-full flex flex-row items-center py-5 gap-x-2">
+          <CancelButton
+            className={` rounded-lg  px-5 py-1 border border-primary bg-primary text-white `}
+            onClick={[discardChanges]}
+          >
+            Discard
+          </CancelButton>
           <ConfirmButton
             disabled={
               (editUserName && userName && !valid) ||
-              (newPassword && newPassword !== confirmNewPassword)
+              (newPassword && newPassword !== confirmNewPassword) ||
+              isSavingLoading === true
                 ? true
                 : false
             }
             onClick={[handleSaveChanges]}
           >
-            Save Changes
+            Save Changes {isSavingLoading && <CircleLoader />}
           </ConfirmButton>
         </div>
       </div>

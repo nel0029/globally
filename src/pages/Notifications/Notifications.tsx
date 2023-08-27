@@ -96,15 +96,17 @@ const Notifications = () => {
     const data = {
       userID: userID,
     };
-    if (notifications) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
-      dispatch(getAllNotifications(data)).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          setIsLoading(false);
-        }
-      });
+    if (userID) {
+      if (notifications) {
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        dispatch(getAllNotifications(data)).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsLoading(false);
+          }
+        });
+      }
     }
   }, [userID]);
 

@@ -150,7 +150,13 @@ const Card = (card: MainCardProps) => {
             />
           </div>
           <div
-            onClick={handlePostDetail}
+            onClick={
+              isFullView
+                ? (event: any) => {
+                    event.stopPropagation();
+                  }
+                : handlePostDetail
+            }
             className="w-full flex-shrink flex-grow flex flex-col gap-y-2 pr-2"
           >
             <CardHeaderContainer post={card} authorized={authorized} />
