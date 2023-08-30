@@ -100,9 +100,9 @@ const CardHeader: React.FC<CardHeaderProps> = ({
             )}
           </div>
 
-          <div className="font-light">@{userName}</div>
+          <div className="font-light text-sm">@{userName}</div>
         </div>
-        <div className="flex-1 text-xs xl:text-sm text-gray-500">
+        <div className="flex-1 text-xs text-gray-500">
           ● {formatDate(dateAndTime)}
         </div>
       </div>

@@ -164,22 +164,16 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: any) => post._id === updatedPost._id
           );
           if (postIndex !== -1) {
-            state.userPostsList[postIndex] = {
-              ...state.userPostsList[postIndex],
+            state.userPostsList.posts[postIndex] = {
+              ...state.userPostsList.posts[postIndex],
               ...updatedPost,
             };
           }
         }
-      })
-      .addCase(updatePost.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(deletePost.pending, (state) => {
-        state.status = "Loading";
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.status = "Success";
@@ -189,7 +183,6 @@ const postSlice: any = createSlice({
           state.PostData = state.PostData.filter(
             (post) => post._id !== deletedPostID.postID
           );
-          //state.PostData = state.PostData.filter((post: any) => post.parentPostID !== deletedPostID.postID)
         }
 
         if (state.postDetails !== null) {
@@ -199,19 +192,13 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          state.userPostsList = state.userPostsList.filter(
+          state.userPostsList.posts = state.userPostsList.posts.filter(
             (post: PostsDataProps) => post._id !== deletedPostID.postID
           );
           if (state.userDetails !== null) {
             state.userDetails.allPostsCount -= 1;
           }
         }
-      })
-      .addCase(deletePost.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(like.pending, (state) => {
-        state.status = "Loading";
       })
       .addCase(like.fulfilled, (state, action) => {
         state.status = "Successful";
@@ -250,54 +237,48 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: any) => post._id === likedPost.parentID
           );
           if (postIndex !== -1) {
-            state.userPostsList[postIndex].isLiked = true;
-            state.userPostsList[postIndex].likesCount += 1;
-            state.userPostsList[postIndex].likeID = likedPost._id;
+            state.userPostsList.posts[postIndex].isLiked = true;
+            state.userPostsList.posts[postIndex].likesCount += 1;
+            state.userPostsList.posts[postIndex].likeID = likedPost._id;
           }
         }
 
         if (state.userRepliesList !== null) {
-          const postIndex = state.userRepliesList.findIndex(
+          const postIndex = state.userRepliesList.posts.findIndex(
             (post: any) => post._id === likedPost.parentID
           );
           if (postIndex !== -1) {
-            state.userRepliesList[postIndex].isLiked = true;
-            state.userRepliesList[postIndex].likesCount += 1;
-            state.userRepliesList[postIndex].likeID = likedPost._id;
+            state.userRepliesList.posts[postIndex].isLiked = true;
+            state.userRepliesList.posts[postIndex].likesCount += 1;
+            state.userRepliesList.posts[postIndex].likeID = likedPost._id;
           }
         }
 
         if (state.userRepostsList !== null) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (post: any) => post._id === likedPost.parentID
           );
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex].isLiked = true;
-            state.userRepostsList[postIndex].likesCount += 1;
-            state.userRepostsList[postIndex].likeID = likedPost._id;
+            state.userRepostsList.posts[postIndex].isLiked = true;
+            state.userRepostsList.posts[postIndex].likesCount += 1;
+            state.userRepostsList.posts[postIndex].likeID = likedPost._id;
           }
         }
 
         if (state.userLikesList !== null) {
-          const postIndex = state.userLikesList.findIndex(
+          const postIndex = state.userLikesList.posts.findIndex(
             (post: any) => post._id === likedPost.parentID
           );
           if (postIndex !== -1) {
-            state.userLikesList[postIndex].isLiked = true;
-            state.userLikesList[postIndex].likesCount += 1;
-            state.userLikesList[postIndex].likeID = likedPost._id;
+            state.userLikesList.posts[postIndex].isLiked = true;
+            state.userLikesList.posts[postIndex].likesCount += 1;
+            state.userLikesList.posts[postIndex].likeID = likedPost._id;
           }
         }
-      })
-      .addCase(like.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(unlike.pending, (state) => {
-        state.status = "Loading";
       })
       .addCase(unlike.fulfilled, (state, action) => {
         state.status = "Successful";
@@ -311,7 +292,7 @@ const postSlice: any = createSlice({
             state.PostData[postIndex].isLiked = false;
             state.PostData[postIndex].likesCount -= 1;
             state.PostData[postIndex].likeID =
-              unlikedData.likeID !== null ? unlikedData.likeID : null; // Update likeID to empty string if it's null
+              unlikedData.likeID !== null ? unlikedData.likeID : null;
           }
         }
         if (
@@ -337,51 +318,54 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: any) => post._id === unlikedData.parentID
           );
           if (postIndex !== -1) {
-            state.userPostsList[postIndex].isLiked = false;
-            state.userPostsList[postIndex].likesCount -= 1;
-            state.userPostsList[postIndex].likeID = unlikedData.likeID;
+            state.userPostsList.posts[postIndex].isLiked = false;
+            state.userPostsList.posts[postIndex].likesCount -= 1;
+            state.userPostsList.posts[postIndex].likeID = unlikedData.likeID;
           }
         }
 
         if (state.userRepliesList !== null) {
-          const postIndex = state.userRepliesList.findIndex(
+          const postIndex = state.userRepliesList.posts.findIndex(
             (post: any) => post._id === unlikedData.parentID
           );
           if (postIndex !== -1) {
-            state.userRepliesList[postIndex].isLiked = false;
-            state.userRepliesList[postIndex].likesCount -= 1;
-            state.userRepliesList[postIndex].likeID = unlikedData.likeID;
+            state.userRepliesList.posts[postIndex].isLiked = false;
+            state.userRepliesList.posts[postIndex].likesCount -= 1;
+            state.userRepliesList.posts[postIndex].likeID = unlikedData.likeID;
           }
         }
 
         if (state.userRepostsList !== null) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (post: any) => post._id === unlikedData.parentID
           );
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex].isLiked = false;
-            state.userRepostsList[postIndex].likesCount -= 1;
-            state.userRepostsList[postIndex].likeID = unlikedData.likeID;
+            state.userRepostsList.posts[postIndex].isLiked = false;
+            state.userRepostsList.posts[postIndex].likesCount -= 1;
+            state.userRepostsList.posts[postIndex].likeID = unlikedData.likeID;
           }
         }
 
         if (state.userLikesList !== null) {
-          const postIndex = state.userLikesList.findIndex(
+          const postIndex = state.userLikesList.posts.findIndex(
             (post: any) => post._id === unlikedData.parentID
           );
           if (postIndex !== -1) {
-            state.userLikesList[postIndex].isLiked = false;
-            state.userLikesList[postIndex].likesCount -= 1;
-            state.userLikesList[postIndex].likeID = unlikedData.likeID;
+            state.userLikesList.posts[postIndex].isLiked = false;
+            state.userLikesList.posts[postIndex].likesCount -= 1;
+            state.userLikesList.posts[postIndex].likeID = unlikedData.likeID;
           }
 
           const userID = localStorage.getItem("userID");
-          if (userID === unlikedData.authorID) {
-            state.userLikesList = state.userLikesList.filter(
+          if (
+            userID === unlikedData.authorID &&
+            state.userDetails?._id === userID
+          ) {
+            state.userLikesList.posts = state.userLikesList.posts.filter(
               (like: any) => like._id !== unlikedData.parentID
             );
           }
@@ -431,16 +415,16 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: PostsDataProps) => post._id === newReply.parentPostID
           );
           if (postIndex !== -1) {
-            state.userPostsList[postIndex].repliesCount += 1;
+            state.userPostsList.posts[postIndex].repliesCount += 1;
           }
         }
 
         if (state.userRepliesList !== null) {
-          const replyIndex: number = state.userRepliesList.findIndex(
+          const replyIndex: number = state.userRepliesList.posts.findIndex(
             (reply: any) => {
               return reply._id === newReply.parentPostID;
             }
@@ -448,16 +432,16 @@ const postSlice: any = createSlice({
 
           if (replyIndex !== -1) {
             state.userRepliesList[replyIndex].repliesCount += 1;
-            state.userRepliesList = [...state.userRepliesList, newReply];
+            state.userRepliesList.posts = [...state.userRepliesList, newReply];
           }
         }
 
         if (state.userRepostsList !== null) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (post: PostsDataProps) => post._id === newReply.parentPostID
           );
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex].repliesCount += 1;
+            state.userRepostsList.posts[postIndex].repliesCount += 1;
           }
         }
       })
@@ -495,12 +479,12 @@ const postSlice: any = createSlice({
           }
 
           if (state.userRepliesList !== null) {
-            const postIndex = state.userRepliesList.findIndex(
+            const postIndex = state.userRepliesList.posts.findIndex(
               (post: any) => post._id === updatedReply._id
             );
             if (postIndex !== -1) {
-              state.userRepliesList[postIndex] = {
-                ...state.userRepliesList[postIndex],
+              state.userRepliesList.posts[postIndex] = {
+                ...state.userRepliesList.posts[postIndex],
                 ...updatedReply,
               };
             }
@@ -549,36 +533,36 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: PostsDataProps) => post._id === deletedReplyID.postID
           );
 
           if (postIndex !== -1) {
-            state.userPostsList[postIndex].repliesCount -= 1;
+            state.userPostsList.posts[postIndex].repliesCount -= 1;
           }
         }
 
         if (state.userRepliesList !== null) {
-          const postIndex = state.userRepliesList.findIndex(
+          const postIndex = state.userRepliesList.posts.findIndex(
             (post: PostsDataProps) => post._id === deletedReplyID.postID
           );
 
           if (postIndex !== -1) {
-            state.userRepliesList[postIndex].repliesCount -= 1;
+            state.userRepliesList.posts[postIndex].repliesCount -= 1;
           }
 
-          state.userRepliesList = state.userRepliesList.filter(
+          state.userRepliesList.posts = state.userRepliesList.filter(
             (reply: ReplyDataProps) => reply._id !== deletedReplyID.postID
           );
         }
 
         if (state.userRepostsList !== null) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (post: PostsDataProps) => post._id === deletedReplyID.postID
           );
 
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex].repliesCount -= 1;
+            state.userRepostsList.posts[postIndex].repliesCount -= 1;
           }
         }
       })
@@ -612,31 +596,34 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: PostsDataProps) => post._id === newRepost.parentPostID
           );
           if (postIndex !== -1) {
-            state.userPostsList[postIndex].repostsCount += 1;
+            state.userPostsList.posts[postIndex].repostsCount += 1;
           }
         }
 
         if (state.userRepliesList !== null) {
-          const postIndex = state.userRepliesList.findIndex(
+          const postIndex = state.userRepliesList.posts.findIndex(
             (post: PostsDataProps) => post._id === newRepost.parentPostID
           );
           if (postIndex !== -1) {
-            state.userRepliesList[postIndex].repostsCount += 1;
+            state.userRepliesList.posts[postIndex].repostsCount += 1;
           }
         }
 
         if (state.userRepostsList !== null) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (post: PostsDataProps) => post._id === newRepost.parentPostID
           );
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex].repostsCount += 1;
+            state.userRepostsList.posts[postIndex].repostsCount += 1;
           } else {
-            state.userRepostsList = [...state.userRepostsList, ...newRepost];
+            state.userRepostsList.posts = [
+              ...state.userRepostsList,
+              ...newRepost,
+            ];
           }
         }
       })
@@ -668,11 +655,11 @@ const postSlice: any = createSlice({
         }
 
         if (state.userRepostsList !== null && state.userDetails) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (repost: RepostDataProps) => repost._id === updatedRepost._id
           );
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex] = {
+            state.userRepostsList.posts[postIndex] = {
               ...state.userRepostsList,
               ...updatedRepost,
             };
@@ -704,7 +691,7 @@ const postSlice: any = createSlice({
         }
 
         if (state.userRepostsList !== null) {
-          state.userRepostsList = state.userRepostsList.filter(
+          state.userRepostsList.posts = state.userRepostsList.filter(
             (repost: RepostDataProps) => repost._id !== deletedRepostID.postID
           );
         }
@@ -732,30 +719,15 @@ const postSlice: any = createSlice({
 
         state.postReplies = replies;
       })
-      .addCase(getReplyDetails.pending, (state) => {
-        state.status = "Loading";
-      })
       .addCase(getReplyDetails.fulfilled, (state, action) => {
         state.status = "Success";
 
         state.postDetails = action.payload;
       })
-      .addCase(getReplyDetails.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(getRepostDetails.pending, (state) => {
-        state.status = "Loading";
-      })
       .addCase(getRepostDetails.fulfilled, (state, action) => {
         state.status = "Success";
 
         state.postDetails = action.payload;
-      })
-      .addCase(getRepostDetails.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(getAllPostsByUser.pending, (state) => {
-        state.status = "Loading";
       })
       .addCase(getAllPostsByUser.fulfilled, (state, action) => {
         state.status = "Success";
@@ -763,25 +735,11 @@ const postSlice: any = createSlice({
 
         state.userPostsList = allPosts;
       })
-      .addCase(getAllPostsByUser.rejected, (state) => {
-        state.status = "Error";
-      })
-
-      .addCase(getUserDetails.pending, (state) => {
-        state.status = "Loading";
-      })
       .addCase(getUserDetails.fulfilled, (state, action) => {
         state.status = "Success";
         const userDetails = action.payload;
 
         state.userDetails = userDetails;
-      })
-      .addCase(getUserDetails.rejected, (state) => {
-        state.status = "Error";
-      })
-
-      .addCase(getAllRepliesByUser.pending, (state) => {
-        state.status = "Loading";
       })
       .addCase(getAllRepliesByUser.fulfilled, (state, action) => {
         state.status = "Success";
@@ -789,24 +747,11 @@ const postSlice: any = createSlice({
 
         state.userRepliesList = allPosts;
       })
-      .addCase(getAllRepliesByUser.rejected, (state) => {
-        state.status = "Error";
-      })
-
-      .addCase(getAllRepostsByUser.pending, (state) => {
-        state.status = "Loading";
-      })
       .addCase(getAllRepostsByUser.fulfilled, (state, action) => {
         state.status = "Success";
         const allPosts = action.payload;
 
         state.userRepostsList = allPosts;
-      })
-      .addCase(getAllRepostsByUser.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(follow.pending, (state) => {
-        state.status = "Loading";
       })
       .addCase(follow.fulfilled, (state, action) => {
         state.status = "Success";
@@ -886,54 +831,52 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: any) => post.authorID === followResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userPostsList[postIndex].followID = followResponse.followID;
-            state.userPostsList[postIndex].isFollowedAuthor = true;
+            state.userPostsList.posts[postIndex].followID =
+              followResponse.followID;
+            state.userPostsList.posts[postIndex].isFollowedAuthor = true;
           }
         }
 
         if (state.userRepliesList !== null) {
-          const postIndex = state.userRepliesList.findIndex(
+          const postIndex = state.userRepliesList.posts.findIndex(
             (post: any) => post.authorID === followResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userRepliesList[postIndex].followID = followResponse.followID;
-            state.userRepliesList[postIndex].isFollowedAuthor = true;
+            state.userRepliesList.posts[postIndex].followID =
+              followResponse.followID;
+            state.userRepliesList.posts[postIndex].isFollowedAuthor = true;
           }
         }
 
         if (state.userRepostsList !== null) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (post: any) => post.authorID === followResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex].followID = followResponse.followID;
-            state.userRepostsList[postIndex].isFollowedAuthor = true;
+            state.userRepostsList.posts[postIndex].followID =
+              followResponse.followID;
+            state.userRepostsList.posts[postIndex].isFollowedAuthor = true;
           }
         }
 
         if (state.userLikesList !== null) {
-          const postIndex = state.userLikesList.findIndex(
+          const postIndex = state.userLikesList.posts.findIndex(
             (post: any) => post.authorID === followResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userLikesList[postIndex].followID = followResponse.followID;
-            state.userLikesList[postIndex].isFollowedAuthor = true;
+            state.userLikesList.posts[postIndex].followID =
+              followResponse.followID;
+            state.userLikesList.posts[postIndex].isFollowedAuthor = true;
           }
         }
-      })
-      .addCase(follow.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(unfollow.pending, (state) => {
-        state.status = "Loading";
       })
       .addCase(unfollow.fulfilled, (state, action) => {
         state.status = "Success";
@@ -1012,46 +955,46 @@ const postSlice: any = createSlice({
         }
 
         if (state.userPostsList !== null) {
-          const postIndex = state.userPostsList.findIndex(
+          const postIndex = state.userPostsList.posts.findIndex(
             (post: any) => post.authorID === unfollowResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userPostsList[postIndex].followID = null;
-            state.userPostsList[postIndex].isFollowedAuthor = false;
+            state.userPostsList.posts[postIndex].followID = null;
+            state.userPostsList.posts[postIndex].isFollowedAuthor = false;
           }
         }
 
         if (state.userRepliesList !== null) {
-          const postIndex = state.userRepliesList.findIndex(
+          const postIndex = state.userRepliesList.posts.findIndex(
             (post: any) => post.authorID === unfollowResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userRepliesList[postIndex].followID = null;
-            state.userRepliesList[postIndex].isFollowedAuthor = false;
+            state.userRepliesList.posts[postIndex].followID = null;
+            state.userRepliesList.posts[postIndex].isFollowedAuthor = false;
           }
         }
 
         if (state.userRepostsList !== null) {
-          const postIndex = state.userRepostsList.findIndex(
+          const postIndex = state.userRepostsList.posts.findIndex(
             (post: any) => post.authorID === unfollowResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userRepostsList[postIndex].followID = null;
-            state.userRepostsList[postIndex].isFollowedAuthor = false;
+            state.userRepostsList.posts[postIndex].followID = null;
+            state.userRepostsList.posts[postIndex].isFollowedAuthor = false;
           }
         }
 
         if (state.userLikesList !== null) {
-          const postIndex = state.userLikesList.findIndex(
+          const postIndex = state.userLikesList.posts.findIndex(
             (post: any) => post.authorID === unfollowResponse.followingID
           );
 
           if (postIndex !== -1) {
-            state.userLikesList[postIndex].followID = null;
-            state.userLikesList[postIndex].isFollowedAuthor = false;
+            state.userLikesList.posts[postIndex].followID = null;
+            state.userLikesList.posts[postIndex].isFollowedAuthor = false;
           }
         }
       })

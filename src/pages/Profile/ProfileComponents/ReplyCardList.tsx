@@ -59,7 +59,7 @@ const ReplyCardList = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {allPosts?.length > 0 ? (
+          {allPosts?.posts.length > 0 ? (
             <React.Fragment>
               <div className="flex-1">No more posts</div>
               {allPosts?.map((post: ReplyDataProps) => (

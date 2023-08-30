@@ -10,6 +10,7 @@ import socket from "./sockets/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "./redux/store";
 import {
+  getAllNotifications,
   getUnseenMessagesCount,
   getUnseenNotifications,
 } from "./redux/asynActions/messageAsyncActions";
@@ -23,32 +24,9 @@ import {
 import Register from "./pages/Register/Register";
 import LogIn from "./pages/LogIn/LogIn";
 import { serverAddress } from "./config/Config";
-import Settings from "./pages/Settings/Settings";
 import TrendingHashtags from "./pages/Explore/ExploreComponents/TrendingHashtags";
-import SearchBar from "./pages/Explore/ExploreComponents/SearchBar";
 import MobileLayout from "./routes/MobileLayout";
 import PrivateRoutes from "./routes/PrivateRoutes";
-import AccountSettings from "./pages/AccountSettings/AccountSettings";
-import Profile from "./pages/Profile/Profile";
-import PostCardList from "./pages/Profile/ProfileComponents/PostCardList";
-import ReplyCardList from "./pages/Profile/ProfileComponents/ReplyCardList";
-import RepostCardList from "./pages/Profile/ProfileComponents/RepostCardList";
-import LikedPostCardList from "./pages/Profile/ProfileComponents/LikedPostCardList";
-import PostDetailsContainer from "./pages/PostDetails/PostDetailsContainer";
-import ReplyDetailsContainer from "./pages/PostDetails/ReplyDetailsContainer";
-import RepostDetailsContainer from "./pages/PostDetails/RepostDetailsContainer";
-import UsersList from "./pages/Profile/UsersList";
-import UserFollowingList from "./pages/Profile/ProfileComponents/UserFollowingList";
-import UserFollowerList from "./pages/Profile/ProfileComponents/UserFollowerList";
-import Home from "./pages/Home/Home";
-import Messages from "./pages/Messages/Messages";
-import Notifications from "./pages/Notifications/Notifications";
-import Explore from "./pages/Explore/Explore";
-import SearchResults from "./pages/Explore/ExploreComponents/SearchResults";
-import SearchResultsTop from "./pages/Explore/ExploreComponents/SearchResultsTop";
-import SearchResultsPosts from "./pages/Explore/ExploreComponents/SearchResultsPosts";
-import SearchResultsUsers from "./pages/Explore/ExploreComponents/SearchResultsUsers";
-import BottomNavigation from "./layout/BottomNavigation";
 import Header from "./common/Header";
 
 const App = () => {
@@ -62,6 +40,7 @@ const App = () => {
   const isLogIn = useSelector((state: any) => state.user.isLogIn);
   const body = document.getElementById("body");
   const [bottomNavHeight, setBottomNavHeight] = useState(0);
+  const userID = localStorage.getItem("userID");
 
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [appHeight, setAppHeight] = useState(0);
@@ -99,12 +78,12 @@ const App = () => {
     const data = {
       userID: user?.userID,
     };
-    if (isLogIn) {
+    if (userID) {
       if (user && user.userID !== null) {
-        socket.on("newNotification", (data: any) =>
-          dispatch(addNewNotifcation(data))
-        );
-        socket.on("removeNotification", (data: any) => {
+        socket.on("newNotification", (data: any) => {
+          dispatch(addNewNotifcation(data));
+        });
+        socket.on("deleteNotification", (data: any) => {
           dispatch(removeNotifcation(data));
         });
         socket.on("newMessageCount", (data: any) =>
@@ -117,9 +96,9 @@ const App = () => {
     return () => {
       // Clean up the event listeners when the component unmounts
       socket?.off("newNotification");
-      socket?.off("removeNotification");
+      socket?.off("deleteNotification");
     };
-  }, [user?.userID, isLogIn]);
+  }, [user?.userID, isLogIn, userID]);
 
   const bottomNav = document.getElementById("bottom-nav");
 

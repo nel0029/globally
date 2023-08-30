@@ -98,7 +98,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({
 
     switch (updateAction) {
       case "reply":
-        socket.emit("deleteReply", {
+        socket.emit("deleteNotification", {
           actorID: user?.userID,
           targetID: card.authorID,
           actionID: card._id,
@@ -106,7 +106,7 @@ const CardDetailsHeaderMenu: React.FC<CardHeaderProps> = ({
         dispatch(deleteReply(payload));
         break;
       case "repost":
-        socket.emit("deleteRepost", {
+        socket.emit("deleteNotification", {
           actorID: user?.userID,
           targetID: card.authorID,
           actionID: card._id,

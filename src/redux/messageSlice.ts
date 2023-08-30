@@ -11,6 +11,7 @@ import {
   getAllNotifications,
   getUnseenNotifications,
   getUnseenMessagesCount,
+  updateNotification,
 } from "./asynActions/messageAsyncActions";
 import { UserData } from "./usersSlice";
 import { searchUser } from "./asynActions/userAsyncActions";
@@ -113,6 +114,7 @@ export interface NotificationsProps {
   targetID: string;
   createdAt: string;
   verified: boolean;
+  seen: boolean;
 }
 
 export interface UnseenNotificationsProps {
@@ -215,29 +217,23 @@ const messageSlice = createSlice({
       }
     },
     addNewNotifcation: (state, action) => {
-      const { notification, unseenNotification } = action.payload;
+      const notification = action.payload;
 
-      return {
-        ...state,
-        notificationList: state.notificationList
-          ? [...state.notificationList, notification]
-          : [notification],
-        unseenNotification: unseenNotification,
-      };
+      if (state.notificationList !== null) {
+        state.notificationList = [...state.notificationList, notification];
+      } else {
+        state.notificationList = [notification];
+      }
     },
 
     removeNotifcation: (state, action) => {
-      const updatedNotifcation = action.payload;
-      console.log(updatedNotifcation);
+      const deletedNotification = action.payload;
 
       if (state.notificationList !== null) {
         state.notificationList = state.notificationList.filter(
-          (notif: NotificationsProps) =>
-            notif._id !== updatedNotifcation.notification._id
+          (notif: NotificationsProps) => notif._id !== deletedNotification._id
         );
       }
-
-      state.unseenNotification = updatedNotifcation.unseenNotification;
     },
 
     resetNotificationsCount: (state) => {
@@ -316,6 +312,22 @@ const messageSlice = createSlice({
         const notifications = action.payload;
 
         state.unseenNotification = notifications;
+      })
+      .addCase(updateNotification.fulfilled, (state, action) => {
+        const response: NotificationsProps = action.payload;
+
+        if (state.notificationList !== null) {
+          const notificationIndex = state.notificationList.findIndex(
+            (notif: any) => notif._id === response._id
+          );
+
+          if (notificationIndex !== -1) {
+            state.notificationList[notificationIndex] = {
+              ...state.notificationList[notificationIndex],
+              ...response,
+            };
+          }
+        }
       });
   },
 });

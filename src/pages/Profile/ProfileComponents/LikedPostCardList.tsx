@@ -60,7 +60,7 @@ const LikedPostCardList = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {allLikedPosts?.posts.length > 0 ? (
+          {allLikedPosts?.posts?.length > 0 ? (
             <React.Fragment>
               <div className="flex-1">No more posts</div>
               {allLikedPosts?.posts.map((post: CardProps) => (

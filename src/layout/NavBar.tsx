@@ -41,11 +41,17 @@ import { resetPostsState } from "../redux/postSlice";
 const NavBar = () => {
   const user = useSelector((state: any) => state.user.userData);
   const mode = useSelector((state: any) => state.theme.darkMode);
+  const notificationList = useSelector(
+    (state: any) => state.messages.notificationList
+  );
+
+  const unseenNotifications = notificationList?.filter(
+    (notif: any) => notif.seen === false
+  );
+
   const userID = localStorage.getItem("userID");
   const avatarURL = localStorage.getItem("avatarURL");
-  const notificationCount = useSelector(
-    (state: any) => state.messages.unseenNotification
-  );
+
   const messageNotif = useSelector(
     (state: any) => state.messages.unseenMessagesCount
   );
@@ -131,7 +137,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="lg:max-w-[300px] h-full flex-grow-0 sticky hidden lg:flex flex-col items-center justify-center left-0 top-0 bottom-0 border-r dark:border-Dark300">
+    <nav className="lg:max-w-[300px] h-full flex-grow sticky hidden lg:flex flex-col items-center left-0 top-0 bottom-0 border-r dark:border-Dark300">
       <Header>
         <div className="flex justify-center items-center w-[32px] rounded-full text-secondary">
           <img
@@ -209,8 +215,7 @@ const NavBar = () => {
               <div className="text-2xl flex justify-center items-center">
                 <IonIcon icon={notificationsOutline} />
               </div>
-              {notificationCount &&
-              notificationCount.unseenNotificationsCount > 0 ? (
+              {unseenNotifications && unseenNotifications.length > 0 ? (
                 <div className="w-2 h-2 bg-primary rounded-full absolute top-0 right-0" />
               ) : null}
             </div>
@@ -220,7 +225,7 @@ const NavBar = () => {
           <div
             className={`${
               isSettingsOpen ? "h-[168px]" : "[38px]"
-            } relative w-full flex flex-col items-center lg:items-start transition-all ease-in-out duration-200 overflow-hidden`}
+            } relative w-full flex flex-col items-center lg:items-start transition-[height] ease-in-out duration-200 overflow-hidden`}
           >
             <div
               onClick={openSettings}
@@ -244,7 +249,7 @@ const NavBar = () => {
             <div
               className={`absolute ${
                 isSettingsOpen ? "top-[42px]" : "top-0"
-              } left-0 right-0 overflow-hidden flex flex-col gap-y-2 transition-all ease-in-out duration-100`}
+              } left-0 right-0 overflow-hidden flex flex-col gap-y-2 transition-[top] ease-in-out duration-100`}
             >
               {isSettingsOpen && (
                 <div

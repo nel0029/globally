@@ -23,6 +23,13 @@ import { openMenu } from "../redux/themeSlice";
 
 const BottomNavigation = () => {
   const userID = localStorage.getItem("userID");
+  const notificationList = useSelector(
+    (state: any) => state.messages.notificationList
+  );
+
+  const unseenNotifications = notificationList?.filter(
+    (notif: any) => notif.seen === false
+  );
 
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
@@ -100,7 +107,7 @@ const BottomNavigation = () => {
       <div
         className={`${
           activeTab === "/notifications" ? "text-secondary" : ""
-        } flex justify-center items-center text-4xl`}
+        } flex justify-center items-center text-4xl relative`}
         onClick={goToNotifications}
       >
         <IonIcon
@@ -110,10 +117,13 @@ const BottomNavigation = () => {
               : notificationsOutline
           }
         />
+        {unseenNotifications?.length > 0 && (
+          <div className="w-2 h-2 bg-primary rounded-full absolute right-0 top-0"></div>
+        )}
       </div>
 
       <div
-        className={` flex justify-center items-center text-4xl`}
+        className={` flex justify-center items-center text-4xl `}
         onClick={handleOpenMenu}
       >
         <IonIcon icon={menuOutline} />

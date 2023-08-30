@@ -14,9 +14,13 @@ import { AppDispatch } from "../../redux/store";
 import Card from "./PostComponents/Card";
 import Header from "../../common/Header";
 import LoadingCard from "./PostComponents/LoadingCard";
+import { getAllNotifications } from "../../redux/asynActions/messageAsyncActions";
 
 export default function Home() {
   const posts = useSelector((state: any) => state.posts.PostData);
+  const notifications = useSelector(
+    (state: any) => state.messages.notificationList
+  );
 
   const userID = localStorage.getItem("userID");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +40,14 @@ export default function Home() {
             setIsLoading(false);
           }
         });
+      }
+
+      if (notifications === null) {
+        const data = {
+          userID: userID,
+          markAllAsRead: false,
+        };
+        dispatch(getAllNotifications(data));
       }
     }
   }, [userID]);
