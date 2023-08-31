@@ -51,7 +51,6 @@ const CardInteractionsContainer = (card: CardProps) => {
         actionType: "repost",
         postType: card.type,
       });
-      // alert("Repost success");
     });
   };
 

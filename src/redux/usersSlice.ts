@@ -129,6 +129,18 @@ const usersSlice = createSlice({
         localStorage.setItem("coverPhotoURL", authData.coverPhotoURL);
         localStorage.setItem("bio", authData.bio);
         localStorage.setItem("verified", authData.verified);
+
+        state.userData = {
+          userID: localStorage.getItem("userID"),
+          userName: localStorage.getItem("userName"),
+          avatarURL: localStorage.getItem("avatarURL"),
+          userFirstName: localStorage.getItem("userFirstName"),
+          userMiddleName: localStorage.getItem("userMiddleName"),
+          userLastName: localStorage.getItem("userLastName"),
+          coverPhotoURL: localStorage.getItem("coverPhotoURL"),
+          bio: localStorage.getItem("bio"),
+          verified: localStorage.getItem("verified") === "true",
+        };
       })
       .addCase(logIn.rejected, (state, action) => {
         state.authStatus = "Error";
