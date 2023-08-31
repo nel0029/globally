@@ -161,7 +161,6 @@ const usersSlice = createSlice({
         const response = action.payload;
         state.authMessage = response.message;
         state.valid = response.valid;
-        console.log(response.valid);
       })
       .addCase(verifyUserName.rejected, (state, action) => {
         state.authStatus = "Error";
@@ -194,7 +193,7 @@ const usersSlice = createSlice({
       })
       .addCase(updateUserAccount.fulfilled, (state, action) => {
         const response = action.payload;
-        console.log(response);
+
         response.userName &&
           localStorage.setItem("userName", response.userName);
         response.userFirstName &&
