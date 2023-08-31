@@ -121,7 +121,7 @@ const Notifications = () => {
   const markAllAsRead = () => {
     const data = {
       userID: userID,
-      markAllAsRead: false,
+      markAllAsRead: true,
     };
 
     setIsLoading(true);
