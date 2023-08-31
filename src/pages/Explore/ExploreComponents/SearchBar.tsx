@@ -44,6 +44,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   useEffect(() => {
     if (query) {
       setPlaceHolder(query);
+    } else {
+      setPlaceHolder("");
     }
   }, [location.pathname, query]);
 
@@ -67,6 +69,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <IonIcon icon={search} />
       </div>
       <input
+        id="search-input"
         className="w-full outline-none border-none bg-transparent py-1 font-semibold"
         type="text"
         placeholder={placeholder ? placeholder : "Search..."}

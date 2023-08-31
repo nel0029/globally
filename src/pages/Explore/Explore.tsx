@@ -62,6 +62,7 @@ const Explore = () => {
 
   const onSubmit = (event: any) => {
     event.preventDefault();
+    const searchInput = document.getElementById("search-input");
 
     if (user?.userID !== undefined) {
       searchParams.set("q", searchBody);
@@ -95,10 +96,12 @@ const Explore = () => {
           });
         }
       }
+      searchInput?.blur();
     }
   };
 
   const goToTopResults = (word: string) => {
+    const searchInput = document.getElementById("search-input");
     if (user?.userID !== undefined) {
       searchParams.set("q", word);
       setSearchParams(searchParams);
@@ -132,6 +135,7 @@ const Explore = () => {
         }
       }
     }
+    searchInput?.blur();
     setSearchBody("");
   };
 
