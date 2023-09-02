@@ -227,7 +227,7 @@ const Profile = () => {
               {isLoading ? (
                 <div className="h-[16px] w-[150px] my-1 bg-gray-200 dark:bg-gray-700 rounded-full " />
               ) : (
-                <div className="w-full text-[16px] py-1 text-gray-500">
+                <div className="w-full text-[16px] py-1">
                   {userDetails?.bio ? (
                     userDetails.bio
                   ) : (
