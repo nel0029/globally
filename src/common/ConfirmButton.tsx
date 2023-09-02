@@ -30,7 +30,7 @@ const ConfirmButton: React.FC<ConfirmButtonProps> = ({
       className={`${
         className
           ? className
-          : "rounded-lg  px-5 py-1 flex flex-row items-center"
+          : "rounded-lg  px-5 py-1 flex flex-row items-center gap-x-1"
       } ${
         disabled
           ? "bg-opacity-60 border-opacity-60 cursor-not-allowed"
