@@ -27,7 +27,11 @@ const ConfirmButton: React.FC<ConfirmButtonProps> = ({
     <button
       onClick={handleOnClick}
       disabled={disabled}
-      className={`${className ? className : "rounded-lg  px-5 py-1"} ${
+      className={`${
+        className
+          ? className
+          : "rounded-lg  px-5 py-1 flex flex-row items-center"
+      } ${
         disabled
           ? "bg-opacity-60 border-opacity-60 cursor-not-allowed"
           : "bg-opacity-100"
