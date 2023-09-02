@@ -26,7 +26,7 @@ const PostCardList = () => {
         userName: userName || "",
         authorID: userID,
       };
-      if (allPosts !== null) {
+      if (allPosts !== null && userDetails !== null) {
         if (allPosts?.userName === userName) {
           setIsLoading(false);
         } else {
@@ -52,7 +52,7 @@ const PostCardList = () => {
 
   return (
     <React.Fragment>
-      {isLoading && !userDetails ? (
+      {isLoading ? (
         <React.Fragment>
           <LoadingCard />
           <LoadingCard />

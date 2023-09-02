@@ -28,7 +28,7 @@ const LikedPostCardList = () => {
         userName: userName || "",
         userID: userID,
       };
-      if (allLikedPosts !== null) {
+      if (allLikedPosts !== null && userDetails !== null) {
         if (allLikedPosts?.userName === userName) {
           setIsLoading(false);
         } else {
@@ -55,7 +55,7 @@ const LikedPostCardList = () => {
 
   return (
     <React.Fragment>
-      {isLoading && !userDetails ? (
+      {isLoading ? (
         <React.Fragment>
           <LoadingCard />
           <LoadingCard />
