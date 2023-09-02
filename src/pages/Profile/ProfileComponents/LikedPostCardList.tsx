@@ -48,6 +48,8 @@ const LikedPostCardList = () => {
           }
         });
       }
+    } else {
+      setIsLoading(true);
     }
   }, [userID, dispatch, userName, user?.userID]);
 

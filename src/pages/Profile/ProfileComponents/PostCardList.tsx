@@ -45,6 +45,8 @@ const PostCardList = () => {
           }
         });
       }
+    } else {
+      setIsLoading(true);
     }
   }, [userID, dispatch, userName, user?.userID]);
 
