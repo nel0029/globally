@@ -9,11 +9,7 @@ import React, { useEffect, useState } from "react";
 import socket from "./sockets/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "./redux/store";
-import {
-  getAllNotifications,
-  getUnseenMessagesCount,
-  getUnseenNotifications,
-} from "./redux/asynActions/messageAsyncActions";
+import { getUnseenMessagesCount } from "./redux/asynActions/messageAsyncActions";
 import {
   addNewNotifcation,
   createNewMessage,

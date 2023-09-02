@@ -60,7 +60,7 @@ const PostCardList = () => {
           {allPosts?.posts?.length > 0 ? (
             <React.Fragment>
               <div className="flex-1">No more posts</div>
-              {allPosts?.posts.map((post: CardProps) => (
+              {allPosts?.posts?.map((post: CardProps) => (
                 <Card key={post._id} {...post} />
               ))}
             </React.Fragment>

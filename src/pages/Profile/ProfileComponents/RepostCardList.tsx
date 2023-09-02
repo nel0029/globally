@@ -61,7 +61,7 @@ const RepostCardList = () => {
           {allPosts?.posts?.length > 0 ? (
             <React.Fragment>
               <div className="flex-1">No more posts</div>
-              {allPosts?.posts.map((post: RepostDataProps) => (
+              {allPosts?.posts?.map((post: RepostDataProps) => (
                 <Card key={post._id} {...post} />
               ))}
             </React.Fragment>
