@@ -44,14 +44,13 @@ export default function CreateNewPostInput() {
       bgColor: backgroundColor,
     };
 
-    dispatch(createPost(newPost)).then(() => {
-      setPostBody("");
-      setSelectedFiles([]);
-      setPollOptionList([]);
-      setPoll(false);
-      setBackgroundColor("");
-      setHasBackgroundColor(false);
-    });
+    dispatch(createPost(newPost));
+    setPostBody("");
+    setSelectedFiles([]);
+    setPollOptionList([]);
+    setPoll(false);
+    setBackgroundColor("");
+    setHasBackgroundColor(false);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

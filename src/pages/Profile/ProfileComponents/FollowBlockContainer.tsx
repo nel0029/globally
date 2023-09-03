@@ -46,7 +46,7 @@ const FollowBlockContainer: React.FC<FollowBlockContainerProps> = ({
     <div className="flex flex-row items-center p-2 gap-x-2">
       {isFollowedUser ? (
         <CancelButton
-          className="pl-4 pr-6 py-1 rounded-full"
+          className="pl-4 pr-6 py-1 border border-gray-500 rounded-full"
           onClick={[unfollowUser]}
         >
           <div className="text-sm sm:text-base flex flex-row items-center gap-x-2">

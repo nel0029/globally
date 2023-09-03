@@ -230,6 +230,8 @@ const Profile = () => {
                 <div className="w-full text-[16px] py-1">
                   {userDetails?.bio ? (
                     userDetails.bio
+                      .split("\n")
+                      .map((line: string) => <p>{line}</p>)
                   ) : (
                     <div className="h-[16px] py-1" />
                   )}
