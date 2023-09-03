@@ -116,7 +116,7 @@ const Explore = () => {
         dispatch(searchPostsByWord(data)).then((response: any) => {
           if (response.meta.requestStatus === "fulfilled") {
             dispatch(setQueryWords(word));
-            navigate(`/explore/search/top?q=${word}`);
+            navigate(`/explore/search/top?q=${encodeURIComponent(word)}`);
             setSearchBody("");
           }
         });
@@ -130,7 +130,7 @@ const Explore = () => {
           dispatch(searchPostsByWord(data)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
               dispatch(setQueryWords(word));
-              navigate(`/explore/search/top?q=${word}`);
+              navigate(`/explore/search/top?q=${encodeURIComponent(word)}`);
               setSearchBody("");
             }
           });
