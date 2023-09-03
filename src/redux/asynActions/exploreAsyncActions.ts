@@ -37,7 +37,9 @@ export const searchKeyWords = createAsyncThunk(
     try {
       const { query, userID } = data;
       const response = await axios.get(
-        `/explore/search/keywords?query=${query}&userID=${userID}`
+        `/explore/search/keywords?query=${encodeURIComponent(
+          query
+        )}&userID=${userID}`
       );
       return response.data;
     } catch (error) {

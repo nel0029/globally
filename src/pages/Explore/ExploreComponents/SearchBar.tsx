@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("q");
 
-  const [placeholder, setPlaceHolder] = useState("");
+  const [placeholder, setPlaceHolder] = useState(query);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -47,7 +47,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     } else {
       setPlaceHolder("");
     }
-  }, [location.pathname, query]);
+  }, [query]);
 
   const resetValue = () => {
     setValue("");

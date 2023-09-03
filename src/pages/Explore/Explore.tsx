@@ -63,6 +63,7 @@ const Explore = () => {
   const onSubmit = (event: any) => {
     event.preventDefault();
     const searchInput = document.getElementById("search-input");
+    searchInput?.blur();
 
     if (user?.userID !== undefined) {
       searchParams.set("q", searchBody);
@@ -76,7 +77,7 @@ const Explore = () => {
         dispatch(searchPostsByWord(data)).then((response: any) => {
           if (response.meta.requestStatus === "fulfilled") {
             dispatch(setQueryWords(searchBody));
-            navigate(`/explore/search/top?q=${searchBody}`);
+            navigate(`/explore/search/top?q=${encodeURIComponent(searchBody)}`);
             setSearchBody("");
           }
         });
@@ -90,13 +91,14 @@ const Explore = () => {
           dispatch(searchPostsByWord(data)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
               dispatch(setQueryWords(searchBody));
-              navigate(`/explore/search/top?q=${searchBody}`);
+              navigate(
+                `/explore/search/top?q=${encodeURIComponent(searchBody)}`
+              );
               setSearchBody("");
             }
           });
         }
       }
-      searchInput?.blur();
     }
   };
 
