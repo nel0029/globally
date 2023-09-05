@@ -179,7 +179,7 @@ const NavBar = () => {
           <div
             onClick={goToUserProfile}
             className={` ${
-              activeTab === `/${user?.userName}` ? " text-secondary" : ""
+              activeTab.includes(`${user?.userName}`) ? " text-secondary" : ""
             } w-full flex flex-row items-center gap-x-2 px-2 py-1 cursor-pointer hover:text-secondary`}
           >
             <div className="text-2xl flex justify-center items-center">
