@@ -34,7 +34,6 @@ const Explore = () => {
 
   const [searchBody, setSearchBody] = useState<string>("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const keyWordsDebounced = useDebounce(searchBody, 1000);
 
@@ -51,14 +50,7 @@ const Explore = () => {
       document.body.style.overflowY = "visible";
       dispatch(resetMatchedKeyWords());
     }
-
-    if (isFocused) {
-      document.body.style.overflowY = "hidden";
-    } else {
-      document.body.style.overflowY = "visible";
-      dispatch(resetMatchedKeyWords());
-    }
-  }, [keyWordsDebounced, isFocused]);
+  }, [keyWordsDebounced]);
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -103,41 +95,9 @@ const Explore = () => {
   };
 
   const goToTopResults = (word: string) => {
-    const searchInput = document.getElementById("search-input");
-    if (user?.userID !== undefined) {
-      searchParams.set("q", word);
-      setSearchParams(searchParams);
-
-      if (queryWords === null) {
-        const data = {
-          queryWords: word,
-          userID: user?.userID,
-        };
-        dispatch(searchPostsByWord(data)).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            dispatch(setQueryWords(word));
-            navigate(`/explore/search/top?q=${encodeURIComponent(word)}`);
-            setSearchBody("");
-          }
-        });
-      } else {
-        if (queryWords !== word) {
-          const data = {
-            queryWords: word,
-            userID: user?.userID,
-          };
-          dispatch(resetMatchedPosts());
-          dispatch(searchPostsByWord(data)).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              dispatch(setQueryWords(word));
-              navigate(`/explore/search/top?q=${encodeURIComponent(word)}`);
-              setSearchBody("");
-            }
-          });
-        }
-      }
-    }
-    searchInput?.blur();
+    navigate(`/explore/search/top?q=${encodeURIComponent(word)}`);
+    console.log("NAVIGATED");
+    dispatch(resetMatchedKeyWords());
     setSearchBody("");
   };
 
@@ -161,14 +121,12 @@ const Explore = () => {
               onSubmit={(event: any) => onSubmit(event)}
               value={searchBody}
               setValue={setSearchBody}
-              isFocused={isFocused}
-              setIsFocused={setIsFocused}
             />
           </div>
         </Header>
       </div>
-      {searchBody && isFocused && (
-        <div className="z-[60] sticky top-[58px] w-full text-lg font-semibold flex flex-col dark:bg-black bg-Light100 h-full overflow-y-auto border-t dark:border-Dark400 cursor-pointer">
+      {searchBody && (
+        <div className="z-[60] fixed top-[58px] w-full text-lg font-semibold flex flex-col dark:bg-black bg-Light100 h-full overflow-y-auto border-t dark:border-Dark400 cursor-pointer">
           {matchedKeyWords?.map((word: any) => (
             <div
               key={word.name}
@@ -181,7 +139,7 @@ const Explore = () => {
         </div>
       )}
 
-      {!isFocused && (
+      {!matchedKeyWords && (
         <div className={`w-full flex-1 `}>
           <Outlet />
         </div>

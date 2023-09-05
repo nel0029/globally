@@ -10,23 +10,16 @@ interface SearchBarProps {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   onSubmit: (params: any) => void;
-  isFocused: boolean;
-  setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  value,
-  setValue,
-  onSubmit,
-  isFocused,
-  setIsFocused,
-}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ value, setValue, onSubmit }) => {
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("q");
 
   const [placeholder, setPlaceHolder] = useState(query);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

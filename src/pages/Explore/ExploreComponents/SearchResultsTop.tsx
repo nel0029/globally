@@ -5,9 +5,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
 import { searchWords } from "../../../redux/asynActions/exploreAsyncActions";
-import { setQueryWords } from "../../../redux/exploreSlice";
+import {
+  resetMatchedKeyWords,
+  setQueryWords,
+} from "../../../redux/exploreSlice";
 import Card, { CardProps } from "../../Home/PostComponents/Card";
-import CoverPhoto from "../../Profile/ProfileComponents/CoverPhoto";
 import UserCard from "../../Profile/ProfileComponents/UserCard";
 
 const SearchResultsTop = () => {
@@ -27,6 +29,7 @@ const SearchResultsTop = () => {
       query: encodeURIComponent(query ? query : ""),
       userID: user?.userID,
     };
+    dispatch(resetMatchedKeyWords());
 
     if (topResults === null) {
       dispatch(searchWords(data));
