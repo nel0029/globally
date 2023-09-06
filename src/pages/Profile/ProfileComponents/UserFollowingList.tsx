@@ -35,15 +35,19 @@ const UserFollowingList = () => {
       };
 
       if (userFollowing !== null) {
-        if (userFollowing[0].userFollowerUserName === userName) {
-          setIsLoading(false);
+        if (userFollowing.length > 0) {
+          if (userFollowing[0].userFollowerUserName === userName) {
+            setIsLoading(false);
+          } else {
+            setIsLoading(true);
+            dispatch(getUserFollowing(data)).then((response: any) => {
+              if (response.meta.requestStatus === "fulfilled") {
+                setIsLoading(false);
+              }
+            });
+          }
         } else {
-          setIsLoading(true);
-          dispatch(getUserFollowing(data)).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              setIsLoading(false);
-            }
-          });
+          setIsLoading(false);
         }
       } else {
         setIsLoading(true);
