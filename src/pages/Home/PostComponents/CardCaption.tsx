@@ -61,7 +61,7 @@ const CardCaption: React.FC<CardCaptionProps> = ({
       } w-full`}
     >
       {captionLines?.map((line, index) => (
-        <p key={index} className=" break-words">
+        <p key={index} className=" break-words text-[16px] leading-[16px]">
           {wrapWordsWithSpan(line)}
         </p>
       ))}

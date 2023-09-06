@@ -70,8 +70,8 @@ interface MainState {
   userRepostsList: any | null;
   userLikesList: any | null;
   userDetails: UserDetails | null;
-  userFollowing: UserProps[] | null;
-  userFollowers: UserProps[] | null;
+  userFollowing: any | null;
+  userFollowers: any | null;
   lastConversation: any | null;
 }
 
@@ -796,35 +796,37 @@ const postSlice: any = createSlice({
           }
 
           if (state.userFollowers !== null) {
-            const followerIndex = state.userFollowers.findIndex(
+            const followerIndex = state.userFollowers.userFollowers.findIndex(
               (follower: any) => follower._id === followResponse.followingID
             );
 
             const userID = localStorage.getItem("userID");
             if (state.userDetails._id === userID) {
-              state.userFollowing = state.userFollowers.filter(
+              state.userFollowing = state.userFollowers.userFollowers.filter(
                 (follower: any) => follower._id !== followResponse.followingID
               );
             } else {
-              state.userFollowers[followerIndex].isUserFollowed = true;
-              state.userFollowers[followerIndex].followID =
+              state.userFollowers.userFollowers[followerIndex].isUserFollowed =
+                true;
+              state.userFollowers.userFollowers[followerIndex].followID =
                 followResponse.followID;
             }
           }
 
           if (state.userFollowing !== null) {
-            const followerIndex = state.userFollowing.findIndex(
+            const followerIndex = state.userFollowing.userFollowing.findIndex(
               (follower: any) => follower._id === followResponse.followingID
             );
 
             const userID = localStorage.getItem("userID");
             if (state.userDetails._id === userID) {
-              state.userFollowing = state.userFollowing.filter(
+              state.userFollowing = state.userFollowing.userFollowing.filter(
                 (follower: any) => follower._id !== followResponse.followingID
               );
             } else {
-              state.userFollowing[followerIndex].isUserFollowed = true;
-              state.userFollowing[followerIndex].followID =
+              state.userFollowing.userFollowing[followerIndex].isUserFollowed =
+                true;
+              state.userFollowing.userFollowing[followerIndex].followID =
                 followResponse.followID;
             }
           }
@@ -920,35 +922,37 @@ const postSlice: any = createSlice({
           }
 
           if (state.userFollowers !== null) {
-            const followerIndex = state.userFollowers.findIndex(
+            const followerIndex = state.userFollowers.userFollowers.findIndex(
               (follower: any) => follower._id === unfollowResponse.followingID
             );
 
             const userID = localStorage.getItem("userID");
             if (state.userDetails._id === userID) {
-              state.userFollowing = state.userFollowers.filter(
+              state.userFollowing = state.userFollowers.userFollowers.filter(
                 (follower: any) => follower._id !== unfollowResponse.followingID
               );
             } else {
-              state.userFollowers[followerIndex].isUserFollowed = false;
-              state.userFollowers[followerIndex].followID =
+              state.userFollowers.userFollowers[followerIndex].isUserFollowed =
+                false;
+              state.userFollowers.userFollowers[followerIndex].followID =
                 unfollowResponse.followID;
             }
           }
 
           if (state.userFollowing !== null) {
-            const followerIndex = state.userFollowing.findIndex(
+            const followerIndex = state.userFollowing.userFollowing.findIndex(
               (follower: any) => follower._id === unfollowResponse.followingID
             );
 
             const userID = localStorage.getItem("userID");
             if (state.userDetails._id === userID) {
-              state.userFollowing = state.userFollowing.filter(
+              state.userFollowing = state.userFollowing.userFollowing.filter(
                 (follower: any) => follower._id !== unfollowResponse.followingID
               );
             } else {
-              state.userFollowing[followerIndex].isUserFollowed = false;
-              state.userFollowing[followerIndex].followID =
+              state.userFollowing.userFollowing[followerIndex].isUserFollowed =
+                false;
+              state.userFollowing.userFollowing[followerIndex].followID =
                 unfollowResponse.followID;
             }
           }

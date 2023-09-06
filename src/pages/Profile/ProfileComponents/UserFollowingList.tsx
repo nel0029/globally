@@ -35,19 +35,15 @@ const UserFollowingList = () => {
       };
 
       if (userFollowing !== null) {
-        if (userFollowing.length > 0) {
-          if (userFollowing[0].userFollowerUserName === userName) {
-            setIsLoading(false);
-          } else {
-            setIsLoading(true);
-            dispatch(getUserFollowing(data)).then((response: any) => {
-              if (response.meta.requestStatus === "fulfilled") {
-                setIsLoading(false);
-              }
-            });
-          }
-        } else {
+        if (userFollowing.userName === userName) {
           setIsLoading(false);
+        } else {
+          setIsLoading(true);
+          dispatch(getUserFollowing(data)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              setIsLoading(false);
+            }
+          });
         }
       } else {
         setIsLoading(true);
@@ -66,7 +62,7 @@ const UserFollowingList = () => {
           <UserCard verified={false} isLoading={isLoading} />
         </>
       ) : (
-        userFollowing?.map((users: any) => (
+        userFollowing?.userFollowing?.map((users: any) => (
           <UserCard
             key={users._id}
             _id={users._id}
