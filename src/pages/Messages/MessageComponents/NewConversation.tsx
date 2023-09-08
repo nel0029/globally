@@ -114,60 +114,62 @@ const NewConversation = () => {
   return (
     <div className="z-[100] h-[100dvh] fixed lg:sticky top-0 bottom-0 dark:bg-Dark100 bg-Light100 flex-grow w-full overflow-hidden flex flex-col lg:border-l dark:border-Dark300">
       <Header>
-        <div
-          onClick={goToMessages}
-          className="flex lg:hidden justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer"
-        >
-          <IonIcon icon={arrowBackOutline} />
-        </div>
-        <div className="py-1 flex-[1] flex flex-row items-center gap-x-2">
-          {responseReceiverInfo ? (
-            <UserMessageCard
-              _id={responseReceiverInfo?._id}
-              avatarURL={responseReceiverInfo?.avatarURL.url}
-              firstName={responseReceiverInfo?.userFirstName}
-              middleName={responseReceiverInfo?.userMiddleName}
-              lastName={responseReceiverInfo?.userLastName}
-              userName={responseReceiverInfo?.userName}
-            />
-          ) : (
-            <div className="flex-[1] flex flex-row items-center gap-x-2">
-              <div className="font-bold">To:</div>
-              <div className="flex-1 relative">
-                <input
-                  placeholder="@username"
-                  className="w-full flex-shrink bg-transparent border-none outline-none"
-                  type="text"
-                  value={userName}
-                  onChange={(event: any) => setUserName(event.target.value)}
-                />
-              </div>
-            </div>
-          )}
-
-          {userList && (
-            <div className="absolute border dark:border-Dark300 bg-white dark:bg-Dark200 rounded-lg top-[100%] right-0 left-0">
-              {userList.map((user: any) => (
-                <label key={user._id} className="flex flex-row items-center">
+        <div className="w-full flex flex-row items-center gap-x-1">
+          <div
+            onClick={goToMessages}
+            className="flex lg:hidden justify-center items-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-Dark300 cursor-pointer"
+          >
+            <IonIcon icon={arrowBackOutline} />
+          </div>
+          <div className="flex-[1] flex flex-row items-center">
+            {responseReceiverInfo ? (
+              <UserMessageCard
+                _id={responseReceiverInfo?._id}
+                avatarURL={responseReceiverInfo?.avatarURL.url}
+                firstName={responseReceiverInfo?.userFirstName}
+                middleName={responseReceiverInfo?.userMiddleName}
+                lastName={responseReceiverInfo?.userLastName}
+                userName={responseReceiverInfo?.userName}
+              />
+            ) : (
+              <div className="flex-[1] flex flex-row items-center gap-x-2">
+                <div className="font-bold">To:</div>
+                <div className="flex-1 relative">
                   <input
-                    value={user._id}
-                    onChange={(event: any) => handleChange(event)}
-                    className="peer sr-only"
-                    type="radio"
+                    placeholder="@username"
+                    className="w-full flex-shrink bg-transparent border-none outline-none"
+                    type="text"
+                    value={userName}
+                    onChange={(event: any) => setUserName(event.target.value)}
                   />
+                </div>
+              </div>
+            )}
 
-                  <UserMessageCard
-                    _id={user?.userID}
-                    avatarURL={user.avatarURL.url}
-                    firstName={user.userFirstName}
-                    middleName={user.userMiddleName}
-                    lastName={user.userLastName}
-                    userName={user.userFirstName}
-                  />
-                </label>
-              ))}
-            </div>
-          )}
+            {userList && (
+              <div className="absolute border dark:border-Dark300 bg-white dark:bg-Dark200 rounded-lg top-[100%] right-0 left-0">
+                {userList.map((user: any) => (
+                  <label key={user._id} className="flex flex-row items-center">
+                    <input
+                      value={user._id}
+                      onChange={(event: any) => handleChange(event)}
+                      className="peer sr-only"
+                      type="radio"
+                    />
+
+                    <UserMessageCard
+                      _id={user?.userID}
+                      avatarURL={user.avatarURL.url}
+                      firstName={user.userFirstName}
+                      middleName={user.userMiddleName}
+                      lastName={user.userLastName}
+                      userName={user.userFirstName}
+                    />
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </Header>
       <div

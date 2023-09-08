@@ -24,7 +24,7 @@ const UserMessageCard: React.FC<UserProps> = ({
   return (
     <div className="w-full flex flex-row justify-between items-center cursor-pointer p-2">
       <div className="px-2 ">
-        <div className="w-[30px] h-[30px] rounded-[50%]">
+        <div className="w-[40px] h-[40px] rounded-[50%]">
           <img
             className="w-full h-full object-cover aspect-square rounded-[50%]"
             src={avatarURL}

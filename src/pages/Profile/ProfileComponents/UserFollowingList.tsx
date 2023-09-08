@@ -56,7 +56,7 @@ const UserFollowingList = () => {
     }
   }, [userID]);
   return (
-    <div className="w-full flex  flex-col justify-center gap-y-2 ">
+    <div className="w-full flex  flex-col justify-center">
       {isLoading ? (
         <>
           <UserCard verified={false} isLoading={isLoading} />

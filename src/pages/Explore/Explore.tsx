@@ -126,7 +126,7 @@ const Explore = () => {
         </Header>
       </div>
       {searchBody && (
-        <div className="z-[60] fixed top-[58px] w-full text-lg font-semibold flex flex-col dark:bg-black bg-Light100 h-full overflow-y-auto border-t dark:border-Dark400 cursor-pointer">
+        <div className="z-[60] absolute top-[58px] w-full text-lg font-semibold flex flex-col dark:bg-black bg-Light100 h-full overflow-y-auto border-t dark:border-Dark400 cursor-pointer">
           {matchedKeyWords?.map((word: any) => (
             <div
               key={word.name}
