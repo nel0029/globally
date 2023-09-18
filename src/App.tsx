@@ -76,13 +76,13 @@ const App = () => {
     };
     if (userID) {
       if (user && user.userID !== null) {
-        socket.on("newNotification", (data: any) => {
+        socket?.on("newNotification", (data: any) => {
           dispatch(addNewNotifcation(data));
         });
-        socket.on("deleteNotification", (data: any) => {
+        socket?.on("deleteNotification", (data: any) => {
           dispatch(removeNotifcation(data));
         });
-        socket.on("newMessageCount", (data: any) =>
+        socket?.on("newMessageCount", (data: any) =>
           dispatch(updateUnseenMessagesCount(data))
         );
         dispatch(getUnseenMessagesCount(data));

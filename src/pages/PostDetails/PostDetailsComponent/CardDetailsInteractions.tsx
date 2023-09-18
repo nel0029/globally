@@ -44,7 +44,7 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
     };
 
     dispatch(createRepost(newRepost)).then((response: any) =>
-      socket.emit("createNewNotification", {
+      socket?.emit("createNewNotification", {
         postID: details._id,
         actorID: user?.userID,
         targetID: details.authorID,
@@ -70,7 +70,7 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
       file: selectedFiles[0],
     };
     dispatch(createReply(newReply)).then((response: any) =>
-      socket.emit("createNewNotification", {
+      socket?.emit("createNewNotification", {
         postID: details._id,
         actorID: user?.userID,
         targetID: details.authorID,
@@ -92,7 +92,7 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
       parentAuthorID: details.authorID,
     };
     dispatch(like(likeData)).then((response: any) =>
-      socket.emit("createNewNotification", {
+      socket?.emit("createNewNotification", {
         postID: details._id,
         actorID: user?.userID,
         targetID: details.authorID,
@@ -108,7 +108,7 @@ const CardDetailsInteractions = (details: CardDetailsProps) => {
       likeID: details.likeID !== null ? details.likeID : "",
       authorID: user?.userID,
     };
-    socket.emit("deleteNotification", {
+    socket?.emit("deleteNotification", {
       actionID: details.likeID,
       actorID: user?.userID,
       targetID: details.authorID,

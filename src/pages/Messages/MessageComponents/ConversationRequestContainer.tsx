@@ -49,10 +49,10 @@ const ConversationRequestContainer = () => {
       memberID: user?.userID,
     };
 
-    socket.emit("joinConversation", data);
+    socket?.emit("joinConversation", data);
 
     return () => {
-      socket.emit("leaveConversation", data);
+      socket?.emit("leaveConversation", data);
     };
   }, [location.pathname]);
 

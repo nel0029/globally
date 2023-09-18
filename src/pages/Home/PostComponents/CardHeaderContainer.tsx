@@ -103,7 +103,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
         openDeleteModal();
         break;
       case "reply":
-        socket.emit("deleteNotification", {
+        socket?.emit("deleteNotification", {
           actorID: user?.userID,
           targetID: post.parentAuthorID,
           actionID: post._id,
@@ -114,7 +114,7 @@ const CardHeaderContainer: React.FC<HeaderProps> = ({ post, authorized }) => {
         openDeleteModal();
         break;
       case "repost":
-        socket.emit("deleteNotification", {
+        socket?.emit("deleteNotification", {
           actorID: user?.userID,
           targetID: post.parentAuthorID,
           actionID: post._id,

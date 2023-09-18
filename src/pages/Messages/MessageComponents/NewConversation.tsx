@@ -106,7 +106,7 @@ const NewConversation = () => {
       text: messageText,
     };
 
-    socket.emit("createNewMessage", data);
+    socket?.emit("createNewMessage", data);
     scrollToBottom();
     navigate(`/messages`);
   };
