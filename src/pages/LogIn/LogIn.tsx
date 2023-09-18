@@ -9,7 +9,6 @@ import { LogInUserData } from "../../types/AuthUserTypes";
 import { resetAuthMessage, resetValid } from "../../redux/usersSlice";
 import { IonIcon } from "@ionic/react";
 import { eyeOutline, eyeOffOutline } from "ionicons/icons";
-import CircularProgress from "../../common/CircularProgress";
 import CircleLoader from "../../common/CircleLoader";
 
 function LogIn() {
@@ -20,9 +19,6 @@ function LogIn() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const authMessage = useSelector((state: any) => state.user.authMessage);
-  const user = useSelector((state: any) => state.user.userData);
-  const isLogInState = useSelector((state: any) => state.user.isLogIn);
-  const isLogIn = localStorage.getItem("isLogIn");
 
   const handleSubmit = (e: any) => {
     setIsServerLoading(true);
@@ -36,6 +32,7 @@ function LogIn() {
           dispatch(resetAuthMessage());
           setIsServerLoading(false);
           dispatch(resetValid());
+          dispatch(resetAuthMessage());
           navigate("/");
         }
       } else {
@@ -57,6 +54,7 @@ function LogIn() {
           dispatch(resetAuthMessage());
           setIsServerLoading(false);
           dispatch(resetValid());
+          dispatch(resetAuthMessage());
           navigate("/");
         }
       } else {
@@ -94,6 +92,13 @@ function LogIn() {
   const handleShowPassword = () => {
     setShowPassword(!showPassWord);
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetValid());
+      dispatch(resetAuthMessage());
+    };
+  }, []);
 
   return (
     <div className="bg-white text-black h-screen w-full flex flex-col items-center justify-center gap-y-2">
@@ -141,18 +146,6 @@ function LogIn() {
               type="submit"
             >
               LogIn
-            </button>
-            <button
-              onClick={handleUseDemoAccount1}
-              className="basis-0 py-1 px-2 rounded-full outline-none bg-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
-            >
-              Use Demo Account 1
-            </button>
-            <button
-              onClick={handleUseDemoAccount2}
-              className="basis-0 py-1 px-2 rounded-full outline-none bg-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
-            >
-              Use Demo Account 2
             </button>
           </div>
         </div>

@@ -29,11 +29,7 @@ function Register() {
   const [showPassWord, setShowPassword] = useState(false);
   const [isServerLoading, setIsServerLoading] = useState(false);
   const [formError, setFormError] = useState("");
-  const [firstNameError, setFirsNameError] = useState("");
-  const [lastNameError, setLastNameError] = useState("");
-  const [userNameError, setUserNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -48,10 +44,21 @@ function Register() {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const validateEmail = (inputText: string) => {
+    const mailformat = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (inputText && inputText.toString().match(mailformat)) {
+      setEmailError("");
+      return true;
+    } else {
+      setEmailError("Please enter a valid email address");
+      return false;
+    }
   };
 
   useEffect(() => {
@@ -67,27 +74,53 @@ function Register() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (
-      !formData.userFirstName ||
-      !formData.userLastName ||
-      !formData.email ||
-      !formData.userName ||
-      !formData.password
-    ) {
+    if (formData) {
+      if (!formData.userFirstName) {
+        event.preventDefault();
+        setFormError("Please fill out this field");
+      }
+
+      if (!formData.userLastName) {
+        event.preventDefault();
+        setFormError("Please fill out this field");
+      }
+      if (!formData.email) {
+        event.preventDefault();
+        setFormError("Please fill out this field");
+      }
+
+      if (!formData.userName) {
+        event.preventDefault();
+        setFormError("Please fill out this field");
+      }
+
+      if (!formData.password) {
+        event.preventDefault();
+        setFormError("Please fill out this field");
+      }
+
       event.preventDefault();
-      setFormError("Please fill this field");
+      const isEmailValid = validateEmail(formData.email);
+
+      if (isEmailValid === true) {
+        setIsServerLoading(true);
+
+        dispatch(registerUser(formData)).then((response: any) => {
+          // Redirect to login page
+          if (response.meta.requestStatus === "fulfilled") {
+            setIsServerLoading(false);
+            dispatch(resetRegisterMessage());
+            dispatch(resetAuthMessage());
+            goToLogIn();
+          }
+        });
+      } else {
+        event.preventDefault();
+        setEmailError("Please enter a valid email address");
+      }
     } else {
-      setIsServerLoading(true);
       event.preventDefault();
-      dispatch(registerUser(formData)).then((response: any) => {
-        // Redirect to login page
-        if (response.meta.requestStatus === "fulfilled") {
-          setIsServerLoading(false);
-          dispatch(resetRegisterMessage());
-          dispatch(resetAuthMessage());
-          goToLogIn();
-        }
-      });
+      setFormError("Please fill out this field");
     }
   };
 
@@ -95,6 +128,12 @@ function Register() {
     setShowPassword(!showPassWord);
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(resetValid());
+      dispatch(resetAuthMessage());
+    };
+  }, []);
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center gap-y-2">
       <div className="w-full max-w-[500px] flex flex-col items-center justify-center border rounded-lg">
@@ -134,7 +173,7 @@ function Register() {
               className={`flex flex-col rounded-lg py-1 px-2 gap-y-0.5 border`}
             >
               <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
-                Middle Name
+                Middle Name <span>{"(Optional)"}</span>
               </div>
               <input
                 className="bg-transparent text-base outline-none"
@@ -167,7 +206,7 @@ function Register() {
             </div>
             <div
               className={`${
-                formError && !formData.email
+                emailError || (formError && !formData.email)
                   ? "border border-primary"
                   : "border"
               } flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}
@@ -175,7 +214,11 @@ function Register() {
               <div className="text-gray-400 text-sm  flex flex-row items-center gap-x-1">
                 <span>Email</span>
                 <span className="text-primary">
-                  {formError && !formData.email ? ` * ${formError}` : ""}
+                  {formData && formData.email && emailError
+                    ? `${emailError}`
+                    : formError && !formData.email
+                    ? ` * ${formError}`
+                    : ""}
                 </span>
               </div>
               <input
