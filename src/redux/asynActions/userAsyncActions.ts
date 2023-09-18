@@ -35,8 +35,6 @@ export const logIn = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      console.log(error);
-
       // Check if the error response has a specific status code indicating invalid credentials
       if (error.response && error.response.status === 400) {
         // Handle the scenario where the user does not exist or the password does not match
@@ -66,7 +64,6 @@ export const registerUser = createAsyncThunk(
       const response = await axios.post("/auth/register", registerUserData);
       return response.data;
     } catch (error: any) {
-      console.log(error);
       // Check if the error response has a specific status code indicating invalid credentials
       if (error.response && error.response.status === 400) {
         // Handle the scenario where the user does not exist or the password does not match

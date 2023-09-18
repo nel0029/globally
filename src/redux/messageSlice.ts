@@ -178,13 +178,11 @@ const messageSlice = createSlice({
     setNewConvo: (state, action) => {
       const newConvo = action.payload;
       if (state.conversationList) {
-        console.log(newConvo);
         state.conversationList = [
           ...state.conversationList,
           newConvo.conversation,
         ];
       } else {
-        console.log("No Convo");
         state.conversationList = [newConvo.conversation];
       }
     },

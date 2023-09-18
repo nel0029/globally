@@ -16,30 +16,36 @@ function LogIn() {
   const [password, setPassword] = useState("");
   const [showPassWord, setShowPassword] = useState(false);
   const [isServerLoading, setIsServerLoading] = useState(false);
+  const [formError, setFormError] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const authMessage = useSelector((state: any) => state.user.authMessage);
 
   const handleSubmit = (e: any) => {
-    setIsServerLoading(true);
-    const userData: LogInUserData = {
-      logInID: logInID,
-      password: password,
-    };
-    dispatch(logIn(userData)).then((response: any) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        if (response.payload.isLogIn === true) {
-          dispatch(resetAuthMessage());
+    if (logInID && password) {
+      setIsServerLoading(true);
+      const userData: LogInUserData = {
+        logInID: logInID,
+        password: password,
+      };
+      dispatch(logIn(userData)).then((response: any) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          if (response.payload.isLogIn === true) {
+            dispatch(resetAuthMessage());
+            setIsServerLoading(false);
+            dispatch(resetValid());
+            dispatch(resetAuthMessage());
+            navigate("/");
+          }
+        } else {
           setIsServerLoading(false);
-          dispatch(resetValid());
-          dispatch(resetAuthMessage());
-          navigate("/");
         }
-      } else {
-        setIsServerLoading(false);
-      }
-    });
-    e.preventDefault();
+      });
+      e.preventDefault();
+    } else {
+      e.preventDefault();
+      setFormError("Please fill out this form");
+    }
   };
 
   const handleUseDemoAccount1 = (e: any) => {
@@ -108,8 +114,17 @@ function LogIn() {
         </div>
         <div className="flex w-full">
           <div className="flex flex-col flex-1 p-2 gap-y-2">
-            <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
-              <div className="text-gray-400 text-sm">Email or Username</div>
+            <div
+              className={`${
+                formError && !logInID ? "border border-primary" : "border"
+              } flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}
+            >
+              <div className="text-gray-400 text-sm">
+                Email or Username{" "}
+                {formError && !logInID && (
+                  <span className="text-primary">* {formError}</span>
+                )}
+              </div>
               <input
                 className="bg-transparent text-base outline-none"
                 type="text"
@@ -119,8 +134,17 @@ function LogIn() {
               />
             </div>
 
-            <div className="flex flex-col rounded-lg border py-1 px-2 gap-y-0.5">
-              <div className="text-gray-400 text-sm">Password</div>
+            <div
+              className={`${
+                formError && !password ? "border border-primary" : "border"
+              } flex flex-col rounded-lg py-1 px-2 gap-y-0.5`}
+            >
+              <div className="text-gray-400 text-sm">
+                Password{" "}
+                {formError && !password && (
+                  <span className="text-primary">* {formError}</span>
+                )}
+              </div>
               <div className="w-full flex flex-row items-center gap-x-2">
                 <input
                   className="flex-grow bg-transparent text-base outline-none"

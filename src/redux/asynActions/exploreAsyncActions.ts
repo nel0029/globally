@@ -10,7 +10,7 @@ export const getAllTrendingHashtags = createAsyncThunk(
       const response = await axios.get("/explore/search/trends");
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -26,7 +26,7 @@ export const searchPostsByWord = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -43,7 +43,7 @@ export const searchKeyWords = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -58,7 +58,7 @@ export const searchWords = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -73,7 +73,7 @@ export const searchUserByKeyWords = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );

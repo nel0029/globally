@@ -11,7 +11,7 @@ export const getContactList = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -26,7 +26,7 @@ export const getConversationList = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -42,7 +42,7 @@ export const getConversationInfo = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -58,7 +58,7 @@ export const getAllMessages = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -74,7 +74,7 @@ export const getConversationRequestList = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -90,7 +90,7 @@ export const getConversationRequestInfo = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -105,7 +105,7 @@ export const getConvoInfoByUserID = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -120,7 +120,7 @@ export const getAllNotifications = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -133,7 +133,7 @@ export const getUnseenNotifications = createAsyncThunk(
       const response = await axios.get(`/notifications/${userID}`);
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -146,7 +146,7 @@ export const getUnseenMessagesCount = createAsyncThunk(
       const response = await axios.get(`/messages/unseen/${userID}`);
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -159,7 +159,7 @@ export const updateNotification = createAsyncThunk(
       console.log("Data:", response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );

@@ -42,7 +42,7 @@ export const getPosts = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       throw error;
     }
   }
@@ -58,7 +58,7 @@ export const getAllPostsByUser = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -73,7 +73,7 @@ export const getAllRepliesByUser = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -88,7 +88,7 @@ export const getAllRepostsByUser = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -102,7 +102,7 @@ export const getAllLikesByUser = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -118,7 +118,7 @@ export const getUserDetails = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -134,7 +134,7 @@ export const getPostDetails = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -149,7 +149,7 @@ export const getAllRepliesByPostID = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -165,7 +165,7 @@ export const getReplyDetails = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -180,7 +180,7 @@ export const getRepostDetails = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -201,7 +201,7 @@ export const createPost = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -219,7 +219,7 @@ export const updatePost = createAsyncThunk<UpdatedPost, UpdatePostData>(
       });
       return reponse.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -235,7 +235,7 @@ export const deletePost = createAsyncThunk<DeletePost, DeletePostData>(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -253,7 +253,7 @@ export const createReply = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -265,7 +265,7 @@ export const updateReply = createAsyncThunk(
       const reponse = await axios.put("/update/reply", replyData);
       return reponse.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -281,7 +281,7 @@ export const deleteReply = createAsyncThunk<DeleteReply, DeleteReplyData>(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -294,7 +294,7 @@ export const createRepost = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -306,7 +306,7 @@ export const updateRepost = createAsyncThunk(
       const reponse = await axios.put("/update/repost", repostData);
       return reponse.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -321,7 +321,7 @@ export const deleteRepost = createAsyncThunk<DeleteRepost, DeleteRepostData>(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -333,7 +333,7 @@ export const like = createAsyncThunk(
       const response = await axios.post("/new/like", likeData);
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -346,7 +346,7 @@ export const createNewPollResponse = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -362,7 +362,7 @@ export const unlike = createAsyncThunk<Unlike, LikeData>(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -375,7 +375,7 @@ export const follow = createAsyncThunk<Follow, FollowData>(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -391,7 +391,7 @@ export const unfollow = createAsyncThunk<Unfollow, UnfollowData>(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -407,7 +407,7 @@ export const getUserFollowing = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
@@ -423,7 +423,7 @@ export const getUserFollowers = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 );
