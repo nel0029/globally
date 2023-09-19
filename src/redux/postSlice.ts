@@ -114,19 +114,12 @@ const postSlice: any = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getPosts.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(getPosts.fulfilled, (state, action) => {
         state.status = "Successful";
         state.PostData = action.payload;
       })
-      .addCase(getPosts.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(createPost.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(createPost.fulfilled, (state, action) => {
         state.status = "Successful";
         const newPost = action.payload;
@@ -136,14 +129,8 @@ const postSlice: any = createSlice({
           state.PostData = [newPost];
         }
       })
-      .addCase(createPost.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(updatePost.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(updatePost.fulfilled, (state, action) => {
-        state.status = "Success";
         const updatedPost = action.payload;
         if (state.PostData !== null) {
           const postIndex = state.PostData.findIndex(
@@ -176,7 +163,6 @@ const postSlice: any = createSlice({
         }
       })
       .addCase(deletePost.fulfilled, (state, action) => {
-        state.status = "Success";
         const deletedPostID = action.payload;
 
         if (state.PostData !== null) {
@@ -371,14 +357,8 @@ const postSlice: any = createSlice({
           }
         }
       })
-      .addCase(unlike.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(createReply.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(createReply.fulfilled, (state, action) => {
-        state.status = "Success";
         const newReply = action.payload;
 
         if (state.PostData !== null) {
@@ -445,14 +425,7 @@ const postSlice: any = createSlice({
           }
         }
       })
-      .addCase(createReply.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(updateReply.pending, (state) => {
-        state.status = "Loading";
-      })
       .addCase(updateReply.fulfilled, (state, action) => {
-        state.status = "Success";
         const updatedReply = action.payload;
         if (state.PostData !== null) {
           const replyIndex = state.PostData.findIndex(
@@ -491,14 +464,7 @@ const postSlice: any = createSlice({
           }
         }
       })
-      .addCase(updateReply.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(deleteReply.pending, (state) => {
-        state.status = "Loading";
-      })
       .addCase(deleteReply.fulfilled, (state, action) => {
-        state.status = "Success";
         const deletedReplyID = action.payload;
 
         if (state.PostData !== null) {
@@ -506,7 +472,6 @@ const postSlice: any = createSlice({
             (post: any) => post._id === deletedReplyID.parentPostID
           );
 
-          //state.PostData = state.PostData.filter((post: any) => post.parentPostID !== deletedReplyID.postID)
           state.PostData = state.PostData.filter(
             (reply) => reply._id !== deletedReplyID.postID
           );
@@ -566,14 +531,8 @@ const postSlice: any = createSlice({
           }
         }
       })
-      .addCase(deleteReply.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(createRepost.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(createRepost.fulfilled, (state, action) => {
-        state.status = "Success";
         const newRepost = action.payload;
 
         if (state.PostData !== null) {
@@ -627,14 +586,8 @@ const postSlice: any = createSlice({
           }
         }
       })
-      .addCase(createRepost.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(updateRepost.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(updateRepost.fulfilled, (state, action) => {
-        state.status = "Success";
         const updatedRepost = action.payload;
         if (state.PostData !== null) {
           const repostIndex = state.PostData.findIndex(
@@ -666,14 +619,8 @@ const postSlice: any = createSlice({
           }
         }
       })
-      .addCase(updateRepost.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(deleteRepost.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(deleteRepost.fulfilled, (state, action) => {
-        state.status = "Success";
         const deletedRepostID = action.payload;
 
         if (state.PostData !== null) {
@@ -696,65 +643,43 @@ const postSlice: any = createSlice({
           );
         }
       })
-      .addCase(deleteRepost.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(getPostDetails.pending, (state) => {
-        state.status = "Loading";
-      })
-      .addCase(getPostDetails.fulfilled, (state, action) => {
-        state.status = "Success";
 
+      .addCase(getPostDetails.fulfilled, (state, action) => {
         state.postDetails = action.payload;
       })
-      .addCase(getPostDetails.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(getAllRepliesByPostID.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(getAllRepliesByPostID.fulfilled, (state, action) => {
-        state.status = "Success";
         const replies = action.payload;
 
         state.postReplies = replies;
       })
       .addCase(getReplyDetails.fulfilled, (state, action) => {
-        state.status = "Success";
-
         state.postDetails = action.payload;
       })
       .addCase(getRepostDetails.fulfilled, (state, action) => {
-        state.status = "Success";
-
         state.postDetails = action.payload;
       })
       .addCase(getAllPostsByUser.fulfilled, (state, action) => {
-        state.status = "Success";
         const allPosts = action.payload;
 
         state.userPostsList = allPosts;
       })
       .addCase(getUserDetails.fulfilled, (state, action) => {
-        state.status = "Success";
         const userDetails = action.payload;
 
         state.userDetails = userDetails;
       })
       .addCase(getAllRepliesByUser.fulfilled, (state, action) => {
-        state.status = "Success";
         const allPosts = action.payload;
 
         state.userRepliesList = allPosts;
       })
       .addCase(getAllRepostsByUser.fulfilled, (state, action) => {
-        state.status = "Success";
         const allPosts = action.payload;
 
         state.userRepostsList = allPosts;
       })
       .addCase(follow.fulfilled, (state, action) => {
-        state.status = "Success";
         const followResponse = action.payload;
 
         if (state.PostData !== null) {
@@ -881,7 +806,6 @@ const postSlice: any = createSlice({
         }
       })
       .addCase(unfollow.fulfilled, (state, action) => {
-        state.status = "Success";
         const unfollowResponse = action.payload;
 
         if (state.PostData !== null) {
@@ -1002,42 +926,20 @@ const postSlice: any = createSlice({
           }
         }
       })
-      .addCase(getAllLikesByUser.pending, (state) => {
-        state.status = "Loading";
-      })
       .addCase(getAllLikesByUser.fulfilled, (state, action) => {
-        state.status = "Success";
         const allLikes = action.payload;
         state.userLikesList = allLikes;
       })
-      .addCase(getAllLikesByUser.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(getUserFollowing.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(getUserFollowing.fulfilled, (state, action) => {
-        state.status = "Success";
         state.userFollowing = action.payload;
       })
-      .addCase(getUserFollowing.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(getUserFollowers.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(getUserFollowers.fulfilled, (state, action) => {
-        state.status = "Success";
         state.userFollowers = action.payload;
       })
-      .addCase(getUserFollowers.rejected, (state) => {
-        state.status = "Error";
-      })
-      .addCase(createNewPollResponse.pending, (state) => {
-        state.status = "Loading";
-      })
+
       .addCase(createNewPollResponse.fulfilled, (state, action) => {
-        state.status = "Success";
         const responsePollData = action.payload;
         if (state.PostData !== null) {
           const postIndex = state.PostData.findIndex(
