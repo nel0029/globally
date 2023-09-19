@@ -135,9 +135,12 @@ const BottomNavigation = () => {
           </div>
           {isNewPostOpen && (
             <Modal setModal={setIsNewPostOpen}>
-              <div className="w-full flex flex-col">
+              <div className="w-full flex flex-col text-base">
                 <div className="w-full flex flex-row justify-end">
-                  <button onClick={handleCloseNewPostInput}>
+                  <button
+                    className="text-3xl"
+                    onClick={handleCloseNewPostInput}
+                  >
                     <IonIcon icon={close} />
                   </button>
                 </div>
