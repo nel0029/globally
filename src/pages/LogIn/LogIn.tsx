@@ -171,6 +171,18 @@ function LogIn() {
             >
               LogIn
             </button>
+            <button
+              onClick={handleUseDemoAccount1}
+              className="basis-0 py-1 px-2 rounded-full outline-none bg-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
+            >
+              Demo Account 1
+            </button>
+            <button
+              onClick={handleUseDemoAccount2}
+              className="basis-0 py-1 px-2 rounded-full outline-none bg-secondary1 cursor-pointer hover:bg-opacity-75 text-base font-bold text-white"
+            >
+              Demo Account 2
+            </button>
           </div>
         </div>
 

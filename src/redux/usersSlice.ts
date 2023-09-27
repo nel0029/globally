@@ -25,6 +25,7 @@ export interface UserData {
   coverPhotoURL: string | null;
   bio: string | null;
   verified: boolean;
+  role: string | null;
 }
 
 export interface AccountData {
@@ -64,6 +65,7 @@ const initialState: UserState = {
     coverPhotoURL: localStorage.getItem("coverPhotoURL") || null,
     bio: localStorage.getItem("bio") || null,
     verified: localStorage.getItem("verified") === "true",
+    role: localStorage.getItem("role") || null,
   },
   authStatus: "",
   authMessage: "",
@@ -129,6 +131,7 @@ const usersSlice = createSlice({
         localStorage.setItem("coverPhotoURL", authData.coverPhotoURL);
         localStorage.setItem("bio", authData.bio);
         localStorage.setItem("verified", authData.verified);
+        localStorage.setItem("role", authData.role);
 
         state.userData = {
           userID: localStorage.getItem("userID"),
@@ -140,6 +143,7 @@ const usersSlice = createSlice({
           coverPhotoURL: localStorage.getItem("coverPhotoURL"),
           bio: localStorage.getItem("bio"),
           verified: localStorage.getItem("verified") === "true",
+          role: localStorage.getItem("role"),
         };
       })
       .addCase(logIn.rejected, (state, action) => {

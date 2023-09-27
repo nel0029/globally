@@ -10,7 +10,10 @@ import TitleText from "../../common/TitleText";
 import ConfirmButton from "../../common/ConfirmButton";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { getUserDetails } from "../../redux/asynActions/postAsynActions";
+import {
+  getUserDetails,
+  deleteUserPosts,
+} from "../../redux/asynActions/postAsynActions";
 import { useLocation, useNavigate } from "react-router";
 import CoverPhoto from "./ProfileComponents/CoverPhoto";
 import { UserDetails } from "../../redux/postSlice";
@@ -120,6 +123,14 @@ const Profile = () => {
     return () => setIsInUserProfile(false);
   }, []);
 
+  const deletePosts = () => {
+    const data = {
+      userName: userName,
+      adminID: userID,
+    };
+    dispatch(deleteUserPosts(data));
+  };
+
   return (
     <div
       id="profile-route"
@@ -181,6 +192,11 @@ const Profile = () => {
               )}
             </div>
             <div className="w-full flex flex-row items-center justify-end ">
+              {user?.role === "admin" && (
+                <ConfirmButton onClick={[deletePosts]}>
+                  Delete User Posts
+                </ConfirmButton>
+              )}
               {isLoading ? (
                 <CancelButton>Unfollow</CancelButton>
               ) : user?.userID === userDetails?._id ? (

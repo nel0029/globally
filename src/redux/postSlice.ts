@@ -28,14 +28,13 @@ import {
   getUserFollowing,
   getUserFollowers,
   createNewPollResponse,
+  deleteUserPosts,
 } from "./asynActions/postAsynActions";
 import {
   PostsDataProps,
   ReplyDataProps,
   RepostDataProps,
 } from "../types/PostTypes";
-
-import { UserProps } from "../pages/Profile/ProfileComponents/UserCard";
 
 interface MediaProps {
   id: string;
@@ -516,7 +515,7 @@ const postSlice: any = createSlice({
             state.userRepliesList.posts[postIndex].repliesCount -= 1;
           }
 
-          state.userRepliesList.posts = state.userRepliesList.filter(
+          state.userRepliesList.posts = state.userRepliesList.posts.filter(
             (reply: ReplyDataProps) => reply._id !== deletedReplyID.postID
           );
         }
@@ -973,6 +972,14 @@ const postSlice: any = createSlice({
               state.postDetails.pollOptions[optionIndex].count += 1;
             }
           }
+        }
+      })
+      .addCase(deleteUserPosts.fulfilled, (state, action) => {
+        const response = action.payload;
+        if (state.PostData !== null) {
+          state.PostData = state.PostData.filter(
+            (post) => post.authorID !== response.userID
+          );
         }
       });
   },

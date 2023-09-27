@@ -427,3 +427,21 @@ export const getUserFollowers = createAsyncThunk(
     }
   }
 );
+
+//ADMIN
+
+export const deleteUserPosts = createAsyncThunk(
+  "deleteUserPosts",
+  async (data: any) => {
+    try {
+      const { userName, adminID } = data;
+
+      const response = await axios.delete(
+        `/users/posts/delete/${userName}?adminID=${adminID}`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
