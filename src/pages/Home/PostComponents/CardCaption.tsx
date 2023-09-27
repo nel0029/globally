@@ -33,7 +33,11 @@ const CardCaption: React.FC<CardCaptionProps> = ({
         return (
           <span
             onClick={(event: any) => gotTo(hashtag, event)}
-            className="text-secondary"
+            className={`${
+              bgColor || parentBGColor === "#1DA1F2"
+                ? "text-black"
+                : "text-secondary"
+            } font-bold`}
             key={index}
           >
             {part}
